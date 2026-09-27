@@ -1,0 +1,253 @@
+{
+  "type": "FeatureCollection",
+  "name": "capisaldi",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.819213,
+          45.923233
+        ]
+      },
+      "properties": {
+        "id": "outlet_ghirla",
+        "nome": "Ponte sul Lago di Ghirla",
+        "corso": "margorabbia",
+        "progressiva_m": 0,
+        "fonte": "verificato_manuale",
+        "note": "Inizio campo gara Ghirla",
+        "verificato": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.820610077806045,
+          45.92571242030991
+        ]
+      },
+      "properties": {
+        "id": "chiusa_enel",
+        "nome": "Chiusa Enel in località Ghetto",
+        "corso": "margorabbia",
+        "progressiva_m": 250,
+        "fonte": "verificato_manuale",
+        "note": "Fine campo gara Ghirla",
+        "verificato": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.769515597307503,
+          45.94830164778705
+        ]
+      },
+      "properties": {
+        "id": "ponte_grantola",
+        "nome": "Ponte di Grantola",
+        "corso": "margorabbia",
+        "progressiva_m": 6557,
+        "fonte": "verificato_manuale",
+        "note": "Inizio No-Kill",
+        "verificato": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.759791130855492,
+          45.9597389164866
+        ]
+      },
+      "properties": {
+        "id": "nk_end",
+        "nome": "Briglia 150 m a monte di Passeri Concessionaria Opel (fine No-Kill)",
+        "corso": "margorabbia",
+        "progressiva_m": 8427,
+        "fonte": "verificato_manuale",
+        "note": "Fine No-Kill",
+        "verificato": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.764227318149189,
+          45.957641721631575
+        ]
+      },
+      "properties": {
+        "id": "super_mesenzana",
+        "nome": "Supermercato Mesenzana (Carrefour, sponda)",
+        "corso": "margorabbia",
+        "progressiva_m": 7899,
+        "fonte": "verificato_manuale",
+        "note": "Inizio campo gara Mesenzana",
+        "verificato": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.756534382930889,
+          45.96823519990962
+        ]
+      },
+      "properties": {
+        "id": "ponte_cucco",
+        "nome": "Ponte del Cucco",
+        "corso": "margorabbia",
+        "progressiva_m": 9410,
+        "fonte": "verificato_manuale",
+        "note": "Il campo gara termina 200 m più a valle",
+        "verificato": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.734133251087941,
+          45.991426920431415
+        ]
+      },
+      "properties": {
+        "id": "foce_briglia",
+        "nome": "Prima briglia a monte della confluenza (inizio divieto)",
+        "corso": "margorabbia",
+        "progressiva_m": 12577,
+        "fonte": "verificato_manuale",
+        "note": "Briglia confermata.",
+        "verificato": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.755099944268865,
+          45.96981751264597
+        ]
+      },
+      "properties": {
+        "id": "fine_gara_cucco",
+        "nome": "200 m a valle del Ponte del Cucco (fine campo gara)",
+        "corso": "margorabbia",
+        "progressiva_m": 9610,
+        "fonte": "derivato_da_ponte_cucco",
+        "note": "Derivato: +200 m lungo l'asta dal Ponte del Cucco confermato.",
+        "verificato": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.7321968,
+          45.9931384
+        ]
+      },
+      "properties": {
+        "id": "confluenza_tresa",
+        "nome": "Confluenza Margorabbia–Tresa",
+        "corso": "margorabbia",
+        "progressiva_m": 12819,
+        "fonte": "estremo_osm",
+        "note": "",
+        "verificato": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.765776,
+          45.950148
+        ]
+      },
+      "properties": {
+        "id": "sp54_chiesone",
+        "nome": "Ponte S.S. 394 sul Chiesone (prontuario: S.P. 54)",
+        "corso": "chiesone",
+        "progressiva_m": 4971,
+        "fonte": "verificato_manuale",
+        "note": "Chiesone = Gesone OSM. Il ponte «S.P. 54» del prontuario è identificato con la S.S. 394.",
+        "verificato": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.75587748816958,
+          45.94612757335703
+        ]
+      },
+      "properties": {
+        "id": "pianazzo_chiesone",
+        "nome": "Ponte di via Pianazzo (Chiesone)",
+        "corso": "chiesone",
+        "progressiva_m": 4008,
+        "fonte": "verificato_manuale",
+        "note": "Confermato.",
+        "verificato": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.8217591,
+          45.9251266
+        ]
+      },
+      "properties": {
+        "id": "monumento_ghirla",
+        "nome": "Monumento ai Caduti a Ghirla",
+        "corso": "boggione",
+        "progressiva_m": 2782,
+        "fonte": "verificato_manuale",
+        "note": "Posizione Nominatim confermata.",
+        "verificato": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.843414996997321,
+          45.92649083834285
+        ]
+      },
+      "properties": {
+        "id": "strada_marzio_boarezzo",
+        "nome": "Attraversamento strada Marzio–Boarezzo",
+        "corso": "boggione",
+        "progressiva_m": 663,
+        "fonte": "verificato_manuale",
+        "note": "Attraversamento confermato (coincide con la SP 29 già scelta).",
+        "verificato": true
+      }
+    }
+  ]
+}

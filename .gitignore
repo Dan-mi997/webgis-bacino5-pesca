@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+.env
+.env.*
+
+# Sistema e editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+*.swp
+*~
+.idea/
+.vscode/
+
+# Cache HTTP della pipeline (rigenerabile)
+cache/http/

@@ -1,0 +1,33 @@
+{
+  "n_geometrie": 21,
+  "per_regime": {
+    "campo_gara": 2,
+    "ordinario_B": 11,
+    "no_kill": 1,
+    "no_kill_e_campo_gara": 1,
+    "divieto": 4,
+    "ordinario_C_lago": 1,
+    "cispp": 1
+  },
+  "per_corpo_idrico": {
+    "margorabbia": 17037,
+    "lago_ganna": 0,
+    "lago_ghirla": 0,
+    "rancina": 9044,
+    "chiesone": 5209,
+    "boggione": 2899,
+    "rio_boesio": 4955,
+    "grantorella": 4293,
+    "tresa": 1408
+  },
+  "anomalie_topologiche": [],
+  "punti_da_verificare": [],
+  "non_mappati": [
+    {
+      "id": "lisascora",
+      "nome": "Torrente Lisascora",
+      "regime": "divieto",
+      "motivo": "Nome assente da OSM; corso troppo piccolo per essere cartografato. Il divieto resta in normativa ma non ha geometria."
+    }
+  ]
+}

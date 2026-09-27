@@ -1,0 +1,882 @@
+{
+  "schema": {
+    "nome": "fipsas-regole-computabili",
+    "versione": "1.0.0",
+    "descrizione": "Regole di pesca del reticolo Margorabbia in forma computabile. Ogni zona si risolve come: profilo -> override del corpo idrico -> override della zona (merge profondo: gli oggetti si fondono, le liste e i valori scalari si sostituiscono). I campi *_ref puntano a chiavi di 'definizioni_temporali', 'documenti', 'pacchetti_permessi' o 'specie'.",
+    "risoluzione": ["profili[zona.profilo]", "corpi_idrici[zona.corpo_idrico].override (solo se il profilo ha pesca_consentita=true)", "zona.override"],
+    "priorita_regimi": "In caso di sovrapposizione geometrica vince la zona con 'priorita' più alta (divieto > no_kill > campo_gara > ordinario).",
+    "livelli_fonte": {
+      "testuale": "Regola riportata alla lettera dal prontuario.",
+      "derivata": "Conseguenza diretta di una regola generale (es. classificazione residuale tipo B).",
+      "interpretazione": "Lettura non esplicita nel testo: va verificata presso il concessionario."
+    }
+  },
+  "meta": {
+    "titolo": "Reticolo idrografico Margorabbia — regole di pesca 2026",
+    "bacino": "Bacino 5 — Verbano, Ceresio e Lario",
+    "provincia": "VA",
+    "anno_validita": 2026,
+    "concessionario": "FIPSAS Varese / ATS Prealpi",
+    "fonte_primaria": {
+      "documento": "Prontuario bacino 5 - Verbano Ceresio e Lario (2026)",
+      "file": "data/raw/Prontuario bacino 5 - Verbano Ceresio e Lario (2026).pdf"
+    },
+    "estratto_intermedio": "data/normativa/margorabbia_regolamento.md",
+    "aggiornato": "2026-09-27",
+    "avvertenza": "Strumento di consultazione: in caso di discordanza fa fede il prontuario ufficiale e le disposizioni del concessionario."
+  },
+
+  "vocabolari": {
+    "tipi_acqua": {
+      "A": { "etichetta": "Tipo A", "descrizione": "Laghi maggiori", "fonte": { "livello": "testuale", "riferimento": "par. 4.10", "estratto": "" } },
+      "B": {
+        "etichetta": "Tipo B (salmonicole)",
+        "descrizione": "Laghi d'alta quota e corsi d'acqua popolati prevalentemente da salmonidi; per esclusione tutte le acque non A/C.",
+        "fonte": { "livello": "testuale", "riferimento": "par. 4.10", "estratto": "laghi d’alta quota e corsi d’acqua popolati prevalentemente da salmonidi […] tutte le restanti acque del bacino" }
+      },
+      "C": {
+        "etichetta": "Tipo C (ciprinicole)",
+        "descrizione": "Laghi minori e corsi d'acqua popolati prevalentemente da ciprinidi.",
+        "fonte": { "livello": "testuale", "riferimento": "par. 4.10", "estratto": "laghi minori e corsi d’acqua popolati prevalentemente da ciprinidi — Lago di Ghirla, lago di Ganna, lago Delio, lago di Brinzio, …" }
+      }
+    },
+    "regimi": {
+      "ordinario_B": {
+        "etichetta": "Regime Ordinario B (FIPSAS)",
+        "descrizione": "Acque correnti salmonicole in concessione FIPSAS: prelievo consentito secondo le regole generali del tipo B.",
+        "colore": "#0d9488", "tratteggio": null, "pesca_consentita": true
+      },
+      "ordinario_C_lago": {
+        "etichetta": "Regime Ordinario C — Lago (FIPSAS)",
+        "descrizione": "Lago minore ciprinicolo in concessione FIPSAS, con regole specifiche per riva e belly boat.",
+        "colore": "#d97706", "tratteggio": null, "pesca_consentita": true
+      },
+      "no_kill": {
+        "etichetta": "No-Kill — esche artificiali, amo senza ardiglione",
+        "descrizione": "Rilascio immediato obbligatorio di tutto il pesce catturato.",
+        "colore": "#7c3aed", "tratteggio": "8 6", "pesca_consentita": true
+      },
+      "campo_gara": {
+        "etichetta": "Campo gara (Regime B con deroghe)",
+        "descrizione": "Tratto di tipo B individuato come campo gara: ammessi ami con ardiglione, misure ridotte per la trota fario.",
+        "colore": "#ca8a04", "tratteggio": "4 6", "pesca_consentita": true
+      },
+      "divieto": {
+        "etichetta": "Divieto — protezione e ripopolamento",
+        "descrizione": "Zona di protezione e ripopolamento: pesca vietata a chiunque.",
+        "colore": "#dc2626", "tratteggio": null, "pesca_consentita": false
+      },
+      "cispp": {
+        "etichetta": "Regime CISPP (Commissione italo-svizzera)",
+        "descrizione": "Acque regolate dalla Convenzione italo-svizzera: regole diverse dal cap. 4 del prontuario.",
+        "colore": "#0369a1", "tratteggio": "2 5", "pesca_consentita": true
+      },
+      "no_kill_e_campo_gara": {
+        "etichetta": "No-Kill + Campo gara (sovrapposizione)",
+        "descrizione": "I due testi del prontuario si sovrappongono: in giornata valgono le regole No-Kill; in gara autorizzata si applicano anche le prescrizioni da campo gara.",
+        "colore": "#9d174d", "tratteggio": "8 4 2 4", "pesca_consentita": true
+      }
+    },
+    "tecniche": {
+      "canna_da_riva": "Pesca con canna da riva",
+      "guado": "Pesca in acqua (guado)",
+      "piede_asciutto": "Pesca a piede asciutto (senza entrare in acqua)",
+      "mosca": "Pesca a mosca",
+      "mosca_coda_di_topo": "Mosca con coda di topo",
+      "spinning": "Spinning",
+      "belly_boat": "Belly boat",
+      "imbarcazione": "Pesca da imbarcazione",
+      "pesca_da_ponte": "Pesca dai ponti",
+      "pesca_notturna": "Pesca notturna"
+    },
+    "esche": {
+      "naturale": "Esche naturali",
+      "artificiale": "Esche artificiali",
+      "cagnotto": "Larva di mosca carnaria (cagnotto)",
+      "pesce_vivo": "Pesce vivo come esca",
+      "pesce_morto": "Pesce morto come esca",
+      "sangue": "Sangue come esca",
+      "uova_di_pesce": "Uova di pesce come esca"
+    },
+    "ardiglione": {
+      "vietato": "Amo senza ardiglione o con ardiglione schiacciato",
+      "ammesso": "Amo con ardiglione ammesso"
+    },
+    "giorni_settimana": ["lun", "mar", "mer", "gio", "ven", "sab", "dom"]
+  },
+
+  "definizioni_temporali": {
+    "date_mobili": {
+      "ultima_domenica_febbraio": { "tipo": "ennesimo_giorno_settimana_del_mese", "mese": 2, "giorno_settimana": "dom", "ordinale": -1, "etichetta": "ultima domenica di febbraio" },
+      "prima_domenica_ottobre": { "tipo": "ennesimo_giorno_settimana_del_mese", "mese": 10, "giorno_settimana": "dom", "ordinale": 1, "etichetta": "prima domenica di ottobre" }
+    },
+    "stagioni": {
+      "stagione_B": {
+        "etichetta": "Stagione acque di tipo B",
+        "inizio": { "data_ref": "ultima_domenica_febbraio", "riferimento_solare": "alba", "offset_minuti": -60 },
+        "fine": { "data_ref": "prima_domenica_ottobre", "riferimento_solare": "tramonto", "offset_minuti": 60 },
+        "testo": "Dall'ultima domenica di febbraio (1 h prima dell'alba) alla prima domenica di ottobre (1 h dopo il tramonto)",
+        "fonte": { "livello": "testuale", "riferimento": "Regole acque tipo B", "estratto": "da un’ora prima dell’alba dell’ultima domenica di febbraio a un’ora dopo il tramonto della prima domenica di ottobre" }
+      },
+      "invernale_B": {
+        "etichetta": "Periodo invernale (tratti con pesca invernale)",
+        "inizio": { "data_ref": "prima_domenica_ottobre", "riferimento_solare": "tramonto", "offset_minuti": 60 },
+        "fine": { "data_ref": "ultima_domenica_febbraio", "riferimento_solare": "alba", "offset_minuti": -60 },
+        "testo": "Dalla prima domenica di ottobre all'ultima domenica di febbraio",
+        "fonte": { "livello": "testuale", "riferimento": "Acque di tipo B dove sono consentite forme di pesca invernali", "estratto": "La pesca è consentita anche dalla prima domenica di ottobre all’ultima domenica di febbraio nei seguenti tratti fluviali" }
+      },
+      "tutto_anno": {
+        "etichetta": "Tutto l'anno",
+        "inizio": null, "fine": null,
+        "testo": "Tutto l'anno (salvo periodi di divieto per specie, par. 4.4)",
+        "fonte": { "livello": "derivata", "riferimento": "par. 4.4", "estratto": "" }
+      },
+      "rinvio_cispp": {
+        "etichetta": "Calendario CISPP",
+        "inizio": null, "fine": null, "rinvio_esterno": "https://www.cispp.org/",
+        "testo": "Calendario stabilito dal Regolamento di applicazione CISPP (in vigore dal 1° gennaio 2025)",
+        "fonte": { "livello": "testuale", "riferimento": "Premessa cap. 4", "estratto": "Nel Verbano, nel Ceresio e nel fiume Tresa, la pesca è regolamentata in modo differente" }
+      }
+    },
+    "fasce_orarie": {
+      "diurna": {
+        "etichetta": "Diurna",
+        "da": { "riferimento_solare": "alba", "offset_minuti": -60 },
+        "a": { "riferimento_solare": "tramonto", "offset_minuti": 60 },
+        "testo": "Da 1 h prima dell'alba a 1 h dopo il tramonto",
+        "fonte": { "livello": "testuale", "riferimento": "Regole acque tipo B", "estratto": "da un’ora prima dell’alba a un’ora dopo il tramonto" }
+      },
+      "h24_notturna_da_riva": {
+        "etichetta": "H24 (notturna solo da riva)",
+        "da": null, "a": null,
+        "notturna": { "consentita": true, "condizioni": ["solo da riva", "canna armata con max 5 ami"] },
+        "testo": "Pesca anche notturna, ma solo da riva e con canna armata con al massimo 5 ami",
+        "fonte": { "livello": "testuale", "riferimento": "par. 4.8", "estratto": "Pesca notturna ammessa in tipo A e C, da riva, canna con max cinque ami" }
+      },
+      "rinvio_cispp": {
+        "etichetta": "Orari CISPP", "da": null, "a": null, "rinvio_esterno": "https://www.cispp.org/",
+        "testo": "Pesca notturna solo nei tratti CISPP specifici del Tresa",
+        "fonte": { "livello": "testuale", "riferimento": "Regolamento CISPP (sintesi prontuario)", "estratto": "Pesca notturna solo in tratti CISPP specifici" }
+      }
+    },
+    "calendari_giorni": {
+      "giorni_tipo_B": {
+        "etichetta": "Giorni tipo B",
+        "settimana": ["dom", "lun", "gio", "sab"],
+        "festivi_aggiuntivi": ["04-25", "05-01", "06-02", "08-15"],
+        "testo": "Domenica, lunedì, giovedì e sabato + 25/4, 1/5, 2/6, 15/8",
+        "fonte": { "livello": "testuale", "riferimento": "Regole acque tipo B", "estratto": "domenica, lunedì, giovedì e sabato nonché il 25 aprile, il 1° maggio, il 2 giugno e il 15 agosto" }
+      },
+      "tutti_i_giorni": {
+        "etichetta": "Tutti i giorni",
+        "settimana": ["lun", "mar", "mer", "gio", "ven", "sab", "dom"],
+        "festivi_aggiuntivi": [],
+        "testo": "Tutti i giorni della settimana",
+        "fonte": { "livello": "derivata", "riferimento": "", "estratto": "" }
+      },
+      "tutti_i_giorni_deroga_tresa": {
+        "etichetta": "Tutti i giorni (deroga «Affluenti del fiume Tresa»)",
+        "settimana": ["lun", "mar", "mer", "gio", "ven", "sab", "dom"],
+        "festivi_aggiuntivi": [],
+        "testo": "Tutti i giorni: l'asta del Margorabbia rientra tra gli «Affluenti del fiume Tresa»",
+        "fonte": { "livello": "interpretazione", "riferimento": "Elenco corpi idrici con pesca tutti i giorni", "estratto": "la pesca è consentita tutti i giorni della settimana […] Affluenti del fiume Tresa", "nota": "Il Margorabbia è affluente diretto del Tresa. Il prontuario non scrive «e affluenti» dopo Tresa: la deroga NON si estende agli affluenti del Margorabbia." }
+      }
+    }
+  },
+
+  "documenti": {
+    "licenza_B": {
+      "etichetta": "Licenza di pesca tipo B",
+      "costo_eur": 23.0,
+      "ente": "Regione Lombardia (tassa regionale)",
+      "validita": "12 mesi",
+      "esenzioni": ["Residenti in Italia con meno di 18 anni", "Residenti in Italia con più di 65 anni", "Soggetti L. 104/1992 art. 3 (se pescano solo con canna)"],
+      "fonte": { "livello": "testuale", "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI", "estratto": "Licenza di pesca tipo B (€ 23,00)" }
+    },
+    "tessera_fipsas": {
+      "etichetta": "Tessera FIPSAS",
+      "costo_eur": 30.0,
+      "costi_ridotti": [{ "costo_eur": 6.0, "condizione": "nati dopo il 01.01.2011" }],
+      "ente": "FIPSAS",
+      "validita": "anno solare",
+      "esenzioni": [],
+      "fonte": { "livello": "testuale", "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI", "estratto": "Tessera FIPSAS (€ 30,00; € 6,00 nati dopo il 01.01.2011)" }
+    },
+    "contributo_gestione_annuale": {
+      "etichetta": "Contributo di gestione annuale FIPSAS Varese",
+      "costo_eur": 30.0,
+      "ente": "FIPSAS Varese (concessionario)",
+      "validita": "anno solare",
+      "ambito": ["acque di tipo B", "pesca da imbarcazione / belly boat", "acque evidenziate in azzurro"],
+      "esenzioni": ["Nati dopo il 01.01.2008", "Disabili L. 104/1992 art. 3 c. 3"],
+      "fonte": { "livello": "testuale", "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI", "estratto": "Contributo di gestione annuale a FIPSAS Varese (€ 30,00) — per la pesca da imbarcazione e nelle acque di tipo B" }
+    },
+    "contributo_gestione_ridotto": {
+      "etichetta": "Contributo di gestione RIDOTTO FIPSAS Varese",
+      "costo_eur": 15.0,
+      "ente": "FIPSAS Varese (concessionario)",
+      "validita": "anno solare",
+      "ambito": ["pesca da riva nei laghi con rive in verde (es. Lago di Ghirla)"],
+      "assorbito_da": "contributo_gestione_annuale",
+      "esenzioni": ["Nati dopo il 01.01.2008", "Disabili L. 104/1992 art. 3 c. 3"],
+      "fonte": { "livello": "testuale", "riferimento": "Scheda Lago di Ghirla", "estratto": "Contributo di Gestione RIDOTTO FIPSAS Varese € 15 […] Chi ha già il contributo annuale € 30 non deve il ridotto da riva." }
+    },
+    "tesserino_segnapesci": {
+      "etichetta": "Tesserino segnapesci del concessionario",
+      "costo_eur": null,
+      "ente": "FIPSAS Varese",
+      "non_richiesto_se": ["permesso_giornaliero"],
+      "punti_distribuzione": ["GERMIGNAGA PESCA — Piazza 20 Settembre, 29, Germignaga (VA)"],
+      "fonte": { "livello": "testuale", "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI", "estratto": "Tesserino segna pesci del Concessionario […] non è obbligatorio per chi utilizza il permesso giornaliero di pesca" }
+    },
+    "permesso_giornaliero": {
+      "etichetta": "Permesso giornaliero (non tesserati FIPSAS)",
+      "costo_eur": null,
+      "ente": "ATS Prealpi / APS Como",
+      "note": "Importo e punti vendita non indicati nel prontuario.",
+      "link": ["https://www.ats-prealpi.it", "https://www.aps-como.it"],
+      "fonte": { "livello": "testuale", "riferimento": "Non tesserati FIPSAS", "estratto": "possono scaricare la documentazione per ottenere i permessi sui siti www.ats-prealpi.it e www.aps-como.it" }
+    }
+  },
+
+  "pacchetti_permessi": {
+    "fipsas_acque_B": {
+      "etichetta": "Acque correnti di tipo B (FIPSAS)",
+      "documenti": ["licenza_B", "tessera_fipsas", "contributo_gestione_annuale", "tesserino_segnapesci"],
+      "alternativa_non_tesserati": ["licenza_B", "permesso_giornaliero"],
+      "richiede_contributo_extra": true,
+      "richiede_tesserino": true,
+      "note": "Non è acqua libera «solo licenza B»."
+    },
+    "fipsas_lago_riva": {
+      "etichetta": "Lago di Ghirla da riva",
+      "documenti": ["licenza_B", "tessera_fipsas", "contributo_gestione_ridotto", "tesserino_segnapesci"],
+      "alternativa_non_tesserati": ["licenza_B", "permesso_giornaliero"],
+      "richiede_contributo_extra": true,
+      "richiede_tesserino": true,
+      "note": "Chi ha già versato il contributo annuale (€ 30) non deve il ridotto."
+    },
+    "fipsas_lago_belly_boat": {
+      "etichetta": "Lago di Ghirla da belly boat",
+      "documenti": ["licenza_B", "tessera_fipsas", "contributo_gestione_annuale", "tesserino_segnapesci"],
+      "alternativa_non_tesserati": null,
+      "richiede_contributo_extra": true,
+      "richiede_tesserino": true,
+      "note": "Belly boat solo per pesca a mosca o a spinning."
+    },
+    "cispp_tresa": {
+      "etichetta": "Fiume Tresa (concessione Bacino 5 + regole CISPP)",
+      "documenti": ["licenza_B", "tessera_fipsas", "tesserino_segnapesci"],
+      "alternativa_non_tesserati": null,
+      "richiede_contributo_extra": null,
+      "richiede_tesserino": true,
+      "note": "Il prontuario non riporta una scheda permessi dedicata al Tresa: verificare con il concessionario."
+    },
+    "nessuno": {
+      "etichetta": "Nessun permesso abilita la pesca",
+      "documenti": [],
+      "alternativa_non_tesserati": null,
+      "richiede_contributo_extra": false,
+      "richiede_tesserino": false,
+      "note": "Zona di divieto."
+    }
+  },
+
+  "specie": {
+    "protette_sempre": {
+      "elenco": ["cobiti", "lasca", "scazzone", "anguilla", "savetta", "barbo canino", "lampreda padana", "pigo", "trota macrostigma"],
+      "fonte": { "livello": "testuale", "riferimento": "par. 4.1", "estratto": "Cattura e detenzione sempre vietate […] cobiti, lasca, scazzone, anguilla, savetta, barbo canino, lampreda padana, pigo, trota macrostigma, ecc." }
+    },
+    "misure_minime_cm": {
+      "trota_fario": { "valore": 25, "ambito": "acque diverse dal tipo A" },
+      "trota_marmorata": { "valore": 40, "ambito": "altre acque" },
+      "temolo": { "valore": 35 },
+      "luccio": { "valore": 60 },
+      "persico_reale": { "valore": 16 },
+      "salmerino_alpino": { "valore": 25 },
+      "fonte": { "livello": "testuale", "riferimento": "par. 4.2", "estratto": "Trota fario (acque diverse da tipo A) 25 cm — 22 cm nei campi gara; Trota marmorata 40 cm; Temolo 35 cm; Luccio 60 cm; Persico reale 16 cm; Salmerino alpino 25 cm" }
+    },
+    "limiti_cattura": {
+      "per_specie": { "luccio": 1, "trota_marmorata": 1, "temolo": 2 },
+      "salmonidi_complessivi": 6,
+      "kg_giornalieri_max": 5,
+      "stop_al_limite": ["luccio", "salmonidi"],
+      "obbligo_recisione_pinna_caudale": ["trote", "luccio", "coregone", "persico reale", "salmerino", "temolo", "siluro"],
+      "fonte": { "livello": "testuale", "riferimento": "par. 4.5–4.6", "estratto": "luccio 1; trota marmorata 1; temolo 2; «6 capi complessivi di trote, salmerini e temoli»; massimo 5 kg/giorno di fauna ittica" }
+    },
+    "periodi_divieto": [
+      { "specie": "trota_fario", "dal_ref": "prima_domenica_ottobre", "al_ref": "ultima_domenica_febbraio", "ambito": "altre acque (salvo tratti con pesca invernale)" },
+      { "specie": "trota_marmorata", "dal_ref": "prima_domenica_ottobre", "al_ref": "ultima_domenica_febbraio", "ambito": "altre acque (salvo tratti con pesca invernale)" },
+      { "specie": "barbo", "dal": "05-01", "al": "06-30" },
+      { "specie": "carpa", "dal": "05-01", "al": "06-30" },
+      { "specie": "luccio", "dal": "02-01", "al": "04-15" }
+    ],
+    "periodi_divieto_fonte": { "livello": "testuale", "riferimento": "par. 4.4", "estratto": "Decorrono «da un’ora dopo il tramonto del giorno di inizio» e terminano «un’ora prima dell’alba del giorno di scadenza»." }
+  },
+
+  "profili": {
+    "ordinario_B": {
+      "regime": "ordinario_B",
+      "tipo_acqua": "B",
+      "pesca_consentita": true,
+      "calendario": {
+        "stagione_ref": "stagione_B",
+        "giorni_ref": "giorni_tipo_B",
+        "fascia_oraria_ref": "diurna",
+        "periodi_speciali": []
+      },
+      "attrezzatura": {
+        "attrezzi_ammessi": ["canna"],
+        "canne_max": 1,
+        "esche_max_per_canna": 3,
+        "ami_max_per_canna": null,
+        "ardiglione": "vietato",
+        "spazio_sponda_max_m": null
+      },
+      "esche": {
+        "consentite": ["naturale", "artificiale"],
+        "vietate": ["cagnotto", "pesce_vivo", "pesce_morto"],
+        "pasturazione": "vietata"
+      },
+      "tecniche": {
+        "consentite": ["canna_da_riva", "guado"],
+        "vietate": ["pesca_da_ponte", "imbarcazione", "pesca_notturna"],
+        "condizionate": []
+      },
+      "prelievo": {
+        "tipo": "ordinario",
+        "rilascio_obbligatorio": false,
+        "capi_trattenibili": "secondo limiti di cattura",
+        "misure_minime_override_cm": {},
+        "specie_sempre_protette_extra": [],
+        "limiti_ref": "limiti_cattura"
+      },
+      "permessi": { "pacchetto_ref": "fipsas_acque_B", "varianti": [] },
+      "vincoli_speciali": [],
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Regole acque tipo B", "estratto": "L’unico attrezzo ammesso è la canna da pesca. Si può pescare con una sola canna, armata con un massimo di tre esche naturali o artificiali. Gli ami devono essere privi di ardiglione o con ardiglione schiacciato ad eccezione dei tratti individuati come campo gara, dove è ammesso l’utilizzo di ami con ardiglione. Non è ammessa alcuna forma di pasturazione e non è ammesso utilizzare come esca la larva di mosca carnaria (cagnotto) e il pesce vivo, o morto. È proibita la pesca dai ponti e con la barca." }
+      ]
+    },
+    "ordinario_C_lago": {
+      "regime": "ordinario_C_lago",
+      "tipo_acqua": "C",
+      "pesca_consentita": true,
+      "calendario": {
+        "stagione_ref": "tutto_anno",
+        "giorni_ref": "tutti_i_giorni",
+        "fascia_oraria_ref": "h24_notturna_da_riva",
+        "periodi_speciali": []
+      },
+      "attrezzatura": {
+        "attrezzi_ammessi": ["canna"],
+        "canne_max": 3,
+        "esche_max_per_canna": 5,
+        "ami_max_per_canna": null,
+        "ardiglione": "ammesso",
+        "spazio_sponda_max_m": 10
+      },
+      "esche": {
+        "consentite": ["naturale", "artificiale"],
+        "vietate": [],
+        "pasturazione": "limitata_par_4_11"
+      },
+      "tecniche": {
+        "consentite": ["canna_da_riva", "pesca_notturna"],
+        "vietate": ["imbarcazione"],
+        "condizionate": []
+      },
+      "prelievo": {
+        "tipo": "ordinario",
+        "rilascio_obbligatorio": false,
+        "capi_trattenibili": "secondo limiti di cattura",
+        "misure_minime_override_cm": {},
+        "specie_sempre_protette_extra": [],
+        "limiti_ref": "limiti_cattura"
+      },
+      "permessi": { "pacchetto_ref": "fipsas_lago_riva", "varianti": [] },
+      "vincoli_speciali": [],
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Regole acque tipo A e C", "estratto": "Canna da pesca. Si può pescare con un massimo di tre canne, […] armate ciascuna con un massimo di cinque esche naturali o artificiali occupando uno spazio, comunque, non superiore a dieci metri di tratto di sponda." }
+      ],
+      "interpretazioni": [
+        { "campo": "calendario", "nota": "Il prontuario non fissa una stagione di apertura per le acque di tipo C né i giorni ristretti del tipo B: restano validi i periodi di divieto per specie (par. 4.4)." },
+        { "campo": "attrezzatura.ardiglione", "nota": "L'obbligo di amo senza ardiglione è previsto testualmente solo per il tipo B." }
+      ]
+    },
+    "divieto": {
+      "regime": "divieto",
+      "tipo_acqua": null,
+      "pesca_consentita": false,
+      "calendario": null,
+      "attrezzatura": null,
+      "esche": null,
+      "tecniche": null,
+      "prelievo": { "tipo": "nessuno", "rilascio_obbligatorio": null, "capi_trattenibili": 0 },
+      "permessi": { "pacchetto_ref": "nessuno", "varianti": [] },
+      "vincoli_speciali": [],
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice II — Zone di protezione e ripopolamento", "estratto": "Zone di protezione e ripopolamento, con divieto di pesca" }
+      ]
+    },
+    "cispp_fiume": {
+      "regime": "cispp",
+      "tipo_acqua": "C",
+      "pesca_consentita": true,
+      "calendario": {
+        "stagione_ref": "rinvio_cispp",
+        "giorni_ref": "tutti_i_giorni",
+        "fascia_oraria_ref": "rinvio_cispp",
+        "periodi_speciali": []
+      },
+      "attrezzatura": {
+        "attrezzi_ammessi": ["canna"],
+        "canne_max": 1,
+        "esche_max_per_canna": null,
+        "ami_max_per_canna": 5,
+        "ardiglione": "ammesso",
+        "spazio_sponda_max_m": null
+      },
+      "esche": {
+        "consentite": ["naturale", "artificiale"],
+        "vietate": ["sangue", "uova_di_pesce"],
+        "pasturazione": "vietata"
+      },
+      "tecniche": {
+        "consentite": ["canna_da_riva"],
+        "vietate": ["imbarcazione", "guado"],
+        "condizionate": []
+      },
+      "prelievo": {
+        "tipo": "ordinario",
+        "rilascio_obbligatorio": false,
+        "capi_trattenibili": "secondo Regolamento CISPP",
+        "misure_minime_override_cm": {},
+        "specie_sempre_protette_extra": ["trota_marmorata"],
+        "limiti_ref": null
+      },
+      "permessi": { "pacchetto_ref": "cispp_tresa", "varianti": [] },
+      "vincoli_speciali": [],
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Regolamento CISPP (sintesi prontuario)", "estratto": "pesca «solo da riva» con «una sola canna per pescatore, armata con un massimo di 5 ami»; vietati sangue e uova di pesce come esca; vietata ogni pasturazione. «Nel fiume Tresa è sempre vietata anche la cattura e la detenzione della trota marmorata.»" }
+      ],
+      "interpretazioni": [
+        { "campo": "tecniche.vietate.guado", "nota": "«solo da riva» è stato tradotto come divieto di guado." }
+      ]
+    }
+  },
+
+  "corpi_idrici": {
+    "margorabbia": {
+      "nome": "Torrente Margorabbia",
+      "alias_osm": ["Fiume Margorabbia"],
+      "tipologia": "torrente",
+      "ruolo": "asta_principale",
+      "tipo_acqua": "B",
+      "citato_in_prontuario": true,
+      "comuni": ["Valganna", "Grantola", "Mesenzana", "Montegrino Valtravaglia", "Germignaga", "Luino"],
+      "zona_default": "margorabbia_ordinario",
+      "override": {
+        "calendario": { "giorni_ref": "tutti_i_giorni_deroga_tresa" },
+        "prelievo": { "specie_sempre_protette_extra": ["temolo"] }
+      },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "par. 4.4 — tabella periodi di divieto", "estratto": "Temolo: Sempre protetto nel lago di Mezzola e nei torrenti Pioverna e Margorabbia" },
+        { "livello": "derivata", "riferimento": "par. 4.10", "estratto": "tutte le restanti acque del bacino", "nota": "Tipo B per esclusione dagli elenchi A e C." }
+      ]
+    },
+    "lago_ganna": {
+      "nome": "Lago di Ganna",
+      "tipologia": "lago",
+      "ruolo": "lago_sull_asta",
+      "tipo_acqua": "C",
+      "citato_in_prontuario": true,
+      "comuni": ["Valganna"],
+      "zona_default": "lago_ganna_divieto",
+      "override": {},
+      "fonti": [{ "livello": "testuale", "riferimento": "par. 4.10", "estratto": "Lago di Ghirla, lago di Ganna, …" }]
+    },
+    "lago_ghirla": {
+      "nome": "Lago di Ghirla",
+      "tipologia": "lago",
+      "ruolo": "lago_sull_asta",
+      "tipo_acqua": "C",
+      "citato_in_prontuario": true,
+      "comuni": ["Valganna"],
+      "zona_default": "lago_ghirla",
+      "override": {},
+      "fonti": [{ "livello": "testuale", "riferimento": "par. 4.10", "estratto": "Lago di Ghirla, lago di Ganna, …" }]
+    },
+    "boggione": {
+      "nome": "Torrente Boggione",
+      "alias_osm": ["Torrente Boggione"],
+      "tipologia": "torrente",
+      "ruolo": "affluente",
+      "tipo_acqua": "B",
+      "citato_in_prontuario": true,
+      "comuni": ["Valganna", "Cugliate Fabiasco"],
+      "zona_default": "affluenti_ordinario_B",
+      "override": {},
+      "fonti": []
+    },
+    "chiesone": {
+      "nome": "Torrente Chiesone (Gesone)",
+      "alias_osm": ["Torrente Gesone", "Torrente Chiesone"],
+      "tipologia": "torrente",
+      "ruolo": "affluente",
+      "tipo_acqua": "B",
+      "citato_in_prontuario": true,
+      "identita_incerta": false,
+      "comuni": ["Mesenzana"],
+      "zona_default": "affluenti_ordinario_B",
+      "override": {},
+      "fonti": [],
+      "note": "Chiesone (prontuario) e Gesone (OSM) sono lo stesso corso. Il ponte «S.P. 54» del prontuario è identificato con la S.S. 394."
+    },
+    "rancina": {
+      "nome": "Torrente Rancina",
+      "alias_osm": ["Torrente Rancina"],
+      "tipologia": "torrente",
+      "ruolo": "affluente",
+      "tipo_acqua": "B",
+      "citato_in_prontuario": false,
+      "comuni": [],
+      "zona_default": "affluenti_ordinario_B",
+      "override": {},
+      "fonti": []
+    },
+    "rio_boesio": {
+      "nome": "Rio Boesio (affluente del Rancina)",
+      "alias_osm": ["Torrente Rio Boesio"],
+      "tipologia": "torrente",
+      "ruolo": "sub_affluente",
+      "tipo_acqua": "B",
+      "citato_in_prontuario": false,
+      "comuni": [],
+      "zona_default": "affluenti_ordinario_B",
+      "override": {},
+      "fonti": [],
+      "note": "Da non confondere con il Torrente Boesio (bacino del Lago Maggiore a Laveno), escluso dal reticolo."
+    },
+    "grantorella": {
+      "nome": "Torrente Grantorella",
+      "alias_osm": ["Torrente Grantorella"],
+      "tipologia": "torrente",
+      "ruolo": "affluente",
+      "tipo_acqua": "B",
+      "citato_in_prontuario": false,
+      "comuni": [],
+      "zona_default": "affluenti_ordinario_B",
+      "override": {},
+      "fonti": []
+    },
+    "lisascora": {
+      "nome": "Torrente Lisascora",
+      "alias_osm": ["Torrente Lisascora", "Lisascora"],
+      "tipologia": "torrente",
+      "ruolo": "affluente",
+      "tipo_acqua": "B",
+      "citato_in_prontuario": true,
+      "comuni": ["Cunardo", "Cugliate Fabiasco"],
+      "zona_default": "lisascora_divieto",
+      "non_mappato": true,
+      "override": {},
+      "fonti": [],
+      "note": "Nome assente da OSM; corso troppo piccolo per essere cartografato. Il divieto resta in normativa ma non ha geometria."
+    },
+    "tresa": {
+      "nome": "Fiume Tresa",
+      "alias_osm": ["Fiume Tresa"],
+      "tipologia": "fiume",
+      "ruolo": "ricevente",
+      "tipo_acqua": "C",
+      "citato_in_prontuario": true,
+      "comuni": ["Luino", "Germignaga", "Lavena Ponte Tresa"],
+      "zona_default": "tresa_cispp",
+      "override": {},
+      "fonti": []
+    }
+  },
+
+  "zone": [
+    {
+      "id": "margorabbia_ordinario",
+      "nome": "Margorabbia — Regime Ordinario B",
+      "corpo_idrico": "margorabbia",
+      "profilo": "ordinario_B",
+      "priorita": 10,
+      "estensione": { "tipo": "residuale", "descrizione": "Tutta l'asta fuori dai tratti speciali e di divieto." },
+      "override": {},
+      "fonti": [
+        { "livello": "derivata", "riferimento": "par. 4.10 + regole tipo B", "estratto": "tutte le restanti acque del bacino" }
+      ]
+    },
+    {
+      "id": "margorabbia_campo_gara_ghirla",
+      "nome": "Margorabbia — campo gara Ghirla / chiusa Enel Ghetto",
+      "corpo_idrico": "margorabbia",
+      "profilo": "ordinario_B",
+      "priorita": 20,
+      "estensione": {
+        "tipo": "tratto",
+        "monte": { "caposaldo_id": "outlet_ghirla", "descrizione": "Ponte sul Lago di Ghirla" },
+        "valle": { "caposaldo_id": "chiusa_enel", "descrizione": "Chiusa Enel in località Ghetto" },
+        "lunghezza_dichiarata_m": 300,
+        "comuni": ["Valganna"]
+      },
+      "override": {
+        "regime": "campo_gara",
+        "attrezzatura": { "ardiglione": "ammesso" },
+        "prelievo": { "misure_minime_override_cm": { "trota_fario": 22 } },
+        "vincoli_speciali": [
+          { "id": "gara_immissione", "testo": "Durante le gare autorizzate la pesca è vietata dall'avvenuta immissione di fauna ittica fino all'inizio della manifestazione.", "livello": "testuale" }
+        ]
+      },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice III — Campi gara acque di tipo B", "estratto": "Torrente Margorabbia (VA) — Tratto di circa 300 metri dal ponte sul Lago di Ghirla fino alla chiusa Enel in località Ghetto." }
+      ]
+    },
+    {
+      "id": "margorabbia_no_kill_grantola_mesenzana",
+      "nome": "Margorabbia — No-Kill Grantola / Mesenzana",
+      "corpo_idrico": "margorabbia",
+      "profilo": "ordinario_B",
+      "priorita": 30,
+      "estensione": {
+        "tipo": "tratto",
+        "monte": { "caposaldo_id": "ponte_grantola", "descrizione": "Ponte di Grantola" },
+        "valle": { "caposaldo_id": "nk_end", "descrizione": "Briglia a 150 m a monte del concessionario auto (Mesenzana)" },
+        "lunghezza_dichiarata_m": null,
+        "comuni": ["Grantola", "Mesenzana"]
+      },
+      "override": {
+        "regime": "no_kill",
+        "calendario": {
+          "stagione_ref": "tutto_anno",
+          "periodi_speciali": [
+            {
+              "stagione_ref": "invernale_B",
+              "etichetta": "Pesca invernale",
+              "vincoli": { "tecniche_consentite": ["piede_asciutto"], "tecniche_vietate": ["guado"] },
+              "testo": "Dalla prima domenica di ottobre all'ultima domenica di febbraio solo a piede asciutto"
+            }
+          ]
+        },
+        "esche": { "consentite": ["artificiale"], "vietate": ["naturale", "cagnotto", "pesce_vivo", "pesce_morto"] },
+        "attrezzatura": { "ardiglione": "vietato" },
+        "tecniche": { "consentite": ["canna_da_riva", "guado", "piede_asciutto", "mosca", "mosca_coda_di_topo", "spinning"] },
+        "prelievo": { "tipo": "no_kill", "rilascio_obbligatorio": true, "capi_trattenibili": 0 }
+      },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice II — Tratti riservati alla pesca a mosca con coda di topo […]", "estratto": "Torrente Margorabbia (VA): Tratto compreso tra il Ponte di Grantola e la briglia a 150 metri a monte del concessionario auto in Comune di Mesenzana, riservato alla pesca con esche artificiali con obbligo di utilizzo di amo senza ardiglione o con ardiglione schiacciato e obbligo di rilascio immediato di tutto il pesce catturato. La pesca fra la prima domenica di ottobre e l’ultima domenica di febbraio, può essere praticata esclusivamente a piede asciutto." },
+        { "livello": "testuale", "riferimento": "Acque di tipo B dove sono consentite forme di pesca invernali", "estratto": "La pesca è consentita anche dalla prima domenica di ottobre all’ultima domenica di febbraio nei seguenti tratti fluviali: […] Torrente Margorabbia (VA): Tratto compreso tra il Ponte di Grantola e la briglia a 150 metri a monte del concessionario auto in Comune di Mesenzana" }
+      ],
+      "interpretazioni": [
+        { "campo": "esche.consentite", "nota": "Il titolo di sezione parla di mosca con coda di topo, il testo operativo di «esche artificiali»: si adotta il testo operativo (più ampio)." }
+      ]
+    },
+    {
+      "id": "margorabbia_campo_gara_mesenzana_cucco",
+      "nome": "Margorabbia — campo gara Mesenzana / Ponte del Cucco",
+      "corpo_idrico": "margorabbia",
+      "profilo": "ordinario_B",
+      "priorita": 20,
+      "estensione": {
+        "tipo": "tratto",
+        "monte": { "caposaldo_id": "super_mesenzana", "descrizione": "Supermercato in comune di Mesenzana" },
+        "valle": { "caposaldo_id": "ponte_cucco", "descrizione": "200 m a valle del ponte del Cucco (Montegrino Valtravaglia)" },
+        "lunghezza_dichiarata_m": 1400,
+        "comuni": ["Mesenzana", "Montegrino Valtravaglia"]
+      },
+      "override": {
+        "regime": "campo_gara",
+        "attrezzatura": { "ardiglione": "ammesso" },
+        "prelievo": { "misure_minime_override_cm": { "trota_fario": 22 } },
+        "vincoli_speciali": [
+          { "id": "gara_immissione", "testo": "Durante le gare autorizzate la pesca è vietata dall'avvenuta immissione di fauna ittica fino all'inizio della manifestazione.", "livello": "testuale" }
+        ]
+      },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice III — Campi gara acque di tipo B", "estratto": "Torrente Margorabbia (VA) — Dal supermercato in comune di Mesenzana a 200 m a valle del ponte del Cucco in Comune di Montegrino Valtravaglia, per un tratto di 1400 metri." }
+      ]
+    },
+    {
+      "id": "margorabbia_sovrapposizione_nokill_gara",
+      "nome": "Margorabbia — sovrapposizione No-Kill e campo gara (Mesenzana)",
+      "corpo_idrico": "margorabbia",
+      "profilo": "ordinario_B",
+      "priorita": 35,
+      "estensione": {
+        "tipo": "tratto",
+        "monte": { "caposaldo_id": "super_mesenzana", "descrizione": "Supermercato Carrefour (sponda)" },
+        "valle": { "caposaldo_id": "nk_end", "descrizione": "Briglia a 150 m a monte di Passeri Concessionaria Opel" },
+        "lunghezza_dichiarata_m": null,
+        "comuni": ["Mesenzana"]
+      },
+      "override": {
+        "regime": "no_kill_e_campo_gara",
+        "calendario": {
+          "stagione_ref": "tutto_anno",
+          "periodi_speciali": [
+            {
+              "stagione_ref": "invernale_B",
+              "etichetta": "Pesca invernale",
+              "vincoli": { "tecniche_consentite": ["piede_asciutto"], "tecniche_vietate": ["guado"] },
+              "testo": "Dalla prima domenica di ottobre all'ultima domenica di febbraio solo a piede asciutto"
+            }
+          ]
+        },
+        "esche": { "consentite": ["artificiale"], "vietate": ["naturale", "cagnotto", "pesce_vivo", "pesce_morto"] },
+        "attrezzatura": { "ardiglione": "vietato" },
+        "tecniche": { "consentite": ["canna_da_riva", "guado", "piede_asciutto", "mosca", "mosca_coda_di_topo", "spinning"] },
+        "prelievo": {
+          "tipo": "no_kill",
+          "rilascio_obbligatorio": true,
+          "capi_trattenibili": 0,
+          "misure_minime_override_cm": { "trota_fario": 22 }
+        },
+        "vincoli_speciali": [
+          { "id": "sovrapposizione", "testo": "Sovrapposizione geografica: il No-Kill Grantola–briglia Passeri e il campo gara Carrefour–Cucco coincidono su questo tratto. In giornata valgono No-Kill (esche artificiali, amo senza ardiglione, rilascio totale). In gara autorizzata si applicano anche le prescrizioni da campo gara (ami con ardiglione ammessi in gara; pesca vietata dall'immissione di fauna ittica all'inizio della manifestazione).", "livello": "interpretazione" }
+        ]
+      },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice II — No-Kill", "estratto": "Tratto compreso tra il Ponte di Grantola e la briglia a 150 metri a monte del concessionario auto in Comune di Mesenzana" },
+        { "livello": "testuale", "riferimento": "Appendice III — Campi gara", "estratto": "Dal supermercato in comune di Mesenzana a 200 m a valle del ponte del Cucco … 1400 metri." }
+      ],
+      "interpretazioni": [
+        { "campo": "geometria", "nota": "Con i capisaldi confermati (Carrefour a monte della briglia Passeri) i due testi si sovrappongono. Si applicano entrambe le fonti; in giornata prevale il No-Kill." }
+      ]
+    },
+    {
+      "id": "margorabbia_divieto_foce",
+      "nome": "Margorabbia — divieto alla foce (Luino / Germignaga)",
+      "corpo_idrico": "margorabbia",
+      "profilo": "divieto",
+      "priorita": 100,
+      "estensione": {
+        "tipo": "tratto",
+        "monte": { "caposaldo_id": "foce_briglia", "descrizione": "Prima briglia a monte della confluenza" },
+        "valle": { "caposaldo_id": "confluenza_tresa", "descrizione": "Confluenza con il Tresa" },
+        "lunghezza_dichiarata_m": 200,
+        "comuni": ["Luino", "Germignaga"]
+      },
+      "override": {},
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice II — Zone di protezione e ripopolamento, acque correnti", "estratto": "Torrente Margorabbia nei Comuni di Luino e Germignaga (VA): tratto compreso tra la confluenza con il Tresa e la prima briglia a monte, per una lunghezza di circa 200 m." }
+      ]
+    },
+    {
+      "id": "lago_ganna_divieto",
+      "nome": "Lago di Ganna — divieto su tutto il bacino",
+      "corpo_idrico": "lago_ganna",
+      "profilo": "divieto",
+      "priorita": 100,
+      "estensione": { "tipo": "intero_corpo", "descrizione": "Tutto il bacino lacustre" },
+      "override": { "tipo_acqua": "C" },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Provincia di Varese — Zone di protezione e ripopolamento, laghi", "estratto": "Lago di Ganna: la pesca è vietata in tutto il bacino lacustre." }
+      ]
+    },
+    {
+      "id": "lago_ghirla",
+      "nome": "Lago di Ghirla — Regime Ordinario C",
+      "corpo_idrico": "lago_ghirla",
+      "profilo": "ordinario_C_lago",
+      "priorita": 10,
+      "estensione": { "tipo": "intero_corpo", "descrizione": "Rive (in verde nella cartina) e specchio (in azzurro, solo belly boat)" },
+      "override": {
+        "tecniche": {
+          "condizionate": [
+            { "tecnica": "belly_boat", "consentita": true, "solo_con": ["mosca", "spinning"], "testo": "Belly boat ammesso solo per la pesca a mosca o a spinning (aree azzurre)" }
+          ]
+        },
+        "prelievo": { "misure_minime_override_cm": { "persico_reale": 18, "salmerino_alpino": 30 } },
+        "permessi": {
+          "pacchetto_ref": "fipsas_lago_riva",
+          "varianti": [ { "condizione": "da belly boat", "pacchetto_ref": "fipsas_lago_belly_boat" } ]
+        }
+      },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Scheda Lago di Ghirla", "estratto": "Nel lago di Ghirla è consentito solo il belly boat per la pesca a mosca o a spinning e non è consentito l’uso di imbarcazioni." },
+        { "livello": "testuale", "riferimento": "par. 4.2 — misure minime", "estratto": "Persico reale cm 18 nei laghi di Varese Comabbio Monate, Ghirla e del Segrino; Salmerino alpino cm 30 nel lago di Ghirla" }
+      ]
+    },
+    {
+      "id": "boggione_divieto",
+      "nome": "Boggione e affluenti — divieto Monumento ai Caduti / strada Marzio–Boarezzo",
+      "corpo_idrico": "boggione",
+      "profilo": "divieto",
+      "priorita": 100,
+      "estensione": {
+        "tipo": "tratto",
+        "monte": { "caposaldo_id": "strada_marzio_boarezzo", "descrizione": "Attraversamento della strada Marzio-Boarezzo" },
+        "valle": { "caposaldo_id": "monumento_ghirla", "descrizione": "Monumento ai Caduti a Ghirla" },
+        "include_affluenti": true,
+        "comuni": ["Valganna", "Cugliate Fabiasco"]
+      },
+      "override": {},
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice II — Zone di protezione e ripopolamento", "estratto": "Torrente Boggione e affluenti, Comuni di Valganna e Cugliate Fabiasco (VA): dal Monumento ai Caduti a Ghirla sino all’attraversamento della strada Marzio-Boarezzo." }
+      ]
+    },
+    {
+      "id": "chiesone_divieto",
+      "nome": "Chiesone — divieto ponte S.S. 394 / ponte di via Pianazzo",
+      "corpo_idrico": "chiesone",
+      "profilo": "divieto",
+      "priorita": 100,
+      "estensione": {
+        "tipo": "tratto",
+        "monte": { "caposaldo_id": "sp54_chiesone", "descrizione": "Ponte sulla S.S. 394 (prontuario: S.P. 54)" },
+        "valle": { "caposaldo_id": "pianazzo_chiesone", "descrizione": "Ponte di via Pianazzo" },
+        "lunghezza_dichiarata_m": 970,
+        "comuni": ["Mesenzana"]
+      },
+      "override": {},
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice II — Zone di protezione e ripopolamento", "estratto": "Torrente Chiesone, Comune di Mesenzana (VA): tratto compreso tra il ponte sulla S.P. 54 e il ponte di via Pianazzo, per una lunghezza di circa 970 m." },
+        { "livello": "interpretazione", "riferimento": "Capisaldi confermati", "estratto": "", "nota": "Il ponte «S.P. 54» è identificato con la S.S. 394. Chiesone = Gesone OSM." }
+      ]
+    },
+    {
+      "id": "lisascora_divieto",
+      "nome": "Lisascora — divieto su tutto il corso",
+      "corpo_idrico": "lisascora",
+      "profilo": "divieto",
+      "priorita": 100,
+      "estensione": { "tipo": "intero_corpo", "descrizione": "Intero corso", "comuni": ["Cunardo", "Cugliate Fabiasco"] },
+      "override": {},
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice II — Zone di protezione e ripopolamento", "estratto": "Torrente Lisascora, Comuni di Cunardo e Cugliate Fabiasco (VA): intero corso." },
+        { "livello": "interpretazione", "riferimento": "Cartografia", "estratto": "", "nota": "Corso non identificato in OSM e troppo piccolo per essere disegnato: il divieto resta solo nel testo." }
+      ]
+    },
+    {
+      "id": "affluenti_ordinario_B",
+      "nome": "Affluenti del Margorabbia — Regime Ordinario B",
+      "corpo_idrico": null,
+      "profilo": "ordinario_B",
+      "priorita": 10,
+      "estensione": { "tipo": "residuale", "descrizione": "Affluenti del Margorabbia fuori dai tratti di divieto." },
+      "override": {},
+      "fonti": [
+        { "livello": "derivata", "riferimento": "par. 4.10", "estratto": "tutte le restanti acque del bacino" }
+      ],
+      "interpretazioni": [
+        { "campo": "calendario.giorni_ref", "nota": "Lettura prudente: giorni tipo B. La deroga «Affluenti del fiume Tresa» non cita gli affluenti del Margorabbia." },
+        { "campo": "fonti", "nota": "Rancina, Gesone, Grantorella e Rio Boesio non compaiono nel prontuario: si applica solo il regime residuale." }
+      ]
+    },
+    {
+      "id": "tresa_cispp",
+      "nome": "Fiume Tresa — Regime CISPP",
+      "corpo_idrico": "tresa",
+      "profilo": "cispp_fiume",
+      "priorita": 10,
+      "estensione": { "tipo": "tratto_parziale", "descrizione": "Tratto OSM presso la confluenza (corpo ricevente, non affluente)." },
+      "override": {},
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Premessa cap. 4", "estratto": "Nel Verbano, nel Ceresio e nel fiume Tresa, la pesca è regolamentata in modo differente" }
+      ]
+    }
+  ]
+}

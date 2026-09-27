@@ -1,0 +1,72 @@
+{
+  "descrizione": "Capisaldi confermati a mano (lat, lon WGS84). La pipeline li proietta sull’asta OSM e li marca verificati.",
+  "aggiornato": "2026-09-27",
+  "punti": {
+    "outlet_ghirla": {
+      "lat": 45.923233,
+      "lon": 8.819213,
+      "nome": "Ponte sul Lago di Ghirla",
+      "note": "Ponte stradale sull’emissario, confermato."
+    },
+    "chiusa_enel": {
+      "lat": 45.92571242030991,
+      "lon": 8.820610077806045,
+      "nome": "Chiusa Enel in località Ghetto",
+      "note": "Opera confermata."
+    },
+    "ponte_grantola": {
+      "lat": 45.94830164778705,
+      "lon": 8.769515597307503,
+      "nome": "Ponte di Grantola",
+      "note": "Confermato (coincide con l’attraversamento OSM già scelto)."
+    },
+    "nk_end": {
+      "lat": 45.9597389164866,
+      "lon": 8.759791130855492,
+      "nome": "Briglia 150 m a monte del concessionario auto (Mesenzana)",
+      "note": "Briglia associata a Passeri Concessionaria Opel. A valle del Carrefour: il No-Kill si sovrappone al campo gara."
+    },
+    "super_mesenzana": {
+      "lat": 45.957641721631575,
+      "lon": 8.764227318149189,
+      "nome": "Supermercato Mesenzana (Carrefour, sponda)",
+      "note": "Sponda più vicina al Carrefour, confermata come il supermercato del prontuario."
+    },
+    "ponte_cucco": {
+      "lat": 45.96823519990962,
+      "lon": 8.756534382930889,
+      "nome": "Ponte del Cucco",
+      "note": "Ponte confermato (Montegrino Valtravaglia)."
+    },
+    "foce_briglia": {
+      "lat": 45.991426920431415,
+      "lon": 8.734133251087941,
+      "nome": "Prima briglia a monte della confluenza con il Tresa",
+      "note": "Briglia confermata."
+    },
+    "sp54_chiesone": {
+      "lat": 45.950148,
+      "lon": 8.765776,
+      "nome": "Ponte S.S. 394 sul Chiesone (prontuario: S.P. 54)",
+      "note": "Chiesone = Gesone OSM. Il ponte «S.P. 54» del prontuario è identificato con la S.S. 394."
+    },
+    "pianazzo_chiesone": {
+      "lat": 45.94612757335703,
+      "lon": 8.75587748816958,
+      "nome": "Ponte di via Pianazzo (Chiesone)",
+      "note": "Confermato."
+    },
+    "strada_marzio_boarezzo": {
+      "lat": 45.92649083834285,
+      "lon": 8.843414996997321,
+      "nome": "Attraversamento strada Marzio–Boarezzo",
+      "note": "Attraversamento confermato (coincide con la SP 29 già scelta)."
+    },
+    "monumento_ghirla": {
+      "lat": 45.9251266,
+      "lon": 8.8217591,
+      "nome": "Monumento ai Caduti a Ghirla",
+      "note": "Posizione Nominatim confermata."
+    }
+  }
+}

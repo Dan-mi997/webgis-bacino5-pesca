@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reticolo Margorabbia — mappa regolamentare FIPSAS</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    :root {
+      --bg: #0f1419; --panel: #18202a; --line: #2a3848; --text: #e8eef4; --muted: #93a4b8; --accent: #3d9cf0;
+      --ok: #16a34a; --ko: #dc2626; --unk: #64748b;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); }
+    #app { display: grid; grid-template-columns: 350px 1fr; height: 100%; }
+    aside { background: var(--panel); border-right: 1px solid var(--line); overflow: auto; padding: 18px 16px 28px; }
+    h1 { font-size: 1.15rem; margin: 0 0 4px; font-weight: 650; }
+    .sub { color: var(--muted); font-size: 0.8rem; margin-bottom: 14px; line-height: 1.4; }
+    aside h2 { font-size: 0.72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 18px 0 8px; }
+    .filters label { display: flex; align-items: center; gap: 8px; padding: 5px 4px; font-size: 0.86rem; cursor: pointer; }
+    .swatch { width: 24px; height: 6px; border-radius: 2px; flex-shrink: 0; }
+    .swatch.pt { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid #fff; }
+    .count { margin-left: auto; color: var(--muted); font-size: 0.75rem; }
+    .when { background: #111821; border: 1px solid var(--line); border-radius: 8px; padding: 10px; }
+    .when input[type=datetime-local] { width: 100%; background: #0b1016; color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 6px; font: inherit; color-scheme: dark; }
+    .when .row { display: flex; gap: 6px; margin-top: 8px; align-items: center; font-size: 0.82rem; }
+    .when button { background: #22303f; color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; cursor: pointer; font: inherit; font-size: 0.78rem; }
+    .when .sun { color: var(--muted); font-size: 0.76rem; margin-top: 6px; }
+    .when .legend-t { display: none; gap: 10px; font-size: 0.76rem; margin-top: 6px; color: var(--muted); }
+    .when.active .legend-t { display: flex; }
+    .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 4px; vertical-align: -1px; }
+    .legend-note { font-size: 0.75rem; color: var(--muted); line-height: 1.45; margin-top: 14px; }
+    #map { height: 100%; }
+
+    .leaflet-popup-content-wrapper { border-radius: 10px; }
+    .leaflet-popup-content { margin: 12px 14px; }
+    .pp { font-size: 0.82rem; color: #1e293b; line-height: 1.4; }
+    .pp h3 { margin: 0 0 6px; font-size: 1rem; line-height: 1.25; }
+    .pp .corso { color: #64748b; font-size: 0.78rem; margin: -2px 0 6px; }
+    .badge { display: inline-block; font-size: 0.7rem; font-weight: 650; padding: 2px 8px; border-radius: 999px; margin: 0 4px 4px 0; color: #fff; }
+    .badge.o { background: #fff; color: #334155; border: 1px solid #cbd5e1; }
+    .status { margin: 8px 0 4px; padding: 7px 9px; border-radius: 7px; font-weight: 600; font-size: 0.8rem; }
+    .status.ok { background: #dcfce7; color: #14532d; }
+    .status.ko { background: #fee2e2; color: #7f1d1d; }
+    .status.unk { background: #f1f5f9; color: #334155; }
+    .status small { display: block; font-weight: 400; margin-top: 2px; }
+    .pp details { border-top: 1px solid #e2e8f0; padding: 6px 0 2px; }
+    .pp summary { cursor: pointer; font-weight: 650; font-size: 0.78rem; text-transform: uppercase; letter-spacing: .04em; color: #0f172a; list-style: none; }
+    .pp summary::before { content: "▸ "; color: #94a3b8; }
+    .pp details[open] summary::before { content: "▾ "; }
+    .pp table { width: 100%; border-collapse: collapse; margin: 4px 0; }
+    .pp td { padding: 2px 0; vertical-align: top; }
+    .pp td:first-child { color: #64748b; width: 42%; padding-right: 8px; }
+    .chip { display: inline-block; font-size: 0.72rem; padding: 1px 6px; border-radius: 5px; margin: 1px 3px 1px 0; }
+    .chip.y { background: #dcfce7; color: #14532d; }
+    .chip.n { background: #fee2e2; color: #7f1d1d; text-decoration: line-through; }
+    .chip.c { background: #fef3c7; color: #78350f; }
+    .doc { display: flex; justify-content: space-between; gap: 8px; padding: 2px 0; }
+    .doc b { font-weight: 600; white-space: nowrap; }
+    .tot { border-top: 1px dashed #cbd5e1; margin-top: 3px; padding-top: 3px; font-weight: 650; }
+    .quote { font-size: 0.76rem; color: #334155; background: #f8fafc; border-left: 3px solid var(--accent); padding: 6px 8px; margin: 5px 0; }
+    .quote .ref { display: block; color: #64748b; font-size: 0.7rem; margin-top: 3px; font-style: normal; }
+    .warn { font-size: 0.76rem; background: #fffbeb; border-left: 3px solid #f59e0b; padding: 5px 8px; margin: 5px 0; color: #78350f; }
+    .foot { color: #94a3b8; font-size: 0.7rem; margin-top: 6px; }
+    .big-ko { background: #dc2626; color: #fff; text-align: center; font-weight: 700; padding: 8px; border-radius: 7px; margin: 6px 0; letter-spacing: .03em; }
+    @media (max-width: 800px) {
+      #app { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+      aside { max-height: 45vh; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <aside>
+      <h1>Reticolo Margorabbia</h1>
+      <p class="sub" id="subtitle"></p>
+
+      <h2>Posso pescare?</h2>
+      <div class="when" id="when-box">
+        <input type="datetime-local" id="when" />
+        <div class="row">
+          <label style="display:flex;gap:6px;align-items:center;cursor:pointer"><input type="checkbox" id="when-mode" /> Colora la mappa per data/ora</label>
+          <button id="when-now" style="margin-left:auto">Adesso</button>
+        </div>
+        <div class="sun" id="sun"></div>
+        <div class="legend-t">
+          <span><span class="dot" style="background:var(--ok)"></span>consentita</span>
+          <span><span class="dot" style="background:var(--ko)"></span>non consentita</span>
+          <span><span class="dot" style="background:var(--unk)"></span>fonte esterna</span>
+        </div>
+      </div>
+
+      <h2>Regimi (concessione FIPSAS)</h2>
+      <div class="filters" id="f-reg"></div>
+
+      <h2>Tipo di acqua</h2>
+      <div class="filters" id="f-tipo"></div>
+
+      <h2>Riferimenti</h2>
+      <div class="filters">
+        <label><input type="checkbox" id="show-cap" checked /> <span class="swatch pt" style="background:#64748b"></span> Capisaldi del prontuario</label>
+        <label><input type="checkbox" id="show-todo" checked /> <span class="swatch pt" style="background:#f59e0b;border-color:#78350f"></span> Punti da verificare</label>
+      </div>
+
+      <p class="legend-note">
+        Tutte le acque del reticolo sono in concessione FIPSAS / ATS Prealpi (Bacino 5): non esistono tratti a
+        «pesca libera» con la sola licenza. Clicca un tratto per calendario, attrezzatura, permessi e citazioni testuali.<br />
+        A Mesenzana il No-Kill e il campo gara si sovrappongono (Carrefour → briglia Passeri): in giornata vale il No-Kill.<br />
+        Il Lisascora è in divieto nel prontuario ma non è in mappa (corso non identificato / troppo piccolo).<br />
+        Dati: OpenStreetMap · Regole: <code>data/normativa/margorabbia_regole.json</code>.
+      </p>
+    </aside>
+    <div id="map"></div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="geo_data.js"></script>
+  <script>
+  (function () {
+    const TRATTI = window.MARGORABBIA_TRATTI, CAPISALDI = window.MARGORABBIA_CAPISALDI,
+          TODO = window.MARGORABBIA_TODO, R = window.MARGORABBIA_REGOLE;
+    if (!TRATTI || !R) {
+      document.getElementById("map").innerHTML = "<p style='padding:2rem'>Manca <code>geo_data.js</code>. Esegui <code>py -3 scripts/build_geo_data.py</code>.</p>";
+      return;
+    }
+    const V = R.vocabolari, TD = R.definizioni_temporali;
+    const WD = ["lun", "mar", "mer", "gio", "ven", "sab", "dom"];
+    const LATLON = [45.95, 8.78];
+    const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const eur = v => v == null ? "n.d." : "€ " + v.toFixed(2).replace(".", ",");
+
+    document.getElementById("subtitle").textContent =
+      `${R.meta.fonte_primaria.documento} · ${R.meta.concessionario}. Capisaldi confermati (punti verdi).`;
+
+    // ------------------------------------------------------------ motore temporale (porting di scripts/regole.py)
+    // Gli istanti sono "ora locale di Roma" codificata come millisecondi UTC fittizi.
+    const DAY = 86400000;
+    const ymd = t => { const d = new Date(t); return [d.getUTCFullYear(), d.getUTCMonth() + 1, d.getUTCDate()]; };
+    const wdIdx = t => (new Date(t).getUTCDay() + 6) % 7;
+    function movableDate(def, y) {
+      const wd = WD.indexOf(def.giorno_settimana), m = def.mese, n = def.ordinale;
+      if (n > 0) {
+        let t = Date.UTC(y, m - 1, 1);
+        t += ((wd - wdIdx(t) + 7) % 7) * DAY;
+        return t + (n - 1) * 7 * DAY;
+      }
+      let t = Date.UTC(y, m, 1) - DAY;
+      t -= ((wdIdx(t) - wd + 7) % 7) * DAY;
+      return t + (n + 1) * 7 * DAY;
+    }
+    function romeOffsetH(tUtc) {
+      const y = new Date(tUtc).getUTCFullYear();
+      const ls = m => movableDate({ giorno_settimana: "dom", mese: m, ordinale: -1 }, y) + 3600000;
+      return tUtc >= ls(3) && tUtc < ls(10) ? 2 : 1;
+    }
+    function sunTimes(dayT, lat, lon) {
+      const [y] = ymd(dayT);
+      const n = Math.round((dayT - Date.UTC(y, 0, 1)) / DAY) + 1, lh = lon / 15, rad = Math.PI / 180;
+      return [true, false].map(rising => {
+        const t = n + ((rising ? 6 : 18) - lh) / 24;
+        const M = 0.9856 * t - 3.289;
+        const L = (M + 1.916 * Math.sin(M * rad) + 0.020 * Math.sin(2 * M * rad) + 282.634 + 360) % 360;
+        let RA = (Math.atan(0.91764 * Math.tan(L * rad)) / rad + 360) % 360;
+        RA = (RA + (Math.floor(L / 90) * 90 - Math.floor(RA / 90) * 90)) / 15;
+        const sinDec = 0.39782 * Math.sin(L * rad), cosDec = Math.cos(Math.asin(sinDec));
+        const cosH = (Math.cos(90.833 * rad) - sinDec * Math.sin(lat * rad)) / (cosDec * Math.cos(lat * rad));
+        const H = (rising ? 360 - Math.acos(cosH) / rad : Math.acos(cosH) / rad) / 15;
+        const ut = ((H + RA - 0.06571 * t - 6.622 - lh) % 24 + 24) % 24;
+        const tu = dayT + ut * 3600000;
+        return tu + romeOffsetH(tu) * 3600000;
+      });
+    }
+    const hhmm = t => new Date(t).toISOString().slice(11, 16);
+    const solar = (dayT, rif, off) => sunTimes(dayT, ...LATLON)[rif === "alba" ? 0 : 1] + off * 60000;
+    const dayOf = t => Math.floor(t / DAY) * DAY;
+    function bound(spec, y) { return solar(movableDate(TD.date_mobili[spec.data_ref], y), spec.riferimento_solare, spec.offset_minuti); }
+    function inStagione(st, t) {
+      if (st.rinvio_esterno) return null;
+      if (!st.inizio) return true;
+      const y = ymd(t)[0], a = bound(st.inizio, y), b = bound(st.fine, y);
+      return a <= b ? (t >= a && t <= b) : (t >= a || t <= b);
+    }
+    function valuta(r, t) {
+      const res = { ok: true, motivi: [], vincoli: [] };
+      const no = m => { res.ok = false; res.motivi.push(m); };
+      if (!r.pesca_consentita) { no("Zona di divieto"); return res; }
+      const cal = r.calendario;
+      const st = inStagione(cal.stagione, t);
+      if (st === null) { res.ok = null; res.motivi.push("Calendario stabilito da fonte esterna (CISPP)"); }
+      else if (!st) no("Fuori stagione");
+      const [, m, d] = ymd(t), mmdd = String(m).padStart(2, "0") + "-" + String(d).padStart(2, "0");
+      if (!cal.giorni.settimana.includes(WD[wdIdx(t)]) && !cal.giorni.festivi_aggiuntivi.includes(mmdd)) no("Giorno non consentito (" + cal.giorni.testo + ")");
+      const fo = cal.fascia_oraria;
+      if (fo.da) {
+        const a = solar(dayOf(t), fo.da.riferimento_solare, fo.da.offset_minuti), b = solar(dayOf(t), fo.a.riferimento_solare, fo.a.offset_minuti);
+        if (t < a || t > b) no(`Fuori orario (${hhmm(a)}–${hhmm(b)})`);
+      }
+      cal.periodi_speciali.forEach(p => { if (inStagione(p.stagione, t)) res.vincoli.push(p.testo); });
+      (r.vincoli_speciali || []).forEach(v => res.vincoli.push(v.testo));
+      return res;
+    }
+
+    // ------------------------------------------------------------ stato UI
+    const whenEl = document.getElementById("when"), modeEl = document.getElementById("when-mode");
+    function setNow() {
+      const n = new Date();
+      whenEl.value = new Date(n.getTime() - n.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+    }
+    const whenT = () => { const v = whenEl.value; return v ? Date.parse(v + ":00Z") : Date.now(); };
+    setNow();
+
+    // ------------------------------------------------------------ mappa
+    const osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "&copy; OpenStreetMap" });
+    const topo = L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", { maxZoom: 17, attribution: "&copy; OpenStreetMap, SRTM | OpenTopoMap (CC-BY-SA)" });
+    const esri = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", { maxZoom: 19, attribution: "Tiles &copy; Esri" });
+    const map = L.map("map", { layers: [osm] }).setView([45.94, 8.79], 12);
+    L.control.layers({ "OpenStreetMap": osm, "OpenTopoMap": topo, "Esri World Imagery": esri }, {}, { position: "topright" }).addTo(map);
+    L.control.scale({ imperial: false }).addTo(map);
+
+    // ------------------------------------------------------------ filtri (generati dai dati)
+    const regCount = {}, tipoCount = {};
+    TRATTI.features.forEach(f => {
+      const p = f.properties;
+      regCount[p.regime] = (regCount[p.regime] || 0) + 1;
+      if (p.tipo_acqua) tipoCount[p.tipo_acqua] = (tipoCount[p.tipo_acqua] || 0) + 1;
+    });
+    const fReg = document.getElementById("f-reg");
+    Object.entries(V.regimi).filter(([k]) => regCount[k]).forEach(([k, v]) => {
+      const sw = v.tratteggio ? `background:repeating-linear-gradient(90deg,${v.colore} 0 6px,transparent 6px 10px)` : `background:${v.colore}`;
+      fReg.insertAdjacentHTML("beforeend", `<label title="${esc(v.descrizione)}"><input type="checkbox" data-f="reg" value="${k}" checked /><span class="swatch" style="${sw}"></span>${esc(v.etichetta)}<span class="count">${regCount[k]}</span></label>`);
+    });
+    const fTipo = document.getElementById("f-tipo");
+    Object.entries(V.tipi_acqua).filter(([k]) => tipoCount[k]).forEach(([k, v]) => {
+      fTipo.insertAdjacentHTML("beforeend", `<label title="${esc(v.descrizione)}"><input type="checkbox" data-f="tipo" value="${k}" checked />${esc(v.etichetta)}<span class="count">${tipoCount[k]}</span></label>`);
+    });
+    const checked = f => [...document.querySelectorAll(`[data-f="${f}"]:checked`)].map(i => i.value);
+
+    function styleFeat(p) {
+      const reg = V.regimi[p.regime] || {};
+      let color = reg.colore || "#64748b";
+      if (modeEl.checked) {
+        const ok = valuta(p.regole, whenT()).ok;
+        color = ok === true ? "#16a34a" : ok === false ? "#dc2626" : "#64748b";
+      }
+      const poly = p.geometria.includes("Polygon");
+      const w = p.ruolo === "asta" ? 6 : p.ruolo === "ricevente" ? 5 : 3.5;
+      return { color, weight: poly ? 2 : w, opacity: 0.95, fillColor: color, fillOpacity: poly ? 0.3 : 0,
+               dashArray: modeEl.checked ? null : reg.tratteggio, lineCap: "round" };
+    }
+
+    // ------------------------------------------------------------ popup
+    const lbl = (dict, ids) => (ids || []).map(i => dict[i] || i);
+    const chips = (items, cls) => items.map(x => `<span class="chip ${cls}">${esc(x)}</span>`).join("");
+    const row = (k, v) => v === undefined || v === null || v === "" ? "" : `<tr><td>${esc(k)}</td><td>${v}</td></tr>`;
+    const SPECIE = { trota_fario: "Trota fario", trota_marmorata: "Trota marmorata", temolo: "Temolo", luccio: "Luccio", persico_reale: "Persico reale", salmerino_alpino: "Salmerino alpino" };
+
+    function statusHtml(r) {
+      const t = whenT(), v = valuta(r, t);
+      const when = new Date(t).toISOString().slice(0, 16).replace("T", " ");
+      const cls = v.ok === true ? "ok" : v.ok === false ? "ko" : "unk";
+      const head = v.ok === true ? "✓ Pesca consentita" : v.ok === false ? "✗ Pesca non consentita" : "? Da verificare";
+      const det = [...v.motivi, ...v.vincoli.map(x => "Vincolo: " + x)].map(esc).join("<br>");
+      return `<div class="status ${cls}">${head} — ${when}${det ? `<small>${det}</small>` : ""}</div>`;
+    }
+
+    function secPeriodi(r) {
+      const c = r.calendario;
+      if (!c) return "";
+      const [a, b] = sunTimes(dayOf(whenT()), ...LATLON);
+      const spec = c.periodi_speciali.map(p => `<div class="warn"><b>${esc(p.etichetta || p.stagione.etichetta)}:</b> ${esc(p.testo)}</div>`).join("");
+      return `<details open><summary>Periodi & orari</summary><table>
+        ${row("Stagione", esc(c.stagione.testo))}
+        ${row("Giorni", esc(c.giorni.testo))}
+        ${row("Orario", esc(c.fascia_oraria.testo))}
+        ${row("Alba / tramonto", `${hhmm(a)} / ${hhmm(b)} <span style="color:#94a3b8">(data selezionata)</span>`)}
+      </table>${spec}</details>`;
+    }
+
+    function secAttrezzatura(r) {
+      const a = r.attrezzatura, e = r.esche, t = r.tecniche;
+      if (!a) return "";
+      const cond = (t.condizionate || []).map(x => `<span class="chip c">${esc(V.tecniche[x.tecnica] || x.tecnica)}: solo ${esc(lbl(V.tecniche, x.solo_con).join(" / "))}</span>`).join("");
+      const past = { vietata: "<span class='chip n'>Pasturazione</span>", limitata_par_4_11: "<span class='chip c'>Consentita entro i limiti par. 4.11</span>" }[e.pasturazione] || esc(e.pasturazione);
+      return `<details open><summary>Esche & attrezzatura</summary><table>
+        ${row("Canne", a.canne_max != null ? `max ${a.canne_max}` : null)}
+        ${row("Esche per canna", a.esche_max_per_canna != null ? `max ${a.esche_max_per_canna}` : null)}
+        ${row("Ami per canna", a.ami_max_per_canna != null ? `max ${a.ami_max_per_canna}` : null)}
+        ${row("Ardiglione", `<b>${esc(V.ardiglione[a.ardiglione] || a.ardiglione)}</b>`)}
+        ${row("Spazio di sponda", a.spazio_sponda_max_m ? `max ${a.spazio_sponda_max_m} m` : null)}
+        ${row("Esche", chips(lbl(V.esche, e.consentite), "y") + chips(lbl(V.esche, e.vietate), "n"))}
+        ${row("Pasturazione", past)}
+        ${row("Tecniche", chips(lbl(V.tecniche, t.consentite), "y") + chips(lbl(V.tecniche, t.vietate), "n") + cond)}
+      </table></details>`;
+    }
+
+    function secPrelievo(r) {
+      const p = r.prelievo;
+      if (!p || p.tipo === "nessuno") return "";
+      const base = { trota_fario: 25, trota_marmorata: 40, temolo: 35, luccio: 60, persico_reale: 16, salmerino_alpino: 25 };
+      const mis = Object.entries(p.misure_minime_cm || {}).map(([k, v]) =>
+        `${esc(SPECIE[k] || k)} <b>${v} cm</b>${base[k] !== undefined && base[k] !== v ? " <span class='chip c'>locale</span>" : ""}`).join("<br>");
+      const extra = (p.specie_sempre_protette_extra || []).map(s => SPECIE[s] || s);
+      const lim = p.limiti ? `${p.limiti.salmonidi_complessivi} salmonidi/giorno · luccio ${p.limiti.per_specie.luccio} · marmorata ${p.limiti.per_specie.trota_marmorata} · max ${p.limiti.kg_giornalieri_max} kg` : null;
+      return `<details${p.rilascio_obbligatorio ? " open" : ""}><summary>Prelievo</summary><table>
+        ${row("Regime", p.rilascio_obbligatorio ? "<b style='color:#7c3aed'>No-kill: rilascio immediato di tutto il pescato</b>" : "Prelievo consentito")}
+        ${row("Sempre protette qui", extra.length ? chips(extra, "n") : null)}
+        ${p.rilascio_obbligatorio ? "" : row("Misure minime", mis)}
+        ${p.rilascio_obbligatorio ? "" : row("Limiti", esc(lim))}
+      </table></details>`;
+    }
+
+    function pacchettoHtml(pk) {
+      const docs = pk.documenti.map(d => `<div class="doc"><span>${esc(d.etichetta)}</span><b>${eur(d.costo_eur)}</b></div>`).join("");
+      const tot = pk.documenti.length ? `<div class="doc tot"><span>Totale${pk.costo_totale_eur == null ? " (voci note)" : ""}</span><b>${eur(pk.costo_totale_eur ?? pk.costo_noto_eur)}</b></div>` : "";
+      const alt = pk.alternativa_non_tesserati ? `<div class="foot">Non tesserati: ${esc(pk.alternativa_non_tesserati.map(x => x.etichetta).join(" + "))} (il tesserino non serve col permesso giornaliero).</div>` : "";
+      return `${docs}${tot}${pk.note ? `<div class="foot">${esc(pk.note)}</div>` : ""}${alt}`;
+    }
+
+    function secPermessi(r) {
+      const pm = r.permessi;
+      if (!pm) return "";
+      const pk = pm.pacchetto;
+      const flags = pk.documenti.length ? `<div style="margin:3px 0">${pk.richiede_contributo_extra ? "<span class='chip c'>Contributo FIPSAS richiesto</span>" : ""}${pk.richiede_tesserino ? "<span class='chip c'>Tesserino segnapesci</span>" : ""}${r.attrezzatura && r.attrezzatura.ardiglione === "vietato" ? "<span class='chip c'>Amo senza ardiglione</span>" : ""}</div>` : "";
+      const vars = pm.varianti.map(v => `<div style="margin-top:6px"><b>${esc(v.condizione)}:</b> ${esc(v.pacchetto.etichetta)}${pacchettoHtml(v.pacchetto)}</div>`).join("");
+      return `<details open><summary>Permessi & tesserini</summary><div><b>${esc(pk.etichetta)}</b></div>${flags}${pacchettoHtml(pk)}${vars}</details>`;
+    }
+
+    function secNote(r, p) {
+      const est = r.estensione || {};
+      const caps = p.capisaldi ? `<tr><td>Capisaldi</td><td>${esc(p.capisaldi.monte)} → ${esc(p.capisaldi.valle)}</td></tr>` : "";
+      const vinc = (r.vincoli_speciali || []).map(v => `<div class="warn">${esc(v.testo)}</div>`).join("");
+      const interp = (r.interpretazioni || []).map(i => `<div class="warn">⚠ Interpretazione — ${esc(i.nota)}</div>`).join("");
+      const ident = p.identita_incerta && r.note_corpo ? `<div class="warn">⚠ ${esc(r.note_corpo)}</div>` : "";
+      const fonti = (r.fonti || []).filter(f => f.estratto).map(f =>
+        `<div class="quote">«${esc(f.estratto)}»<span class="ref">${esc(f.riferimento)} · ${esc(f.livello)}${f.nota ? " — " + esc(f.nota) : ""}</span></div>`).join("");
+      return `<details${r.pesca_consentita ? "" : " open"}><summary>Note normative & fonti</summary>
+        <table>${row("Estensione", esc(est.descrizione || ""))}${caps}${row("Lunghezza dichiarata", est.lunghezza_dichiarata_m ? `~${est.lunghezza_dichiarata_m} m` : null)}</table>
+        ${vinc}${ident}${interp}${fonti}</details>`;
+    }
+
+    function popupHtml(p) {
+      const r = p.regole, reg = V.regimi[r.regime];
+      const misura = p.lunghezza_m ? `${(p.lunghezza_m / 1000).toFixed(2).replace(".", ",")} km (OSM)` : p.area_ha ? `${p.area_ha} ha` : "";
+      return `<div class="pp">
+        <h3>${esc(p.nome_tratto)}</h3>
+        <div class="corso">${esc(p.corpo_nome)}${r.tipo_acqua_etichetta ? " · " + esc(r.tipo_acqua_etichetta) : ""}</div>
+        <span class="badge" style="background:${reg.colore}">${esc(reg.etichetta)}</span>
+        ${p.citato_in_prontuario === false ? "<span class='badge o'>non citato nel prontuario</span>" : ""}
+        ${r.pesca_consentita ? statusHtml(r) : `<div class="big-ko">PESCA VIETATA</div>`}
+        ${secPeriodi(r)}${secAttrezzatura(r)}${secPrelievo(r)}${secPermessi(r)}${secNote(r, p)}
+        <div class="foot">${esc(p.id)} · ${misura} · zona <code>${esc(r.zona_id)}</code></div>
+      </div>`;
+    }
+
+    // ------------------------------------------------------------ layer
+    const layer = L.geoJSON(null, {
+      style: f => styleFeat(f.properties),
+      filter: f => checked("reg").includes(f.properties.regime) && (!f.properties.tipo_acqua || checked("tipo").includes(f.properties.tipo_acqua)),
+      onEachFeature: (f, lyr) => {
+        lyr.bindPopup(() => popupHtml(f.properties), { maxWidth: 380, minWidth: 320, maxHeight: 520 });
+        lyr.on("mouseover", () => lyr.setStyle({ weight: (styleFeat(f.properties).weight || 3) + 3 }));
+        lyr.on("mouseout", () => layer.resetStyle(lyr));
+      }
+    }).addTo(map);
+
+    const capLayer = L.geoJSON(CAPISALDI, {
+      pointToLayer: (f, ll) => L.circleMarker(ll, { radius: 5, color: "#fff", weight: 1.5, fillColor: f.properties.verificato ? "#22c55e" : "#64748b", fillOpacity: 0.95 }),
+      onEachFeature: (f, lyr) => {
+        const p = f.properties;
+        lyr.bindPopup(`<div class="pp"><h3>${esc(p.nome)}</h3><table>${row("Corso", esc(p.corso))}${row("Progressiva", p.progressiva_m + " m")}${row("Fonte", esc(p.fonte))}${row("Note", esc(p.note))}</table>${p.verificato ? "" : "<div class='warn'>Posizione da verificare</div>"}</div>`);
+      }
+    });
+    const todoLayer = L.geoJSON(TODO, {
+      pointToLayer: (f, ll) => L.circleMarker(ll, { radius: 7, color: "#78350f", weight: 2, fillColor: "#f59e0b", fillOpacity: 0.9 }),
+      onEachFeature: (f, lyr) => lyr.bindPopup(`<div class="pp"><h3>Da verificare: ${esc(f.properties.label)}</h3><p>${esc(f.properties.motivo)}</p></div>`)
+    });
+
+    function refresh() {
+      layer.clearLayers();
+      layer.addData(TRATTI);
+      document.getElementById("when-box").classList.toggle("active", modeEl.checked);
+      const [a, b] = sunTimes(dayOf(whenT()), ...LATLON);
+      document.getElementById("sun").textContent = `Alba ${hhmm(a)} · tramonto ${hhmm(b)} (Valganna/Valcuvia)`;
+      for (const [id, lyr] of [["show-cap", capLayer], ["show-todo", todoLayer]]) {
+        if (document.getElementById(id).checked) lyr.addTo(map); else map.removeLayer(lyr);
+      }
+    }
+    document.querySelectorAll("aside input").forEach(i => i.addEventListener("change", refresh));
+    document.getElementById("when-now").addEventListener("click", () => { setNow(); refresh(); });
+    refresh();
+    const bnds = layer.getBounds();
+    if (bnds.isValid()) map.fitBounds(bnds.pad(0.05));
+    window._margMap = map;
+    window._margValuta = valuta;
+  })();
+  </script>
+</body>
+</html>
