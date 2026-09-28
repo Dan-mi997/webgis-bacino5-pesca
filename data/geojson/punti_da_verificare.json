@@ -1,16 +1,15 @@
 {
-  "n_geometrie": 21,
+  "n_geometrie": 48,
+  "n_overlay": 4,
   "per_regime": {
-    "campo_gara": 2,
-    "ordinario_B": 11,
+    "ordinario_B": 18,
     "no_kill": 1,
-    "no_kill_e_campo_gara": 1,
-    "divieto": 4,
-    "ordinario_C_lago": 1,
-    "cispp": 1
+    "divieto": 7,
+    "ordinario_C_lago": 2,
+    "cispp": 20
   },
   "per_corpo_idrico": {
-    "margorabbia": 17037,
+    "margorabbia": 17038,
     "lago_ganna": 0,
     "lago_ghirla": 0,
     "rancina": 9044,
@@ -18,7 +17,16 @@
     "boggione": 2899,
     "rio_boesio": 4955,
     "grantorella": 4293,
-    "tresa": 1408
+    "lago_piano": 0,
+    "lago_lugano": 438,
+    "cuccio": 16113,
+    "soldo": 6147,
+    "rezzo": 7847,
+    "telo_osteno": 4341,
+    "lagadone": 2614,
+    "lirone": 9513,
+    "tresa": 13451,
+    "trallo": 3365
   },
   "anomalie_topologiche": [],
   "punti_da_verificare": [],

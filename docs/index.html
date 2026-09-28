@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Reticolo Margorabbia — mappa regolamentare FIPSAS</title>
+  <title>Bacino 5 — Margorabbia e Ceresio</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     :root {
@@ -72,7 +72,7 @@
 <body>
   <div id="app">
     <aside>
-      <h1>Reticolo Margorabbia</h1>
+      <h1>Bacino 5</h1>
       <p class="sub" id="subtitle"></p>
 
       <h2>Posso pescare?</h2>
@@ -90,11 +90,17 @@
         </div>
       </div>
 
-      <h2>Regimi (concessione FIPSAS)</h2>
+      <h2>Regime sul tratto</h2>
       <div class="filters" id="f-reg"></div>
 
       <h2>Tipo di acqua</h2>
       <div class="filters" id="f-tipo"></div>
+
+      <h2>Layer sovrapposti</h2>
+      <div class="filters" id="f-ov"></div>
+      <div class="filters">
+        <label title="Non cambia la geometria: fonde le deroghe da campo gara solo dove il layer è acceso"><input type="checkbox" id="gara-attiva" /> Gara autorizzata in corso</label>
+      </div>
 
       <h2>Riferimenti</h2>
       <div class="filters">
@@ -105,9 +111,12 @@
       <p class="legend-note">
         Tutte le acque del reticolo sono in concessione FIPSAS / ATS Prealpi (Bacino 5): non esistono tratti a
         «pesca libera» con la sola licenza. Clicca un tratto per calendario, attrezzatura, permessi e citazioni testuali.<br />
-        A Mesenzana il No-Kill e il campo gara si sovrappongono (Carrefour → briglia Passeri): in giornata vale il No-Kill.<br />
+        I campi gara e la deroga invernale non spezzano il torrente: sono il layer tratteggiato sopra il regime del tratto.
+        A Mesenzana il No-Kill resta intero; il campo gara ci passa sopra e vale solo con «Gara autorizzata».<br />
         Il Lisascora è in divieto nel prontuario ma non è in mappa (corso non identificato / troppo piccolo).<br />
-        Dati: OpenStreetMap · Regole: <code>data/normativa/margorabbia_regole.json</code>.
+        Il Ceresio è solo la parte italiana. Le linee sono sponde; i poligoni sono l’interno dello specchio, con la scheda da natante nel popup.
+        La sponda svizzera non c’è. I campi gara non sono disegnati. Il divieto alla foce del Cuccio non ha ancora il raggio, e la foce del Tresa nel Verbano si chiude col Lago Maggiore.<br />
+        Dati: OpenStreetMap · Regole: <code>struttura_dati_regole.json</code> (matrice) + dizionari del prontuario.
       </p>
     </aside>
     <div id="map"></div>
@@ -118,7 +127,8 @@
   <script>
   (function () {
     const TRATTI = window.MARGORABBIA_TRATTI, CAPISALDI = window.MARGORABBIA_CAPISALDI,
-          TODO = window.MARGORABBIA_TODO, R = window.MARGORABBIA_REGOLE;
+          TODO = window.MARGORABBIA_TODO, R = window.MARGORABBIA_REGOLE,
+          OVERLAY = window.MARGORABBIA_OVERLAY || { features: [] };
     if (!TRATTI || !R) {
       document.getElementById("map").innerHTML = "<p style='padding:2rem'>Manca <code>geo_data.js</code>. Esegui <code>py -3 scripts/build_geo_data.py</code>.</p>";
       return;
@@ -180,6 +190,15 @@
       const y = ymd(t)[0], a = bound(st.inizio, y), b = bound(st.fine, y);
       return a <= b ? (t >= a && t <= b) : (t >= a || t <= b);
     }
+    function overlayAttivo(x) {
+      const a = (x && x.attivazione) || {};
+      if (a.modo === "calendario") {
+        const st = TD.stagioni[a.stagione_ref];
+        return !!(st && inStagione(st, whenT()) === true);
+      }
+      if (a.modo === "toggle") return !!(document.getElementById("gara-attiva") && document.getElementById("gara-attiva").checked);
+      return false;
+    }
     function valuta(r, t) {
       const res = { ok: true, motivi: [], vincoli: [] };
       const no = m => { res.ok = false; res.motivi.push(m); };
@@ -233,6 +252,13 @@
     Object.entries(V.tipi_acqua).filter(([k]) => tipoCount[k]).forEach(([k, v]) => {
       fTipo.insertAdjacentHTML("beforeend", `<label title="${esc(v.descrizione)}"><input type="checkbox" data-f="tipo" value="${k}" checked />${esc(v.etichetta)}<span class="count">${tipoCount[k]}</span></label>`);
     });
+    const ovSeen = new Map();
+    OVERLAY.features.forEach(f => { if (!ovSeen.has(f.properties.overlay_id)) ovSeen.set(f.properties.overlay_id, f.properties); });
+    const fOv = document.getElementById("f-ov");
+    ovSeen.forEach((p, id) => {
+      const color = p.tipo_overlay === "campo_gara" ? "#ca8a04" : "#0284c7";
+      fOv.insertAdjacentHTML("beforeend", `<label title="${esc(p.sintesi || "")}"><input type="checkbox" data-f="ov" value="${id}" checked /><span class="swatch" style="background:repeating-linear-gradient(90deg,${color} 0 6px,transparent 6px 10px)"></span>${esc(p.nome_tratto)}</label>`);
+    });
     const checked = f => [...document.querySelectorAll(`[data-f="${f}"]:checked`)].map(i => i.value);
 
     function styleFeat(p) {
@@ -254,8 +280,11 @@
     const row = (k, v) => v === undefined || v === null || v === "" ? "" : `<tr><td>${esc(k)}</td><td>${v}</td></tr>`;
     const SPECIE = { trota_fario: "Trota fario", trota_marmorata: "Trota marmorata", temolo: "Temolo", luccio: "Luccio", persico_reale: "Persico reale", salmerino_alpino: "Salmerino alpino" };
 
-    function statusHtml(r) {
+    function statusHtml(r, p) {
       const t = whenT(), v = valuta(r, t);
+      (p && p.overlay_coperti || []).forEach(o => {
+        if (o.copertura === "totale" && overlayAttivo(o)) (o.vincoli || []).forEach(x => v.vincoli.push(x));
+      });
       const when = new Date(t).toISOString().slice(0, 16).replace("T", " ");
       const cls = v.ok === true ? "ok" : v.ok === false ? "ko" : "unk";
       const head = v.ok === true ? "✓ Pesca consentita" : v.ok === false ? "✗ Pesca non consentita" : "? Da verificare";
@@ -328,34 +357,55 @@
     function secNote(r, p) {
       const est = r.estensione || {};
       const caps = p.capisaldi ? `<tr><td>Capisaldi</td><td>${esc(p.capisaldi.monte)} → ${esc(p.capisaldi.valle)}</td></tr>` : "";
+      const sponda = p.bank === "left" ? "sinistra, verso valle" : p.bank === "right" ? "destra, verso valle" : p.bank === "both" ? "entrambe" : "";
+      const spazio = p.spazio === "interno" ? "interno dello specchio" : p.spazio === "sponda" ? "sponda" : "";
       const vinc = (r.vincoli_speciali || []).map(v => `<div class="warn">${esc(v.testo)}</div>`).join("");
       const interp = (r.interpretazioni || []).map(i => `<div class="warn">⚠ Interpretazione — ${esc(i.nota)}</div>`).join("");
       const ident = p.identita_incerta && r.note_corpo ? `<div class="warn">⚠ ${esc(r.note_corpo)}</div>` : "";
       const fonti = (r.fonti || []).filter(f => f.estratto).map(f =>
         `<div class="quote">«${esc(f.estratto)}»<span class="ref">${esc(f.riferimento)} · ${esc(f.livello)}${f.nota ? " — " + esc(f.nota) : ""}</span></div>`).join("");
       return `<details${r.pesca_consentita ? "" : " open"}><summary>Note normative & fonti</summary>
-        <table>${row("Estensione", esc(est.descrizione || ""))}${caps}${row("Lunghezza dichiarata", est.lunghezza_dichiarata_m ? `~${est.lunghezza_dichiarata_m} m` : null)}</table>
+        <table>${row("Estensione", esc(est.descrizione || ""))}${caps}${row("Sponda", esc(sponda))}${row("Dove", esc(spazio))}${row("Lunghezza dichiarata", est.lunghezza_dichiarata_m ? `~${est.lunghezza_dichiarata_m} m` : null)}</table>
         ${vinc}${ident}${interp}${fonti}</details>`;
+    }
+
+    function secNatante(p) {
+      const n = p.regole_natante;
+      if (!n || !n.pesca_consentita) return "";
+      const pk = n.permessi && n.permessi.pacchetto;
+      const cond = ((n.tecniche && n.tecniche.condizionate) || []).map(x => esc(x.testo)).join("<br>");
+      return `<details><summary>Da natante</summary><table>
+        ${row("Permesso", pk ? esc(pk.etichetta) : null)}
+        ${row("Regole", cond || "Stesse tecniche della sponda, sullo specchio.")}
+      </table>${pk ? pacchettoHtml(pk) : ""}</details>`;
     }
 
     function popupHtml(p) {
       const r = p.regole, reg = V.regimi[r.regime];
       const misura = p.lunghezza_m ? `${(p.lunghezza_m / 1000).toFixed(2).replace(".", ",")} km (OSM)` : p.area_ha ? `${p.area_ha} ha` : "";
+      const m = p.matrice;
+      const linea = (p.geometria || "").includes("Line");
+      const assi = m ? `${esc(m.regime_amministrativo_etichetta)} + ${esc(m.classificazione_etichetta)} · ${linea ? "linea (da sponda)" : "poligono (sponda e natante)"}` : "";
+      const banner = p.layer === "overlay" ? `<div class="warn"><b>${overlayAttivo(p) ? "Deroga attiva" : "Deroga non attiva"}.</b> ${esc(p.sintesi || "")}</div>` : "";
+      const sopra = (p.overlay_coperti || []).map(o => `<div class="warn"><b>${esc(o.nome)}</b> — ${o.copertura === "totale" ? "copre tutto il tratto" : "copre solo una parte, è un layer a sé"}. ${esc(o.sintesi || "")}</div>`).join("");
+      const cascata = (m && m.eredita || []).map(s => `${s.asse}:${s.id}`).join(" → ");
       return `<div class="pp">
         <h3>${esc(p.nome_tratto)}</h3>
         <div class="corso">${esc(p.corpo_nome)}${r.tipo_acqua_etichetta ? " · " + esc(r.tipo_acqua_etichetta) : ""}</div>
+        ${assi ? `<div class="corso">${assi}</div>` : ""}
         <span class="badge" style="background:${reg.colore}">${esc(reg.etichetta)}</span>
         ${p.citato_in_prontuario === false ? "<span class='badge o'>non citato nel prontuario</span>" : ""}
-        ${r.pesca_consentita ? statusHtml(r) : `<div class="big-ko">PESCA VIETATA</div>`}
-        ${secPeriodi(r)}${secAttrezzatura(r)}${secPrelievo(r)}${secPermessi(r)}${secNote(r, p)}
-        <div class="foot">${esc(p.id)} · ${misura} · zona <code>${esc(r.zona_id)}</code></div>
+        ${banner}${sopra}
+        ${r.pesca_consentita ? statusHtml(r, p) : `<div class="big-ko">PESCA VIETATA</div>`}
+        ${secPeriodi(r)}${secAttrezzatura(r)}${secPrelievo(r)}${secPermessi(r)}${secNatante(p)}${secNote(r, p)}
+        <div class="foot">${esc(p.id)} · ${misura}${cascata ? " · " + esc(cascata) : ""}</div>
       </div>`;
     }
 
     // ------------------------------------------------------------ layer
     const layer = L.geoJSON(null, {
       style: f => styleFeat(f.properties),
-      filter: f => checked("reg").includes(f.properties.regime) && (!f.properties.tipo_acqua || checked("tipo").includes(f.properties.tipo_acqua)),
+      filter: f => checked("reg").includes(f.properties.regime) && (!f.properties.tipo_acqua || checked("tipo").includes(f.properties.tipo_acqua) || !document.querySelector(`[data-f="tipo"][value="${f.properties.tipo_acqua}"]`)),
       onEachFeature: (f, lyr) => {
         lyr.bindPopup(() => popupHtml(f.properties), { maxWidth: 380, minWidth: 320, maxHeight: 520 });
         lyr.on("mouseover", () => lyr.setStyle({ weight: (styleFeat(f.properties).weight || 3) + 3 }));
@@ -363,11 +413,33 @@
       }
     }).addTo(map);
 
+    function styleOv(p) {
+      let color = p.tipo_overlay === "campo_gara" ? "#ca8a04" : "#0284c7";
+      if (modeEl.checked && overlayAttivo(p)) {
+        const ok = valuta(p.regole_se_attivo, whenT()).ok;
+        color = ok === true ? "#16a34a" : ok === false ? "#dc2626" : "#64748b";
+      }
+      return { color, weight: 9, opacity: 0.95, dashArray: "7 9", lineCap: "butt" };
+    }
+    const ovLayer = L.geoJSON(null, {
+      style: f => styleOv(f.properties),
+      filter: f => checked("ov").includes(f.properties.overlay_id) && checked("reg").includes(f.properties.regime) && (!f.properties.tipo_acqua || checked("tipo").includes(f.properties.tipo_acqua) || !document.querySelector(`[data-f="tipo"][value="${f.properties.tipo_acqua}"]`)),
+      onEachFeature: (f, lyr) => {
+        lyr.bindPopup(() => {
+          const p = f.properties;
+          const view = Object.assign({}, p, { regole: overlayAttivo(p) ? p.regole_se_attivo : p.regole, overlay_coperti: [] });
+          return popupHtml(view);
+        }, { maxWidth: 380, minWidth: 320, maxHeight: 520 });
+        lyr.on("mouseover", () => lyr.setStyle({ weight: 12 }));
+        lyr.on("mouseout", () => ovLayer.resetStyle(lyr));
+      }
+    }).addTo(map);
+
     const capLayer = L.geoJSON(CAPISALDI, {
       pointToLayer: (f, ll) => L.circleMarker(ll, { radius: 5, color: "#fff", weight: 1.5, fillColor: f.properties.verificato ? "#22c55e" : "#64748b", fillOpacity: 0.95 }),
       onEachFeature: (f, lyr) => {
         const p = f.properties;
-        lyr.bindPopup(`<div class="pp"><h3>${esc(p.nome)}</h3><table>${row("Corso", esc(p.corso))}${row("Progressiva", p.progressiva_m + " m")}${row("Fonte", esc(p.fonte))}${row("Note", esc(p.note))}</table>${p.verificato ? "" : "<div class='warn'>Posizione da verificare</div>"}</div>`);
+        lyr.bindPopup(`<div class="pp"><h3>${esc(p.nome)}</h3><table>${row("Corso", esc(p.corso))}${row("Progressiva", p.progressiva_m == null ? null : p.progressiva_m + " m")}${row("Fonte", esc(p.fonte))}${row("Note", esc(p.note))}</table>${p.verificato ? "" : "<div class='warn'>Posizione da verificare</div>"}</div>`);
       }
     });
     const todoLayer = L.geoJSON(TODO, {
@@ -378,6 +450,8 @@
     function refresh() {
       layer.clearLayers();
       layer.addData(TRATTI);
+      ovLayer.clearLayers();
+      ovLayer.addData(OVERLAY);
       document.getElementById("when-box").classList.toggle("active", modeEl.checked);
       const [a, b] = sunTimes(dayOf(whenT()), ...LATLON);
       document.getElementById("sun").textContent = `Alba ${hhmm(a)} · tramonto ${hhmm(b)} (Valganna/Valcuvia)`;

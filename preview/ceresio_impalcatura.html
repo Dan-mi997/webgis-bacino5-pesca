@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ceresio — impalcatura da confermare</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    :root { --bg: #0f1419; --panel: #18202a; --line: #2a3848; --text: #e8eef4; --muted: #93a4b8; --accent: #3d9cf0; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); }
+    #app { display: grid; grid-template-columns: 360px 1fr; height: 100%; }
+    aside { background: var(--panel); border-right: 1px solid var(--line); overflow: auto; padding: 16px 14px 28px; }
+    h1 { font-size: 1.12rem; margin: 0 0 4px; }
+    .banner { background: #3f2a12; color: #fde68a; border-radius: 8px; padding: 8px 10px; font-size: 0.8rem; line-height: 1.4; margin: 8px 0 12px; }
+    .sub, .legend-note, .pin-btn small { color: var(--muted); }
+    .sub { font-size: 0.8rem; line-height: 1.4; margin: 0 0 8px; }
+    aside h2 { font-size: 0.72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 16px 0 8px; }
+    label { display: flex; gap: 8px; align-items: center; font-size: 0.86rem; padding: 3px 0; cursor: pointer; }
+    .swatch { width: 22px; height: 6px; border-radius: 2px; flex-shrink: 0; }
+    .swatch.pt { width: 10px; height: 10px; border-radius: 50%; height: 10px; }
+    button.pin-btn { display: block; width: 100%; text-align: left; background: #111821; color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 7px 8px; margin: 0 0 6px; cursor: pointer; font: inherit; }
+    button.pin-btn:hover { border-color: var(--accent); }
+    button.pin-btn b { display: block; font-size: 0.84rem; }
+    .legend-note { font-size: 0.75rem; line-height: 1.45; }
+    #map { height: 100%; }
+    .leaflet-popup-content { margin: 12px 14px; font-size: 0.82rem; line-height: 1.4; color: #1e293b; }
+    .leaflet-popup-content h3 { margin: 0 0 4px; font-size: 1rem; }
+    .badge { display: inline-block; font-size: 0.7rem; font-weight: 650; padding: 2px 7px; border-radius: 999px; background: #ffedd5; color: #9a3412; }
+    @media (max-width: 800px) {
+      #app { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+      aside { max-height: 42vh; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <aside>
+      <h1>Ceresio, impalcatura</h1>
+      <p class="sub">Punti confermati il 28 settembre 2026. Il ponte di via Bagattini è quello corretto. Non è la mappa pubblicata.</p>
+      <div class="banner">Confermato, salvo la foce del Tresa nel Lago Maggiore (si fa col Verbano) e il raggio del Cuccio, che non è misurato. La sponda svizzera del Tresa è esclusa. I campi gara non ci sono. In viola il Canale Lagadone, completato per intero.</div>
+      <h2>Layer</h2>
+      <div id="layers"></div>
+      <h2>Punti</h2>
+      <div id="pins"></div>
+      <h2>Ancora aperti</h2>
+      <div class="legend-note" id="aperti"></div>
+    </aside>
+    <div id="map"></div>
+  </div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="ceresio_impalcatura.js"></script>
+  <script>
+  (function () {
+    const DATA = window.CERESIO_IMPALCATURA;
+    if (!DATA) {
+      document.getElementById("map").innerHTML = "<p style='padding:2rem'>Manca ceresio_impalcatura.js. Esegui py -3 scripts/build_ceresio_impalcatura.py</p>";
+      return;
+    }
+    const STYLE = {
+      lago: { color: "#38bdf8", weight: 1, fillColor: "#0ea5e9", fillOpacity: 0.28 },
+      fiume: { color: "#0369a1", weight: 3, opacity: 0.9 },
+      tributario: { color: "#64748b", weight: 2 },
+      restrizione_precedente: { color: "#f59e0b", weight: 1, fillColor: "#f59e0b", fillOpacity: 0.25, dashArray: "4 4" },
+      notturna: { color: "#7c3aed", weight: 5, opacity: 0.85 },
+      divieto_sud: { color: "#dc2626", weight: 6, opacity: 0.95 },
+      bottatrice: { color: "#ea580c", weight: 4, dashArray: "7 6", opacity: 0.9 },
+      divieto_trallo: { color: "#dc2626", weight: 4, dashArray: "2 6" },
+      stretto: { color: "#c026d3", weight: 4, dashArray: "8 6" },
+      aggancio: { color: "#64748b", weight: 2, dashArray: "2 4" },
+      telo: { color: "#0f766e", weight: 3 },
+      canale: { color: "#7c3aed", weight: 3 },
+      ponte: { color: "#ca8a04", weight: 2, fillColor: "#facc15", fillOpacity: 0.55 },
+      pin: { radius: 7, color: "#fff", weight: 2, fillColor: "#f59e0b", fillOpacity: 1 },
+      candidato: { radius: 7, color: "#fff", weight: 2, fillColor: "#94a3b8", fillOpacity: 1 }
+    };
+    const LABELS = {
+      acque: ["Acque italiane già clippate", "lago"],
+      impalcatura: ["Tratti confermati", "notturna"],
+      candidati: ["Candidati non confermati", "candidato"]
+    };
+    const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const map = L.map("map").setView([45.98, 8.95], 11);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap",
+      maxZoom: 19
+    }).addTo(map);
+
+    const groups = {};
+    function popup(p) {
+      const bits = [
+        `<h3>${esc(p.nome || p.id)}</h3>`,
+        `<span class="badge">${esc(p.stato || "")}</span>`
+      ];
+      if (p.lunghezza_m) bits.push(`<div>${p.lunghezza_m} m</div>`);
+      if (p.precisione) bits.push(`<div>Precisione: ${esc(p.precisione)}</div>`);
+      if (p.bank) bits.push(`<div>Sponda: ${esc(p.bank)}</div>`);
+      if (p.raggio_m) bits.push(`<div>Raggio ${p.raggio_m} m</div>`);
+      if (p.note) bits.push(`<div>${esc(p.note)}</div>`);
+      return bits.join("");
+    }
+    function add(f) {
+      const p = f.properties || {};
+      const layerName = p.layer || "acque";
+      if (!groups[layerName]) groups[layerName] = L.layerGroup().addTo(map);
+      const style = STYLE[p.kind] || STYLE.tributario;
+      const gj = L.geoJSON(f, {
+        style: () => style,
+      pointToLayer: (feat, latlng) => {
+        const base = STYLE[feat.properties.kind] || STYLE.pin;
+        const fill = feat.properties.stato === "confermato" ? "#16a34a" : base.fillColor;
+        return L.circleMarker(latlng, Object.assign({}, base, { fillColor: fill }));
+      },
+        onEachFeature: (feat, layer) => layer.bindPopup(popup(feat.properties))
+      });
+      gj.addTo(groups[layerName]);
+      if (p.raggio_m && f.geometry && f.geometry.type === "Point") {
+        const [lon, lat] = f.geometry.coordinates;
+        L.circle([lat, lon], {
+          radius: p.raggio_m,
+          color: "#ea580c",
+          weight: 2,
+          fillColor: "#fb923c",
+          fillOpacity: 0.25
+        }).bindPopup(popup(p)).addTo(groups[layerName]);
+      }
+      return gj;
+    }
+    const index = [];
+    DATA.features.forEach(f => {
+      const layer = add(f);
+      if (f.geometry && (f.geometry.type === "Point" || f.properties.kind === "ponte" || f.properties.kind === "stretto")) {
+        index.push({ props: f.properties, layer, feature: f });
+      }
+    });
+
+    const layersBox = document.getElementById("layers");
+    Object.keys(groups).forEach(name => {
+      const label = document.createElement("label");
+      const sw = LABELS[name] ? LABELS[name][1] : "tributario";
+      const title = LABELS[name] ? LABELS[name][0] : name;
+      label.innerHTML = `<input type="checkbox" checked /> <span class="swatch ${sw === "candidato" || sw === "pin" ? "pt" : ""}" style="background:${(STYLE[sw].fillColor || STYLE[sw].color)}"></span> ${esc(title)}`;
+      label.querySelector("input").addEventListener("change", e => {
+        if (e.target.checked) groups[name].addTo(map);
+        else map.removeLayer(groups[name]);
+      });
+      layersBox.appendChild(label);
+    });
+
+    const pins = document.getElementById("pins");
+    index.filter(x => x.feature.geometry.type === "Point" || x.props.kind === "ponte").forEach(item => {
+      const b = document.createElement("button");
+      b.className = "pin-btn";
+      b.innerHTML = `<b>${esc(item.props.nome || item.props.id)}</b><small>${esc(item.props.precisione || item.props.stato || "")}</small>`;
+      b.addEventListener("click", () => {
+        const bounds = item.layer.getBounds ? item.layer.getBounds() : null;
+        if (bounds && bounds.isValid()) map.fitBounds(bounds.pad(0.6));
+        const center = item.feature.geometry.type === "Point"
+          ? [item.feature.geometry.coordinates[1], item.feature.geometry.coordinates[0]]
+          : null;
+        if (center) map.setView(center, 17);
+        item.layer.eachLayer ? item.layer.eachLayer(l => l.openPopup && l.getLatLng && l.openPopup()) : null;
+      });
+      pins.appendChild(b);
+    });
+
+    const aperti = (DATA.meta && DATA.meta.aperti) || [];
+    const misure = (DATA.meta && DATA.meta.misure) || {};
+    const righe = aperti.map(t => `<div>• ${esc(t)}</div>`).join("");
+    const numeri = Object.entries(misure).map(([k, v]) => `<div>${esc(k)}: ${esc(v)}</div>`).join("");
+    document.getElementById("aperti").innerHTML = righe + (numeri ? `<div style="margin-top:8px">${numeri}</div>` : "");
+
+    const bounds = L.latLngBounds([]);
+    DATA.features.forEach(f => {
+      try {
+        const b = L.geoJSON(f).getBounds();
+        if (b.isValid()) bounds.extend(b);
+      } catch (err) { /* geometria senza bounds */ }
+    });
+    if (bounds.isValid()) map.fitBounds(bounds.pad(0.05));
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+{
+  "descrizione": "Capisaldi del Ceresio confermati il 2026-09-28. Il ponte di via Bagattini ha le coordinate corrette.",
+  "aggiornato": "2026-09-28",
+  "decisioni": {
+    "campi_gara": "Fuori perimetro, da questa data in poi. Non si cartografano e non si cercano i capisaldi.",
+    "tresa_sponda_svizzera": "Esclusa. Si tiene solo la sponda italiana.",
+    "foce_tresa_verbano": "È la foce nel Lago Maggiore. Si affronta con il Verbano, non su questa mappa."
+  },
+  "punti": {
+    "ponte_dogana": {
+      "nome": "Ponte della Dogana",
+      "osm_type": "way",
+      "osm_id": 385985142,
+      "precisione": "confermato",
+      "note": "Poligono OSM indicato dall'utente. Il punto sull'asta è l'intersezione con il Tresa, oppure la proiezione del poligono."
+    },
+    "chiusa_regolazione": {
+      "nome": "Chiusa di regolazione delle acque",
+      "lat": 45.96946456942645,
+      "lon": 8.855186974289014,
+      "precisione": "confermato",
+      "note": "Punto indicato dall'utente a Lavena Ponte Tresa."
+    },
+    "ponte_biviglione": {
+      "nome": "Ponte di ferro, Biviglione",
+      "lat": 45.98974570231629,
+      "lon": 8.784369706102224,
+      "precisione": "confermato",
+      "note": "Punto indicato dall'utente."
+    },
+    "vecchia_filanda": {
+      "nome": "Estremo dello stretto (Vecchia Filanda)",
+      "lat": 45.95998091846375,
+      "lon": 8.869922935204908,
+      "precisione": "confermato",
+      "note": "Non è lo stabile. Il testo parla dello stretto: questo punto è un estremo approssimato, nell'ordine indicato insieme al Grotto del Bagat."
+    },
+    "grotto_bagat": {
+      "nome": "Estremo dello stretto (Grotto del Bagat)",
+      "lat": 45.95874951248393,
+      "lon": 8.874729172117618,
+      "precisione": "confermato",
+      "note": "Non è il grotto. Secondo estremo approssimato dello stretto di Lavena."
+    },
+    "ponte_bigattini": {
+      "nome": "Ponte di via Bagattini",
+      "lat": 45.944796414430094,
+      "lon": 8.886358894323099,
+      "precisione": "confermato",
+      "note": "Confermato il 2026-09-28, coordinate corrette rispetto al primo click. L'utente scrive Bagattini; il prontuario scrive Bigattini."
+    },
+    "foce_rezzo": {
+      "nome": "Foce del Rezzo",
+      "lat": 46.03295157729113,
+      "lon": 9.120904058816382,
+      "precisione": "confermato",
+      "raggio_m": 50,
+      "note": "Posizione approssimata indicata dall'utente. Il raggio di 50 m è disegnato sull'impalcatura."
+    },
+    "foce_telo": {
+      "nome": "Foce del Telo di Osteno",
+      "lat": 46.00907168549124,
+      "lon": 9.084980490938772,
+      "precisione": "confermato",
+      "raggio_m": 50,
+      "osm_id": 848395586,
+      "osm_type": "way",
+      "note": "Confermata il 2026-09-28 sulla foce del Lirone: a quel punto il Telo sbocca come Lirone. Il cerchio da 50 m sta sullo specchio."
+    },
+    "diga_creva": {
+      "nome": "Diga di Creva",
+      "lat": 45.991474,
+      "lon": 8.766723,
+      "precisione": "confermato",
+      "note": "Confermato il punto Nominatim già sulla mappa."
+    }
+  },
+  "tratti": {
+    "tresa_divieto_lavena": {
+      "da": "chiusa_regolazione",
+      "verso": "ponte_dogana",
+      "frazione": 0.5,
+      "bank": "sud",
+      "note": "Piazza Europa e Piazza Mercato, insieme, sono circa il 50% del tratto che parte dalla chiusa di regolazione e va verso il Ponte della Dogana, in sponda sud.",
+      "confermato": true
+    }
+  }
+}

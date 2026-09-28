@@ -38,6 +38,11 @@
         "etichetta": "Tipo C (ciprinicole)",
         "descrizione": "Laghi minori e corsi d'acqua popolati prevalentemente da ciprinidi.",
         "fonte": { "livello": "testuale", "riferimento": "par. 4.10", "estratto": "laghi minori e corsi d’acqua popolati prevalentemente da ciprinidi — Lago di Ghirla, lago di Ganna, lago Delio, lago di Brinzio, …" }
+      },
+      "fuori_cap4": {
+        "etichetta": "Fuori dal cap. 4 (CISPP)",
+        "descrizione": "Ceresio e Tresa: non sono negli elenchi A, B o C. Il regolamento operativo è la convenzione italo-svizzera.",
+        "fonte": { "livello": "testuale", "riferimento": "par. 4.10", "estratto": "Nel Verbano, nel Ceresio e nel fiume Tresa, la pesca è regolamentata in modo differente" }
       }
     },
     "regimi": {
@@ -180,6 +185,13 @@
         "festivi_aggiuntivi": [],
         "testo": "Tutti i giorni: l'asta del Margorabbia rientra tra gli «Affluenti del fiume Tresa»",
         "fonte": { "livello": "interpretazione", "riferimento": "Elenco corpi idrici con pesca tutti i giorni", "estratto": "la pesca è consentita tutti i giorni della settimana […] Affluenti del fiume Tresa", "nota": "Il Margorabbia è affluente diretto del Tresa. Il prontuario non scrive «e affluenti» dopo Tresa: la deroga NON si estende agli affluenti del Margorabbia." }
+      },
+      "tutti_i_giorni_deroga_ceresio_va": {
+        "etichetta": "Tutti i giorni (affluenti del Ceresio sulla sponda Porto Ceresio–Lavena)",
+        "settimana": ["lun", "mar", "mer", "gio", "ven", "sab", "dom"],
+        "festivi_aggiuntivi": [],
+        "testo": "Tutti i giorni: il torrente sbocca nel Ceresio nel tratto di sponda tra Porto Ceresio e Lavena Ponte Tresa.",
+        "fonte": { "livello": "testuale", "riferimento": "par. 4.11 — giorni tipo B", "estratto": "Affluenti del Ceresio, nel tratto di sponda compreso tra gli abitati di Porto Ceresio e Lavena Ponte Tresa", "nota": "Riguarda i tributari che sboccano su quella sponda (Trallo). Non i tributari comaschi (Cuccio, Rezzo, Soldo, Telo)." }
       }
     }
   },
@@ -210,6 +222,15 @@
       "ambito": ["acque di tipo B", "pesca da imbarcazione / belly boat", "acque evidenziate in azzurro"],
       "esenzioni": ["Nati dopo il 01.01.2008", "Disabili L. 104/1992 art. 3 c. 3"],
       "fonte": { "livello": "testuale", "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI", "estratto": "Contributo di gestione annuale a FIPSAS Varese (€ 30,00) — per la pesca da imbarcazione e nelle acque di tipo B" }
+    },
+    "contributo_gestione_co": {
+      "etichetta": "Contributo di gestione annuale FIPSAS (Como / Lecco)",
+      "costo_eur": 30.0,
+      "ente": "FIPSAS (province di Como e Lecco)",
+      "validita": "anno solare",
+      "ambito": ["pesca da barca nel Ceresio in sponda CO/LC, incluso Campione d'Italia"],
+      "esenzioni": [],
+      "fonte": { "livello": "testuale", "riferimento": "Scheda laghi Como, Lecco e Ceresio", "estratto": "Da barca: Contributo di Gestione annuale a FIPSAS (30 €). Da riva il contributo non è richiesto." }
     },
     "contributo_gestione_ridotto": {
       "etichetta": "Contributo di gestione RIDOTTO FIPSAS Varese",
@@ -271,6 +292,38 @@
       "richiede_contributo_extra": null,
       "richiede_tesserino": true,
       "note": "Il prontuario non riporta una scheda permessi dedicata al Tresa: verificare con il concessionario."
+    },
+    "fipsas_ceresio_riva_va": {
+      "etichetta": "Ceresio da riva — provincia di Varese",
+      "documenti": ["licenza_B", "tessera_fipsas", "contributo_gestione_ridotto", "tesserino_segnapesci"],
+      "alternativa_non_tesserati": ["licenza_B", "permesso_giornaliero"],
+      "richiede_contributo_extra": true,
+      "richiede_tesserino": true,
+      "note": "Contributo ridotto € 15. Chi ha già il contributo annuale € 30 non deve il ridotto."
+    },
+    "fipsas_ceresio_barca_va": {
+      "etichetta": "Ceresio da barca — provincia di Varese",
+      "documenti": ["licenza_B", "tessera_fipsas", "contributo_gestione_annuale", "tesserino_segnapesci"],
+      "alternativa_non_tesserati": null,
+      "richiede_contributo_extra": true,
+      "richiede_tesserino": true,
+      "note": "Contributo annuale FIPSAS Varese € 30."
+    },
+    "fipsas_ceresio_riva_co": {
+      "etichetta": "Ceresio da riva — Como, Lecco, Campione d'Italia",
+      "documenti": ["licenza_B", "tessera_fipsas", "tesserino_segnapesci"],
+      "alternativa_non_tesserati": ["licenza_B", "permesso_giornaliero"],
+      "richiede_contributo_extra": false,
+      "richiede_tesserino": true,
+      "note": "La scheda CO/LC da riva non chiede il contributo di gestione."
+    },
+    "fipsas_ceresio_barca_co": {
+      "etichetta": "Ceresio da barca — Como, Lecco, Campione d'Italia",
+      "documenti": ["licenza_B", "tessera_fipsas", "contributo_gestione_co", "tesserino_segnapesci"],
+      "alternativa_non_tesserati": null,
+      "richiede_contributo_extra": true,
+      "richiede_tesserino": true,
+      "note": "Contributo annuale FIPSAS € 30, distinto da quello di FIPSAS Varese."
     },
     "nessuno": {
       "etichetta": "Nessun permesso abilita la pesca",
@@ -461,6 +514,71 @@
       ],
       "interpretazioni": [
         { "campo": "tecniche.vietate.guado", "nota": "«solo da riva» è stato tradotto come divieto di guado." }
+      ]
+    },
+    "cispp_lago": {
+      "regime": "cispp",
+      "tipo_acqua": null,
+      "pesca_consentita": true,
+      "calendario": {
+        "stagione_ref": "rinvio_cispp",
+        "giorni_ref": "tutti_i_giorni",
+        "fascia_oraria_ref": "rinvio_cispp",
+        "periodi_speciali": []
+      },
+      "attrezzatura": {
+        "attrezzi_ammessi": ["canna"],
+        "canne_max": 2,
+        "esche_max_per_canna": null,
+        "esche_max_per_pescatore": 10,
+        "ami_max_per_canna": null,
+        "ardiglione": "ammesso",
+        "spazio_sponda_max_m": null
+      },
+      "esche": {
+        "consentite": ["naturale", "artificiale"],
+        "vietate": ["pesce_vivo_fuori_comunita"],
+        "pasturazione": "secondo_cispp"
+      },
+      "tecniche": {
+        "consentite": ["canna_da_riva", "imbarcazione"],
+        "vietate": ["pesca_a_strappo"],
+        "condizionate": []
+      },
+      "prelievo": {
+        "tipo": "ordinario",
+        "rilascio_obbligatorio": false,
+        "capi_trattenibili": "secondo Regolamento CISPP",
+        "misure_minime_override_cm": {
+          "agone": 20,
+          "carpa": 30,
+          "coregone_bondella": 25,
+          "coregone_lavarello": 30,
+          "luccio": 45,
+          "lucioperca": 40,
+          "persico_reale": 18,
+          "persico_trota": 20,
+          "salmerino_alpino": 25,
+          "tinca": 30,
+          "trota": 40
+        },
+        "specie_sempre_protette_extra": ["alborella", "temolo", "anguilla", "storioni_autoctoni", "pigo", "savetta"],
+        "limiti_ref": null
+      },
+      "permessi": {
+        "pacchetto_ref": null,
+        "etichetta": "Permesso territoriale del Ceresio",
+        "nota": "Quattro pacchetti in variante (riva/barca, Varese oppure Como-Lecco). Nessuno è il default unico del poligono."
+      },
+      "vincoli_speciali": [
+        { "id": "esca_viva_comunita", "testo": "Il pesce vivo da esca deve appartenere alla comunità ittica dei laghi Maggiore e di Lugano.", "livello": "testuale" },
+        { "id": "live_sonar", "testo": "Dalla barca è vietato l'ecoscandaglio che mostra in tempo reale la posizione dei pesci (live sonar).", "livello": "testuale" }
+      ],
+      "fonti": [
+        { "livello": "testuale", "riferimento": "cap. 5 — Verbano e Ceresio", "estratto": "Fino a due canne e 10 esche. Protette alborella, temolo, anguilla, storioni autoctoni, pigo, savetta. Misure: persico reale 18, trota 40, luccio 45, lucioperca 40." }
+      ],
+      "interpretazioni": [
+        { "campo": "classificazione", "nota": "Il Ceresio non compare negli elenchi tipo A, B o C del par. 4.10: il cap. 4 non lo regola. La classe è un attributo non operativo." }
       ]
     }
   },

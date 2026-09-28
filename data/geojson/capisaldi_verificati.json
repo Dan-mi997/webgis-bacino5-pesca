@@ -1,6 +1,6 @@
 {
-  "descrizione": "Capisaldi confermati a mano (lat, lon WGS84). La pipeline li proietta sull’asta OSM e li marca verificati.",
-  "aggiornato": "2026-09-27",
+  "descrizione": "Capisaldi confermati a mano (lat, lon WGS84). Margorabbia e, dal 2026-09-28, i punti del Ceresio. La pipeline del Margorabbia legge solo i propri id.",
+  "aggiornato": "2026-09-28",
   "punti": {
     "outlet_ghirla": {
       "lat": 45.923233,
@@ -67,6 +67,60 @@
       "lon": 8.8217591,
       "nome": "Monumento ai Caduti a Ghirla",
       "note": "Posizione Nominatim confermata."
+    },
+    "ponte_dogana": {
+      "lat": 45.96699030132241,
+      "lon": 8.858939287365246,
+      "nome": "Ponte della Dogana",
+      "note": "Confermato. Poligono OSM way 385985142; il punto è la proiezione sull'asse del Tresa."
+    },
+    "chiusa_regolazione": {
+      "lat": 45.96946456942645,
+      "lon": 8.855186974289014,
+      "nome": "Chiusa di regolazione delle acque",
+      "note": "Confermata a Lavena Ponte Tresa."
+    },
+    "ponte_biviglione": {
+      "lat": 45.98974570231629,
+      "lon": 8.784369706102224,
+      "nome": "Ponte di ferro, Biviglione",
+      "note": "Confermato."
+    },
+    "diga_creva": {
+      "lat": 45.991474,
+      "lon": 8.766723,
+      "nome": "Diga di Creva",
+      "note": "Confermato il punto Nominatim."
+    },
+    "vecchia_filanda": {
+      "lat": 45.95998091846375,
+      "lon": 8.869922935204908,
+      "nome": "Estremo dello stretto di Lavena",
+      "note": "Confermato come estremo dello stretto, non come stabile."
+    },
+    "grotto_bagat": {
+      "lat": 45.95874951248393,
+      "lon": 8.874729172117618,
+      "nome": "Estremo dello stretto di Lavena",
+      "note": "Confermato come secondo estremo dello stretto, non come grotto."
+    },
+    "ponte_bigattini": {
+      "lat": 45.944796414430094,
+      "lon": 8.886358894323099,
+      "nome": "Ponte di via Bagattini",
+      "note": "Confermato con le coordinate corrette. Il prontuario scrive Bigattini."
+    },
+    "foce_rezzo": {
+      "lat": 46.03295157729113,
+      "lon": 9.120904058816382,
+      "nome": "Foce del Rezzo",
+      "note": "Confermata. Centro del cerchio da 50 m. L'asta OSM arriva a 14 m."
+    },
+    "foce_telo": {
+      "lat": 46.00907168549124,
+      "lon": 9.084980490938772,
+      "nome": "Foce del Telo di Osteno",
+      "note": "Confermata sulla foce del Lirone. Il prontuario la chiama foce del Telo; l'ultimo corso OSM è il Torrente Lirone."
     }
   }
 }

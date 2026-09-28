@@ -1,0 +1,1043 @@
+{
+  "schema": {
+    "nome": "fipsas-matrice-ereditarieta",
+    "versione": "2.0.0",
+    "descrizione": "Grafo relazionale delle regole di pesca del Bacino 5. I dizionari (calendari, documenti, specie, blocchi operativi) restano in margorabbia_regole.json e si agganciano con blocco_ref / pacchetto_ref. Questo file non duplica il prontuario: dice come i pezzi si compongono.",
+    "merge": "deep_merge: gli oggetti si fondono, le liste e gli scalari si sostituiscono. Fanno eccezione vincoli_speciali, fonti e interpretazioni, che si accodano.",
+    "livelli": [
+      {
+        "n": 1,
+        "nome": "matrice",
+        "chiave": "regole_base.classificazione_biologica + regole_base.regime_amministrativo",
+        "fa": "Due attributi paralleli, non una gerarchia. La classe biologica porta tecniche, periodi e misure. Il regime amministrativo porta permessi e costi. Si fondono perché toccano chiavi diverse, salvo italo_svizzera che sostituisce il cap. 4."
+      },
+      {
+        "n": 2,
+        "nome": "geometria",
+        "chiave": "regole_base.modalita_pesca",
+        "fa": "Linea = solo sponda. Poligono = stessa geometria, due fasci di regole (sponda e natante). Il poligono non si spezza in due."
+      },
+      {
+        "n": 3,
+        "nome": "eccezioni_locali",
+        "chiave": "eccezioni_locali[corpo_id]",
+        "fa": "Solo i parametri che deviano dalla matrice. Assenti = il corpo eredita la base per intero."
+      },
+      {
+        "n": 4,
+        "nome": "segmenti",
+        "chiave": "segmenti[]",
+        "fa": "Tagli restrittivi (No-Kill, divieto, riserva) che spezzano la linea o coprono un intero poligono. Ereditano i livelli 1–3 e applicano un override."
+      },
+      {
+        "n": 5,
+        "nome": "overlay_temporanei",
+        "chiave": "overlay_temporanei[]",
+        "fa": "Campi gara e deroghe invernali. Non tagliano la geometria base: sono un layer indipendente, fuso solo se il toggle o il calendario li attiva."
+      }
+    ],
+    "risoluzione": [
+      "regole_base.classificazione_biologica[corpo.classificazione_biologica].blocco_ref",
+      "regole_base.regime_amministrativo[corpo.regime_amministrativo] (permessi; oppure blocco intero se sostituisce_biologia)",
+      "regole_base.modalita_pesca[sponda|natante]",
+      "eccezioni_locali[corpo_id] poi per_modalita[sponda|natante]",
+      "segmenti[id] se il punto cade in un taglio",
+      "overlay_temporanei[id] solo a richiesta: non entra nella geometria base"
+    ]
+  },
+
+  "esempi": [
+    {
+      "id": "tresa_matrice",
+      "corpo_idrico": "tresa",
+      "lettura": "Fiume Tresa = Italo-Svizzera + Cat. C + linea/sponda. Nessuna eccezione, nessun taglio nel tratto pilota. La classe resta C (attributo), ma il regolamento operativo è la convenzione CISPP.",
+      "passi": ["biologia:C", "amministrazione:italo_svizzera (sostituisce_biologia)", "geometria:sponda"]
+    },
+    {
+      "id": "margorabbia_eccezione",
+      "corpo_idrico": "margorabbia",
+      "lettura": "FIPSAS + Cat. B, come gli affluenti. L'eccezione locale aggiunge solo due delta: pesca tutti i giorni (deroga affluenti del Tresa) e temolo sempre protetto. Rancina e Grantorella non hanno questa eccezione e restano sui giorni tipo B.",
+      "passi": ["biologia:B", "amministrazione:fipsas", "geometria:sponda", "eccezione:margorabbia"]
+    },
+    {
+      "id": "nokill_e_campo_gara",
+      "corpo_idrico": "margorabbia",
+      "segmento_id": "margorabbia_no_kill_grantola_mesenzana",
+      "overlay_id": "margorabbia_campo_gara_mesenzana",
+      "lettura": "Il No-Kill spezza la linea (taglio). Il campo gara di Mesenzana ci passa sopra senza spezzarla: a giornata vale il No-Kill; con gara autorizzata si fondono ardiglione ammesso e trota fario 22 cm, il rilascio obbligatorio resta.",
+      "passi": ["biologia:B", "amministrazione:fipsas", "eccezione:margorabbia", "segmento:no_kill", "overlay:campo_gara (solo se attivo)"]
+    },
+    {
+      "id": "lago_varese_misura",
+      "corpo_idrico": "lago_varese",
+      "nel_pilota": false,
+      "lettura": "FIPSAS + Cat. A + poligono. L'eccezione contiene solo persico reale 18 cm (la base di bacino è 16). Esempio per l'estensione, non è nel reticolo Margorabbia.",
+      "passi": ["biologia:A", "amministrazione:fipsas", "geometria:sponda", "eccezione:lago_varese"]
+    },
+    {
+      "id": "lago_piano_libretto",
+      "corpo_idrico": "lago_piano",
+      "nel_pilota": false,
+      "lettura": "FIPSAS + tipo A (par. 4.10). L'eccezione aggiunge il libretto della Riserva e i divieti locali (pesce vivo, cagnotto, ardiglione, motore).",
+      "passi": ["biologia:A", "amministrazione:fipsas", "eccezione:lago_piano"]
+    },
+    {
+      "id": "ghirla_sponda_natante",
+      "corpo_idrico": "lago_ghirla",
+      "lettura": "Un solo poligono. Sponda e natante sono due risoluzioni della stessa geometria: misure locali comuni (persico 18, salmerino 30), permessi e belly boat solo sulla modalità natante.",
+      "passi": ["biologia:C", "amministrazione:fipsas", "eccezione:lago_ghirla", "modalita:sponda | modalita:natante"]
+    }
+  ],
+
+  "regole_base": {
+    "classificazione_biologica": {
+      "A": {
+        "etichetta": "Cat. A",
+        "definisce": ["tecniche", "periodi", "misure", "esche"],
+        "blocco_ref": "ordinario_C_lago",
+        "completo": false,
+        "nota": "Laghi maggiori del cap. 4. Il blocco operativo completo non è ancora ingerito: si riusa lo scheletro A/C e le eccezioni del corpo (Lago di Piano, tipo A al par. 4.10)."
+      },
+      "B": {
+        "etichetta": "Cat. B",
+        "definisce": ["tecniche", "periodi", "misure", "esche"],
+        "blocco_ref": "ordinario_B",
+        "completo": true,
+        "nota": "Salmonicole: una canna, amo senza ardiglione, stagione e giorni tipo B, pasturazione vietata."
+      },
+      "C": {
+        "etichetta": "Cat. C",
+        "definisce": ["tecniche", "periodi", "misure", "esche"],
+        "blocco_ref": "ordinario_C_lago",
+        "completo": true,
+        "nota": "Ciprinicole: fino a tre canne, notturna da riva, periodi di divieto per specie. I contributi dei singoli laghi non stanno qui: stanno nell'eccezione del corpo."
+      },
+      "fuori_cap4": {
+        "etichetta": "Fuori dal cap. 4",
+        "definisce": [],
+        "blocco_ref": "cispp_lago",
+        "completo": true,
+        "nota": "Verbano e Ceresio non sono negli elenchi tipo A, B o C. Il regolamento operativo è solo CISPP."
+      }
+    },
+    "regime_amministrativo": {
+      "fipsas": {
+        "etichetta": "FIPSAS",
+        "definisce": ["permessi", "costi"],
+        "sostituisce_biologia": false,
+        "permessi_per_classe": {
+          "A": {
+            "pacchetto_ref": null,
+            "etichetta": "Scheda permessi Cat. A non ancora ingerita",
+            "nota": "Sul pilota non c'è categoria A. I costi dei laghi maggiori si compileranno in estensione Bacino 5."
+          },
+          "B": { "pacchetto_ref": "fipsas_acque_B" },
+          "C": {
+            "pacchetto_ref": null,
+            "etichetta": "Permesso FIPSAS acque di Cat. C",
+            "nota": "Il contributo di riva o da natante non è uguale per tutti i laghi C: va nell'eccezione del corpo (Ghirla: ridotto da riva, annuale da belly boat)."
+          }
+        }
+      },
+      "italo_svizzera": {
+        "etichetta": "Italo-Svizzera",
+        "definisce": ["permessi", "costi", "calendario", "tecniche", "esche", "prelievo"],
+        "sostituisce_biologia": true,
+        "blocco_ref": "cispp_fiume",
+        "motivo": "Nel Verbano, nel Ceresio e nel Tresa la Convenzione CISPP sostituisce il cap. 4. Il blocco di default è il fiume (cispp_fiume). Il lago indica blocco_amministrativo cispp_lago. La classe biologica resta un attributo parallelo (Tresa = Cat. C; il Ceresio non è classificato dal cap. 4)."
+      },
+      "diritti_esclusivi": {
+        "etichetta": "Diritti esclusivi",
+        "definisce": ["permessi", "costi"],
+        "sostituisce_biologia": false,
+        "permessi_per_classe": {
+          "A": { "pacchetto_ref": null, "etichetta": "Permesso del titolare del diritto esclusivo", "nota": "Scheda non ingerita." },
+          "B": { "pacchetto_ref": null, "etichetta": "Permesso del titolare del diritto esclusivo", "nota": "Scheda non ingerita." },
+          "C": { "pacchetto_ref": null, "etichetta": "Permesso del titolare del diritto esclusivo", "nota": "Sul Margorabbia non ricorre. Esempio di cella: Pusiano, Annone-Citterio, Brinzio, Ranco/Angera. Tecniche e periodi restano quelli della classe; cambia solo il permesso." }
+        }
+      }
+    },
+    "modalita_pesca": {
+      "sponda": {
+        "etichetta": "Sponda",
+        "geometrie": ["linea", "poligono"],
+        "definisce": ["contesto da terra, da riva o in guado"],
+        "regole": {}
+      },
+      "natante": {
+        "etichetta": "Natante",
+        "geometrie": ["poligono"],
+        "definisce": ["contesto sullo specchio (barca o belly boat); non si applica alle linee"],
+        "regole": {}
+      }
+    }
+  },
+
+  "corpi_idrici": {
+    "margorabbia": {
+      "nome": "Torrente Margorabbia",
+      "alias_osm": ["Fiume Margorabbia", "Torrente Margorabbia"],
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "ruolo": "asta",
+      "nel_pilota": true,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "comuni": ["Valganna", "Grantola", "Mesenzana", "Montegrino Valtravaglia", "Germignaga", "Luino"]
+    },
+    "lago_ghirla": {
+      "nome": "Lago di Ghirla",
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "C",
+      "geometria": "poligono",
+      "ruolo": "lago",
+      "nel_pilota": true,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "comuni": ["Valganna"]
+    },
+    "lago_ganna": {
+      "nome": "Lago di Ganna",
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "C",
+      "geometria": "poligono",
+      "ruolo": "lago",
+      "nel_pilota": true,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "comuni": ["Valganna"]
+    },
+    "boggione": {
+      "nome": "Torrente Boggione",
+      "alias_osm": ["Torrente Boggione"],
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "ruolo": "affluente",
+      "nel_pilota": true,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "comuni": ["Valganna", "Cugliate Fabiasco"]
+    },
+    "chiesone": {
+      "nome": "Torrente Chiesone (Gesone)",
+      "alias_osm": ["Torrente Gesone", "Torrente Chiesone"],
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "ruolo": "affluente",
+      "nel_pilota": true,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "identita_incerta": false,
+      "comuni": ["Mesenzana"],
+      "note": "Chiesone (prontuario) e Gesone (OSM) sono lo stesso corso. Il ponte «S.P. 54» del prontuario è identificato con la S.S. 394."
+    },
+    "rancina": {
+      "nome": "Torrente Rancina",
+      "alias_osm": ["Torrente Rancina"],
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "ruolo": "affluente",
+      "nel_pilota": true,
+      "mappato": true,
+      "citato_in_prontuario": false,
+      "interpretazioni": [
+        { "campo": "calendario.giorni_ref", "nota": "Non citato nel prontuario: resta il residuo Cat. B (giorni tipo B). La deroga «Affluenti del fiume Tresa» è solo sull'asta del Margorabbia." }
+      ]
+    },
+    "rio_boesio": {
+      "nome": "Rio Boesio (affluente del Rancina)",
+      "alias_osm": ["Torrente Rio Boesio"],
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "ruolo": "sub_affluente",
+      "nel_pilota": true,
+      "mappato": true,
+      "citato_in_prontuario": false,
+      "note": "Da non confondere con il Torrente Boesio (bacino del Lago Maggiore a Laveno), escluso dal reticolo.",
+      "interpretazioni": [
+        { "campo": "calendario.giorni_ref", "nota": "Non citato nel prontuario: residuo Cat. B, giorni tipo B." }
+      ]
+    },
+    "grantorella": {
+      "nome": "Torrente Grantorella",
+      "alias_osm": ["Torrente Grantorella"],
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "ruolo": "affluente",
+      "nel_pilota": true,
+      "mappato": true,
+      "citato_in_prontuario": false,
+      "interpretazioni": [
+        { "campo": "calendario.giorni_ref", "nota": "Non citato nel prontuario: residuo Cat. B, giorni tipo B." }
+      ]
+    },
+    "lisascora": {
+      "nome": "Torrente Lisascora",
+      "alias_osm": ["Torrente Lisascora", "Lisascora"],
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "ruolo": "affluente",
+      "nel_pilota": true,
+      "mappato": false,
+      "citato_in_prontuario": true,
+      "comuni": ["Cunardo", "Cugliate Fabiasco"],
+      "note": "Nome assente da OSM; corso troppo piccolo per essere cartografato. Il divieto resta in normativa ma non ha geometria."
+    },
+    "tresa": {
+      "nome": "Fiume Tresa",
+      "alias_osm": ["Fiume Tresa"],
+      "regime_amministrativo": "italo_svizzera",
+      "classificazione_biologica": "C",
+      "geometria": "linea",
+      "ruolo": "ricevente",
+      "nel_pilota": true,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "comuni": ["Luino", "Germignaga", "Lavena Ponte Tresa"],
+      "note": "Italo-svizzera, tipo C. Si tiene l'asse solo dove la sponda è italiana: bank left/right/both è calcolato verso valle, non fissato a priori. La foce nel Verbano è un divieto sullo specchio del Maggiore, non un taglio del Ceresio."
+    },
+    "lago_varese": {
+      "nome": "Lago di Varese",
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "A",
+      "geometria": "poligono",
+      "ruolo": "lago",
+      "nel_pilota": false,
+      "mappato": false,
+      "citato_in_prontuario": true,
+      "note": "Esempio di estensione Bacino 5. Non è nel reticolo Margorabbia e non viene disegnato dalla pipeline del pilota."
+    },
+    "lago_piano": {
+      "nome": "Lago di Piano",
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "A",
+      "geometria": "poligono",
+      "ruolo": "lago",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "comuni": ["Carlazzo"],
+      "note": "Tipo A al par. 4.10. Riserva naturale: libretto segna-catture della Riserva oltre il libretto di bacino. Natante senza motore ammesso."
+    },
+    "lago_lugano": {
+      "nome": "Lago di Lugano (Ceresio)",
+      "alias_osm": ["Lago di Lugano", "Ceresio"],
+      "regime_amministrativo": "italo_svizzera",
+      "blocco_amministrativo": "cispp_lago",
+      "classificazione_biologica": "fuori_cap4",
+      "geometria": "poligono",
+      "ruolo": "lago",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "comuni": ["Porto Ceresio", "Brusimpiano", "Lavena Ponte Tresa", "Campione d'Italia", "Valsolda", "Porlezza", "Claino con Osteno"],
+      "note": "Si disegna solo la parte in territorio italiano, Campione d'Italia compreso. Melide e il bacino svizzero restano fuori. I permessi di riva e di barca cambiano tra Varese e Como/Lecco: il poligono non si spezza sul confine provinciale."
+    },
+    "cuccio": {
+      "nome": "Torrente Cuccio",
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "comuni": ["Porlezza", "Carlazzo"],
+      "note": "Tributario comasco: giorni tipo B, non la deroga della sponda varesina."
+    },
+    "rezzo": {
+      "nome": "Torrente Rezzo",
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "comuni": ["Porlezza"]
+    },
+    "soldo": {
+      "nome": "Torrente Soldo",
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "comuni": ["Valsolda"]
+    },
+    "trallo": {
+      "nome": "Torrente Trallo",
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "comuni": ["Brusimpiano"],
+      "note": "Sbocco a Brusimpiano, sulla sponda tra Porto Ceresio e Lavena Ponte Tresa: deroga tutti i giorni."
+    },
+    "telo_osteno": {
+      "nome": "Torrente Telo di Osteno",
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "comuni": ["Claino con Osteno"],
+      "note": "Way OSM 195989294 più il moncone 195989292. L'asta si ferma a monte della riva: l'ultimo corso fino al lago è il Torrente Lirone. La foce confermata è quella del Lirone. Non è il Telo di Argegno. Il campo gara non si cartografa."
+    },
+    "lirone": {
+      "nome": "Torrente Lirone",
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": false,
+      "comuni": ["Claino con Osteno"],
+      "note": "Parte finale del corso che sbocca a Osteno. Il prontuario chiama foce del Telo il punto in cui questo torrente entra nel lago. Non è citato per nome: eredita il tipo B. La way che prosegue nello specchio non si disegna."
+    },
+    "lagadone": {
+      "nome": "Canale Lagadone",
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": false,
+      "comuni": ["Porlezza"],
+      "note": "Canale intero, dalle way OSM omonime, fino al lago. Non è nel prontuario estratto: in mappa come tipo B residuale, non con la deroga della sponda varesina."
+    },
+    "pusiano": {
+      "nome": "Lago di Pusiano",
+      "regime_amministrativo": "diritti_esclusivi",
+      "classificazione_biologica": "C",
+      "classe_da_confermare": true,
+      "geometria": "poligono",
+      "ruolo": "lago",
+      "nel_pilota": false,
+      "mappato": false,
+      "citato_in_prontuario": true,
+      "note": "Cella della matrice per i diritti esclusivi. Nessuna scheda permessi ingerita: le tecniche restano quelle della classe."
+    }
+  },
+
+  "eccezioni_locali": {
+    "margorabbia": {
+      "calendario": { "giorni_ref": "tutti_i_giorni_deroga_tresa" },
+      "prelievo": { "specie_sempre_protette_extra": ["temolo"] },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "par. 4.4 — tabella periodi di divieto", "estratto": "Temolo: Sempre protetto nel lago di Mezzola e nei torrenti Pioverna e Margorabbia" },
+        { "livello": "interpretazione", "riferimento": "Elenco corpi idrici con pesca tutti i giorni", "estratto": "la pesca è consentita tutti i giorni della settimana […] Affluenti del fiume Tresa", "nota": "Il Margorabbia è affluente diretto del Tresa. La deroga non si estende agli affluenti del Margorabbia." }
+      ]
+    },
+    "lago_ghirla": {
+      "prelievo": { "misure_minime_override_cm": { "persico_reale": 18, "salmerino_alpino": 30 } },
+      "per_modalita": {
+        "sponda": {
+          "permessi": { "pacchetto_ref": "fipsas_lago_riva", "varianti": [] }
+        },
+        "natante": {
+          "tecniche": {
+            "condizionate": [
+              { "tecnica": "belly_boat", "consentita": true, "solo_con": ["mosca", "spinning"], "testo": "Belly boat ammesso solo per la pesca a mosca o a spinning (aree azzurre)" }
+            ]
+          },
+          "permessi": { "pacchetto_ref": "fipsas_lago_belly_boat", "varianti": [] }
+        }
+      },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Scheda Lago di Ghirla", "estratto": "Nel lago di Ghirla è consentito solo il belly boat per la pesca a mosca o a spinning e non è consentito l’uso di imbarcazioni." },
+        { "livello": "testuale", "riferimento": "par. 4.2 — misure minime", "estratto": "Persico reale cm 18 nei laghi di Varese Comabbio Monate, Ghirla e del Segrino; Salmerino alpino cm 30 nel lago di Ghirla" }
+      ]
+    },
+    "lago_varese": {
+      "prelievo": { "misure_minime_override_cm": { "persico_reale": 18 } },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "par. 4.2 — misure minime", "estratto": "Persico reale cm 18 nei laghi di Varese Comabbio Monate, Ghirla e del Segrino" }
+      ]
+    },
+    "lago_piano": {
+      "attrezzatura": { "ardiglione": "vietato" },
+      "esche": { "vietate": ["pesce_vivo"], "pasturazione": "vietato_cagnotto" },
+      "tecniche": { "vietate": ["imbarcazione_a_motore"] },
+      "permessi": {
+        "documenti_extra": [
+          {
+            "id": "libretto_lago_piano",
+            "etichetta": "Libretto segna-catture della Riserva Lago di Piano",
+            "costo_eur": null,
+            "ente": "Riserva Naturale Lago di Piano",
+            "nota": "Obbligatorio oltre il libretto del concessionario del Bacino 5."
+          }
+        ]
+      },
+      "vincoli_speciali": [
+        { "id": "esca_artificiale_4cm", "testo": "Esche artificiali oltre 4 cm: cavetto in acciaio, monofilo oltre 0,25 mm, pinza slamatrice di almeno 20 cm e guadino a maglia morbida. Esclusi vermi in gomma e artificiali galleggianti.", "livello": "testuale" }
+      ],
+      "per_modalita": {
+        "natante": {
+          "vincoli_speciali": [
+            { "id": "no_motore", "testo": "Nel Lago di Piano sono vietate le imbarcazioni a motore. Il natante senza motore resta ammesso.", "livello": "testuale" }
+          ]
+        }
+      },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "par. 4.10", "estratto": "Acque di tipo A […] lago di Piano." },
+        { "livello": "testuale", "riferimento": "Regolamento Riserva Naturale Lago di Piano", "estratto": "Libretto segna catture della Riserva oltre quello del Concessionario. Vietati pesce vivo, pastura con larve di mosca carnaria, ami con ardiglione, imbarcazioni a motore." }
+      ]
+    },
+    "lago_lugano": {
+      "permessi": {
+        "varianti": [
+          { "condizione": "sponda, provincia di Varese", "pacchetto_ref": "fipsas_ceresio_riva_va" },
+          { "condizione": "natante, provincia di Varese", "pacchetto_ref": "fipsas_ceresio_barca_va" },
+          { "condizione": "sponda, province di Como e Lecco, incluso Campione d'Italia", "pacchetto_ref": "fipsas_ceresio_riva_co" },
+          { "condizione": "natante, province di Como e Lecco, incluso Campione d'Italia", "pacchetto_ref": "fipsas_ceresio_barca_co" }
+        ]
+      },
+      "per_modalita": {
+        "natante": {
+          "vincoli_speciali": [
+            { "id": "barca_notturna", "testo": "La pesca da imbarcazione è vietata da un'ora dopo il tramonto a un'ora prima dell'alba.", "livello": "testuale" }
+          ]
+        }
+      },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Scheda Lago Ceresio — Varese", "estratto": "Da riva: licenza 23, tessera 30, contributo ridotto FIPSAS Varese 15, tesserino. Da barca: contributo annuale 30." },
+        { "livello": "testuale", "riferimento": "Scheda Ceresio — Como e Lecco", "estratto": "Ceresio (incluso Campione d'Italia). Da riva senza contributo di gestione; da barca contributo FIPSAS 30." },
+        { "livello": "testuale", "riferimento": "cap. 5", "estratto": "Pesca da imbarcazione vietata da un'ora dopo il tramonto a un'ora prima del sorgere del sole." }
+      ],
+      "interpretazioni": [
+        { "campo": "permessi", "nota": "Le quattro schede convivono sullo stesso poligono italiano. Il confine provinciale VA/CO non è un taglio di questa fase." },
+        { "campo": "foce_cuccio", "nota": "Divieto permanente alla foce del Cuccio: raggio = metà larghezza del torrente + 50 m. Il raggio non si ricava dalla centerline, quindi il cerchio non è disegnato." },
+        { "campo": "foci_svizzere", "nota": "Vedeggio, Cassarate, Magliasina, Laveggio e le arcate della diga di Melide sono in Svizzera e non si mappano." }
+      ]
+    },
+    "tresa": {
+      "fonti": [
+        { "livello": "testuale", "riferimento": "par. 4.10", "estratto": "Acque di tipo C […] fiume Tresa" },
+        { "livello": "testuale", "riferimento": "cap. 5 — Fiume Tresa", "estratto": "Solo da riva, una canna, massimo 5 ami, su tutto il corso compreso il bacino di Creva. Vietati sangue, uova di pesce e pasturazione. Marmorata sempre protetta." }
+      ],
+      "interpretazioni": [
+        { "campo": "bank", "nota": "La sponda svizzera è esclusa. Si regola solo la sponda italiana. bank both non autorizza la sponda svizzera: il clip non ha isolato una pezza interamente svizzera su quel tratto." },
+        { "campo": "foce_verbano", "nota": "Il divieto di foce del Tresa immissario sta nel Verbano. Rinviato alla fase Lago Maggiore: non è un caposaldo di questa mappa del Ceresio." }
+      ]
+    },
+    "trallo": {
+      "calendario": { "giorni_ref": "tutti_i_giorni_deroga_ceresio_va" },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "par. 4.11", "estratto": "Affluenti del Ceresio, nel tratto di sponda compreso tra gli abitati di Porto Ceresio e Lavena Ponte Tresa" }
+      ]
+    }
+  },
+
+  "segmenti": [
+    {
+      "id": "margorabbia_no_kill_grantola_mesenzana",
+      "nome": "Margorabbia — No-Kill Grantola / Mesenzana",
+      "corpo_idrico": "margorabbia",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 30,
+      "monte": "ponte_grantola",
+      "valle": "nk_end",
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "Dal Ponte di Grantola alla briglia a 150 m a monte del concessionario auto in comune di Mesenzana.",
+        "comuni": ["Grantola", "Mesenzana"]
+      },
+      "override": {
+        "regime": "no_kill",
+        "calendario": { "stagione_ref": "tutto_anno" },
+        "esche": {
+          "consentite": ["artificiale"],
+          "vietate": ["naturale", "cagnotto", "pesce_vivo", "pesce_morto"],
+          "pasturazione": "vietata"
+        },
+        "attrezzatura": { "ardiglione": "vietato" },
+        "tecniche": {
+          "consentite": ["canna_da_riva", "guado", "piede_asciutto", "mosca", "mosca_coda_di_topo", "spinning"],
+          "vietate": ["pesca_da_ponte", "imbarcazione", "pesca_notturna"]
+        },
+        "prelievo": { "tipo": "no_kill", "rilascio_obbligatorio": true, "capi_trattenibili": 0 }
+      },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice II — Tratti riservati alla pesca a mosca con coda di topo", "estratto": "Torrente Margorabbia (VA): Tratto compreso tra il Ponte di Grantola e la briglia a 150 metri a monte del concessionario auto in Comune di Mesenzana, riservato alla pesca con esche artificiali con obbligo di utilizzo di amo senza ardiglione o con ardiglione schiacciato e obbligo di rilascio immediato di tutto il pesce catturato." }
+      ],
+      "interpretazioni": [
+        { "campo": "esche.consentite", "nota": "Il titolo di sezione parla di mosca con coda di topo, il testo operativo di «esche artificiali»: si adotta il testo operativo." }
+      ]
+    },
+    {
+      "id": "margorabbia_divieto_foce",
+      "nome": "Margorabbia — divieto alla foce (Luino / Germignaga)",
+      "corpo_idrico": "margorabbia",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "monte": "foce_briglia",
+      "valle": "confluenza_tresa",
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "Dalla prima briglia a monte della confluenza fino al Tresa, circa 200 m.",
+        "lunghezza_dichiarata_m": 200,
+        "comuni": ["Luino", "Germignaga"]
+      },
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice II — Zone di protezione e ripopolamento, acque correnti", "estratto": "Torrente Margorabbia nei Comuni di Luino e Germignaga (VA): tratto compreso tra la confluenza con il Tresa e la prima briglia a monte, per una lunghezza di circa 200 m." }
+      ]
+    },
+    {
+      "id": "lago_ganna_divieto",
+      "nome": "Lago di Ganna — divieto su tutto il bacino",
+      "corpo_idrico": "lago_ganna",
+      "effetto": "taglio",
+      "intero_corpo": true,
+      "priorita": 100,
+      "estensione": { "tipo": "intero_corpo", "descrizione": "Tutto il bacino lacustre" },
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Provincia di Varese — Zone di protezione e ripopolamento, laghi", "estratto": "Lago di Ganna: la pesca è vietata in tutto il bacino lacustre." }
+      ]
+    },
+    {
+      "id": "boggione_divieto",
+      "nome": "Boggione e affluenti — divieto Monumento ai Caduti / strada Marzio–Boarezzo",
+      "corpo_idrico": "boggione",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "monte": "strada_marzio_boarezzo",
+      "valle": "monumento_ghirla",
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "Dal Monumento ai Caduti a Ghirla all'attraversamento della strada Marzio–Boarezzo.",
+        "comuni": ["Valganna", "Cugliate Fabiasco"]
+      },
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice II — Zone di protezione e ripopolamento", "estratto": "Torrente Boggione e affluenti, Comuni di Valganna e Cugliate Fabiasco (VA): dal Monumento ai Caduti a Ghirla sino all’attraversamento della strada Marzio-Boarezzo." }
+      ]
+    },
+    {
+      "id": "chiesone_divieto",
+      "nome": "Chiesone — divieto ponte S.S. 394 / ponte di via Pianazzo",
+      "corpo_idrico": "chiesone",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "monte": "sp54_chiesone",
+      "valle": "pianazzo_chiesone",
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "Tra il ponte sulla S.S. 394 (prontuario: S.P. 54) e il ponte di via Pianazzo, circa 970 m.",
+        "lunghezza_dichiarata_m": 970,
+        "comuni": ["Mesenzana"]
+      },
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice II — Zone di protezione e ripopolamento", "estratto": "Torrente Chiesone, Comune di Mesenzana (VA): tratto compreso tra il ponte sulla S.P. 54 e il ponte di via Pianazzo, per una lunghezza di circa 970 m." }
+      ],
+      "interpretazioni": [
+        { "campo": "geometria", "nota": "Il ponte «S.P. 54» è identificato con la S.S. 394. Chiesone = Gesone OSM." }
+      ]
+    },
+    {
+      "id": "lisascora_divieto",
+      "nome": "Lisascora — divieto su tutto il corso",
+      "corpo_idrico": "lisascora",
+      "effetto": "taglio",
+      "intero_corpo": true,
+      "priorita": 100,
+      "estensione": { "tipo": "intero_corpo", "descrizione": "Intero corso", "comuni": ["Cunardo", "Cugliate Fabiasco"] },
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice II — Zone di protezione e ripopolamento", "estratto": "Torrente Lisascora, Comuni di Cunardo e Cugliate Fabiasco (VA): intero corso." }
+      ]
+    },
+    {
+      "id": "trallo_divieto_foce",
+      "nome": "Trallo — divieto ponte di via Bigattini / foce",
+      "corpo_idrico": "trallo",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "bank": "both",
+      "stato": "confermato",
+      "geometria_tagliata": true,
+      "monte": "ponte_bigattini",
+      "valle": "foce_trallo",
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "Dal ponte di via Bigattini alla foce, circa 500 m.",
+        "lunghezza_dichiarata_m": 500,
+        "comuni": ["Brusimpiano"]
+      },
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice II — Zone di protezione", "estratto": "Torrente Trallo, Comune di Brusimpiano (VA): tratto compreso tra il ponte di via Bigattini e la foce per una lunghezza di circa 500 m." }
+      ]
+    },
+    {
+      "id": "tresa_divieto_lavena",
+      "nome": "Tresa — divieto Lungo Argine, Piazza Europa, Piazza Mercato",
+      "corpo_idrico": "tresa",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "bank": "left",
+      "stato": "confermato",
+      "geometria_tagliata": true,
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "Lavena Ponte Tresa: circa il 50% del tratto chiusa–Ponte della Dogana, a partire dalla chiusa verso il ponte. Sponda sinistra idrografica, che qui è la sponda sud italiana.",
+        "comuni": ["Lavena Ponte Tresa"]
+      },
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice II — Fiume Tresa", "estratto": "Comune di Lavena Ponte Tresa: Lungo Argine Tresa, Piazza Europa, Piazza Mercato." }
+      ]
+    },
+    {
+      "id": "tresa_notturna_dogana_chiusa",
+      "nome": "Tresa — pesca notturna Ponte della Dogana / chiusa",
+      "corpo_idrico": "tresa",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 40,
+      "bank": "left",
+      "stato": "confermato",
+      "geometria_tagliata": true,
+      "monte": "ponte_dogana",
+      "valle": "chiusa_regolazione",
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "Tra il Ponte della Dogana e la chiusa di regolazione delle acque: notturna con una canna e 5 ami; ammessi anche quadrato, nassetta e bottiglia.",
+        "comuni": ["Lavena Ponte Tresa"]
+      },
+      "override": {
+        "tecniche": { "consentite": ["canna_da_riva", "pesca_notturna", "quadrato", "nassetta", "bottiglia"] },
+        "vincoli_speciali": [
+          { "id": "quadrato", "testo": "Quadrato o bilancino: maglia 6–8 mm, lato massimo 1,5 m. Vietato radente il fondo, a traino, e da un'ora dopo il tramonto a un'ora prima dell'alba.", "livello": "testuale" },
+          { "id": "nassetta", "testo": "Nassetta: maglia 6–8 mm, altezza massima 50 cm, diametro massimo 25 cm.", "livello": "testuale" }
+        ]
+      },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "cap. 5 — Pesca notturna Tresa", "estratto": "Tra il Ponte della Dogana e la Chiusa di regolazione delle acque è permessa la pesca notturna con una sola canna e un massimo di 5 ami, più quadrato, nassetta e bottiglia." }
+      ]
+    },
+    {
+      "id": "tresa_notturna_bottatrice",
+      "nome": "Tresa — notturna bottatrice diga di Creva / Biviglione",
+      "corpo_idrico": "tresa",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 40,
+      "bank": "left",
+      "stato": "confermato",
+      "geometria_tagliata": true,
+      "monte": "ponte_biviglione",
+      "valle": "diga_creva",
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "Dalla diga di Creva verso monte fino al ponte di ferro di Biviglione, e nel bacino artificiale di Creva. Solo bottatrice.",
+        "comuni": ["Luino"]
+      },
+      "override": {
+        "tecniche": { "consentite": ["canna_da_riva", "pesca_notturna"] },
+        "vincoli_speciali": [
+          { "id": "solo_bottatrice", "testo": "La pesca notturna in questo tratto è consentita esclusivamente per la bottatrice.", "livello": "testuale" }
+        ]
+      },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "cap. 5 — Pesca notturna Tresa", "estratto": "La pesca notturna è consentita, esclusivamente per bottatrice, a monte dello sbarramento della diga di Creva fino al ponte di ferro in località Biviglione e nel bacino artificiale stesso." }
+      ]
+    },
+    {
+      "id": "lago_lugano_restrizione_rezzo",
+      "nome": "Ceresio — foce Rezzo, 50 m",
+      "corpo_idrico": "lago_lugano",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 50,
+      "stato": "confermato",
+      "geometria_tagliata": true,
+      "estensione": { "tipo": "cerchio", "raggio_m": 50, "descrizione": "Porlezza, raggio 50 m alla foce del Rezzo, solo la parte di specchio: solo da riva, una canna, massimo 3 ami." },
+      "override": {
+        "tecniche": { "consentite": ["canna_da_riva"], "vietate": ["imbarcazione"] },
+        "attrezzatura": { "canne_max": 1, "ami_max_per_canna": 3 }
+      },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice II — Lago di Lugano", "estratto": "Comune di Porlezza, per un raggio di 50 m in corrispondenza del torrente Rezzo la pesca è consentita solo da riva con una sola canna armata con un massimo di 3 ami" }
+      ]
+    },
+    {
+      "id": "lago_lugano_restrizione_soldo",
+      "nome": "Ceresio — foce Soldo, 50 m",
+      "corpo_idrico": "lago_lugano",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 50,
+      "stato": "confermato",
+      "geometria_tagliata": true,
+      "estensione": { "tipo": "cerchio", "raggio_m": 50, "descrizione": "Valsolda, raggio 50 m alla foce del Soldo, solo la parte di specchio: solo da riva, una canna, massimo 3 ami." },
+      "override": {
+        "tecniche": { "consentite": ["canna_da_riva"], "vietate": ["imbarcazione"] },
+        "attrezzatura": { "canne_max": 1, "ami_max_per_canna": 3 }
+      },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice II — Lago di Lugano", "estratto": "Comune di Valsolda, per un raggio di 50 m in corrispondenza del torrente Soldo la pesca è consentita solo da riva con una sola canna armata con un massimo di 3 ami." }
+      ]
+    },
+    {
+      "id": "lago_lugano_restrizione_telo",
+      "nome": "Ceresio — foce Telo, 50 m",
+      "corpo_idrico": "lago_lugano",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 50,
+      "stato": "confermato",
+      "geometria_tagliata": true,
+      "estensione": { "tipo": "cerchio", "raggio_m": 50, "descrizione": "Claino con Osteno, raggio 50 m alla foce del Telo. Il centro confermato è la foce del Lirone. Il cerchio è solo la parte di specchio." },
+      "override": {
+        "tecniche": { "consentite": ["canna_da_riva"], "vietate": ["imbarcazione"] },
+        "attrezzatura": { "canne_max": 1, "ami_max_per_canna": 3 }
+      },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice II — Lago di Lugano", "estratto": "Comune di Claino con Osteno, per un raggio di 50 m in corrispondenza del torrente Telo la pesca è consentita solo da riva con una sola canna armata con un massimo di 3 ami." }
+      ]
+    },
+    {
+      "id": "lago_lugano_divieto_cuccio",
+      "nome": "Ceresio — divieto di foce del Cuccio",
+      "corpo_idrico": "lago_lugano",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "stato": "da_verificare",
+      "geometria_tagliata": false,
+      "estensione": { "tipo": "cerchio", "descrizione": "Divieto permanente. Raggio = metà larghezza del Cuccio + 50 m, nella porzione di lago allo sbocco. Il raggio non è misurato." },
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice II — foci del Ceresio", "estratto": "T. Cuccio: divieto di pesca permanente. Il raggio è la metà della larghezza del fiume, maggiorato di 50 m." }
+      ]
+    },
+    {
+      "id": "lago_lugano_canneto_lavena",
+      "nome": "Ceresio — canneto dello stretto di Lavena",
+      "corpo_idrico": "lago_lugano",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "bank": "left",
+      "stato": "confermato",
+      "geometria_tagliata": true,
+      "estensione": {
+        "tipo": "riva",
+        "descrizione": "Riva italiana dello stretto, tra i due estremi confermati (Vecchia Filanda e Grotto del Bagat). La geometria segue la riva, non una corda sullo specchio. L'ordinanza vieta la pesca da riva e da natante nella fascia fino a 20 m dal fronte del canneto: il fronte e i gavitelli non sono in mappa, quindi si disegna la riva.",
+        "comuni": ["Lavena Ponte Tresa"]
+      },
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Ordinanza del Commissario italiano, canneto di Lavena", "estratto": "Zona di protezione ittica Canneto di Lavena: tutto il canneto dall'inizio dello stretto (stabile Vecchia Filanda) fino al termine (stabile Grotto del Bagat). Nella fascia tra la riva e 20 metri dal fronte del canneto la pesca è vietata sia da riva che da natante." }
+      ]
+    }
+  ],
+
+  "overlay_temporanei": [
+    {
+      "id": "margorabbia_campo_gara_ghirla",
+      "nome": "Campo gara Ghirla / chiusa Enel Ghetto",
+      "tipo": "campo_gara",
+      "corpo_idrico": "margorabbia",
+      "non_taglia_geometria_base": true,
+      "monte": "outlet_ghirla",
+      "valle": "chiusa_enel",
+      "sintesi": "Non spezza il torrente. Con gara autorizzata: amo con ardiglione ammesso, trota fario 22 cm, pesca vietata dall'immissione all'inizio della manifestazione.",
+      "attivazione": { "modo": "toggle", "gruppo": "gara_autorizzata", "etichetta": "Gara autorizzata" },
+      "override": {
+        "attrezzatura": { "ardiglione": "ammesso" },
+        "prelievo": { "misure_minime_override_cm": { "trota_fario": 22 } },
+        "vincoli_speciali": [
+          { "id": "gara_immissione", "testo": "Durante le gare autorizzate la pesca è vietata dall'avvenuta immissione di fauna ittica fino all'inizio della manifestazione.", "livello": "testuale" }
+        ],
+        "fonti": [
+          { "livello": "testuale", "riferimento": "Appendice III — Campi gara acque di tipo B", "estratto": "Torrente Margorabbia (VA) — Tratto di circa 300 metri dal ponte sul Lago di Ghirla fino alla chiusa Enel in località Ghetto." }
+        ]
+      }
+    },
+    {
+      "id": "margorabbia_campo_gara_mesenzana",
+      "nome": "Campo gara Mesenzana / Ponte del Cucco",
+      "tipo": "campo_gara",
+      "corpo_idrico": "margorabbia",
+      "non_taglia_geometria_base": true,
+      "monte": "super_mesenzana",
+      "valle": "fine_gara_cucco",
+      "sintesi": "Non spezza il torrente: dove incrocia il No-Kill, a giornata resta il No-Kill. Con gara autorizzata si aggiungono ardiglione ammesso e trota fario 22 cm; il rilascio del No-Kill non viene tolto.",
+      "attivazione": { "modo": "toggle", "gruppo": "gara_autorizzata", "etichetta": "Gara autorizzata" },
+      "override": {
+        "attrezzatura": { "ardiglione": "ammesso" },
+        "prelievo": { "misure_minime_override_cm": { "trota_fario": 22 } },
+        "vincoli_speciali": [
+          { "id": "gara_immissione", "testo": "Durante le gare autorizzate la pesca è vietata dall'avvenuta immissione di fauna ittica fino all'inizio della manifestazione.", "livello": "testuale" },
+          { "id": "sovrapposizione_nokill", "testo": "Sul tratto Carrefour–briglia Passeri il campo gara è sopra il No-Kill: in giornata vale il rilascio obbligatorio; in gara autorizzata si applicano anche le prescrizioni da campo gara.", "livello": "interpretazione" }
+        ],
+        "fonti": [
+          { "livello": "testuale", "riferimento": "Appendice III — Campi gara", "estratto": "Dal supermercato in comune di Mesenzana a 200 m a valle del ponte del Cucco, per un tratto di 1400 metri." }
+        ]
+      }
+    },
+    {
+      "id": "margorabbia_pesca_invernale_nokill",
+      "nome": "Deroga invernale No-Kill (piede asciutto)",
+      "tipo": "deroga_invernale",
+      "corpo_idrico": "margorabbia",
+      "non_taglia_geometria_base": true,
+      "monte": "ponte_grantola",
+      "valle": "nk_end",
+      "sintesi": "Non è un terzo tratto. Dalla prima domenica di ottobre all'ultima domenica di febbraio, sullo stesso No-Kill, si pesca solo a piede asciutto.",
+      "attivazione": { "modo": "calendario", "stagione_ref": "invernale_B", "etichetta": "Periodo invernale" },
+      "override": {
+        "tecniche": {
+          "consentite": ["piede_asciutto", "mosca", "mosca_coda_di_topo", "spinning", "canna_da_riva"],
+          "vietate": ["guado", "pesca_da_ponte", "imbarcazione", "pesca_notturna"]
+        },
+        "vincoli_speciali": [
+          { "id": "piede_asciutto", "testo": "Dalla prima domenica di ottobre all'ultima domenica di febbraio la pesca in questo tratto è solo a piede asciutto.", "livello": "testuale" }
+        ],
+        "fonti": [
+          { "livello": "testuale", "riferimento": "Acque di tipo B dove sono consentite forme di pesca invernali", "estratto": "La pesca fra la prima domenica di ottobre e l’ultima domenica di febbraio può essere praticata esclusivamente a piede asciutto." }
+        ]
+      }
+    },
+    {
+      "id": "cuccio_campo_gara_porlezza",
+      "nome": "Campo gara Cuccio — Porlezza / San Pietro Sovera",
+      "tipo": "campo_gara",
+      "corpo_idrico": "cuccio",
+      "bank": "both",
+      "non_taglia_geometria_base": true,
+      "stato": "fuori_interesse",
+      "nota_operativa": "Dal 2026-09-28 i campi gara non si cartografano.",
+      "monte": "ponte_sovera_200m",
+      "valle": "foce_cuccio",
+      "sintesi": "Dalla foce fino a 200 m a monte del ponte in pietra di San Pietro Sovera. Tutto l'anno, con rilascio della trota fario nel periodo di divieto.",
+      "attivazione": { "modo": "toggle", "gruppo": "gara_autorizzata", "etichetta": "Gara autorizzata" },
+      "override": {
+        "attrezzatura": { "ardiglione": "ammesso" },
+        "prelievo": { "misure_minime_override_cm": { "trota_fario": 22 } },
+        "vincoli_speciali": [
+          { "id": "rilascio_fario_chiusura", "testo": "Campo gara invernale: obbligo di rilascio della trota fario catturata nel periodo di divieto.", "livello": "testuale" }
+        ]
+      },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice III — campi gara tipo B", "estratto": "Torrente Cuccio (CO), Comune di Porlezza, dalla foce a lago verso monte fino a 200 metri a monte del ponte in pietra di San Pietro Sovera." }
+      ]
+    },
+    {
+      "id": "cuccio_campo_gara_carlazzo",
+      "nome": "Campo gara Cuccio — Carlazzo",
+      "tipo": "campo_gara",
+      "corpo_idrico": "cuccio",
+      "bank": "both",
+      "non_taglia_geometria_base": true,
+      "stato": "fuori_interesse",
+      "nota_operativa": "Dal 2026-09-28 i campi gara non si cartografano.",
+      "monte": "ponte_maggioni",
+      "valle": "mulino_carlazzo",
+      "sintesi": "Da località Mulino al Ponte Maggioni. Non spezza il torrente.",
+      "attivazione": { "modo": "toggle", "gruppo": "gara_autorizzata", "etichetta": "Gara autorizzata" },
+      "override": { "attrezzatura": { "ardiglione": "ammesso" } },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice III — campi gara tipo B", "estratto": "Torrente Cuccio (CO), Comune di Carlazzo, dalla località Mulino al Ponte Maggioni." }
+      ]
+    },
+    {
+      "id": "rezzo_campo_gara",
+      "nome": "Campo gara Rezzo — cascata del Mulino / via Prati",
+      "tipo": "campo_gara",
+      "corpo_idrico": "rezzo",
+      "bank": "both",
+      "non_taglia_geometria_base": true,
+      "stato": "fuori_interesse",
+      "nota_operativa": "Dal 2026-09-28 i campi gara non si cartografano.",
+      "monte": "cascata_mulino_porlezza",
+      "valle": "ponte_via_prati",
+      "sintesi": "Dalla cascata del Mulino al ponte di via Prati. Non spezza il torrente.",
+      "attivazione": { "modo": "toggle", "gruppo": "gara_autorizzata", "etichetta": "Gara autorizzata" },
+      "override": { "attrezzatura": { "ardiglione": "ammesso" } },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice III — campi gara tipo B", "estratto": "Torrente Rezzo (CO), Comune di Porlezza, dalla cascata del Mulino al ponte di via Prati." }
+      ]
+    },
+    {
+      "id": "soldo_campo_gara",
+      "nome": "Campo gara Soldo — ponte di Castello",
+      "tipo": "campo_gara",
+      "corpo_idrico": "soldo",
+      "bank": "both",
+      "non_taglia_geometria_base": true,
+      "stato": "fuori_interesse",
+      "nota_operativa": "Dal 2026-09-28 i campi gara non si cartografano.",
+      "monte": "ponte_castello",
+      "valle": "ponte_castello",
+      "sintesi": "300 m a monte e 300 m a valle del ponte di Castello. Non spezza il torrente.",
+      "attivazione": { "modo": "toggle", "gruppo": "gara_autorizzata", "etichetta": "Gara autorizzata" },
+      "override": { "attrezzatura": { "ardiglione": "ammesso" } },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice III — campi gara tipo B", "estratto": "Torrente Soldo (CO), Comune di Valsolda, da 300 metri a monte a 300 metri a valle del ponte di Castello." }
+      ]
+    },
+    {
+      "id": "telo_osteno_campo_gara",
+      "nome": "Campo gara Telo di Osteno — Burgantun / Burgant della Minica",
+      "tipo": "campo_gara",
+      "corpo_idrico": "telo_osteno",
+      "bank": "both",
+      "non_taglia_geometria_base": true,
+      "stato": "fuori_interesse",
+      "nota_operativa": "Dal 2026-09-28 i campi gara non si cartografano.",
+      "monte": "burgantun",
+      "valle": "burgant_minica",
+      "sintesi": "Da località Burgantun a Burgant della Minica, comune di Laino. Senza geometria del torrente l'overlay non si disegna.",
+      "attivazione": { "modo": "toggle", "gruppo": "gara_autorizzata", "etichetta": "Gara autorizzata" },
+      "override": { "attrezzatura": { "ardiglione": "ammesso" } },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Appendice III — campi gara tipo B", "estratto": "Torrente Telo di Osteno (CO), Comune di Laino, da località Burgantun a località Burgant della Minica." }
+      ]
+    }
+  ]
+}

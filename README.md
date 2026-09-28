@@ -14,3 +14,5 @@ py -3 scripts/build_geo_data.py
 ```
 
 I capisaldi confermati sono in `data/geojson/capisaldi_verificati.json`. Le regole computabili sono in `data/normativa/margorabbia_regole.json`.
+
+Stato del lavoro e decisioni: `MEMORIA.md`.

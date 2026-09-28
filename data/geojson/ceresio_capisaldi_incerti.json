@@ -1,0 +1,553 @@
+{
+  "soglia_m": 80.0,
+  "nota": "Nessun pin è verificato. I campi gara non si sondano. Le indicazioni utente stanno in ceresio_capisaldi_indicati.json e restano da confermare sulla mappa di impalcatura. La foce del Tresa nel Verbano è rinviata al Lago Maggiore.",
+  "schede": [
+    {
+      "id": "ponte_dogana",
+      "uso": "Pesca notturna Tresa (inizio) e divieto sulle piattaforme doganali",
+      "corpi": [
+        "tresa",
+        "lago_lugano"
+      ],
+      "query": "Ponte della Dogana, Lavena Ponte Tresa",
+      "stato": "confermato",
+      "verificato": true,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "indicazione_utente": {
+        "nome": "Ponte della Dogana",
+        "note": "Poligono OSM indicato dall'utente. Il punto sull'asta è l'intersezione con il Tresa, oppure la proiezione del poligono.",
+        "precisione": "confermato",
+        "osm_id": 385985142,
+        "osm_type": "way"
+      }
+    },
+    {
+      "id": "chiusa_regolazione",
+      "uso": "Pesca notturna Tresa (fine tratto Dogana–chiusa)",
+      "corpi": [
+        "tresa"
+      ],
+      "query": "chiusa regolazione acque, Lavena Ponte Tresa",
+      "stato": "confermato",
+      "verificato": true,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "indicazione_utente": {
+        "lat": 45.96946456942645,
+        "lon": 8.855186974289014,
+        "nome": "Chiusa di regolazione delle acque",
+        "note": "Punto indicato dall'utente a Lavena Ponte Tresa.",
+        "precisione": "confermato"
+      }
+    },
+    {
+      "id": "diga_creva",
+      "uso": "Pesca notturna della bottatrice a monte della diga",
+      "corpi": [
+        "tresa"
+      ],
+      "query": "diga di Creva, Luino",
+      "stato": "confermato",
+      "verificato": true,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [
+        {
+          "fonte": "nominatim",
+          "nome": "Diga di Creva, Biviglione, Creva, Luino, Comunità Montana Valli del Verbano, Varese, Lombardia, Italia",
+          "lon": 8.766723,
+          "lat": 45.991474,
+          "dist_m": 2.2
+        }
+      ],
+      "candidati": [
+        {
+          "fonte": "nominatim",
+          "nome": "Diga di Creva, Biviglione, Creva, Luino, Comunità Montana Valli del Verbano, Varese, Lombardia, Italia",
+          "lon": 8.766723,
+          "lat": 45.991474,
+          "dist_m": 2.2
+        }
+      ],
+      "nota_operativa": "Un solo riscontro Nominatim. Non è confermato dall'utente.",
+      "indicazione_utente": {
+        "lat": 45.991474,
+        "lon": 8.766723,
+        "nome": "Diga di Creva",
+        "note": "Confermato il punto Nominatim già sulla mappa.",
+        "precisione": "confermato"
+      }
+    },
+    {
+      "id": "ponte_biviglione",
+      "uso": "Fine del tratto notturno bottatrice",
+      "corpi": [
+        "tresa"
+      ],
+      "query": "ponte di ferro Biviglione",
+      "stato": "confermato",
+      "verificato": true,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "indicazione_utente": {
+        "lat": 45.98974570231629,
+        "lon": 8.784369706102224,
+        "nome": "Ponte di ferro, Biviglione",
+        "note": "Punto indicato dall'utente.",
+        "precisione": "confermato"
+      }
+    },
+    {
+      "id": "piazza_europa",
+      "uso": "Divieto Lungo Argine / Piazza Europa / Piazza Mercato",
+      "corpi": [
+        "tresa"
+      ],
+      "query": "Piazza Europa, Lavena Ponte Tresa",
+      "stato": "confermato",
+      "verificato": true,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "indicazione_utente": {
+        "da": "chiusa_regolazione",
+        "verso": "ponte_dogana",
+        "frazione": 0.5,
+        "bank": "sud",
+        "note": "Piazza Europa e Piazza Mercato, insieme, sono circa il 50% del tratto che parte dalla chiusa di regolazione e va verso il Ponte della Dogana, in sponda sud.",
+        "confermato": true
+      }
+    },
+    {
+      "id": "piazza_mercato",
+      "uso": "Divieto Lungo Argine / Piazza Europa / Piazza Mercato",
+      "corpi": [
+        "tresa"
+      ],
+      "query": "Piazza Mercato, Lavena Ponte Tresa",
+      "stato": "confermato",
+      "verificato": true,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [
+        {
+          "fonte": "nominatim",
+          "nome": "Piazza don Giorgio Quaglia, Via Rapetti, Villaggio Bensi, Ponte Tresa, Lavena Ponte Tresa, Comunità Montana del Piambello, Varese, Lombardia, 21037, Italia",
+          "lon": 8.854679,
+          "lat": 45.968807,
+          "dist_m": 82.0
+        }
+      ],
+      "indicazione_utente": {
+        "da": "chiusa_regolazione",
+        "verso": "ponte_dogana",
+        "frazione": 0.5,
+        "bank": "sud",
+        "note": "Piazza Europa e Piazza Mercato, insieme, sono circa il 50% del tratto che parte dalla chiusa di regolazione e va verso il Ponte della Dogana, in sponda sud.",
+        "confermato": true
+      }
+    },
+    {
+      "id": "foce_tresa_verbano",
+      "uso": "Divieto di foce nel Verbano (semicircolo: non è un taglio del Ceresio)",
+      "corpi": [
+        "tresa"
+      ],
+      "query": "foce fiume Tresa, Luino",
+      "stato": "rinviato_verbano",
+      "verificato": false,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "nota_operativa": "Foce nel Lago Maggiore. Si affronta con il Verbano, non su questa mappa."
+    },
+    {
+      "id": "vecchia_filanda",
+      "uso": "Inizio canneto dello stretto di Lavena",
+      "corpi": [
+        "lago_lugano"
+      ],
+      "query": "Vecchia Filanda, Lavena Ponte Tresa",
+      "stato": "confermato",
+      "verificato": true,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "indicazione_utente": {
+        "lat": 45.95998091846375,
+        "lon": 8.869922935204908,
+        "nome": "Estremo dello stretto (Vecchia Filanda)",
+        "note": "Non è lo stabile. Il testo parla dello stretto: questo punto è un estremo approssimato, nell'ordine indicato insieme al Grotto del Bagat.",
+        "precisione": "confermato"
+      }
+    },
+    {
+      "id": "grotto_bagat",
+      "uso": "Fine canneto dello stretto di Lavena",
+      "corpi": [
+        "lago_lugano"
+      ],
+      "query": "Grotto del Bagat, Lavena Ponte Tresa",
+      "stato": "confermato",
+      "verificato": true,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "indicazione_utente": {
+        "lat": 45.95874951248393,
+        "lon": 8.874729172117618,
+        "nome": "Estremo dello stretto (Grotto del Bagat)",
+        "note": "Non è il grotto. Secondo estremo approssimato dello stretto di Lavena.",
+        "precisione": "confermato"
+      }
+    },
+    {
+      "id": "ponte_bigattini",
+      "uso": "Inizio divieto Trallo (ponte–foce, circa 500 m)",
+      "corpi": [
+        "trallo"
+      ],
+      "query": "via Bigattini, Brusimpiano",
+      "stato": "confermato",
+      "verificato": true,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "indicazione_utente": {
+        "lat": 45.944796414430094,
+        "lon": 8.886358894323099,
+        "nome": "Ponte di via Bagattini",
+        "note": "Confermato il 2026-09-28, coordinate corrette rispetto al primo click. L'utente scrive Bagattini; il prontuario scrive Bigattini.",
+        "precisione": "confermato"
+      }
+    },
+    {
+      "id": "ponte_sovera",
+      "uso": "Campo gara Cuccio Porlezza: 200 m a monte del ponte",
+      "corpi": [
+        "cuccio"
+      ],
+      "query": "ponte San Pietro Sovera, Porlezza",
+      "stato": "fuori_interesse",
+      "verificato": false,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "nota_operativa": "Campo gara: fuori perimetro operativo, non si cartografa."
+    },
+    {
+      "id": "mulino_carlazzo",
+      "uso": "Campo gara Cuccio Carlazzo (inizio)",
+      "corpi": [
+        "cuccio"
+      ],
+      "query": "località Mulino, Carlazzo",
+      "stato": "fuori_interesse",
+      "verificato": false,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "nota_operativa": "Campo gara: fuori perimetro operativo, non si cartografa."
+    },
+    {
+      "id": "ponte_maggioni",
+      "uso": "Campo gara Cuccio Carlazzo (fine)",
+      "corpi": [
+        "cuccio"
+      ],
+      "query": "Ponte Maggioni, Carlazzo",
+      "stato": "fuori_interesse",
+      "verificato": false,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "nota_operativa": "Campo gara: fuori perimetro operativo, non si cartografa."
+    },
+    {
+      "id": "cascata_mulino_porlezza",
+      "uso": "Campo gara Rezzo (inizio)",
+      "corpi": [
+        "rezzo"
+      ],
+      "query": "cascata del Mulino, Porlezza",
+      "stato": "fuori_interesse",
+      "verificato": false,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "nota_operativa": "Campo gara: fuori perimetro operativo, non si cartografa."
+    },
+    {
+      "id": "ponte_via_prati",
+      "uso": "Campo gara Rezzo (fine)",
+      "corpi": [
+        "rezzo"
+      ],
+      "query": "via Prati, Porlezza",
+      "stato": "fuori_interesse",
+      "verificato": false,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [
+        {
+          "fonte": "nominatim",
+          "nome": "Via Prati, Begna, Tavordo, Porlezza, Como, Lombardia, 22018, Italia",
+          "lon": 9.121301,
+          "lat": 46.035626,
+          "dist_m": 528.1
+        },
+        {
+          "fonte": "nominatim",
+          "nome": "Via Prati, Begna, Tavordo, Porlezza, Como, Lombardia, 22018, Italia",
+          "lon": 9.124967,
+          "lat": 46.03443,
+          "dist_m": 679.2
+        }
+      ],
+      "nota_operativa": "Campo gara: fuori perimetro operativo, non si cartografa."
+    },
+    {
+      "id": "ponte_castello",
+      "uso": "Campo gara Soldo: 300 m a monte e a valle",
+      "corpi": [
+        "soldo"
+      ],
+      "query": "ponte di Castello, Valsolda",
+      "stato": "fuori_interesse",
+      "verificato": false,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "nota_operativa": "Campo gara: fuori perimetro operativo, non si cartografa."
+    },
+    {
+      "id": "cimitero_brusimpiano",
+      "uso": "Campo gara di sponda Brusimpiano–Porto Ceresio",
+      "corpi": [
+        "lago_lugano"
+      ],
+      "query": "cimitero, Brusimpiano",
+      "stato": "fuori_interesse",
+      "verificato": false,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [
+        {
+          "fonte": "nominatim",
+          "nome": "Cimitero di Brusimpiano, Ardena, Brusimpiano, Comunità Montana del Piambello, Varese, Lombardia, Italia",
+          "lon": 8.89069,
+          "lat": 45.942713,
+          "dist_m": 49.7
+        }
+      ],
+      "candidati": [
+        {
+          "fonte": "nominatim",
+          "nome": "Cimitero di Brusimpiano, Ardena, Brusimpiano, Comunità Montana del Piambello, Varese, Lombardia, Italia",
+          "lon": 8.89069,
+          "lat": 45.942713,
+          "dist_m": 49.7
+        },
+        {
+          "fonte": "nominatim",
+          "nome": "Cimitero di Ardena, Ardena, Brusimpiano, Comunità Montana del Piambello, Varese, Lombardia, Italia",
+          "lon": 8.878537,
+          "lat": 45.950645,
+          "dist_m": 370.9
+        }
+      ],
+      "nota_operativa": "Campo gara: fuori perimetro operativo, non si cartografa."
+    },
+    {
+      "id": "crotto_zolla",
+      "uso": "Fine campo gara di sponda verso Porto Ceresio",
+      "corpi": [
+        "lago_lugano"
+      ],
+      "query": "Crotto Zolla, Brusimpiano",
+      "stato": "fuori_interesse",
+      "verificato": false,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "nota_operativa": "Campo gara: fuori perimetro operativo, non si cartografa."
+    },
+    {
+      "id": "fontana_letizia",
+      "uso": "Inizio campo gara di sponda Fontana Letizia",
+      "corpi": [
+        "lago_lugano"
+      ],
+      "query": "Fontana Letizia, Brusimpiano",
+      "stato": "fuori_interesse",
+      "verificato": false,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "nota_operativa": "Campo gara: fuori perimetro operativo, non si cartografa."
+    },
+    {
+      "id": "crotto_del_lago",
+      "uso": "Campo gara di sponda Caravina",
+      "corpi": [
+        "lago_lugano"
+      ],
+      "query": "Crotto del Lago, Porlezza",
+      "stato": "fuori_interesse",
+      "verificato": false,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "nota_operativa": "Campo gara: fuori perimetro operativo, non si cartografa."
+    },
+    {
+      "id": "pontile_cima",
+      "uso": "Campo gara di sponda località Cima",
+      "corpi": [
+        "lago_lugano"
+      ],
+      "query": "pontile Cima, Porlezza",
+      "stato": "fuori_interesse",
+      "verificato": false,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "nota_operativa": "Campo gara: fuori perimetro operativo, non si cartografa."
+    },
+    {
+      "id": "piazza_osteno",
+      "uso": "Campo gara di sponda Osteno",
+      "corpi": [
+        "lago_lugano"
+      ],
+      "query": "piazza a lago, Claino con Osteno",
+      "stato": "fuori_interesse",
+      "verificato": false,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "nota_operativa": "Campo gara: fuori perimetro operativo, non si cartografa."
+    },
+    {
+      "id": "burgantun",
+      "uso": "Campo gara Telo di Osteno (senza geometria in questa fase)",
+      "corpi": [],
+      "query": "Burgantun, Claino con Osteno",
+      "stato": "fuori_interesse",
+      "verificato": false,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "nota_operativa": "Campo gara: fuori perimetro operativo, non si cartografa."
+    },
+    {
+      "id": "burgant_minica",
+      "uso": "Campo gara Telo di Osteno (fine)",
+      "corpi": [],
+      "query": "Burgant della Minica, Claino con Osteno",
+      "stato": "fuori_interesse",
+      "verificato": false,
+      "soglia_m": 80.0,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "nota_operativa": "Campo gara: fuori perimetro operativo, non si cartografa."
+    },
+    {
+      "id": "foce_cuccio",
+      "uso": "Sbocco geometrico nel lago (intersezione delle geometrie OSM)",
+      "corpi": [
+        "cuccio",
+        "lago_lugano"
+      ],
+      "stato": "univoco",
+      "verificato": false,
+      "luoghi_entro_soglia": [
+        {
+          "fonte": "intersezione",
+          "lon": 9.123669,
+          "lat": 46.029853,
+          "dist_m": 0
+        }
+      ],
+      "candidati": []
+    },
+    {
+      "id": "foce_rezzo",
+      "uso": "Sbocco geometrico nel lago (intersezione delle geometrie OSM)",
+      "corpi": [
+        "rezzo",
+        "lago_lugano"
+      ],
+      "stato": "confermato",
+      "verificato": true,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "indicazione_utente": {
+        "lat": 46.03295157729113,
+        "lon": 9.120904058816382,
+        "nome": "Foce del Rezzo",
+        "note": "Posizione approssimata indicata dall'utente. Il raggio di 50 m è disegnato sull'impalcatura.",
+        "precisione": "confermato"
+      }
+    },
+    {
+      "id": "foce_soldo",
+      "uso": "Sbocco geometrico nel lago (intersezione delle geometrie OSM)",
+      "corpi": [
+        "soldo",
+        "lago_lugano"
+      ],
+      "stato": "univoco",
+      "verificato": false,
+      "luoghi_entro_soglia": [
+        {
+          "fonte": "intersezione",
+          "lon": 9.051699,
+          "lat": 46.024133,
+          "dist_m": 0
+        }
+      ],
+      "candidati": []
+    },
+    {
+      "id": "foce_trallo",
+      "uso": "Sbocco geometrico nel lago (intersezione delle geometrie OSM)",
+      "corpi": [
+        "trallo",
+        "lago_lugano"
+      ],
+      "stato": "univoco",
+      "verificato": false,
+      "luoghi_entro_soglia": [
+        {
+          "fonte": "intersezione",
+          "lon": 8.891842,
+          "lat": 45.948623,
+          "dist_m": 0
+        }
+      ],
+      "candidati": []
+    },
+    {
+      "id": "foce_telo",
+      "uso": "Restrizione 50 m alla foce del Telo di Osteno. Nessuna geometria del torrente in questa fase.",
+      "corpi": [],
+      "stato": "confermato",
+      "verificato": true,
+      "luoghi_entro_soglia": [],
+      "candidati": [],
+      "indicazione_utente": {
+        "lat": 46.00907168549124,
+        "lon": 9.084980490938772,
+        "nome": "Foce del Telo di Osteno",
+        "note": "Confermata il 2026-09-28 sulla foce del Lirone: a quel punto il Telo sbocca come Lirone. Il cerchio da 50 m sta sullo specchio.",
+        "precisione": "confermato",
+        "osm_id": 848395586,
+        "osm_type": "way"
+      }
+    }
+  ],
+  "da_validare": []
+}

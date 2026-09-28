@@ -1,0 +1,3524 @@
+{
+  "type": "FeatureCollection",
+  "name": "margorabbia_overlay",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            8.8192076,
+            45.9234994
+          ],
+          [
+            8.8193142,
+            45.9239288
+          ],
+          [
+            8.8194748,
+            45.9241837
+          ],
+          [
+            8.8195601,
+            45.9243208
+          ],
+          [
+            8.8196307,
+            45.9244334
+          ],
+          [
+            8.8198121,
+            45.9246497
+          ],
+          [
+            8.8201867,
+            45.9249788
+          ],
+          [
+            8.8202641,
+            45.9252801
+          ],
+          [
+            8.8203485,
+            45.9254753
+          ],
+          [
+            8.8205303,
+            45.9256564
+          ],
+          [
+            8.820617170461182,
+            45.925671432229166
+          ]
+        ]
+      },
+      "properties": {
+        "id": "margorabbia_campo_gara_ghirla_01",
+        "layer": "overlay",
+        "overlay_id": "margorabbia_campo_gara_ghirla",
+        "tipo_overlay": "campo_gara",
+        "nome_tratto": "Campo gara Ghirla / chiusa Enel Ghetto",
+        "sintesi": "Non spezza il torrente. Con gara autorizzata: amo con ardiglione ammesso, trota fario 22 cm, pesca vietata dall'immissione all'inizio della manifestazione.",
+        "attivazione": {
+          "modo": "toggle",
+          "gruppo": "gara_autorizzata",
+          "etichetta": "Gara autorizzata"
+        },
+        "non_taglia_geometria_base": true,
+        "corpo_idrico": "margorabbia",
+        "corpo_nome": "Torrente Margorabbia",
+        "segmento_sottostante": null,
+        "regime": "ordinario_B",
+        "regime_sottostante": "ordinario_B",
+        "regime_etichetta": "Regime Ordinario B (FIPSAS)",
+        "tipo_acqua": "B",
+        "pesca_consentita": true,
+        "geometria": "LineString",
+        "matrice": {
+          "regime_amministrativo": "fipsas",
+          "regime_amministrativo_etichetta": "FIPSAS",
+          "classificazione_biologica": "B",
+          "classificazione_etichetta": "Cat. B",
+          "modalita": "sponda",
+          "tipo_geometria_normativa": "linea",
+          "eredita": [
+            {
+              "livello": 1,
+              "asse": "classificazione_biologica",
+              "id": "B",
+              "blocco": "ordinario_B"
+            },
+            {
+              "livello": 1,
+              "asse": "regime_amministrativo",
+              "id": "fipsas",
+              "sostituisce_biologia": false
+            },
+            {
+              "livello": 2,
+              "asse": "modalita_pesca",
+              "id": "sponda"
+            },
+            {
+              "livello": 3,
+              "asse": "eccezione_locale",
+              "id": "margorabbia",
+              "chiavi": [
+                "calendario",
+                "prelievo"
+              ]
+            }
+          ]
+        },
+        "regole": {
+          "zona_id": "margorabbia_residuo",
+          "zona_nome": "Torrente Margorabbia — Regime Ordinario B (FIPSAS)",
+          "corpo_idrico": "margorabbia",
+          "corpo_nome": "Torrente Margorabbia",
+          "regime": "ordinario_B",
+          "regime_etichetta": "Regime Ordinario B (FIPSAS)",
+          "regime_descrizione": "Acque correnti salmonicole in concessione FIPSAS: prelievo consentito secondo le regole generali del tipo B.",
+          "tipo_acqua": "B",
+          "tipo_acqua_etichetta": "Tipo B (salmonicole)",
+          "pesca_consentita": true,
+          "priorita": 10,
+          "estensione": {
+            "tipo": "residuale",
+            "descrizione": "Fuori dai tagli restrittivi (No-Kill, divieto, riserva)."
+          },
+          "calendario": {
+            "stagione": {
+              "id": "stagione_B",
+              "etichetta": "Stagione acque di tipo B",
+              "inizio": {
+                "data_ref": "ultima_domenica_febbraio",
+                "riferimento_solare": "alba",
+                "offset_minuti": -60
+              },
+              "fine": {
+                "data_ref": "prima_domenica_ottobre",
+                "riferimento_solare": "tramonto",
+                "offset_minuti": 60
+              },
+              "testo": "Dall'ultima domenica di febbraio (1 h prima dell'alba) alla prima domenica di ottobre (1 h dopo il tramonto)",
+              "fonte": {
+                "livello": "testuale",
+                "riferimento": "Regole acque tipo B",
+                "estratto": "da un’ora prima dell’alba dell’ultima domenica di febbraio a un’ora dopo il tramonto della prima domenica di ottobre"
+              }
+            },
+            "giorni": {
+              "id": "tutti_i_giorni_deroga_tresa",
+              "etichetta": "Tutti i giorni (deroga «Affluenti del fiume Tresa»)",
+              "settimana": [
+                "lun",
+                "mar",
+                "mer",
+                "gio",
+                "ven",
+                "sab",
+                "dom"
+              ],
+              "festivi_aggiuntivi": [],
+              "testo": "Tutti i giorni: l'asta del Margorabbia rientra tra gli «Affluenti del fiume Tresa»",
+              "fonte": {
+                "livello": "interpretazione",
+                "riferimento": "Elenco corpi idrici con pesca tutti i giorni",
+                "estratto": "la pesca è consentita tutti i giorni della settimana […] Affluenti del fiume Tresa",
+                "nota": "Il Margorabbia è affluente diretto del Tresa. Il prontuario non scrive «e affluenti» dopo Tresa: la deroga NON si estende agli affluenti del Margorabbia."
+              }
+            },
+            "fascia_oraria": {
+              "id": "diurna",
+              "etichetta": "Diurna",
+              "da": {
+                "riferimento_solare": "alba",
+                "offset_minuti": -60
+              },
+              "a": {
+                "riferimento_solare": "tramonto",
+                "offset_minuti": 60
+              },
+              "testo": "Da 1 h prima dell'alba a 1 h dopo il tramonto",
+              "fonte": {
+                "livello": "testuale",
+                "riferimento": "Regole acque tipo B",
+                "estratto": "da un’ora prima dell’alba a un’ora dopo il tramonto"
+              }
+            },
+            "periodi_speciali": []
+          },
+          "attrezzatura": {
+            "attrezzi_ammessi": [
+              "canna"
+            ],
+            "canne_max": 1,
+            "esche_max_per_canna": 3,
+            "ami_max_per_canna": null,
+            "ardiglione": "vietato",
+            "spazio_sponda_max_m": null
+          },
+          "esche": {
+            "consentite": [
+              "naturale",
+              "artificiale"
+            ],
+            "vietate": [
+              "cagnotto",
+              "pesce_vivo",
+              "pesce_morto"
+            ],
+            "pasturazione": "vietata"
+          },
+          "tecniche": {
+            "consentite": [
+              "canna_da_riva",
+              "guado"
+            ],
+            "vietate": [
+              "pesca_da_ponte",
+              "imbarcazione",
+              "pesca_notturna"
+            ],
+            "condizionate": []
+          },
+          "prelievo": {
+            "tipo": "ordinario",
+            "rilascio_obbligatorio": false,
+            "capi_trattenibili": "secondo limiti di cattura",
+            "specie_sempre_protette_extra": [
+              "temolo"
+            ],
+            "limiti_ref": "limiti_cattura",
+            "misure_minime_cm": {
+              "trota_fario": 25,
+              "trota_marmorata": 40,
+              "temolo": 35,
+              "luccio": 60,
+              "persico_reale": 16,
+              "salmerino_alpino": 25
+            },
+            "specie_protette": [
+              "cobiti",
+              "lasca",
+              "scazzone",
+              "anguilla",
+              "savetta",
+              "barbo canino",
+              "lampreda padana",
+              "pigo",
+              "trota macrostigma",
+              "temolo"
+            ],
+            "limiti": {
+              "per_specie": {
+                "luccio": 1,
+                "trota_marmorata": 1,
+                "temolo": 2
+              },
+              "salmonidi_complessivi": 6,
+              "kg_giornalieri_max": 5,
+              "stop_al_limite": [
+                "luccio",
+                "salmonidi"
+              ],
+              "obbligo_recisione_pinna_caudale": [
+                "trote",
+                "luccio",
+                "coregone",
+                "persico reale",
+                "salmerino",
+                "temolo",
+                "siluro"
+              ],
+              "fonte": {
+                "livello": "testuale",
+                "riferimento": "par. 4.5–4.6",
+                "estratto": "luccio 1; trota marmorata 1; temolo 2; «6 capi complessivi di trote, salmerini e temoli»; massimo 5 kg/giorno di fauna ittica"
+              }
+            }
+          },
+          "permessi": {
+            "pacchetto": {
+              "id": "fipsas_acque_B",
+              "etichetta": "Acque correnti di tipo B (FIPSAS)",
+              "richiede_contributo_extra": true,
+              "richiede_tesserino": true,
+              "note": "Non è acqua libera «solo licenza B».",
+              "documenti": [
+                {
+                  "id": "licenza_B",
+                  "etichetta": "Licenza di pesca tipo B",
+                  "costo_eur": 23.0,
+                  "ente": "Regione Lombardia (tassa regionale)",
+                  "validita": "12 mesi",
+                  "esenzioni": [
+                    "Residenti in Italia con meno di 18 anni",
+                    "Residenti in Italia con più di 65 anni",
+                    "Soggetti L. 104/1992 art. 3 (se pescano solo con canna)"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Licenza di pesca tipo B (€ 23,00)"
+                  }
+                },
+                {
+                  "id": "tessera_fipsas",
+                  "etichetta": "Tessera FIPSAS",
+                  "costo_eur": 30.0,
+                  "costi_ridotti": [
+                    {
+                      "costo_eur": 6.0,
+                      "condizione": "nati dopo il 01.01.2011"
+                    }
+                  ],
+                  "ente": "FIPSAS",
+                  "validita": "anno solare",
+                  "esenzioni": [],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Tessera FIPSAS (€ 30,00; € 6,00 nati dopo il 01.01.2011)"
+                  }
+                },
+                {
+                  "id": "contributo_gestione_annuale",
+                  "etichetta": "Contributo di gestione annuale FIPSAS Varese",
+                  "costo_eur": 30.0,
+                  "ente": "FIPSAS Varese (concessionario)",
+                  "validita": "anno solare",
+                  "ambito": [
+                    "acque di tipo B",
+                    "pesca da imbarcazione / belly boat",
+                    "acque evidenziate in azzurro"
+                  ],
+                  "esenzioni": [
+                    "Nati dopo il 01.01.2008",
+                    "Disabili L. 104/1992 art. 3 c. 3"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Contributo di gestione annuale a FIPSAS Varese (€ 30,00) — per la pesca da imbarcazione e nelle acque di tipo B"
+                  }
+                },
+                {
+                  "id": "tesserino_segnapesci",
+                  "etichetta": "Tesserino segnapesci del concessionario",
+                  "costo_eur": null,
+                  "ente": "FIPSAS Varese",
+                  "non_richiesto_se": [
+                    "permesso_giornaliero"
+                  ],
+                  "punti_distribuzione": [
+                    "GERMIGNAGA PESCA — Piazza 20 Settembre, 29, Germignaga (VA)"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Tesserino segna pesci del Concessionario […] non è obbligatorio per chi utilizza il permesso giornaliero di pesca"
+                  }
+                }
+              ],
+              "costo_totale_eur": null,
+              "costo_noto_eur": 83.0,
+              "alternativa_non_tesserati": [
+                {
+                  "id": "licenza_B",
+                  "etichetta": "Licenza di pesca tipo B"
+                },
+                {
+                  "id": "permesso_giornaliero",
+                  "etichetta": "Permesso giornaliero (non tesserati FIPSAS)"
+                }
+              ]
+            },
+            "varianti": []
+          },
+          "vincoli_speciali": [],
+          "interpretazioni": [],
+          "fonti": [
+            {
+              "livello": "testuale",
+              "riferimento": "Regole acque tipo B",
+              "estratto": "L’unico attrezzo ammesso è la canna da pesca. Si può pescare con una sola canna, armata con un massimo di tre esche naturali o artificiali. Gli ami devono essere privi di ardiglione o con ardiglione schiacciato ad eccezione dei tratti individuati come campo gara, dove è ammesso l’utilizzo di ami con ardiglione. Non è ammessa alcuna forma di pasturazione e non è ammesso utilizzare come esca la larva di mosca carnaria (cagnotto) e il pesce vivo, o morto. È proibita la pesca dai ponti e con la barca."
+            },
+            {
+              "livello": "testuale",
+              "riferimento": "par. 4.4 — tabella periodi di divieto",
+              "estratto": "Temolo: Sempre protetto nel lago di Mezzola e nei torrenti Pioverna e Margorabbia"
+            },
+            {
+              "livello": "interpretazione",
+              "riferimento": "Elenco corpi idrici con pesca tutti i giorni",
+              "estratto": "la pesca è consentita tutti i giorni della settimana […] Affluenti del fiume Tresa",
+              "nota": "Il Margorabbia è affluente diretto del Tresa. La deroga non si estende agli affluenti del Margorabbia."
+            }
+          ],
+          "note_corpo": null,
+          "matrice": {
+            "regime_amministrativo": "fipsas",
+            "regime_amministrativo_etichetta": "FIPSAS",
+            "classificazione_biologica": "B",
+            "classificazione_etichetta": "Cat. B",
+            "modalita": "sponda",
+            "tipo_geometria_normativa": "linea",
+            "eredita": [
+              {
+                "livello": 1,
+                "asse": "classificazione_biologica",
+                "id": "B",
+                "blocco": "ordinario_B"
+              },
+              {
+                "livello": 1,
+                "asse": "regime_amministrativo",
+                "id": "fipsas",
+                "sostituisce_biologia": false
+              },
+              {
+                "livello": 2,
+                "asse": "modalita_pesca",
+                "id": "sponda"
+              },
+              {
+                "livello": 3,
+                "asse": "eccezione_locale",
+                "id": "margorabbia",
+                "chiavi": [
+                  "calendario",
+                  "prelievo"
+                ]
+              }
+            ]
+          }
+        },
+        "regole_se_attivo": {
+          "zona_id": "margorabbia_residuo__margorabbia_campo_gara_ghirla",
+          "zona_nome": "Campo gara Ghirla / chiusa Enel Ghetto",
+          "corpo_idrico": "margorabbia",
+          "corpo_nome": "Torrente Margorabbia",
+          "regime": "ordinario_B",
+          "regime_etichetta": "Regime Ordinario B (FIPSAS)",
+          "regime_descrizione": "Acque correnti salmonicole in concessione FIPSAS: prelievo consentito secondo le regole generali del tipo B.",
+          "tipo_acqua": "B",
+          "tipo_acqua_etichetta": "Tipo B (salmonicole)",
+          "pesca_consentita": true,
+          "priorita": 0,
+          "estensione": {
+            "tipo": "overlay",
+            "descrizione": "Non spezza il torrente. Con gara autorizzata: amo con ardiglione ammesso, trota fario 22 cm, pesca vietata dall'immissione all'inizio della manifestazione."
+          },
+          "calendario": {
+            "stagione": {
+              "id": "stagione_B",
+              "etichetta": "Stagione acque di tipo B",
+              "inizio": {
+                "data_ref": "ultima_domenica_febbraio",
+                "riferimento_solare": "alba",
+                "offset_minuti": -60
+              },
+              "fine": {
+                "data_ref": "prima_domenica_ottobre",
+                "riferimento_solare": "tramonto",
+                "offset_minuti": 60
+              },
+              "testo": "Dall'ultima domenica di febbraio (1 h prima dell'alba) alla prima domenica di ottobre (1 h dopo il tramonto)",
+              "fonte": {
+                "livello": "testuale",
+                "riferimento": "Regole acque tipo B",
+                "estratto": "da un’ora prima dell’alba dell’ultima domenica di febbraio a un’ora dopo il tramonto della prima domenica di ottobre"
+              }
+            },
+            "giorni": {
+              "id": "tutti_i_giorni_deroga_tresa",
+              "etichetta": "Tutti i giorni (deroga «Affluenti del fiume Tresa»)",
+              "settimana": [
+                "lun",
+                "mar",
+                "mer",
+                "gio",
+                "ven",
+                "sab",
+                "dom"
+              ],
+              "festivi_aggiuntivi": [],
+              "testo": "Tutti i giorni: l'asta del Margorabbia rientra tra gli «Affluenti del fiume Tresa»",
+              "fonte": {
+                "livello": "interpretazione",
+                "riferimento": "Elenco corpi idrici con pesca tutti i giorni",
+                "estratto": "la pesca è consentita tutti i giorni della settimana […] Affluenti del fiume Tresa",
+                "nota": "Il Margorabbia è affluente diretto del Tresa. Il prontuario non scrive «e affluenti» dopo Tresa: la deroga NON si estende agli affluenti del Margorabbia."
+              }
+            },
+            "fascia_oraria": {
+              "id": "diurna",
+              "etichetta": "Diurna",
+              "da": {
+                "riferimento_solare": "alba",
+                "offset_minuti": -60
+              },
+              "a": {
+                "riferimento_solare": "tramonto",
+                "offset_minuti": 60
+              },
+              "testo": "Da 1 h prima dell'alba a 1 h dopo il tramonto",
+              "fonte": {
+                "livello": "testuale",
+                "riferimento": "Regole acque tipo B",
+                "estratto": "da un’ora prima dell’alba a un’ora dopo il tramonto"
+              }
+            },
+            "periodi_speciali": []
+          },
+          "attrezzatura": {
+            "attrezzi_ammessi": [
+              "canna"
+            ],
+            "canne_max": 1,
+            "esche_max_per_canna": 3,
+            "ami_max_per_canna": null,
+            "ardiglione": "ammesso",
+            "spazio_sponda_max_m": null
+          },
+          "esche": {
+            "consentite": [
+              "naturale",
+              "artificiale"
+            ],
+            "vietate": [
+              "cagnotto",
+              "pesce_vivo",
+              "pesce_morto"
+            ],
+            "pasturazione": "vietata"
+          },
+          "tecniche": {
+            "consentite": [
+              "canna_da_riva",
+              "guado"
+            ],
+            "vietate": [
+              "pesca_da_ponte",
+              "imbarcazione",
+              "pesca_notturna"
+            ],
+            "condizionate": []
+          },
+          "prelievo": {
+            "tipo": "ordinario",
+            "rilascio_obbligatorio": false,
+            "capi_trattenibili": "secondo limiti di cattura",
+            "specie_sempre_protette_extra": [
+              "temolo"
+            ],
+            "limiti_ref": "limiti_cattura",
+            "misure_minime_cm": {
+              "trota_fario": 22,
+              "trota_marmorata": 40,
+              "temolo": 35,
+              "luccio": 60,
+              "persico_reale": 16,
+              "salmerino_alpino": 25
+            },
+            "specie_protette": [
+              "cobiti",
+              "lasca",
+              "scazzone",
+              "anguilla",
+              "savetta",
+              "barbo canino",
+              "lampreda padana",
+              "pigo",
+              "trota macrostigma",
+              "temolo"
+            ],
+            "limiti": {
+              "per_specie": {
+                "luccio": 1,
+                "trota_marmorata": 1,
+                "temolo": 2
+              },
+              "salmonidi_complessivi": 6,
+              "kg_giornalieri_max": 5,
+              "stop_al_limite": [
+                "luccio",
+                "salmonidi"
+              ],
+              "obbligo_recisione_pinna_caudale": [
+                "trote",
+                "luccio",
+                "coregone",
+                "persico reale",
+                "salmerino",
+                "temolo",
+                "siluro"
+              ],
+              "fonte": {
+                "livello": "testuale",
+                "riferimento": "par. 4.5–4.6",
+                "estratto": "luccio 1; trota marmorata 1; temolo 2; «6 capi complessivi di trote, salmerini e temoli»; massimo 5 kg/giorno di fauna ittica"
+              }
+            }
+          },
+          "permessi": {
+            "pacchetto": {
+              "id": "fipsas_acque_B",
+              "etichetta": "Acque correnti di tipo B (FIPSAS)",
+              "richiede_contributo_extra": true,
+              "richiede_tesserino": true,
+              "note": "Non è acqua libera «solo licenza B».",
+              "documenti": [
+                {
+                  "id": "licenza_B",
+                  "etichetta": "Licenza di pesca tipo B",
+                  "costo_eur": 23.0,
+                  "ente": "Regione Lombardia (tassa regionale)",
+                  "validita": "12 mesi",
+                  "esenzioni": [
+                    "Residenti in Italia con meno di 18 anni",
+                    "Residenti in Italia con più di 65 anni",
+                    "Soggetti L. 104/1992 art. 3 (se pescano solo con canna)"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Licenza di pesca tipo B (€ 23,00)"
+                  }
+                },
+                {
+                  "id": "tessera_fipsas",
+                  "etichetta": "Tessera FIPSAS",
+                  "costo_eur": 30.0,
+                  "costi_ridotti": [
+                    {
+                      "costo_eur": 6.0,
+                      "condizione": "nati dopo il 01.01.2011"
+                    }
+                  ],
+                  "ente": "FIPSAS",
+                  "validita": "anno solare",
+                  "esenzioni": [],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Tessera FIPSAS (€ 30,00; € 6,00 nati dopo il 01.01.2011)"
+                  }
+                },
+                {
+                  "id": "contributo_gestione_annuale",
+                  "etichetta": "Contributo di gestione annuale FIPSAS Varese",
+                  "costo_eur": 30.0,
+                  "ente": "FIPSAS Varese (concessionario)",
+                  "validita": "anno solare",
+                  "ambito": [
+                    "acque di tipo B",
+                    "pesca da imbarcazione / belly boat",
+                    "acque evidenziate in azzurro"
+                  ],
+                  "esenzioni": [
+                    "Nati dopo il 01.01.2008",
+                    "Disabili L. 104/1992 art. 3 c. 3"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Contributo di gestione annuale a FIPSAS Varese (€ 30,00) — per la pesca da imbarcazione e nelle acque di tipo B"
+                  }
+                },
+                {
+                  "id": "tesserino_segnapesci",
+                  "etichetta": "Tesserino segnapesci del concessionario",
+                  "costo_eur": null,
+                  "ente": "FIPSAS Varese",
+                  "non_richiesto_se": [
+                    "permesso_giornaliero"
+                  ],
+                  "punti_distribuzione": [
+                    "GERMIGNAGA PESCA — Piazza 20 Settembre, 29, Germignaga (VA)"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Tesserino segna pesci del Concessionario […] non è obbligatorio per chi utilizza il permesso giornaliero di pesca"
+                  }
+                }
+              ],
+              "costo_totale_eur": null,
+              "costo_noto_eur": 83.0,
+              "alternativa_non_tesserati": [
+                {
+                  "id": "licenza_B",
+                  "etichetta": "Licenza di pesca tipo B"
+                },
+                {
+                  "id": "permesso_giornaliero",
+                  "etichetta": "Permesso giornaliero (non tesserati FIPSAS)"
+                }
+              ]
+            },
+            "varianti": []
+          },
+          "vincoli_speciali": [
+            {
+              "id": "gara_immissione",
+              "testo": "Durante le gare autorizzate la pesca è vietata dall'avvenuta immissione di fauna ittica fino all'inizio della manifestazione.",
+              "livello": "testuale"
+            }
+          ],
+          "interpretazioni": [],
+          "fonti": [
+            {
+              "livello": "testuale",
+              "riferimento": "Regole acque tipo B",
+              "estratto": "L’unico attrezzo ammesso è la canna da pesca. Si può pescare con una sola canna, armata con un massimo di tre esche naturali o artificiali. Gli ami devono essere privi di ardiglione o con ardiglione schiacciato ad eccezione dei tratti individuati come campo gara, dove è ammesso l’utilizzo di ami con ardiglione. Non è ammessa alcuna forma di pasturazione e non è ammesso utilizzare come esca la larva di mosca carnaria (cagnotto) e il pesce vivo, o morto. È proibita la pesca dai ponti e con la barca."
+            },
+            {
+              "livello": "testuale",
+              "riferimento": "par. 4.4 — tabella periodi di divieto",
+              "estratto": "Temolo: Sempre protetto nel lago di Mezzola e nei torrenti Pioverna e Margorabbia"
+            },
+            {
+              "livello": "interpretazione",
+              "riferimento": "Elenco corpi idrici con pesca tutti i giorni",
+              "estratto": "la pesca è consentita tutti i giorni della settimana […] Affluenti del fiume Tresa",
+              "nota": "Il Margorabbia è affluente diretto del Tresa. La deroga non si estende agli affluenti del Margorabbia."
+            },
+            {
+              "livello": "testuale",
+              "riferimento": "Appendice III — Campi gara acque di tipo B",
+              "estratto": "Torrente Margorabbia (VA) — Tratto di circa 300 metri dal ponte sul Lago di Ghirla fino alla chiusa Enel in località Ghetto."
+            }
+          ],
+          "note_corpo": null,
+          "matrice": {
+            "regime_amministrativo": "fipsas",
+            "regime_amministrativo_etichetta": "FIPSAS",
+            "classificazione_biologica": "B",
+            "classificazione_etichetta": "Cat. B",
+            "modalita": "sponda",
+            "tipo_geometria_normativa": "linea",
+            "eredita": [
+              {
+                "livello": 1,
+                "asse": "classificazione_biologica",
+                "id": "B",
+                "blocco": "ordinario_B"
+              },
+              {
+                "livello": 1,
+                "asse": "regime_amministrativo",
+                "id": "fipsas",
+                "sostituisce_biologia": false
+              },
+              {
+                "livello": 2,
+                "asse": "modalita_pesca",
+                "id": "sponda"
+              },
+              {
+                "livello": 3,
+                "asse": "eccezione_locale",
+                "id": "margorabbia",
+                "chiavi": [
+                  "calendario",
+                  "prelievo"
+                ]
+              },
+              {
+                "livello": 5,
+                "asse": "overlay",
+                "id": "margorabbia_campo_gara_ghirla",
+                "non_taglia_geometria_base": true
+              }
+            ]
+          }
+        },
+        "lunghezza_m": 272,
+        "segmento_max_m": 48
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            8.764102271793746,
+            45.957537183806416
+          ],
+          [
+            8.7639058,
+            45.9577722
+          ],
+          [
+            8.7637529,
+            45.9581071
+          ],
+          [
+            8.7636466,
+            45.9584686
+          ],
+          [
+            8.7635636,
+            45.9586447
+          ],
+          [
+            8.7634859,
+            45.9591694
+          ],
+          [
+            8.7633651,
+            45.9593596
+          ],
+          [
+            8.7632775,
+            45.959463
+          ],
+          [
+            8.7631012,
+            45.9595841
+          ],
+          [
+            8.7629427,
+            45.9596648
+          ],
+          [
+            8.762741,
+            45.9596869
+          ],
+          [
+            8.7620894,
+            45.9596585
+          ],
+          [
+            8.7612233,
+            45.9596432
+          ],
+          [
+            8.7608554,
+            45.9596559
+          ],
+          [
+            8.760452,
+            45.9596821
+          ],
+          [
+            8.75979426211211,
+            45.95976404864301
+          ]
+        ]
+      },
+      "properties": {
+        "id": "margorabbia_campo_gara_mesenzana_01",
+        "layer": "overlay",
+        "overlay_id": "margorabbia_campo_gara_mesenzana",
+        "tipo_overlay": "campo_gara",
+        "nome_tratto": "Campo gara Mesenzana / Ponte del Cucco",
+        "sintesi": "Non spezza il torrente: dove incrocia il No-Kill, a giornata resta il No-Kill. Con gara autorizzata si aggiungono ardiglione ammesso e trota fario 22 cm; il rilascio del No-Kill non viene tolto.",
+        "attivazione": {
+          "modo": "toggle",
+          "gruppo": "gara_autorizzata",
+          "etichetta": "Gara autorizzata"
+        },
+        "non_taglia_geometria_base": true,
+        "corpo_idrico": "margorabbia",
+        "corpo_nome": "Torrente Margorabbia",
+        "segmento_sottostante": "margorabbia_no_kill_grantola_mesenzana",
+        "regime": "no_kill",
+        "regime_sottostante": "no_kill",
+        "regime_etichetta": "No-Kill — esche artificiali, amo senza ardiglione",
+        "tipo_acqua": "B",
+        "pesca_consentita": true,
+        "geometria": "LineString",
+        "matrice": {
+          "regime_amministrativo": "fipsas",
+          "regime_amministrativo_etichetta": "FIPSAS",
+          "classificazione_biologica": "B",
+          "classificazione_etichetta": "Cat. B",
+          "modalita": "sponda",
+          "tipo_geometria_normativa": "linea",
+          "eredita": [
+            {
+              "livello": 1,
+              "asse": "classificazione_biologica",
+              "id": "B",
+              "blocco": "ordinario_B"
+            },
+            {
+              "livello": 1,
+              "asse": "regime_amministrativo",
+              "id": "fipsas",
+              "sostituisce_biologia": false
+            },
+            {
+              "livello": 2,
+              "asse": "modalita_pesca",
+              "id": "sponda"
+            },
+            {
+              "livello": 3,
+              "asse": "eccezione_locale",
+              "id": "margorabbia",
+              "chiavi": [
+                "calendario",
+                "prelievo"
+              ]
+            },
+            {
+              "livello": 4,
+              "asse": "segmento",
+              "id": "margorabbia_no_kill_grantola_mesenzana",
+              "effetto": "taglio"
+            }
+          ]
+        },
+        "regole": {
+          "zona_id": "margorabbia_no_kill_grantola_mesenzana",
+          "zona_nome": "Margorabbia — No-Kill Grantola / Mesenzana",
+          "corpo_idrico": "margorabbia",
+          "corpo_nome": "Torrente Margorabbia",
+          "regime": "no_kill",
+          "regime_etichetta": "No-Kill — esche artificiali, amo senza ardiglione",
+          "regime_descrizione": "Rilascio immediato obbligatorio di tutto il pesce catturato.",
+          "tipo_acqua": "B",
+          "tipo_acqua_etichetta": "Tipo B (salmonicole)",
+          "pesca_consentita": true,
+          "priorita": 30,
+          "estensione": {
+            "tipo": "tratto",
+            "descrizione": "Dal Ponte di Grantola alla briglia a 150 m a monte del concessionario auto in comune di Mesenzana.",
+            "comuni": [
+              "Grantola",
+              "Mesenzana"
+            ]
+          },
+          "calendario": {
+            "stagione": {
+              "id": "tutto_anno",
+              "etichetta": "Tutto l'anno",
+              "inizio": null,
+              "fine": null,
+              "testo": "Tutto l'anno (salvo periodi di divieto per specie, par. 4.4)",
+              "fonte": {
+                "livello": "derivata",
+                "riferimento": "par. 4.4",
+                "estratto": ""
+              }
+            },
+            "giorni": {
+              "id": "tutti_i_giorni_deroga_tresa",
+              "etichetta": "Tutti i giorni (deroga «Affluenti del fiume Tresa»)",
+              "settimana": [
+                "lun",
+                "mar",
+                "mer",
+                "gio",
+                "ven",
+                "sab",
+                "dom"
+              ],
+              "festivi_aggiuntivi": [],
+              "testo": "Tutti i giorni: l'asta del Margorabbia rientra tra gli «Affluenti del fiume Tresa»",
+              "fonte": {
+                "livello": "interpretazione",
+                "riferimento": "Elenco corpi idrici con pesca tutti i giorni",
+                "estratto": "la pesca è consentita tutti i giorni della settimana […] Affluenti del fiume Tresa",
+                "nota": "Il Margorabbia è affluente diretto del Tresa. Il prontuario non scrive «e affluenti» dopo Tresa: la deroga NON si estende agli affluenti del Margorabbia."
+              }
+            },
+            "fascia_oraria": {
+              "id": "diurna",
+              "etichetta": "Diurna",
+              "da": {
+                "riferimento_solare": "alba",
+                "offset_minuti": -60
+              },
+              "a": {
+                "riferimento_solare": "tramonto",
+                "offset_minuti": 60
+              },
+              "testo": "Da 1 h prima dell'alba a 1 h dopo il tramonto",
+              "fonte": {
+                "livello": "testuale",
+                "riferimento": "Regole acque tipo B",
+                "estratto": "da un’ora prima dell’alba a un’ora dopo il tramonto"
+              }
+            },
+            "periodi_speciali": []
+          },
+          "attrezzatura": {
+            "attrezzi_ammessi": [
+              "canna"
+            ],
+            "canne_max": 1,
+            "esche_max_per_canna": 3,
+            "ami_max_per_canna": null,
+            "ardiglione": "vietato",
+            "spazio_sponda_max_m": null
+          },
+          "esche": {
+            "consentite": [
+              "artificiale"
+            ],
+            "vietate": [
+              "naturale",
+              "cagnotto",
+              "pesce_vivo",
+              "pesce_morto"
+            ],
+            "pasturazione": "vietata"
+          },
+          "tecniche": {
+            "consentite": [
+              "canna_da_riva",
+              "guado",
+              "piede_asciutto",
+              "mosca",
+              "mosca_coda_di_topo",
+              "spinning"
+            ],
+            "vietate": [
+              "pesca_da_ponte",
+              "imbarcazione",
+              "pesca_notturna"
+            ],
+            "condizionate": []
+          },
+          "prelievo": {
+            "tipo": "no_kill",
+            "rilascio_obbligatorio": true,
+            "capi_trattenibili": 0,
+            "specie_sempre_protette_extra": [
+              "temolo"
+            ],
+            "limiti_ref": "limiti_cattura",
+            "misure_minime_cm": {
+              "trota_fario": 25,
+              "trota_marmorata": 40,
+              "temolo": 35,
+              "luccio": 60,
+              "persico_reale": 16,
+              "salmerino_alpino": 25
+            },
+            "specie_protette": [
+              "cobiti",
+              "lasca",
+              "scazzone",
+              "anguilla",
+              "savetta",
+              "barbo canino",
+              "lampreda padana",
+              "pigo",
+              "trota macrostigma",
+              "temolo"
+            ],
+            "limiti": {
+              "per_specie": {
+                "luccio": 1,
+                "trota_marmorata": 1,
+                "temolo": 2
+              },
+              "salmonidi_complessivi": 6,
+              "kg_giornalieri_max": 5,
+              "stop_al_limite": [
+                "luccio",
+                "salmonidi"
+              ],
+              "obbligo_recisione_pinna_caudale": [
+                "trote",
+                "luccio",
+                "coregone",
+                "persico reale",
+                "salmerino",
+                "temolo",
+                "siluro"
+              ],
+              "fonte": {
+                "livello": "testuale",
+                "riferimento": "par. 4.5–4.6",
+                "estratto": "luccio 1; trota marmorata 1; temolo 2; «6 capi complessivi di trote, salmerini e temoli»; massimo 5 kg/giorno di fauna ittica"
+              }
+            }
+          },
+          "permessi": {
+            "pacchetto": {
+              "id": "fipsas_acque_B",
+              "etichetta": "Acque correnti di tipo B (FIPSAS)",
+              "richiede_contributo_extra": true,
+              "richiede_tesserino": true,
+              "note": "Non è acqua libera «solo licenza B».",
+              "documenti": [
+                {
+                  "id": "licenza_B",
+                  "etichetta": "Licenza di pesca tipo B",
+                  "costo_eur": 23.0,
+                  "ente": "Regione Lombardia (tassa regionale)",
+                  "validita": "12 mesi",
+                  "esenzioni": [
+                    "Residenti in Italia con meno di 18 anni",
+                    "Residenti in Italia con più di 65 anni",
+                    "Soggetti L. 104/1992 art. 3 (se pescano solo con canna)"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Licenza di pesca tipo B (€ 23,00)"
+                  }
+                },
+                {
+                  "id": "tessera_fipsas",
+                  "etichetta": "Tessera FIPSAS",
+                  "costo_eur": 30.0,
+                  "costi_ridotti": [
+                    {
+                      "costo_eur": 6.0,
+                      "condizione": "nati dopo il 01.01.2011"
+                    }
+                  ],
+                  "ente": "FIPSAS",
+                  "validita": "anno solare",
+                  "esenzioni": [],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Tessera FIPSAS (€ 30,00; € 6,00 nati dopo il 01.01.2011)"
+                  }
+                },
+                {
+                  "id": "contributo_gestione_annuale",
+                  "etichetta": "Contributo di gestione annuale FIPSAS Varese",
+                  "costo_eur": 30.0,
+                  "ente": "FIPSAS Varese (concessionario)",
+                  "validita": "anno solare",
+                  "ambito": [
+                    "acque di tipo B",
+                    "pesca da imbarcazione / belly boat",
+                    "acque evidenziate in azzurro"
+                  ],
+                  "esenzioni": [
+                    "Nati dopo il 01.01.2008",
+                    "Disabili L. 104/1992 art. 3 c. 3"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Contributo di gestione annuale a FIPSAS Varese (€ 30,00) — per la pesca da imbarcazione e nelle acque di tipo B"
+                  }
+                },
+                {
+                  "id": "tesserino_segnapesci",
+                  "etichetta": "Tesserino segnapesci del concessionario",
+                  "costo_eur": null,
+                  "ente": "FIPSAS Varese",
+                  "non_richiesto_se": [
+                    "permesso_giornaliero"
+                  ],
+                  "punti_distribuzione": [
+                    "GERMIGNAGA PESCA — Piazza 20 Settembre, 29, Germignaga (VA)"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Tesserino segna pesci del Concessionario […] non è obbligatorio per chi utilizza il permesso giornaliero di pesca"
+                  }
+                }
+              ],
+              "costo_totale_eur": null,
+              "costo_noto_eur": 83.0,
+              "alternativa_non_tesserati": [
+                {
+                  "id": "licenza_B",
+                  "etichetta": "Licenza di pesca tipo B"
+                },
+                {
+                  "id": "permesso_giornaliero",
+                  "etichetta": "Permesso giornaliero (non tesserati FIPSAS)"
+                }
+              ]
+            },
+            "varianti": []
+          },
+          "vincoli_speciali": [],
+          "interpretazioni": [
+            {
+              "campo": "esche.consentite",
+              "nota": "Il titolo di sezione parla di mosca con coda di topo, il testo operativo di «esche artificiali»: si adotta il testo operativo."
+            }
+          ],
+          "fonti": [
+            {
+              "livello": "testuale",
+              "riferimento": "Regole acque tipo B",
+              "estratto": "L’unico attrezzo ammesso è la canna da pesca. Si può pescare con una sola canna, armata con un massimo di tre esche naturali o artificiali. Gli ami devono essere privi di ardiglione o con ardiglione schiacciato ad eccezione dei tratti individuati come campo gara, dove è ammesso l’utilizzo di ami con ardiglione. Non è ammessa alcuna forma di pasturazione e non è ammesso utilizzare come esca la larva di mosca carnaria (cagnotto) e il pesce vivo, o morto. È proibita la pesca dai ponti e con la barca."
+            },
+            {
+              "livello": "testuale",
+              "riferimento": "par. 4.4 — tabella periodi di divieto",
+              "estratto": "Temolo: Sempre protetto nel lago di Mezzola e nei torrenti Pioverna e Margorabbia"
+            },
+            {
+              "livello": "interpretazione",
+              "riferimento": "Elenco corpi idrici con pesca tutti i giorni",
+              "estratto": "la pesca è consentita tutti i giorni della settimana […] Affluenti del fiume Tresa",
+              "nota": "Il Margorabbia è affluente diretto del Tresa. La deroga non si estende agli affluenti del Margorabbia."
+            },
+            {
+              "livello": "testuale",
+              "riferimento": "Appendice II — Tratti riservati alla pesca a mosca con coda di topo",
+              "estratto": "Torrente Margorabbia (VA): Tratto compreso tra il Ponte di Grantola e la briglia a 150 metri a monte del concessionario auto in Comune di Mesenzana, riservato alla pesca con esche artificiali con obbligo di utilizzo di amo senza ardiglione o con ardiglione schiacciato e obbligo di rilascio immediato di tutto il pesce catturato."
+            }
+          ],
+          "note_corpo": null,
+          "matrice": {
+            "regime_amministrativo": "fipsas",
+            "regime_amministrativo_etichetta": "FIPSAS",
+            "classificazione_biologica": "B",
+            "classificazione_etichetta": "Cat. B",
+            "modalita": "sponda",
+            "tipo_geometria_normativa": "linea",
+            "eredita": [
+              {
+                "livello": 1,
+                "asse": "classificazione_biologica",
+                "id": "B",
+                "blocco": "ordinario_B"
+              },
+              {
+                "livello": 1,
+                "asse": "regime_amministrativo",
+                "id": "fipsas",
+                "sostituisce_biologia": false
+              },
+              {
+                "livello": 2,
+                "asse": "modalita_pesca",
+                "id": "sponda"
+              },
+              {
+                "livello": 3,
+                "asse": "eccezione_locale",
+                "id": "margorabbia",
+                "chiavi": [
+                  "calendario",
+                  "prelievo"
+                ]
+              },
+              {
+                "livello": 4,
+                "asse": "segmento",
+                "id": "margorabbia_no_kill_grantola_mesenzana",
+                "effetto": "taglio"
+              }
+            ]
+          }
+        },
+        "regole_se_attivo": {
+          "zona_id": "margorabbia_no_kill_grantola_mesenzana__margorabbia_campo_gara_mesenzana",
+          "zona_nome": "Margorabbia — No-Kill Grantola / Mesenzana + Campo gara Mesenzana / Ponte del Cucco",
+          "corpo_idrico": "margorabbia",
+          "corpo_nome": "Torrente Margorabbia",
+          "regime": "no_kill",
+          "regime_etichetta": "No-Kill — esche artificiali, amo senza ardiglione",
+          "regime_descrizione": "Rilascio immediato obbligatorio di tutto il pesce catturato.",
+          "tipo_acqua": "B",
+          "tipo_acqua_etichetta": "Tipo B (salmonicole)",
+          "pesca_consentita": true,
+          "priorita": 30,
+          "estensione": {
+            "tipo": "tratto",
+            "descrizione": "Dal Ponte di Grantola alla briglia a 150 m a monte del concessionario auto in comune di Mesenzana.",
+            "comuni": [
+              "Grantola",
+              "Mesenzana"
+            ]
+          },
+          "calendario": {
+            "stagione": {
+              "id": "tutto_anno",
+              "etichetta": "Tutto l'anno",
+              "inizio": null,
+              "fine": null,
+              "testo": "Tutto l'anno (salvo periodi di divieto per specie, par. 4.4)",
+              "fonte": {
+                "livello": "derivata",
+                "riferimento": "par. 4.4",
+                "estratto": ""
+              }
+            },
+            "giorni": {
+              "id": "tutti_i_giorni_deroga_tresa",
+              "etichetta": "Tutti i giorni (deroga «Affluenti del fiume Tresa»)",
+              "settimana": [
+                "lun",
+                "mar",
+                "mer",
+                "gio",
+                "ven",
+                "sab",
+                "dom"
+              ],
+              "festivi_aggiuntivi": [],
+              "testo": "Tutti i giorni: l'asta del Margorabbia rientra tra gli «Affluenti del fiume Tresa»",
+              "fonte": {
+                "livello": "interpretazione",
+                "riferimento": "Elenco corpi idrici con pesca tutti i giorni",
+                "estratto": "la pesca è consentita tutti i giorni della settimana […] Affluenti del fiume Tresa",
+                "nota": "Il Margorabbia è affluente diretto del Tresa. Il prontuario non scrive «e affluenti» dopo Tresa: la deroga NON si estende agli affluenti del Margorabbia."
+              }
+            },
+            "fascia_oraria": {
+              "id": "diurna",
+              "etichetta": "Diurna",
+              "da": {
+                "riferimento_solare": "alba",
+                "offset_minuti": -60
+              },
+              "a": {
+                "riferimento_solare": "tramonto",
+                "offset_minuti": 60
+              },
+              "testo": "Da 1 h prima dell'alba a 1 h dopo il tramonto",
+              "fonte": {
+                "livello": "testuale",
+                "riferimento": "Regole acque tipo B",
+                "estratto": "da un’ora prima dell’alba a un’ora dopo il tramonto"
+              }
+            },
+            "periodi_speciali": []
+          },
+          "attrezzatura": {
+            "attrezzi_ammessi": [
+              "canna"
+            ],
+            "canne_max": 1,
+            "esche_max_per_canna": 3,
+            "ami_max_per_canna": null,
+            "ardiglione": "ammesso",
+            "spazio_sponda_max_m": null
+          },
+          "esche": {
+            "consentite": [
+              "artificiale"
+            ],
+            "vietate": [
+              "naturale",
+              "cagnotto",
+              "pesce_vivo",
+              "pesce_morto"
+            ],
+            "pasturazione": "vietata"
+          },
+          "tecniche": {
+            "consentite": [
+              "canna_da_riva",
+              "guado",
+              "piede_asciutto",
+              "mosca",
+              "mosca_coda_di_topo",
+              "spinning"
+            ],
+            "vietate": [
+              "pesca_da_ponte",
+              "imbarcazione",
+              "pesca_notturna"
+            ],
+            "condizionate": []
+          },
+          "prelievo": {
+            "tipo": "no_kill",
+            "rilascio_obbligatorio": true,
+            "capi_trattenibili": 0,
+            "specie_sempre_protette_extra": [
+              "temolo"
+            ],
+            "limiti_ref": "limiti_cattura",
+            "misure_minime_cm": {
+              "trota_fario": 22,
+              "trota_marmorata": 40,
+              "temolo": 35,
+              "luccio": 60,
+              "persico_reale": 16,
+              "salmerino_alpino": 25
+            },
+            "specie_protette": [
+              "cobiti",
+              "lasca",
+              "scazzone",
+              "anguilla",
+              "savetta",
+              "barbo canino",
+              "lampreda padana",
+              "pigo",
+              "trota macrostigma",
+              "temolo"
+            ],
+            "limiti": {
+              "per_specie": {
+                "luccio": 1,
+                "trota_marmorata": 1,
+                "temolo": 2
+              },
+              "salmonidi_complessivi": 6,
+              "kg_giornalieri_max": 5,
+              "stop_al_limite": [
+                "luccio",
+                "salmonidi"
+              ],
+              "obbligo_recisione_pinna_caudale": [
+                "trote",
+                "luccio",
+                "coregone",
+                "persico reale",
+                "salmerino",
+                "temolo",
+                "siluro"
+              ],
+              "fonte": {
+                "livello": "testuale",
+                "riferimento": "par. 4.5–4.6",
+                "estratto": "luccio 1; trota marmorata 1; temolo 2; «6 capi complessivi di trote, salmerini e temoli»; massimo 5 kg/giorno di fauna ittica"
+              }
+            }
+          },
+          "permessi": {
+            "pacchetto": {
+              "id": "fipsas_acque_B",
+              "etichetta": "Acque correnti di tipo B (FIPSAS)",
+              "richiede_contributo_extra": true,
+              "richiede_tesserino": true,
+              "note": "Non è acqua libera «solo licenza B».",
+              "documenti": [
+                {
+                  "id": "licenza_B",
+                  "etichetta": "Licenza di pesca tipo B",
+                  "costo_eur": 23.0,
+                  "ente": "Regione Lombardia (tassa regionale)",
+                  "validita": "12 mesi",
+                  "esenzioni": [
+                    "Residenti in Italia con meno di 18 anni",
+                    "Residenti in Italia con più di 65 anni",
+                    "Soggetti L. 104/1992 art. 3 (se pescano solo con canna)"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Licenza di pesca tipo B (€ 23,00)"
+                  }
+                },
+                {
+                  "id": "tessera_fipsas",
+                  "etichetta": "Tessera FIPSAS",
+                  "costo_eur": 30.0,
+                  "costi_ridotti": [
+                    {
+                      "costo_eur": 6.0,
+                      "condizione": "nati dopo il 01.01.2011"
+                    }
+                  ],
+                  "ente": "FIPSAS",
+                  "validita": "anno solare",
+                  "esenzioni": [],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Tessera FIPSAS (€ 30,00; € 6,00 nati dopo il 01.01.2011)"
+                  }
+                },
+                {
+                  "id": "contributo_gestione_annuale",
+                  "etichetta": "Contributo di gestione annuale FIPSAS Varese",
+                  "costo_eur": 30.0,
+                  "ente": "FIPSAS Varese (concessionario)",
+                  "validita": "anno solare",
+                  "ambito": [
+                    "acque di tipo B",
+                    "pesca da imbarcazione / belly boat",
+                    "acque evidenziate in azzurro"
+                  ],
+                  "esenzioni": [
+                    "Nati dopo il 01.01.2008",
+                    "Disabili L. 104/1992 art. 3 c. 3"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Contributo di gestione annuale a FIPSAS Varese (€ 30,00) — per la pesca da imbarcazione e nelle acque di tipo B"
+                  }
+                },
+                {
+                  "id": "tesserino_segnapesci",
+                  "etichetta": "Tesserino segnapesci del concessionario",
+                  "costo_eur": null,
+                  "ente": "FIPSAS Varese",
+                  "non_richiesto_se": [
+                    "permesso_giornaliero"
+                  ],
+                  "punti_distribuzione": [
+                    "GERMIGNAGA PESCA — Piazza 20 Settembre, 29, Germignaga (VA)"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Tesserino segna pesci del Concessionario […] non è obbligatorio per chi utilizza il permesso giornaliero di pesca"
+                  }
+                }
+              ],
+              "costo_totale_eur": null,
+              "costo_noto_eur": 83.0,
+              "alternativa_non_tesserati": [
+                {
+                  "id": "licenza_B",
+                  "etichetta": "Licenza di pesca tipo B"
+                },
+                {
+                  "id": "permesso_giornaliero",
+                  "etichetta": "Permesso giornaliero (non tesserati FIPSAS)"
+                }
+              ]
+            },
+            "varianti": []
+          },
+          "vincoli_speciali": [
+            {
+              "id": "gara_immissione",
+              "testo": "Durante le gare autorizzate la pesca è vietata dall'avvenuta immissione di fauna ittica fino all'inizio della manifestazione.",
+              "livello": "testuale"
+            },
+            {
+              "id": "sovrapposizione_nokill",
+              "testo": "Sul tratto Carrefour–briglia Passeri il campo gara è sopra il No-Kill: in giornata vale il rilascio obbligatorio; in gara autorizzata si applicano anche le prescrizioni da campo gara.",
+              "livello": "interpretazione"
+            }
+          ],
+          "interpretazioni": [
+            {
+              "campo": "esche.consentite",
+              "nota": "Il titolo di sezione parla di mosca con coda di topo, il testo operativo di «esche artificiali»: si adotta il testo operativo."
+            }
+          ],
+          "fonti": [
+            {
+              "livello": "testuale",
+              "riferimento": "Regole acque tipo B",
+              "estratto": "L’unico attrezzo ammesso è la canna da pesca. Si può pescare con una sola canna, armata con un massimo di tre esche naturali o artificiali. Gli ami devono essere privi di ardiglione o con ardiglione schiacciato ad eccezione dei tratti individuati come campo gara, dove è ammesso l’utilizzo di ami con ardiglione. Non è ammessa alcuna forma di pasturazione e non è ammesso utilizzare come esca la larva di mosca carnaria (cagnotto) e il pesce vivo, o morto. È proibita la pesca dai ponti e con la barca."
+            },
+            {
+              "livello": "testuale",
+              "riferimento": "par. 4.4 — tabella periodi di divieto",
+              "estratto": "Temolo: Sempre protetto nel lago di Mezzola e nei torrenti Pioverna e Margorabbia"
+            },
+            {
+              "livello": "interpretazione",
+              "riferimento": "Elenco corpi idrici con pesca tutti i giorni",
+              "estratto": "la pesca è consentita tutti i giorni della settimana […] Affluenti del fiume Tresa",
+              "nota": "Il Margorabbia è affluente diretto del Tresa. La deroga non si estende agli affluenti del Margorabbia."
+            },
+            {
+              "livello": "testuale",
+              "riferimento": "Appendice II — Tratti riservati alla pesca a mosca con coda di topo",
+              "estratto": "Torrente Margorabbia (VA): Tratto compreso tra il Ponte di Grantola e la briglia a 150 metri a monte del concessionario auto in Comune di Mesenzana, riservato alla pesca con esche artificiali con obbligo di utilizzo di amo senza ardiglione o con ardiglione schiacciato e obbligo di rilascio immediato di tutto il pesce catturato."
+            },
+            {
+              "livello": "testuale",
+              "riferimento": "Appendice III — Campi gara",
+              "estratto": "Dal supermercato in comune di Mesenzana a 200 m a valle del ponte del Cucco, per un tratto di 1400 metri."
+            }
+          ],
+          "note_corpo": null,
+          "matrice": {
+            "regime_amministrativo": "fipsas",
+            "regime_amministrativo_etichetta": "FIPSAS",
+            "classificazione_biologica": "B",
+            "classificazione_etichetta": "Cat. B",
+            "modalita": "sponda",
+            "tipo_geometria_normativa": "linea",
+            "eredita": [
+              {
+                "livello": 1,
+                "asse": "classificazione_biologica",
+                "id": "B",
+                "blocco": "ordinario_B"
+              },
+              {
+                "livello": 1,
+                "asse": "regime_amministrativo",
+                "id": "fipsas",
+                "sostituisce_biologia": false
+              },
+              {
+                "livello": 2,
+                "asse": "modalita_pesca",
+                "id": "sponda"
+              },
+              {
+                "livello": 3,
+                "asse": "eccezione_locale",
+                "id": "margorabbia",
+                "chiavi": [
+                  "calendario",
+                  "prelievo"
+                ]
+              },
+              {
+                "livello": 4,
+                "asse": "segmento",
+                "id": "margorabbia_no_kill_grantola_mesenzana",
+                "effetto": "taglio"
+              },
+              {
+                "livello": 5,
+                "asse": "overlay",
+                "id": "margorabbia_campo_gara_mesenzana",
+                "non_taglia_geometria_base": true
+              }
+            ]
+          }
+        },
+        "lunghezza_m": 505,
+        "segmento_max_m": 67
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            8.75979426211211,
+            45.95976404864301
+          ],
+          [
+            8.7595643,
+            45.9597927
+          ],
+          [
+            8.759369,
+            45.9598283
+          ],
+          [
+            8.7586472,
+            45.9600068
+          ],
+          [
+            8.7584985,
+            45.9600605
+          ],
+          [
+            8.7581687,
+            45.9602263
+          ],
+          [
+            8.7579712,
+            45.9604014
+          ],
+          [
+            8.7578299,
+            45.9606036
+          ],
+          [
+            8.7577372,
+            45.9607834
+          ],
+          [
+            8.7574122,
+            45.9616827
+          ],
+          [
+            8.7573414,
+            45.9622393
+          ],
+          [
+            8.7572608,
+            45.9631224
+          ],
+          [
+            8.7571684,
+            45.9635947
+          ],
+          [
+            8.7572686,
+            45.9639145
+          ],
+          [
+            8.7574978,
+            45.9643828
+          ],
+          [
+            8.7579177,
+            45.9652659
+          ],
+          [
+            8.7579637,
+            45.9654325
+          ],
+          [
+            8.7580092,
+            45.9657431
+          ],
+          [
+            8.757979,
+            45.965995
+          ],
+          [
+            8.7579236,
+            45.9661254
+          ],
+          [
+            8.7577629,
+            45.9663411
+          ],
+          [
+            8.757465,
+            45.9666217
+          ],
+          [
+            8.7570563,
+            45.9670731
+          ],
+          [
+            8.7568744,
+            45.9673472
+          ],
+          [
+            8.7564985,
+            45.9680934
+          ],
+          [
+            8.7563321,
+            45.9685161
+          ],
+          [
+            8.75622,
+            45.9686958
+          ],
+          [
+            8.7561308,
+            45.9687857
+          ],
+          [
+            8.7557799,
+            45.9689829
+          ],
+          [
+            8.7555518,
+            45.9692468
+          ],
+          [
+            8.755099944268865,
+            45.96981751264597
+          ]
+        ]
+      },
+      "properties": {
+        "id": "margorabbia_campo_gara_mesenzana_02",
+        "layer": "overlay",
+        "overlay_id": "margorabbia_campo_gara_mesenzana",
+        "tipo_overlay": "campo_gara",
+        "nome_tratto": "Campo gara Mesenzana / Ponte del Cucco",
+        "sintesi": "Non spezza il torrente: dove incrocia il No-Kill, a giornata resta il No-Kill. Con gara autorizzata si aggiungono ardiglione ammesso e trota fario 22 cm; il rilascio del No-Kill non viene tolto.",
+        "attivazione": {
+          "modo": "toggle",
+          "gruppo": "gara_autorizzata",
+          "etichetta": "Gara autorizzata"
+        },
+        "non_taglia_geometria_base": true,
+        "corpo_idrico": "margorabbia",
+        "corpo_nome": "Torrente Margorabbia",
+        "segmento_sottostante": null,
+        "regime": "ordinario_B",
+        "regime_sottostante": "ordinario_B",
+        "regime_etichetta": "Regime Ordinario B (FIPSAS)",
+        "tipo_acqua": "B",
+        "pesca_consentita": true,
+        "geometria": "LineString",
+        "matrice": {
+          "regime_amministrativo": "fipsas",
+          "regime_amministrativo_etichetta": "FIPSAS",
+          "classificazione_biologica": "B",
+          "classificazione_etichetta": "Cat. B",
+          "modalita": "sponda",
+          "tipo_geometria_normativa": "linea",
+          "eredita": [
+            {
+              "livello": 1,
+              "asse": "classificazione_biologica",
+              "id": "B",
+              "blocco": "ordinario_B"
+            },
+            {
+              "livello": 1,
+              "asse": "regime_amministrativo",
+              "id": "fipsas",
+              "sostituisce_biologia": false
+            },
+            {
+              "livello": 2,
+              "asse": "modalita_pesca",
+              "id": "sponda"
+            },
+            {
+              "livello": 3,
+              "asse": "eccezione_locale",
+              "id": "margorabbia",
+              "chiavi": [
+                "calendario",
+                "prelievo"
+              ]
+            }
+          ]
+        },
+        "regole": {
+          "zona_id": "margorabbia_residuo",
+          "zona_nome": "Torrente Margorabbia — Regime Ordinario B (FIPSAS)",
+          "corpo_idrico": "margorabbia",
+          "corpo_nome": "Torrente Margorabbia",
+          "regime": "ordinario_B",
+          "regime_etichetta": "Regime Ordinario B (FIPSAS)",
+          "regime_descrizione": "Acque correnti salmonicole in concessione FIPSAS: prelievo consentito secondo le regole generali del tipo B.",
+          "tipo_acqua": "B",
+          "tipo_acqua_etichetta": "Tipo B (salmonicole)",
+          "pesca_consentita": true,
+          "priorita": 10,
+          "estensione": {
+            "tipo": "residuale",
+            "descrizione": "Fuori dai tagli restrittivi (No-Kill, divieto, riserva)."
+          },
+          "calendario": {
+            "stagione": {
+              "id": "stagione_B",
+              "etichetta": "Stagione acque di tipo B",
+              "inizio": {
+                "data_ref": "ultima_domenica_febbraio",
+                "riferimento_solare": "alba",
+                "offset_minuti": -60
+              },
+              "fine": {
+                "data_ref": "prima_domenica_ottobre",
+                "riferimento_solare": "tramonto",
+                "offset_minuti": 60
+              },
+              "testo": "Dall'ultima domenica di febbraio (1 h prima dell'alba) alla prima domenica di ottobre (1 h dopo il tramonto)",
+              "fonte": {
+                "livello": "testuale",
+                "riferimento": "Regole acque tipo B",
+                "estratto": "da un’ora prima dell’alba dell’ultima domenica di febbraio a un’ora dopo il tramonto della prima domenica di ottobre"
+              }
+            },
+            "giorni": {
+              "id": "tutti_i_giorni_deroga_tresa",
+              "etichetta": "Tutti i giorni (deroga «Affluenti del fiume Tresa»)",
+              "settimana": [
+                "lun",
+                "mar",
+                "mer",
+                "gio",
+                "ven",
+                "sab",
+                "dom"
+              ],
+              "festivi_aggiuntivi": [],
+              "testo": "Tutti i giorni: l'asta del Margorabbia rientra tra gli «Affluenti del fiume Tresa»",
+              "fonte": {
+                "livello": "interpretazione",
+                "riferimento": "Elenco corpi idrici con pesca tutti i giorni",
+                "estratto": "la pesca è consentita tutti i giorni della settimana […] Affluenti del fiume Tresa",
+                "nota": "Il Margorabbia è affluente diretto del Tresa. Il prontuario non scrive «e affluenti» dopo Tresa: la deroga NON si estende agli affluenti del Margorabbia."
+              }
+            },
+            "fascia_oraria": {
+              "id": "diurna",
+              "etichetta": "Diurna",
+              "da": {
+                "riferimento_solare": "alba",
+                "offset_minuti": -60
+              },
+              "a": {
+                "riferimento_solare": "tramonto",
+                "offset_minuti": 60
+              },
+              "testo": "Da 1 h prima dell'alba a 1 h dopo il tramonto",
+              "fonte": {
+                "livello": "testuale",
+                "riferimento": "Regole acque tipo B",
+                "estratto": "da un’ora prima dell’alba a un’ora dopo il tramonto"
+              }
+            },
+            "periodi_speciali": []
+          },
+          "attrezzatura": {
+            "attrezzi_ammessi": [
+              "canna"
+            ],
+            "canne_max": 1,
+            "esche_max_per_canna": 3,
+            "ami_max_per_canna": null,
+            "ardiglione": "vietato",
+            "spazio_sponda_max_m": null
+          },
+          "esche": {
+            "consentite": [
+              "naturale",
+              "artificiale"
+            ],
+            "vietate": [
+              "cagnotto",
+              "pesce_vivo",
+              "pesce_morto"
+            ],
+            "pasturazione": "vietata"
+          },
+          "tecniche": {
+            "consentite": [
+              "canna_da_riva",
+              "guado"
+            ],
+            "vietate": [
+              "pesca_da_ponte",
+              "imbarcazione",
+              "pesca_notturna"
+            ],
+            "condizionate": []
+          },
+          "prelievo": {
+            "tipo": "ordinario",
+            "rilascio_obbligatorio": false,
+            "capi_trattenibili": "secondo limiti di cattura",
+            "specie_sempre_protette_extra": [
+              "temolo"
+            ],
+            "limiti_ref": "limiti_cattura",
+            "misure_minime_cm": {
+              "trota_fario": 25,
+              "trota_marmorata": 40,
+              "temolo": 35,
+              "luccio": 60,
+              "persico_reale": 16,
+              "salmerino_alpino": 25
+            },
+            "specie_protette": [
+              "cobiti",
+              "lasca",
+              "scazzone",
+              "anguilla",
+              "savetta",
+              "barbo canino",
+              "lampreda padana",
+              "pigo",
+              "trota macrostigma",
+              "temolo"
+            ],
+            "limiti": {
+              "per_specie": {
+                "luccio": 1,
+                "trota_marmorata": 1,
+                "temolo": 2
+              },
+              "salmonidi_complessivi": 6,
+              "kg_giornalieri_max": 5,
+              "stop_al_limite": [
+                "luccio",
+                "salmonidi"
+              ],
+              "obbligo_recisione_pinna_caudale": [
+                "trote",
+                "luccio",
+                "coregone",
+                "persico reale",
+                "salmerino",
+                "temolo",
+                "siluro"
+              ],
+              "fonte": {
+                "livello": "testuale",
+                "riferimento": "par. 4.5–4.6",
+                "estratto": "luccio 1; trota marmorata 1; temolo 2; «6 capi complessivi di trote, salmerini e temoli»; massimo 5 kg/giorno di fauna ittica"
+              }
+            }
+          },
+          "permessi": {
+            "pacchetto": {
+              "id": "fipsas_acque_B",
+              "etichetta": "Acque correnti di tipo B (FIPSAS)",
+              "richiede_contributo_extra": true,
+              "richiede_tesserino": true,
+              "note": "Non è acqua libera «solo licenza B».",
+              "documenti": [
+                {
+                  "id": "licenza_B",
+                  "etichetta": "Licenza di pesca tipo B",
+                  "costo_eur": 23.0,
+                  "ente": "Regione Lombardia (tassa regionale)",
+                  "validita": "12 mesi",
+                  "esenzioni": [
+                    "Residenti in Italia con meno di 18 anni",
+                    "Residenti in Italia con più di 65 anni",
+                    "Soggetti L. 104/1992 art. 3 (se pescano solo con canna)"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Licenza di pesca tipo B (€ 23,00)"
+                  }
+                },
+                {
+                  "id": "tessera_fipsas",
+                  "etichetta": "Tessera FIPSAS",
+                  "costo_eur": 30.0,
+                  "costi_ridotti": [
+                    {
+                      "costo_eur": 6.0,
+                      "condizione": "nati dopo il 01.01.2011"
+                    }
+                  ],
+                  "ente": "FIPSAS",
+                  "validita": "anno solare",
+                  "esenzioni": [],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Tessera FIPSAS (€ 30,00; € 6,00 nati dopo il 01.01.2011)"
+                  }
+                },
+                {
+                  "id": "contributo_gestione_annuale",
+                  "etichetta": "Contributo di gestione annuale FIPSAS Varese",
+                  "costo_eur": 30.0,
+                  "ente": "FIPSAS Varese (concessionario)",
+                  "validita": "anno solare",
+                  "ambito": [
+                    "acque di tipo B",
+                    "pesca da imbarcazione / belly boat",
+                    "acque evidenziate in azzurro"
+                  ],
+                  "esenzioni": [
+                    "Nati dopo il 01.01.2008",
+                    "Disabili L. 104/1992 art. 3 c. 3"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Contributo di gestione annuale a FIPSAS Varese (€ 30,00) — per la pesca da imbarcazione e nelle acque di tipo B"
+                  }
+                },
+                {
+                  "id": "tesserino_segnapesci",
+                  "etichetta": "Tesserino segnapesci del concessionario",
+                  "costo_eur": null,
+                  "ente": "FIPSAS Varese",
+                  "non_richiesto_se": [
+                    "permesso_giornaliero"
+                  ],
+                  "punti_distribuzione": [
+                    "GERMIGNAGA PESCA — Piazza 20 Settembre, 29, Germignaga (VA)"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Tesserino segna pesci del Concessionario […] non è obbligatorio per chi utilizza il permesso giornaliero di pesca"
+                  }
+                }
+              ],
+              "costo_totale_eur": null,
+              "costo_noto_eur": 83.0,
+              "alternativa_non_tesserati": [
+                {
+                  "id": "licenza_B",
+                  "etichetta": "Licenza di pesca tipo B"
+                },
+                {
+                  "id": "permesso_giornaliero",
+                  "etichetta": "Permesso giornaliero (non tesserati FIPSAS)"
+                }
+              ]
+            },
+            "varianti": []
+          },
+          "vincoli_speciali": [],
+          "interpretazioni": [],
+          "fonti": [
+            {
+              "livello": "testuale",
+              "riferimento": "Regole acque tipo B",
+              "estratto": "L’unico attrezzo ammesso è la canna da pesca. Si può pescare con una sola canna, armata con un massimo di tre esche naturali o artificiali. Gli ami devono essere privi di ardiglione o con ardiglione schiacciato ad eccezione dei tratti individuati come campo gara, dove è ammesso l’utilizzo di ami con ardiglione. Non è ammessa alcuna forma di pasturazione e non è ammesso utilizzare come esca la larva di mosca carnaria (cagnotto) e il pesce vivo, o morto. È proibita la pesca dai ponti e con la barca."
+            },
+            {
+              "livello": "testuale",
+              "riferimento": "par. 4.4 — tabella periodi di divieto",
+              "estratto": "Temolo: Sempre protetto nel lago di Mezzola e nei torrenti Pioverna e Margorabbia"
+            },
+            {
+              "livello": "interpretazione",
+              "riferimento": "Elenco corpi idrici con pesca tutti i giorni",
+              "estratto": "la pesca è consentita tutti i giorni della settimana […] Affluenti del fiume Tresa",
+              "nota": "Il Margorabbia è affluente diretto del Tresa. La deroga non si estende agli affluenti del Margorabbia."
+            }
+          ],
+          "note_corpo": null,
+          "matrice": {
+            "regime_amministrativo": "fipsas",
+            "regime_amministrativo_etichetta": "FIPSAS",
+            "classificazione_biologica": "B",
+            "classificazione_etichetta": "Cat. B",
+            "modalita": "sponda",
+            "tipo_geometria_normativa": "linea",
+            "eredita": [
+              {
+                "livello": 1,
+                "asse": "classificazione_biologica",
+                "id": "B",
+                "blocco": "ordinario_B"
+              },
+              {
+                "livello": 1,
+                "asse": "regime_amministrativo",
+                "id": "fipsas",
+                "sostituisce_biologia": false
+              },
+              {
+                "livello": 2,
+                "asse": "modalita_pesca",
+                "id": "sponda"
+              },
+              {
+                "livello": 3,
+                "asse": "eccezione_locale",
+                "id": "margorabbia",
+                "chiavi": [
+                  "calendario",
+                  "prelievo"
+                ]
+              }
+            ]
+          }
+        },
+        "regole_se_attivo": {
+          "zona_id": "margorabbia_residuo__margorabbia_campo_gara_mesenzana",
+          "zona_nome": "Campo gara Mesenzana / Ponte del Cucco",
+          "corpo_idrico": "margorabbia",
+          "corpo_nome": "Torrente Margorabbia",
+          "regime": "ordinario_B",
+          "regime_etichetta": "Regime Ordinario B (FIPSAS)",
+          "regime_descrizione": "Acque correnti salmonicole in concessione FIPSAS: prelievo consentito secondo le regole generali del tipo B.",
+          "tipo_acqua": "B",
+          "tipo_acqua_etichetta": "Tipo B (salmonicole)",
+          "pesca_consentita": true,
+          "priorita": 0,
+          "estensione": {
+            "tipo": "overlay",
+            "descrizione": "Non spezza il torrente: dove incrocia il No-Kill, a giornata resta il No-Kill. Con gara autorizzata si aggiungono ardiglione ammesso e trota fario 22 cm; il rilascio del No-Kill non viene tolto."
+          },
+          "calendario": {
+            "stagione": {
+              "id": "stagione_B",
+              "etichetta": "Stagione acque di tipo B",
+              "inizio": {
+                "data_ref": "ultima_domenica_febbraio",
+                "riferimento_solare": "alba",
+                "offset_minuti": -60
+              },
+              "fine": {
+                "data_ref": "prima_domenica_ottobre",
+                "riferimento_solare": "tramonto",
+                "offset_minuti": 60
+              },
+              "testo": "Dall'ultima domenica di febbraio (1 h prima dell'alba) alla prima domenica di ottobre (1 h dopo il tramonto)",
+              "fonte": {
+                "livello": "testuale",
+                "riferimento": "Regole acque tipo B",
+                "estratto": "da un’ora prima dell’alba dell’ultima domenica di febbraio a un’ora dopo il tramonto della prima domenica di ottobre"
+              }
+            },
+            "giorni": {
+              "id": "tutti_i_giorni_deroga_tresa",
+              "etichetta": "Tutti i giorni (deroga «Affluenti del fiume Tresa»)",
+              "settimana": [
+                "lun",
+                "mar",
+                "mer",
+                "gio",
+                "ven",
+                "sab",
+                "dom"
+              ],
+              "festivi_aggiuntivi": [],
+              "testo": "Tutti i giorni: l'asta del Margorabbia rientra tra gli «Affluenti del fiume Tresa»",
+              "fonte": {
+                "livello": "interpretazione",
+                "riferimento": "Elenco corpi idrici con pesca tutti i giorni",
+                "estratto": "la pesca è consentita tutti i giorni della settimana […] Affluenti del fiume Tresa",
+                "nota": "Il Margorabbia è affluente diretto del Tresa. Il prontuario non scrive «e affluenti» dopo Tresa: la deroga NON si estende agli affluenti del Margorabbia."
+              }
+            },
+            "fascia_oraria": {
+              "id": "diurna",
+              "etichetta": "Diurna",
+              "da": {
+                "riferimento_solare": "alba",
+                "offset_minuti": -60
+              },
+              "a": {
+                "riferimento_solare": "tramonto",
+                "offset_minuti": 60
+              },
+              "testo": "Da 1 h prima dell'alba a 1 h dopo il tramonto",
+              "fonte": {
+                "livello": "testuale",
+                "riferimento": "Regole acque tipo B",
+                "estratto": "da un’ora prima dell’alba a un’ora dopo il tramonto"
+              }
+            },
+            "periodi_speciali": []
+          },
+          "attrezzatura": {
+            "attrezzi_ammessi": [
+              "canna"
+            ],
+            "canne_max": 1,
+            "esche_max_per_canna": 3,
+            "ami_max_per_canna": null,
+            "ardiglione": "ammesso",
+            "spazio_sponda_max_m": null
+          },
+          "esche": {
+            "consentite": [
+              "naturale",
+              "artificiale"
+            ],
+            "vietate": [
+              "cagnotto",
+              "pesce_vivo",
+              "pesce_morto"
+            ],
+            "pasturazione": "vietata"
+          },
+          "tecniche": {
+            "consentite": [
+              "canna_da_riva",
+              "guado"
+            ],
+            "vietate": [
+              "pesca_da_ponte",
+              "imbarcazione",
+              "pesca_notturna"
+            ],
+            "condizionate": []
+          },
+          "prelievo": {
+            "tipo": "ordinario",
+            "rilascio_obbligatorio": false,
+            "capi_trattenibili": "secondo limiti di cattura",
+            "specie_sempre_protette_extra": [
+              "temolo"
+            ],
+            "limiti_ref": "limiti_cattura",
+            "misure_minime_cm": {
+              "trota_fario": 22,
+              "trota_marmorata": 40,
+              "temolo": 35,
+              "luccio": 60,
+              "persico_reale": 16,
+              "salmerino_alpino": 25
+            },
+            "specie_protette": [
+              "cobiti",
+              "lasca",
+              "scazzone",
+              "anguilla",
+              "savetta",
+              "barbo canino",
+              "lampreda padana",
+              "pigo",
+              "trota macrostigma",
+              "temolo"
+            ],
+            "limiti": {
+              "per_specie": {
+                "luccio": 1,
+                "trota_marmorata": 1,
+                "temolo": 2
+              },
+              "salmonidi_complessivi": 6,
+              "kg_giornalieri_max": 5,
+              "stop_al_limite": [
+                "luccio",
+                "salmonidi"
+              ],
+              "obbligo_recisione_pinna_caudale": [
+                "trote",
+                "luccio",
+                "coregone",
+                "persico reale",
+                "salmerino",
+                "temolo",
+                "siluro"
+              ],
+              "fonte": {
+                "livello": "testuale",
+                "riferimento": "par. 4.5–4.6",
+                "estratto": "luccio 1; trota marmorata 1; temolo 2; «6 capi complessivi di trote, salmerini e temoli»; massimo 5 kg/giorno di fauna ittica"
+              }
+            }
+          },
+          "permessi": {
+            "pacchetto": {
+              "id": "fipsas_acque_B",
+              "etichetta": "Acque correnti di tipo B (FIPSAS)",
+              "richiede_contributo_extra": true,
+              "richiede_tesserino": true,
+              "note": "Non è acqua libera «solo licenza B».",
+              "documenti": [
+                {
+                  "id": "licenza_B",
+                  "etichetta": "Licenza di pesca tipo B",
+                  "costo_eur": 23.0,
+                  "ente": "Regione Lombardia (tassa regionale)",
+                  "validita": "12 mesi",
+                  "esenzioni": [
+                    "Residenti in Italia con meno di 18 anni",
+                    "Residenti in Italia con più di 65 anni",
+                    "Soggetti L. 104/1992 art. 3 (se pescano solo con canna)"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Licenza di pesca tipo B (€ 23,00)"
+                  }
+                },
+                {
+                  "id": "tessera_fipsas",
+                  "etichetta": "Tessera FIPSAS",
+                  "costo_eur": 30.0,
+                  "costi_ridotti": [
+                    {
+                      "costo_eur": 6.0,
+                      "condizione": "nati dopo il 01.01.2011"
+                    }
+                  ],
+                  "ente": "FIPSAS",
+                  "validita": "anno solare",
+                  "esenzioni": [],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Tessera FIPSAS (€ 30,00; € 6,00 nati dopo il 01.01.2011)"
+                  }
+                },
+                {
+                  "id": "contributo_gestione_annuale",
+                  "etichetta": "Contributo di gestione annuale FIPSAS Varese",
+                  "costo_eur": 30.0,
+                  "ente": "FIPSAS Varese (concessionario)",
+                  "validita": "anno solare",
+                  "ambito": [
+                    "acque di tipo B",
+                    "pesca da imbarcazione / belly boat",
+                    "acque evidenziate in azzurro"
+                  ],
+                  "esenzioni": [
+                    "Nati dopo il 01.01.2008",
+                    "Disabili L. 104/1992 art. 3 c. 3"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Contributo di gestione annuale a FIPSAS Varese (€ 30,00) — per la pesca da imbarcazione e nelle acque di tipo B"
+                  }
+                },
+                {
+                  "id": "tesserino_segnapesci",
+                  "etichetta": "Tesserino segnapesci del concessionario",
+                  "costo_eur": null,
+                  "ente": "FIPSAS Varese",
+                  "non_richiesto_se": [
+                    "permesso_giornaliero"
+                  ],
+                  "punti_distribuzione": [
+                    "GERMIGNAGA PESCA — Piazza 20 Settembre, 29, Germignaga (VA)"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Tesserino segna pesci del Concessionario […] non è obbligatorio per chi utilizza il permesso giornaliero di pesca"
+                  }
+                }
+              ],
+              "costo_totale_eur": null,
+              "costo_noto_eur": 83.0,
+              "alternativa_non_tesserati": [
+                {
+                  "id": "licenza_B",
+                  "etichetta": "Licenza di pesca tipo B"
+                },
+                {
+                  "id": "permesso_giornaliero",
+                  "etichetta": "Permesso giornaliero (non tesserati FIPSAS)"
+                }
+              ]
+            },
+            "varianti": []
+          },
+          "vincoli_speciali": [
+            {
+              "id": "gara_immissione",
+              "testo": "Durante le gare autorizzate la pesca è vietata dall'avvenuta immissione di fauna ittica fino all'inizio della manifestazione.",
+              "livello": "testuale"
+            },
+            {
+              "id": "sovrapposizione_nokill",
+              "testo": "Sul tratto Carrefour–briglia Passeri il campo gara è sopra il No-Kill: in giornata vale il rilascio obbligatorio; in gara autorizzata si applicano anche le prescrizioni da campo gara.",
+              "livello": "interpretazione"
+            }
+          ],
+          "interpretazioni": [],
+          "fonti": [
+            {
+              "livello": "testuale",
+              "riferimento": "Regole acque tipo B",
+              "estratto": "L’unico attrezzo ammesso è la canna da pesca. Si può pescare con una sola canna, armata con un massimo di tre esche naturali o artificiali. Gli ami devono essere privi di ardiglione o con ardiglione schiacciato ad eccezione dei tratti individuati come campo gara, dove è ammesso l’utilizzo di ami con ardiglione. Non è ammessa alcuna forma di pasturazione e non è ammesso utilizzare come esca la larva di mosca carnaria (cagnotto) e il pesce vivo, o morto. È proibita la pesca dai ponti e con la barca."
+            },
+            {
+              "livello": "testuale",
+              "riferimento": "par. 4.4 — tabella periodi di divieto",
+              "estratto": "Temolo: Sempre protetto nel lago di Mezzola e nei torrenti Pioverna e Margorabbia"
+            },
+            {
+              "livello": "interpretazione",
+              "riferimento": "Elenco corpi idrici con pesca tutti i giorni",
+              "estratto": "la pesca è consentita tutti i giorni della settimana […] Affluenti del fiume Tresa",
+              "nota": "Il Margorabbia è affluente diretto del Tresa. La deroga non si estende agli affluenti del Margorabbia."
+            },
+            {
+              "livello": "testuale",
+              "riferimento": "Appendice III — Campi gara",
+              "estratto": "Dal supermercato in comune di Mesenzana a 200 m a valle del ponte del Cucco, per un tratto di 1400 metri."
+            }
+          ],
+          "note_corpo": null,
+          "matrice": {
+            "regime_amministrativo": "fipsas",
+            "regime_amministrativo_etichetta": "FIPSAS",
+            "classificazione_biologica": "B",
+            "classificazione_etichetta": "Cat. B",
+            "modalita": "sponda",
+            "tipo_geometria_normativa": "linea",
+            "eredita": [
+              {
+                "livello": 1,
+                "asse": "classificazione_biologica",
+                "id": "B",
+                "blocco": "ordinario_B"
+              },
+              {
+                "livello": 1,
+                "asse": "regime_amministrativo",
+                "id": "fipsas",
+                "sostituisce_biologia": false
+              },
+              {
+                "livello": 2,
+                "asse": "modalita_pesca",
+                "id": "sponda"
+              },
+              {
+                "livello": 3,
+                "asse": "eccezione_locale",
+                "id": "margorabbia",
+                "chiavi": [
+                  "calendario",
+                  "prelievo"
+                ]
+              },
+              {
+                "livello": 5,
+                "asse": "overlay",
+                "id": "margorabbia_campo_gara_mesenzana",
+                "non_taglia_geometria_base": true
+              }
+            ]
+          }
+        },
+        "lunghezza_m": 1287,
+        "segmento_max_m": 103
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            8.769436910360197,
+            45.948281142875985
+          ],
+          [
+            8.7694327,
+            45.9482973
+          ],
+          [
+            8.7693077,
+            45.948495
+          ],
+          [
+            8.7691442,
+            45.9486522
+          ],
+          [
+            8.7688654,
+            45.9489846
+          ],
+          [
+            8.7687307,
+            45.9491824
+          ],
+          [
+            8.7686721,
+            45.9493037
+          ],
+          [
+            8.7686572,
+            45.9494162
+          ],
+          [
+            8.7686789,
+            45.9500148
+          ],
+          [
+            8.7686266,
+            45.9501812
+          ],
+          [
+            8.7684802,
+            45.9504734
+          ],
+          [
+            8.7684291,
+            45.9507343
+          ],
+          [
+            8.7684068,
+            45.9510538
+          ],
+          [
+            8.7684644,
+            45.9511709
+          ],
+          [
+            8.768567,
+            45.9513016
+          ],
+          [
+            8.7689263,
+            45.9517044
+          ],
+          [
+            8.7690677,
+            45.9519101
+          ],
+          [
+            8.7691906,
+            45.9521569
+          ],
+          [
+            8.7693763,
+            45.9525588
+          ],
+          [
+            8.769507,
+            45.9529415
+          ],
+          [
+            8.7695256,
+            45.9535131
+          ],
+          [
+            8.7694879,
+            45.9536615
+          ],
+          [
+            8.7694227,
+            45.9538099
+          ],
+          [
+            8.769314,
+            45.9539762
+          ],
+          [
+            8.7691699,
+            45.9541064
+          ],
+          [
+            8.7688951,
+            45.9542543
+          ],
+          [
+            8.7683507,
+            45.9544512
+          ],
+          [
+            8.7681016,
+            45.9545603
+          ],
+          [
+            8.7673972,
+            45.9548993
+          ],
+          [
+            8.767226,
+            45.954953
+          ],
+          [
+            8.7669371,
+            45.9549884
+          ],
+          [
+            8.7667095,
+            45.9549806
+          ],
+          [
+            8.76646,
+            45.9549348
+          ],
+          [
+            8.7658265,
+            45.9548082
+          ],
+          [
+            8.7655168,
+            45.9547501
+          ],
+          [
+            8.7651492,
+            45.9547577
+          ],
+          [
+            8.7647501,
+            45.9548262
+          ],
+          [
+            8.7644527,
+            45.9549348
+          ],
+          [
+            8.7643395,
+            45.9550233
+          ],
+          [
+            8.7641538,
+            45.9552032
+          ],
+          [
+            8.7640574,
+            45.9553658
+          ],
+          [
+            8.7639554,
+            45.9555856
+          ],
+          [
+            8.7639078,
+            45.9557069
+          ],
+          [
+            8.7638848,
+            45.9558821
+          ],
+          [
+            8.7638388,
+            45.9560755
+          ],
+          [
+            8.7639019,
+            45.9564087
+          ],
+          [
+            8.7641853,
+            45.9569088
+          ],
+          [
+            8.7642347,
+            45.9570529
+          ],
+          [
+            8.76425,
+            45.9572329
+          ],
+          [
+            8.7642123,
+            45.9573678
+          ],
+          [
+            8.7641311,
+            45.9575027
+          ],
+          [
+            8.7639058,
+            45.9577722
+          ],
+          [
+            8.7637529,
+            45.9581071
+          ],
+          [
+            8.7636466,
+            45.9584686
+          ],
+          [
+            8.7635636,
+            45.9586447
+          ],
+          [
+            8.7634859,
+            45.9591694
+          ],
+          [
+            8.7633651,
+            45.9593596
+          ],
+          [
+            8.7632775,
+            45.959463
+          ],
+          [
+            8.7631012,
+            45.9595841
+          ],
+          [
+            8.7629427,
+            45.9596648
+          ],
+          [
+            8.762741,
+            45.9596869
+          ],
+          [
+            8.7620894,
+            45.9596585
+          ],
+          [
+            8.7612233,
+            45.9596432
+          ],
+          [
+            8.7608554,
+            45.9596559
+          ],
+          [
+            8.760452,
+            45.9596821
+          ],
+          [
+            8.75979426211211,
+            45.95976404864301
+          ]
+        ]
+      },
+      "properties": {
+        "id": "margorabbia_pesca_invernale_nokill_01",
+        "layer": "overlay",
+        "overlay_id": "margorabbia_pesca_invernale_nokill",
+        "tipo_overlay": "deroga_invernale",
+        "nome_tratto": "Deroga invernale No-Kill (piede asciutto)",
+        "sintesi": "Non è un terzo tratto. Dalla prima domenica di ottobre all'ultima domenica di febbraio, sullo stesso No-Kill, si pesca solo a piede asciutto.",
+        "attivazione": {
+          "modo": "calendario",
+          "stagione_ref": "invernale_B",
+          "etichetta": "Periodo invernale"
+        },
+        "non_taglia_geometria_base": true,
+        "corpo_idrico": "margorabbia",
+        "corpo_nome": "Torrente Margorabbia",
+        "segmento_sottostante": "margorabbia_no_kill_grantola_mesenzana",
+        "regime": "no_kill",
+        "regime_sottostante": "no_kill",
+        "regime_etichetta": "No-Kill — esche artificiali, amo senza ardiglione",
+        "tipo_acqua": "B",
+        "pesca_consentita": true,
+        "geometria": "LineString",
+        "matrice": {
+          "regime_amministrativo": "fipsas",
+          "regime_amministrativo_etichetta": "FIPSAS",
+          "classificazione_biologica": "B",
+          "classificazione_etichetta": "Cat. B",
+          "modalita": "sponda",
+          "tipo_geometria_normativa": "linea",
+          "eredita": [
+            {
+              "livello": 1,
+              "asse": "classificazione_biologica",
+              "id": "B",
+              "blocco": "ordinario_B"
+            },
+            {
+              "livello": 1,
+              "asse": "regime_amministrativo",
+              "id": "fipsas",
+              "sostituisce_biologia": false
+            },
+            {
+              "livello": 2,
+              "asse": "modalita_pesca",
+              "id": "sponda"
+            },
+            {
+              "livello": 3,
+              "asse": "eccezione_locale",
+              "id": "margorabbia",
+              "chiavi": [
+                "calendario",
+                "prelievo"
+              ]
+            },
+            {
+              "livello": 4,
+              "asse": "segmento",
+              "id": "margorabbia_no_kill_grantola_mesenzana",
+              "effetto": "taglio"
+            }
+          ]
+        },
+        "regole": {
+          "zona_id": "margorabbia_no_kill_grantola_mesenzana",
+          "zona_nome": "Margorabbia — No-Kill Grantola / Mesenzana",
+          "corpo_idrico": "margorabbia",
+          "corpo_nome": "Torrente Margorabbia",
+          "regime": "no_kill",
+          "regime_etichetta": "No-Kill — esche artificiali, amo senza ardiglione",
+          "regime_descrizione": "Rilascio immediato obbligatorio di tutto il pesce catturato.",
+          "tipo_acqua": "B",
+          "tipo_acqua_etichetta": "Tipo B (salmonicole)",
+          "pesca_consentita": true,
+          "priorita": 30,
+          "estensione": {
+            "tipo": "tratto",
+            "descrizione": "Dal Ponte di Grantola alla briglia a 150 m a monte del concessionario auto in comune di Mesenzana.",
+            "comuni": [
+              "Grantola",
+              "Mesenzana"
+            ]
+          },
+          "calendario": {
+            "stagione": {
+              "id": "tutto_anno",
+              "etichetta": "Tutto l'anno",
+              "inizio": null,
+              "fine": null,
+              "testo": "Tutto l'anno (salvo periodi di divieto per specie, par. 4.4)",
+              "fonte": {
+                "livello": "derivata",
+                "riferimento": "par. 4.4",
+                "estratto": ""
+              }
+            },
+            "giorni": {
+              "id": "tutti_i_giorni_deroga_tresa",
+              "etichetta": "Tutti i giorni (deroga «Affluenti del fiume Tresa»)",
+              "settimana": [
+                "lun",
+                "mar",
+                "mer",
+                "gio",
+                "ven",
+                "sab",
+                "dom"
+              ],
+              "festivi_aggiuntivi": [],
+              "testo": "Tutti i giorni: l'asta del Margorabbia rientra tra gli «Affluenti del fiume Tresa»",
+              "fonte": {
+                "livello": "interpretazione",
+                "riferimento": "Elenco corpi idrici con pesca tutti i giorni",
+                "estratto": "la pesca è consentita tutti i giorni della settimana […] Affluenti del fiume Tresa",
+                "nota": "Il Margorabbia è affluente diretto del Tresa. Il prontuario non scrive «e affluenti» dopo Tresa: la deroga NON si estende agli affluenti del Margorabbia."
+              }
+            },
+            "fascia_oraria": {
+              "id": "diurna",
+              "etichetta": "Diurna",
+              "da": {
+                "riferimento_solare": "alba",
+                "offset_minuti": -60
+              },
+              "a": {
+                "riferimento_solare": "tramonto",
+                "offset_minuti": 60
+              },
+              "testo": "Da 1 h prima dell'alba a 1 h dopo il tramonto",
+              "fonte": {
+                "livello": "testuale",
+                "riferimento": "Regole acque tipo B",
+                "estratto": "da un’ora prima dell’alba a un’ora dopo il tramonto"
+              }
+            },
+            "periodi_speciali": []
+          },
+          "attrezzatura": {
+            "attrezzi_ammessi": [
+              "canna"
+            ],
+            "canne_max": 1,
+            "esche_max_per_canna": 3,
+            "ami_max_per_canna": null,
+            "ardiglione": "vietato",
+            "spazio_sponda_max_m": null
+          },
+          "esche": {
+            "consentite": [
+              "artificiale"
+            ],
+            "vietate": [
+              "naturale",
+              "cagnotto",
+              "pesce_vivo",
+              "pesce_morto"
+            ],
+            "pasturazione": "vietata"
+          },
+          "tecniche": {
+            "consentite": [
+              "canna_da_riva",
+              "guado",
+              "piede_asciutto",
+              "mosca",
+              "mosca_coda_di_topo",
+              "spinning"
+            ],
+            "vietate": [
+              "pesca_da_ponte",
+              "imbarcazione",
+              "pesca_notturna"
+            ],
+            "condizionate": []
+          },
+          "prelievo": {
+            "tipo": "no_kill",
+            "rilascio_obbligatorio": true,
+            "capi_trattenibili": 0,
+            "specie_sempre_protette_extra": [
+              "temolo"
+            ],
+            "limiti_ref": "limiti_cattura",
+            "misure_minime_cm": {
+              "trota_fario": 25,
+              "trota_marmorata": 40,
+              "temolo": 35,
+              "luccio": 60,
+              "persico_reale": 16,
+              "salmerino_alpino": 25
+            },
+            "specie_protette": [
+              "cobiti",
+              "lasca",
+              "scazzone",
+              "anguilla",
+              "savetta",
+              "barbo canino",
+              "lampreda padana",
+              "pigo",
+              "trota macrostigma",
+              "temolo"
+            ],
+            "limiti": {
+              "per_specie": {
+                "luccio": 1,
+                "trota_marmorata": 1,
+                "temolo": 2
+              },
+              "salmonidi_complessivi": 6,
+              "kg_giornalieri_max": 5,
+              "stop_al_limite": [
+                "luccio",
+                "salmonidi"
+              ],
+              "obbligo_recisione_pinna_caudale": [
+                "trote",
+                "luccio",
+                "coregone",
+                "persico reale",
+                "salmerino",
+                "temolo",
+                "siluro"
+              ],
+              "fonte": {
+                "livello": "testuale",
+                "riferimento": "par. 4.5–4.6",
+                "estratto": "luccio 1; trota marmorata 1; temolo 2; «6 capi complessivi di trote, salmerini e temoli»; massimo 5 kg/giorno di fauna ittica"
+              }
+            }
+          },
+          "permessi": {
+            "pacchetto": {
+              "id": "fipsas_acque_B",
+              "etichetta": "Acque correnti di tipo B (FIPSAS)",
+              "richiede_contributo_extra": true,
+              "richiede_tesserino": true,
+              "note": "Non è acqua libera «solo licenza B».",
+              "documenti": [
+                {
+                  "id": "licenza_B",
+                  "etichetta": "Licenza di pesca tipo B",
+                  "costo_eur": 23.0,
+                  "ente": "Regione Lombardia (tassa regionale)",
+                  "validita": "12 mesi",
+                  "esenzioni": [
+                    "Residenti in Italia con meno di 18 anni",
+                    "Residenti in Italia con più di 65 anni",
+                    "Soggetti L. 104/1992 art. 3 (se pescano solo con canna)"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Licenza di pesca tipo B (€ 23,00)"
+                  }
+                },
+                {
+                  "id": "tessera_fipsas",
+                  "etichetta": "Tessera FIPSAS",
+                  "costo_eur": 30.0,
+                  "costi_ridotti": [
+                    {
+                      "costo_eur": 6.0,
+                      "condizione": "nati dopo il 01.01.2011"
+                    }
+                  ],
+                  "ente": "FIPSAS",
+                  "validita": "anno solare",
+                  "esenzioni": [],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Tessera FIPSAS (€ 30,00; € 6,00 nati dopo il 01.01.2011)"
+                  }
+                },
+                {
+                  "id": "contributo_gestione_annuale",
+                  "etichetta": "Contributo di gestione annuale FIPSAS Varese",
+                  "costo_eur": 30.0,
+                  "ente": "FIPSAS Varese (concessionario)",
+                  "validita": "anno solare",
+                  "ambito": [
+                    "acque di tipo B",
+                    "pesca da imbarcazione / belly boat",
+                    "acque evidenziate in azzurro"
+                  ],
+                  "esenzioni": [
+                    "Nati dopo il 01.01.2008",
+                    "Disabili L. 104/1992 art. 3 c. 3"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Contributo di gestione annuale a FIPSAS Varese (€ 30,00) — per la pesca da imbarcazione e nelle acque di tipo B"
+                  }
+                },
+                {
+                  "id": "tesserino_segnapesci",
+                  "etichetta": "Tesserino segnapesci del concessionario",
+                  "costo_eur": null,
+                  "ente": "FIPSAS Varese",
+                  "non_richiesto_se": [
+                    "permesso_giornaliero"
+                  ],
+                  "punti_distribuzione": [
+                    "GERMIGNAGA PESCA — Piazza 20 Settembre, 29, Germignaga (VA)"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Tesserino segna pesci del Concessionario […] non è obbligatorio per chi utilizza il permesso giornaliero di pesca"
+                  }
+                }
+              ],
+              "costo_totale_eur": null,
+              "costo_noto_eur": 83.0,
+              "alternativa_non_tesserati": [
+                {
+                  "id": "licenza_B",
+                  "etichetta": "Licenza di pesca tipo B"
+                },
+                {
+                  "id": "permesso_giornaliero",
+                  "etichetta": "Permesso giornaliero (non tesserati FIPSAS)"
+                }
+              ]
+            },
+            "varianti": []
+          },
+          "vincoli_speciali": [],
+          "interpretazioni": [
+            {
+              "campo": "esche.consentite",
+              "nota": "Il titolo di sezione parla di mosca con coda di topo, il testo operativo di «esche artificiali»: si adotta il testo operativo."
+            }
+          ],
+          "fonti": [
+            {
+              "livello": "testuale",
+              "riferimento": "Regole acque tipo B",
+              "estratto": "L’unico attrezzo ammesso è la canna da pesca. Si può pescare con una sola canna, armata con un massimo di tre esche naturali o artificiali. Gli ami devono essere privi di ardiglione o con ardiglione schiacciato ad eccezione dei tratti individuati come campo gara, dove è ammesso l’utilizzo di ami con ardiglione. Non è ammessa alcuna forma di pasturazione e non è ammesso utilizzare come esca la larva di mosca carnaria (cagnotto) e il pesce vivo, o morto. È proibita la pesca dai ponti e con la barca."
+            },
+            {
+              "livello": "testuale",
+              "riferimento": "par. 4.4 — tabella periodi di divieto",
+              "estratto": "Temolo: Sempre protetto nel lago di Mezzola e nei torrenti Pioverna e Margorabbia"
+            },
+            {
+              "livello": "interpretazione",
+              "riferimento": "Elenco corpi idrici con pesca tutti i giorni",
+              "estratto": "la pesca è consentita tutti i giorni della settimana […] Affluenti del fiume Tresa",
+              "nota": "Il Margorabbia è affluente diretto del Tresa. La deroga non si estende agli affluenti del Margorabbia."
+            },
+            {
+              "livello": "testuale",
+              "riferimento": "Appendice II — Tratti riservati alla pesca a mosca con coda di topo",
+              "estratto": "Torrente Margorabbia (VA): Tratto compreso tra il Ponte di Grantola e la briglia a 150 metri a monte del concessionario auto in Comune di Mesenzana, riservato alla pesca con esche artificiali con obbligo di utilizzo di amo senza ardiglione o con ardiglione schiacciato e obbligo di rilascio immediato di tutto il pesce catturato."
+            }
+          ],
+          "note_corpo": null,
+          "matrice": {
+            "regime_amministrativo": "fipsas",
+            "regime_amministrativo_etichetta": "FIPSAS",
+            "classificazione_biologica": "B",
+            "classificazione_etichetta": "Cat. B",
+            "modalita": "sponda",
+            "tipo_geometria_normativa": "linea",
+            "eredita": [
+              {
+                "livello": 1,
+                "asse": "classificazione_biologica",
+                "id": "B",
+                "blocco": "ordinario_B"
+              },
+              {
+                "livello": 1,
+                "asse": "regime_amministrativo",
+                "id": "fipsas",
+                "sostituisce_biologia": false
+              },
+              {
+                "livello": 2,
+                "asse": "modalita_pesca",
+                "id": "sponda"
+              },
+              {
+                "livello": 3,
+                "asse": "eccezione_locale",
+                "id": "margorabbia",
+                "chiavi": [
+                  "calendario",
+                  "prelievo"
+                ]
+              },
+              {
+                "livello": 4,
+                "asse": "segmento",
+                "id": "margorabbia_no_kill_grantola_mesenzana",
+                "effetto": "taglio"
+              }
+            ]
+          }
+        },
+        "regole_se_attivo": {
+          "zona_id": "margorabbia_no_kill_grantola_mesenzana__margorabbia_pesca_invernale_nokill",
+          "zona_nome": "Margorabbia — No-Kill Grantola / Mesenzana + Deroga invernale No-Kill (piede asciutto)",
+          "corpo_idrico": "margorabbia",
+          "corpo_nome": "Torrente Margorabbia",
+          "regime": "no_kill",
+          "regime_etichetta": "No-Kill — esche artificiali, amo senza ardiglione",
+          "regime_descrizione": "Rilascio immediato obbligatorio di tutto il pesce catturato.",
+          "tipo_acqua": "B",
+          "tipo_acqua_etichetta": "Tipo B (salmonicole)",
+          "pesca_consentita": true,
+          "priorita": 30,
+          "estensione": {
+            "tipo": "tratto",
+            "descrizione": "Dal Ponte di Grantola alla briglia a 150 m a monte del concessionario auto in comune di Mesenzana.",
+            "comuni": [
+              "Grantola",
+              "Mesenzana"
+            ]
+          },
+          "calendario": {
+            "stagione": {
+              "id": "tutto_anno",
+              "etichetta": "Tutto l'anno",
+              "inizio": null,
+              "fine": null,
+              "testo": "Tutto l'anno (salvo periodi di divieto per specie, par. 4.4)",
+              "fonte": {
+                "livello": "derivata",
+                "riferimento": "par. 4.4",
+                "estratto": ""
+              }
+            },
+            "giorni": {
+              "id": "tutti_i_giorni_deroga_tresa",
+              "etichetta": "Tutti i giorni (deroga «Affluenti del fiume Tresa»)",
+              "settimana": [
+                "lun",
+                "mar",
+                "mer",
+                "gio",
+                "ven",
+                "sab",
+                "dom"
+              ],
+              "festivi_aggiuntivi": [],
+              "testo": "Tutti i giorni: l'asta del Margorabbia rientra tra gli «Affluenti del fiume Tresa»",
+              "fonte": {
+                "livello": "interpretazione",
+                "riferimento": "Elenco corpi idrici con pesca tutti i giorni",
+                "estratto": "la pesca è consentita tutti i giorni della settimana […] Affluenti del fiume Tresa",
+                "nota": "Il Margorabbia è affluente diretto del Tresa. Il prontuario non scrive «e affluenti» dopo Tresa: la deroga NON si estende agli affluenti del Margorabbia."
+              }
+            },
+            "fascia_oraria": {
+              "id": "diurna",
+              "etichetta": "Diurna",
+              "da": {
+                "riferimento_solare": "alba",
+                "offset_minuti": -60
+              },
+              "a": {
+                "riferimento_solare": "tramonto",
+                "offset_minuti": 60
+              },
+              "testo": "Da 1 h prima dell'alba a 1 h dopo il tramonto",
+              "fonte": {
+                "livello": "testuale",
+                "riferimento": "Regole acque tipo B",
+                "estratto": "da un’ora prima dell’alba a un’ora dopo il tramonto"
+              }
+            },
+            "periodi_speciali": []
+          },
+          "attrezzatura": {
+            "attrezzi_ammessi": [
+              "canna"
+            ],
+            "canne_max": 1,
+            "esche_max_per_canna": 3,
+            "ami_max_per_canna": null,
+            "ardiglione": "vietato",
+            "spazio_sponda_max_m": null
+          },
+          "esche": {
+            "consentite": [
+              "artificiale"
+            ],
+            "vietate": [
+              "naturale",
+              "cagnotto",
+              "pesce_vivo",
+              "pesce_morto"
+            ],
+            "pasturazione": "vietata"
+          },
+          "tecniche": {
+            "consentite": [
+              "piede_asciutto",
+              "mosca",
+              "mosca_coda_di_topo",
+              "spinning",
+              "canna_da_riva"
+            ],
+            "vietate": [
+              "guado",
+              "pesca_da_ponte",
+              "imbarcazione",
+              "pesca_notturna"
+            ],
+            "condizionate": []
+          },
+          "prelievo": {
+            "tipo": "no_kill",
+            "rilascio_obbligatorio": true,
+            "capi_trattenibili": 0,
+            "specie_sempre_protette_extra": [
+              "temolo"
+            ],
+            "limiti_ref": "limiti_cattura",
+            "misure_minime_cm": {
+              "trota_fario": 25,
+              "trota_marmorata": 40,
+              "temolo": 35,
+              "luccio": 60,
+              "persico_reale": 16,
+              "salmerino_alpino": 25
+            },
+            "specie_protette": [
+              "cobiti",
+              "lasca",
+              "scazzone",
+              "anguilla",
+              "savetta",
+              "barbo canino",
+              "lampreda padana",
+              "pigo",
+              "trota macrostigma",
+              "temolo"
+            ],
+            "limiti": {
+              "per_specie": {
+                "luccio": 1,
+                "trota_marmorata": 1,
+                "temolo": 2
+              },
+              "salmonidi_complessivi": 6,
+              "kg_giornalieri_max": 5,
+              "stop_al_limite": [
+                "luccio",
+                "salmonidi"
+              ],
+              "obbligo_recisione_pinna_caudale": [
+                "trote",
+                "luccio",
+                "coregone",
+                "persico reale",
+                "salmerino",
+                "temolo",
+                "siluro"
+              ],
+              "fonte": {
+                "livello": "testuale",
+                "riferimento": "par. 4.5–4.6",
+                "estratto": "luccio 1; trota marmorata 1; temolo 2; «6 capi complessivi di trote, salmerini e temoli»; massimo 5 kg/giorno di fauna ittica"
+              }
+            }
+          },
+          "permessi": {
+            "pacchetto": {
+              "id": "fipsas_acque_B",
+              "etichetta": "Acque correnti di tipo B (FIPSAS)",
+              "richiede_contributo_extra": true,
+              "richiede_tesserino": true,
+              "note": "Non è acqua libera «solo licenza B».",
+              "documenti": [
+                {
+                  "id": "licenza_B",
+                  "etichetta": "Licenza di pesca tipo B",
+                  "costo_eur": 23.0,
+                  "ente": "Regione Lombardia (tassa regionale)",
+                  "validita": "12 mesi",
+                  "esenzioni": [
+                    "Residenti in Italia con meno di 18 anni",
+                    "Residenti in Italia con più di 65 anni",
+                    "Soggetti L. 104/1992 art. 3 (se pescano solo con canna)"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Licenza di pesca tipo B (€ 23,00)"
+                  }
+                },
+                {
+                  "id": "tessera_fipsas",
+                  "etichetta": "Tessera FIPSAS",
+                  "costo_eur": 30.0,
+                  "costi_ridotti": [
+                    {
+                      "costo_eur": 6.0,
+                      "condizione": "nati dopo il 01.01.2011"
+                    }
+                  ],
+                  "ente": "FIPSAS",
+                  "validita": "anno solare",
+                  "esenzioni": [],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Tessera FIPSAS (€ 30,00; € 6,00 nati dopo il 01.01.2011)"
+                  }
+                },
+                {
+                  "id": "contributo_gestione_annuale",
+                  "etichetta": "Contributo di gestione annuale FIPSAS Varese",
+                  "costo_eur": 30.0,
+                  "ente": "FIPSAS Varese (concessionario)",
+                  "validita": "anno solare",
+                  "ambito": [
+                    "acque di tipo B",
+                    "pesca da imbarcazione / belly boat",
+                    "acque evidenziate in azzurro"
+                  ],
+                  "esenzioni": [
+                    "Nati dopo il 01.01.2008",
+                    "Disabili L. 104/1992 art. 3 c. 3"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Contributo di gestione annuale a FIPSAS Varese (€ 30,00) — per la pesca da imbarcazione e nelle acque di tipo B"
+                  }
+                },
+                {
+                  "id": "tesserino_segnapesci",
+                  "etichetta": "Tesserino segnapesci del concessionario",
+                  "costo_eur": null,
+                  "ente": "FIPSAS Varese",
+                  "non_richiesto_se": [
+                    "permesso_giornaliero"
+                  ],
+                  "punti_distribuzione": [
+                    "GERMIGNAGA PESCA — Piazza 20 Settembre, 29, Germignaga (VA)"
+                  ],
+                  "fonte": {
+                    "livello": "testuale",
+                    "riferimento": "PESCARE NEI FIUMI/TORRENTI/CANALI",
+                    "estratto": "Tesserino segna pesci del Concessionario […] non è obbligatorio per chi utilizza il permesso giornaliero di pesca"
+                  }
+                }
+              ],
+              "costo_totale_eur": null,
+              "costo_noto_eur": 83.0,
+              "alternativa_non_tesserati": [
+                {
+                  "id": "licenza_B",
+                  "etichetta": "Licenza di pesca tipo B"
+                },
+                {
+                  "id": "permesso_giornaliero",
+                  "etichetta": "Permesso giornaliero (non tesserati FIPSAS)"
+                }
+              ]
+            },
+            "varianti": []
+          },
+          "vincoli_speciali": [
+            {
+              "id": "piede_asciutto",
+              "testo": "Dalla prima domenica di ottobre all'ultima domenica di febbraio la pesca in questo tratto è solo a piede asciutto.",
+              "livello": "testuale"
+            }
+          ],
+          "interpretazioni": [
+            {
+              "campo": "esche.consentite",
+              "nota": "Il titolo di sezione parla di mosca con coda di topo, il testo operativo di «esche artificiali»: si adotta il testo operativo."
+            }
+          ],
+          "fonti": [
+            {
+              "livello": "testuale",
+              "riferimento": "Regole acque tipo B",
+              "estratto": "L’unico attrezzo ammesso è la canna da pesca. Si può pescare con una sola canna, armata con un massimo di tre esche naturali o artificiali. Gli ami devono essere privi di ardiglione o con ardiglione schiacciato ad eccezione dei tratti individuati come campo gara, dove è ammesso l’utilizzo di ami con ardiglione. Non è ammessa alcuna forma di pasturazione e non è ammesso utilizzare come esca la larva di mosca carnaria (cagnotto) e il pesce vivo, o morto. È proibita la pesca dai ponti e con la barca."
+            },
+            {
+              "livello": "testuale",
+              "riferimento": "par. 4.4 — tabella periodi di divieto",
+              "estratto": "Temolo: Sempre protetto nel lago di Mezzola e nei torrenti Pioverna e Margorabbia"
+            },
+            {
+              "livello": "interpretazione",
+              "riferimento": "Elenco corpi idrici con pesca tutti i giorni",
+              "estratto": "la pesca è consentita tutti i giorni della settimana […] Affluenti del fiume Tresa",
+              "nota": "Il Margorabbia è affluente diretto del Tresa. La deroga non si estende agli affluenti del Margorabbia."
+            },
+            {
+              "livello": "testuale",
+              "riferimento": "Appendice II — Tratti riservati alla pesca a mosca con coda di topo",
+              "estratto": "Torrente Margorabbia (VA): Tratto compreso tra il Ponte di Grantola e la briglia a 150 metri a monte del concessionario auto in Comune di Mesenzana, riservato alla pesca con esche artificiali con obbligo di utilizzo di amo senza ardiglione o con ardiglione schiacciato e obbligo di rilascio immediato di tutto il pesce catturato."
+            },
+            {
+              "livello": "testuale",
+              "riferimento": "Acque di tipo B dove sono consentite forme di pesca invernali",
+              "estratto": "La pesca fra la prima domenica di ottobre e l’ultima domenica di febbraio può essere praticata esclusivamente a piede asciutto."
+            }
+          ],
+          "note_corpo": null,
+          "matrice": {
+            "regime_amministrativo": "fipsas",
+            "regime_amministrativo_etichetta": "FIPSAS",
+            "classificazione_biologica": "B",
+            "classificazione_etichetta": "Cat. B",
+            "modalita": "sponda",
+            "tipo_geometria_normativa": "linea",
+            "eredita": [
+              {
+                "livello": 1,
+                "asse": "classificazione_biologica",
+                "id": "B",
+                "blocco": "ordinario_B"
+              },
+              {
+                "livello": 1,
+                "asse": "regime_amministrativo",
+                "id": "fipsas",
+                "sostituisce_biologia": false
+              },
+              {
+                "livello": 2,
+                "asse": "modalita_pesca",
+                "id": "sponda"
+              },
+              {
+                "livello": 3,
+                "asse": "eccezione_locale",
+                "id": "margorabbia",
+                "chiavi": [
+                  "calendario",
+                  "prelievo"
+                ]
+              },
+              {
+                "livello": 4,
+                "asse": "segmento",
+                "id": "margorabbia_no_kill_grantola_mesenzana",
+                "effetto": "taglio"
+              },
+              {
+                "livello": 5,
+                "asse": "overlay",
+                "id": "margorabbia_pesca_invernale_nokill",
+                "non_taglia_geometria_base": true
+              }
+            ]
+          }
+        },
+        "lunghezza_m": 1903,
+        "segmento_max_m": 67
+      }
+    }
+  ]
+}

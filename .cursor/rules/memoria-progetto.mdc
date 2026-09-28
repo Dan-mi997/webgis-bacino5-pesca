@@ -1,0 +1,8 @@
+---
+description: Memoria storica del progetto FIPSAS / webgis Margorabbia. Da leggere all’inizio e aggiornare a fine lavoro.
+alwaysApply: true
+---
+
+Prima di lavorare su questo repo, leggi `MEMORIA.md` (stato, decisioni, punti aperti).
+
+Al termine di una sessione che cambia dati, capisaldi, regole, frontend o pubblicazione, aggiorna `MEMORIA.md`: data in cima, punti salienti, sezione «aperto». Non riscrivere tutto: tieni il file breve e fattuale.

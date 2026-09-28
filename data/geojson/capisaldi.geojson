@@ -248,6 +248,177 @@
         "note": "Attraversamento confermato (coincide con la SP 29 già scelta).",
         "verificato": true
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.858939287365246,
+          45.96699030132241
+        ]
+      },
+      "properties": {
+        "id": "ponte_dogana",
+        "nome": "Ponte della Dogana",
+        "corso": "tresa",
+        "progressiva_m": null,
+        "fonte": "verificato_manuale",
+        "note": "Confermato. Poligono OSM way 385985142; il punto è la proiezione sull'asse del Tresa.",
+        "verificato": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.855186974289014,
+          45.96946456942645
+        ]
+      },
+      "properties": {
+        "id": "chiusa_regolazione",
+        "nome": "Chiusa di regolazione delle acque",
+        "corso": "tresa",
+        "progressiva_m": null,
+        "fonte": "verificato_manuale",
+        "note": "Confermata a Lavena Ponte Tresa.",
+        "verificato": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.784369706102224,
+          45.98974570231629
+        ]
+      },
+      "properties": {
+        "id": "ponte_biviglione",
+        "nome": "Ponte di ferro, Biviglione",
+        "corso": "tresa",
+        "progressiva_m": null,
+        "fonte": "verificato_manuale",
+        "note": "Confermato.",
+        "verificato": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.766723,
+          45.991474
+        ]
+      },
+      "properties": {
+        "id": "diga_creva",
+        "nome": "Diga di Creva",
+        "corso": "tresa",
+        "progressiva_m": null,
+        "fonte": "verificato_manuale",
+        "note": "Confermato il punto Nominatim.",
+        "verificato": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.869922935204908,
+          45.95998091846375
+        ]
+      },
+      "properties": {
+        "id": "vecchia_filanda",
+        "nome": "Estremo dello stretto di Lavena",
+        "corso": "lago_lugano",
+        "progressiva_m": null,
+        "fonte": "verificato_manuale",
+        "note": "Confermato come estremo dello stretto, non come stabile.",
+        "verificato": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.874729172117618,
+          45.95874951248393
+        ]
+      },
+      "properties": {
+        "id": "grotto_bagat",
+        "nome": "Estremo dello stretto di Lavena",
+        "corso": "lago_lugano",
+        "progressiva_m": null,
+        "fonte": "verificato_manuale",
+        "note": "Confermato come secondo estremo dello stretto, non come grotto.",
+        "verificato": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.886358894323099,
+          45.944796414430094
+        ]
+      },
+      "properties": {
+        "id": "ponte_bigattini",
+        "nome": "Ponte di via Bagattini",
+        "corso": "trallo",
+        "progressiva_m": null,
+        "fonte": "verificato_manuale",
+        "note": "Confermato con le coordinate corrette. Il prontuario scrive Bigattini.",
+        "verificato": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.120904058816382,
+          46.03295157729113
+        ]
+      },
+      "properties": {
+        "id": "foce_rezzo",
+        "nome": "Foce del Rezzo",
+        "corso": "rezzo",
+        "progressiva_m": null,
+        "fonte": "verificato_manuale",
+        "note": "Confermata. Centro del cerchio da 50 m. L'asta OSM arriva a 14 m.",
+        "verificato": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.084980490938772,
+          46.00907168549124
+        ]
+      },
+      "properties": {
+        "id": "foce_telo",
+        "nome": "Foce del Telo di Osteno",
+        "corso": "lirone",
+        "progressiva_m": null,
+        "fonte": "verificato_manuale",
+        "note": "Confermata sulla foce del Lirone. Il prontuario la chiama foce del Telo; l'ultimo corso OSM è il Torrente Lirone.",
+        "verificato": true
+      }
     }
   ]
 }
