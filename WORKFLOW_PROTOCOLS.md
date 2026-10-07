@@ -2,7 +2,7 @@
 
 Procedura unica per ogni corpo idrico del Bacino 5. Gli step sono rigidi: uno step AI si ferma e attende l’umano; non si anticipa lo step seguente.
 
-Dal 2026-10-06 la geometria non si scarica più da OpenStreetMap. La rete è il reticolo ufficiale della Regione Lombardia e si segmenta in locale. Il pilota già pubblicato (Margorabbia, Ceresio) resta in `docs/` finché uno STEP 4 non lo sostituisce. La pipeline precedente sta in `old/scripts/` e non si usa.
+Dal 2026-10-07 `docs/` è la mappa del Bacino 5 sul reticolo regionale. La pipeline OpenStreetMap sta in `old/scripts/` e non si usa.
 
 ---
 

@@ -36,7 +36,16 @@ from shapely.geometry import LineString, Point, shape
 from shapely.ops import split
 
 import config as cfg
-from geo_utils import feature, line_length_m, locate_m, point_feature, project_info, pt_dist_m
+from geo_utils import (
+    feature,
+    geom_distance_m,
+    line_length_m,
+    locate_m,
+    point_feature,
+    project_info,
+    pt_dist_m,
+    substring_m,
+)
 from regole import Matrice
 
 # Un taglio a meno di così da un estremo non crea un moncone: il caposaldo
@@ -103,6 +112,212 @@ def _carica_fc(path: Path) -> list[dict]:
 
 def _nel_bacino(props: dict) -> bool:
     return (props or {}).get("SOTTOBACIN") in cfg.SOTTOBACINI_BACINO_5
+
+
+# Il Pusiano è nel grafo, ma il Geoportale lo mette nel sottobacino Lambro.
+_CORPI_FUORI_AMMESSI = {"pusiano"}
+# Laghi del prontuario fuori dai tre sottobacini, ancora senza scheda nel grafo.
+_LAGHI_FUORI_SOTTOBACINO = {"garlate", "segrino", "alserio", "montorfano"}
+# Idronimo, caposaldo che chiude a valle, ancora (lon, lat) verso i laghi del bacino.
+_LIMITI_VALLE = (
+    ("adda", "ponte_lavello", (9.41, 45.82)),
+    ("ticino", "ponte_sesto_calende", (8.70, 45.90)),
+    ("olona", "ponte_vedano", (8.84, 45.84)),
+    ("lambro", "ponte_nibionno", (9.27, 45.82)),
+    ("lura", "sp342_lura", (9.00, 45.82)),
+    ("seveso", "sp342_seveso", (9.05, 45.82)),
+)
+_NOTA_SENZA_SCHEDA = (
+    "Geometria del reticolo regionale dentro il Bacino 5. "
+    "La scheda del prontuario non è ancora nel grafo: non è acqua libera e il regime non è stato assegnato."
+)
+
+
+def _idronimo(nome: str) -> str | None:
+    parti = _parti_nome(nome)
+    if len(parti) != 1:
+        return None
+    chiave = _chiave(parti[0])
+    return chiave or None
+
+
+def _props_senza_scheda(nome: str, regionale: dict, geom, nota: str) -> dict:
+    props = {
+        "nome_tratto": nome,
+        "corpo_idrico": "reticolo_" + re.sub(r"[^a-z0-9]+", "_", _chiave(nome) or "corso").strip("_"),
+        "corpo_nome": nome,
+        "layer": "reticolo",
+        "scheda_inserita": False,
+        "regime": "scheda_non_inserita",
+        "regime_etichetta": "Nel reticolo, scheda non ancora inserita",
+        "pesca_consentita": None,
+        "geometria": geom.geom_type,
+        "bank": "both" if geom.geom_type in ("LineString", "MultiLineString") else None,
+        "fonte_geometria": "reticolo_regionale_lombardia",
+        "nome_regionale": regionale.get("NOME"),
+        "bacino_regionale": regionale.get("BACINO"),
+        "sottobacino": regionale.get("SOTTOBACIN"),
+        "cod_ptua16": regionale.get("COD_PTUA16"),
+        "natura": regionale.get("NATURA"),
+        "regole": {
+            "regime": "scheda_non_inserita",
+            "pesca_consentita": None,
+            "note_corpo": nota,
+        },
+    }
+    if props["bank"] is None:
+        del props["bank"]
+    if geom.geom_type in ("LineString", "MultiLineString"):
+        parts = [geom] if geom.geom_type == "LineString" else list(geom.geoms)
+        props["lunghezza_m"] = round(sum(line_length_m(p) for p in parts if p.geom_type == "LineString"))
+    return props
+
+
+def _linee_verso_ancora(line: LineString, pin: dict | None, anchor: tuple[float, float],
+                        cappa_m: float | None = None) -> list[LineString]:
+    """Tiene il tratto a monte del caposaldo di valle, quello più vicino ai laghi."""
+    if pin is None or "lat" not in pin:
+        return [line]
+    _proj, _metri, dist = project_info(line, float(pin["lon"]), float(pin["lat"]))
+    ancora = Point(anchor[0], anchor[1])
+    if dist > cfg.MAX_SNAP_CAPOSALDO_M:
+        if geom_distance_m(line.interpolate(0.5, normalized=True), ancora) + 200 >= geom_distance_m(Point(float(pin["lon"]), float(pin["lat"])), ancora):
+            return []
+        if cappa_m and line_length_m(line) > cappa_m * 2:
+            _vicino, quota, _dist = project_info(line, anchor[0], anchor[1])
+            totale = line_length_m(line)
+            return [substring_m(line, max(0.0, quota - cappa_m), min(totale, quota + cappa_m))]
+        return [line]
+    pezzi = split_linea(line, [Point(float(pin["lon"]), float(pin["lat"]))])
+    if len(pezzi) == 1:
+        centro = line.interpolate(0.5, normalized=True)
+        if geom_distance_m(centro, ancora) > geom_distance_m(Point(float(pin["lon"]), float(pin["lat"])), ancora) + 150:
+            return []
+        return pezzi
+
+    def _mezzo(piece: LineString) -> float:
+        centro = piece.interpolate(0.5, normalized=True)
+        return geom_distance_m(centro, ancora)
+
+    return [min(pezzi, key=_mezzo)]
+
+
+def _pezzi_utili(geom) -> list:
+    if geom.is_empty:
+        return []
+    if geom.geom_type == "LineString" and len(list(geom.coords)) >= 2:
+        return [geom]
+    if geom.geom_type == "Polygon":
+        return [geom]
+    if geom.geom_type in ("MultiLineString", "MultiPolygon", "GeometryCollection"):
+        out = []
+        for part in geom.geoms:
+            out.extend(_pezzi_utili(part))
+        return out
+    return []
+
+
+def _completa_reticolo(fiumi: list[dict], laghi: list[dict], consumati: set[int], punti: dict,
+                       features: list[dict], report: dict) -> None:
+    """Aggiunge il reticolo del bacino che non ha ancora una scheda nel grafo."""
+    nomi = []
+
+    def _emetti(geom, props_reg: dict, nota: str) -> None:
+        nome = props_reg.get("NOME") or "Corso"
+        features.append(feature(geom, _props_senza_scheda(nome, props_reg, geom, nota)))
+        nomi.append(nome)
+
+    for ft in fiumi + laghi:
+        if id(ft) in consumati:
+            continue
+        props = ft.get("properties") or {}
+        nome = props.get("NOME") or ""
+        if "mezzola" in nome.lower():
+            continue
+        if not _nel_bacino(props) and _idronimo(nome) not in _LAGHI_FUORI_SOTTOBACINO:
+            continue
+        if not ft.get("geometry"):
+            continue
+        geom = shape(ft["geometry"])
+        if geom.geom_type in ("LineString", "MultiLineString"):
+            for line in _linee(geom):
+                _emetti(line, props, _NOTA_SENZA_SCHEDA)
+        elif geom.geom_type in ("Polygon", "MultiPolygon"):
+            _emetti(geom, props, _NOTA_SENZA_SCHEDA)
+
+    limiti = {idr: (pid, ancora) for idr, pid, ancora in _LIMITI_VALLE}
+    for ft in fiumi:
+        if id(ft) in consumati or not ft.get("geometry"):
+            continue
+        props = ft.get("properties") or {}
+        nome = props.get("NOME") or ""
+        if _nel_bacino(props) or "mezzola" in nome.lower():
+            continue
+        idr = _idronimo(nome)
+        sotto = props.get("SOTTOBACIN") or ""
+        if idr == "bevera" and sotto == "Olona":
+            for line in _linee(shape(ft["geometry"])):
+                _emetti(line, props, _NOTA_SENZA_SCHEDA + " Bevera di Cantello, nel bacino dell'Olona.")
+            continue
+        cappa = None
+        if idr == "adda" and "Sopra" in sotto:
+            bocca = Point(9.40, 46.15)
+            for line in _linee(shape(ft["geometry"])):
+                if geom_distance_m(line, bocca) > 4000 or line_length_m(line) < 30:
+                    continue
+                if line_length_m(line) > 4000:
+                    _vicino, quota, _dist = project_info(line, bocca.x, bocca.y)
+                    totale = line_length_m(line)
+                    line = substring_m(line, max(0.0, quota - 4000), min(totale, quota + 4000))
+                _emetti(line, props, _NOTA_SENZA_SCHEDA + " Foce dell'Adda nel Lario: la Valtellina è in Sondrio.")
+            continue
+        if idr == "bevera" and "Lambro" in sotto:
+            idr = "lambro"
+        spec = limiti.get(idr or "")
+        if not spec:
+            continue
+        pid, ancora = spec
+        for line in _linee(shape(ft["geometry"])):
+            for piece in _linee_verso_ancora(line, punti.get(pid), ancora, cappa):
+                if line_length_m(piece) < 30:
+                    continue
+                _emetti(piece, props, _NOTA_SENZA_SCHEDA + f" Tratto tenuto fino al caposaldo {pid}.")
+    report["reticolo_senza_scheda"] = nomi
+
+
+def _clip_lombardia(features: list[dict], report: dict) -> None:
+    """Toglie dal disegno la parte di lago che sta in Svizzera o in Piemonte."""
+    path = cfg.CONFINE_LOMBARDIA
+    if not path.exists():
+        report["clip_lombardia"] = "confine assente, specchi non tagliati"
+        return
+    data = json.loads(path.read_text(encoding="utf-8"))
+    confine = shape(data["features"][0]["geometry"])
+    if not confine.is_valid:
+        confine = confine.buffer(0)
+    tenuti = []
+    intersecate = 0
+    for ft in features:
+        geom = shape(ft["geometry"])
+        if geom.geom_type not in ("Polygon", "MultiPolygon"):
+            tenuti.append(ft)
+            continue
+        inter = geom if confine.covers(geom) else geom.intersection(confine)
+        if inter is geom:
+            tenuti.append(ft)
+            continue
+        pezzi = _pezzi_utili(inter)
+        intersecate += 1
+        for piece in pezzi:
+            props = dict(ft["properties"])
+            props["geometria"] = piece.geom_type
+            props["clip_lombardia"] = True
+            if piece.geom_type == "LineString":
+                props["lunghezza_m"] = round(line_length_m(piece))
+            tenuti.append(feature(piece, props))
+    features.clear()
+    features.extend(tenuti)
+    report["clip_lombardia"] = {"feature_in_uscita": len(tenuti), "geometrie_intersecate": intersecate}
 
 
 def carica_capisaldi(path: Path) -> dict[str, dict]:
@@ -341,18 +556,19 @@ def segmenta(matrice: Matrice, fiumi: list[dict], laghi: list[dict], punti: dict
 
     linee_per_corpo: dict[str, list[tuple[LineString, dict]]] = {}
     specchi_per_corpo: dict[str, list[tuple[object, dict]]] = {}
+    consumati: set[int] = set()
 
     def _consuma(feats: list[dict], geometria: str, destinazione: dict, come_linee: bool) -> None:
         for ft in feats:
             props = ft.get("properties") or {}
-            if not _nel_bacino(props):
-                report["geometrie_scartate"]["fuori_bacino_5"] += 1
-                continue
             geom_raw = ft.get("geometry")
             if not geom_raw:
                 report["geometrie_scartate"]["senza_geometria"] += 1
                 continue
             corpo_id, chiavi = _abbina(props.get("NOME") or "", geometria, indice[geometria])
+            if not _nel_bacino(props) and corpo_id not in _CORPI_FUORI_AMMESSI:
+                report["geometrie_scartate"]["fuori_bacino_5"] += 1
+                continue
             if len(chiavi) != 1:
                 if any(indice[geometria].get(_chiave(c)) for c in chiavi):
                     report["geometrie_composte"].append({
@@ -374,6 +590,7 @@ def segmenta(matrice: Matrice, fiumi: list[dict], laghi: list[dict], punti: dict
                     destinazione.setdefault(corpo_id, []).append((line, props))
             else:
                 destinazione.setdefault(corpo_id, []).append((geom, props))
+            consumati.add(id(ft))
 
     _consuma(fiumi, "linea", linee_per_corpo, True)
     _consuma(laghi, "poligono", specchi_per_corpo, False)
@@ -530,6 +747,9 @@ def segmenta(matrice: Matrice, fiumi: list[dict], laghi: list[dict], punti: dict
             "geometria": matrice.corpi[corpo_id].get("geometria"),
         })
 
+    _completa_reticolo(fiumi, laghi, consumati, punti, features, report)
+    _clip_lombardia(features, report)
+
     for i, ft in enumerate(features, start=1):
         ft["properties"]["id"] = f"{ft['properties']['corpo_idrico']}_{i:03d}"
     return features, report
@@ -555,6 +775,12 @@ def _stampa(report: dict, n_feature: int) -> None:
         esiti[row.get("esito") or "?"] = esiti.get(row.get("esito") or "?", 0) + 1
     if esiti:
         print("Capisaldi: " + ", ".join(f"{k} {v}" for k, v in sorted(esiti.items())))
+    senza = report.get("reticolo_senza_scheda") or []
+    if senza:
+        print(f"Reticolo senza scheda: {len(senza)} geometrie")
+    clip = report.get("clip_lombardia")
+    if clip:
+        print(f"Clip Lombardia: {clip}")
     lontani = [c for c in report["capisaldi"] if c.get("esito") == "troppo_lontano"]
     if lontani:
         print("Capisaldi oltre la soglia di snap:")
@@ -580,7 +806,16 @@ def pubblica_leaflet(features: list[dict], punti: dict[str, dict], matrice: Matr
     }
     fc_todo = {"type": "FeatureCollection", "features": []}
     d = matrice.base.data
-    regole_web = {k: d[k] for k in ("meta", "schema", "vocabolari", "definizioni_temporali")}
+    vocabolari = json.loads(json.dumps(d["vocabolari"]))
+    vocabolari["regimi"]["scheda_non_inserita"] = {
+        "etichetta": "Nel reticolo, scheda non ancora inserita",
+        "descrizione": "Geometria del reticolo regionale nel Bacino 5. Non è pesca libera: la scheda del prontuario non è ancora nel grafo.",
+        "colore": "#64748b",
+        "tratteggio": "2 6",
+        "pesca_consentita": None,
+    }
+    regole_web = {k: d[k] for k in ("meta", "schema", "definizioni_temporali")}
+    regole_web["vocabolari"] = vocabolari
     regole_web["struttura"] = {"schema": matrice.spec["schema"], "esempi": matrice.spec["esempi"]}
     js = "".join(
         f"window.{name} = {json.dumps(obj, ensure_ascii=False)};\n"

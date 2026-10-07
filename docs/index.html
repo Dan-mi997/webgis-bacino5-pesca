@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bacino 5 — Margorabbia e Ceresio</title>
+  <title>Bacino 5</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     :root {
@@ -104,19 +104,19 @@
 
       <h2>Riferimenti</h2>
       <div class="filters">
-        <label><input type="checkbox" id="show-cap" checked /> <span class="swatch pt" style="background:#64748b"></span> Capisaldi del prontuario</label>
+        <label><input type="checkbox" id="show-cap" /> <span class="swatch pt" style="background:#64748b"></span> Capisaldi del prontuario</label>
         <label><input type="checkbox" id="show-todo" checked /> <span class="swatch pt" style="background:#f59e0b;border-color:#78350f"></span> Punti da verificare</label>
       </div>
 
       <p class="legend-note">
-        Tutte le acque del reticolo sono in concessione FIPSAS / ATS Prealpi (Bacino 5): non esistono tratti a
-        «pesca libera» con la sola licenza. Clicca un tratto per calendario, attrezzatura, permessi e citazioni testuali.<br />
-        I campi gara e la deroga invernale non spezzano il torrente: sono il layer tratteggiato sopra il regime del tratto.
-        A Mesenzana il No-Kill resta intero; il campo gara ci passa sopra e vale solo con «Gara autorizzata».<br />
-        Il Lisascora è in divieto nel prontuario ma non è in mappa (corso non identificato / troppo piccolo).<br />
-        Il Ceresio è solo la parte italiana. Le linee sono sponde; i poligoni sono l’interno dello specchio, con la scheda da natante nel popup.
-        La sponda svizzera non c’è. I campi gara non sono disegnati. Il divieto alla foce del Cuccio non ha ancora il raggio, e la foce del Tresa nel Verbano si chiude col Lago Maggiore.<br />
-        Dati: OpenStreetMap · Regole: <code>struttura_dati_regole.json</code> (matrice) + dizionari del prontuario.
+        Mappa del Bacino 5 sul reticolo della Regione Lombardia. Dove la scheda è nel grafo, il clic apre regime, calendario e permessi.
+        Il tratteggio grigio è nel bacino ma la scheda non è ancora inserita: non è acqua libera.<br />
+        Verbano e Ceresio sono tagliati sul confine della Lombardia: restano fuori la sponda svizzera e quella piemontese.
+        Il Mezzola non c’è. Adda, Ticino, Olona, Lambro, Lura e Seveso arrivano al caposaldo di limite del prontuario.
+        L’Adda a monte del Lario è solo la foce: la Valtellina è in Sondrio.<br />
+        Corsi citati dal prontuario e assenti dal reticolo regionale (tra gli altri Tinella, Trallo, Soldo, Chiesone, Boggione, Lanza) non sono disegnati.
+        I campi gara non spezzano i tratti.
+        Dati: reticolo regionale · Regole: <code>struttura_dati_regole.json</code>.
       </p>
     </aside>
     <div id="map"></div>
@@ -130,17 +130,17 @@
           TODO = window.MARGORABBIA_TODO, R = window.MARGORABBIA_REGOLE,
           OVERLAY = window.MARGORABBIA_OVERLAY || { features: [] };
     if (!TRATTI || !R) {
-      document.getElementById("map").innerHTML = "<p style='padding:2rem'>Manca <code>geo_data.js</code>. Esegui <code>py -3 scripts/build_geo_data.py</code>.</p>";
+      document.getElementById("map").innerHTML = "<p style='padding:2rem'>Manca <code>geo_data.js</code>. Esegui <code>py -3 scripts/segmenta_rete.py --pubblica-leaflet</code>.</p>";
       return;
     }
     const V = R.vocabolari, TD = R.definizioni_temporali;
     const WD = ["lun", "mar", "mer", "gio", "ven", "sab", "dom"];
-    const LATLON = [45.95, 8.78];
+    const LATLON = [45.95, 9.05];
     const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
     const eur = v => v == null ? "n.d." : "€ " + v.toFixed(2).replace(".", ",");
 
     document.getElementById("subtitle").textContent =
-      `${R.meta.fonte_primaria.documento} · ${R.meta.concessionario}. Capisaldi confermati (punti verdi).`;
+      `${R.meta.fonte_primaria.documento} · ${R.meta.concessionario}. Reticolo regionale del Bacino 5.`;
 
     // ------------------------------------------------------------ motore temporale (porting di scripts/regole.py)
     // Gli istanti sono "ora locale di Roma" codificata come millisecondi UTC fittizi.
@@ -202,6 +202,11 @@
     function valuta(r, t) {
       const res = { ok: true, motivi: [], vincoli: [] };
       const no = m => { res.ok = false; res.motivi.push(m); };
+      if (!r || r.pesca_consentita == null || !r.calendario) {
+        res.ok = null;
+        res.motivi.push("Scheda non ancora inserita");
+        return res;
+      }
       if (!r.pesca_consentita) { no("Zona di divieto"); return res; }
       const cal = r.calendario;
       const st = inStagione(cal.stagione, t);
@@ -264,7 +269,7 @@
     function styleFeat(p) {
       const reg = V.regimi[p.regime] || {};
       let color = reg.colore || "#64748b";
-      if (modeEl.checked) {
+      if (modeEl.checked && p.scheda_inserita !== false && p.regole && p.regole.calendario) {
         const ok = valuta(p.regole, whenT()).ok;
         color = ok === true ? "#16a34a" : ok === false ? "#dc2626" : "#64748b";
       }
@@ -381,8 +386,18 @@
     }
 
     function popupHtml(p) {
-      const r = p.regole, reg = V.regimi[r.regime];
-      const misura = p.lunghezza_m ? `${(p.lunghezza_m / 1000).toFixed(2).replace(".", ",")} km (OSM)` : p.area_ha ? `${p.area_ha} ha` : "";
+      const misura = p.lunghezza_m ? `${(p.lunghezza_m / 1000).toFixed(2).replace(".", ",")} km` : p.area_ha ? `${p.area_ha} ha` : "";
+      if (p.scheda_inserita === false) {
+        const nota = (p.regole && p.regole.note_corpo) || "";
+        return `<div class="pp">
+          <h3>${esc(p.nome_tratto)}</h3>
+          <div class="corso">${esc(p.corpo_nome || "")}</div>
+          <span class="badge" style="background:#64748b">Scheda non ancora inserita</span>
+          <div class="warn">${esc(nota)}</div>
+          <div class="foot">${esc(p.id)} · ${misura} · reticolo regionale</div>
+        </div>`;
+      }
+      const r = p.regole, reg = V.regimi[r.regime] || { colore: "#64748b", etichetta: r.regime || "" };
       const m = p.matrice;
       const linea = (p.geometria || "").includes("Line");
       const assi = m ? `${esc(m.regime_amministrativo_etichetta)} + ${esc(m.classificazione_etichetta)} · ${linea ? "linea (da sponda)" : "poligono (sponda e natante)"}` : "";
@@ -454,7 +469,7 @@
       ovLayer.addData(OVERLAY);
       document.getElementById("when-box").classList.toggle("active", modeEl.checked);
       const [a, b] = sunTimes(dayOf(whenT()), ...LATLON);
-      document.getElementById("sun").textContent = `Alba ${hhmm(a)} · tramonto ${hhmm(b)} (Valganna/Valcuvia)`;
+      document.getElementById("sun").textContent = `Alba ${hhmm(a)} · tramonto ${hhmm(b)} (centro del bacino)`;
       for (const [id, lyr] of [["show-cap", capLayer], ["show-todo", todoLayer]]) {
         if (document.getElementById(id).checked) lyr.addTo(map); else map.removeLayer(lyr);
       }

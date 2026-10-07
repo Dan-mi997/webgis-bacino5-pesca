@@ -2,7 +2,7 @@
 
 Mappa della pesca sportiva sulle acque lombarde di Varese, Como e Lecco (prontuario 2026). Le acque in concessione si indicano con il regime (FIPSAS, Italo-Svizzera, Diritti esclusivi), mai «Libera».
 
-La mappa pubblicata è ancora il pilota Margorabbia e Ceresio. Il lavoro in corso usa il reticolo della Regione e non è ancora stato pubblicato.
+La mappa pubblicata è il reticolo regionale del Bacino 5. La scheda del prontuario si apre dove il grafo ce l’ha già; il resto del reticolo è disegnato e marcato «scheda non ancora inserita».
 
 ## Da dove partire
 

@@ -56,7 +56,7 @@
       "geometria": "linea",
       "parti": 2,
       "nome_regionale": "Margorabbia (Fiume)",
-      "capisaldi_proiettati": 3
+      "capisaldi_proiettati": 4
     },
     {
       "corpo_idrico": "telo_osteno",
@@ -113,6 +113,12 @@
       "geometria": "poligono",
       "parti": 1,
       "nome_regionale": "Varese (lago)"
+    },
+    {
+      "corpo_idrico": "pusiano",
+      "geometria": "poligono",
+      "parti": 1,
+      "nome_regionale": "Pusiano (Lago)"
     }
   ],
   "corpi_senza_geometria": [
@@ -140,11 +146,6 @@
       "corpo_idrico": "lisascora",
       "nome": "Torrente Lisascora",
       "geometria": "linea"
-    },
-    {
-      "corpo_idrico": "pusiano",
-      "nome": "Lago di Pusiano",
-      "geometria": "poligono"
     },
     {
       "corpo_idrico": "rancina",
@@ -267,6 +268,806 @@
       "overlay": []
     },
     {
+      "id": "foce_soldo",
+      "nome": "Foce del Soldo, parte di specchio",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "foce_cuccio",
+      "nome": "Sbocco del Cuccio nel lago",
+      "esito": "overlay_non_spezza",
+      "overlay": [
+        "cuccio_campo_gara_porlezza"
+      ]
+    },
+    {
+      "id": "foce_tresa_verbano",
+      "nome": "Foce del Tresa nel Lago Maggiore",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "torretta_schiranna",
+      "nome": "Torretta di arrivo della Canottieri, Schiranna",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "foce_tinella",
+      "nome": "Immissione del Tinella nel lago, Oltrona",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "cascatella_roverplast",
+      "nome": "Cascatella subito a valle della ditta Roverplast",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ponte_giovanni_xxiii",
+      "nome": "Ponte di via Giovanni XXIII",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ponte_trevisani",
+      "nome": "Ponte di via Trevisani a Monate",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "canneto_brebbia",
+      "nome": "Estremo del canneto tra Brebbia e Ispra",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "canneto_ispra",
+      "nome": "Altro estremo del canneto tra Brebbia e Ispra",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "foce_giona",
+      "nome": "Foce del Giona nel Lago Maggiore",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "briglia_giona_museo",
+      "nome": "Seconda briglia a monte del Museo",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ponte_sesto_calende",
+      "nome": "Ponte di Sesto Calende",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "piazza_europa_lavena",
+      "nome": "Piazza Europa, Lavena Ponte Tresa",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "piazza_mercato_lavena",
+      "nome": "Piazza Mercato, Lavena Ponte Tresa",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "confluenza_valmolina_brivola",
+      "nome": "Confluenza Valmolina–Rio Brivola",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ponte_piave_lavatoio",
+      "nome": "Ponte di via Piave, località Lavatoio",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ponte_ss_besozzo_gemonio",
+      "nome": "Ponte della strada statale Besozzo–Gemonio",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ponte_museo_salvini",
+      "nome": "Ponte del Museo Salvini",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ponte_strada_cantello",
+      "nome": "Ponte sulla strada per Cantello",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ponte_caslino",
+      "nome": "Ponte stradale a Caslino d’Erba",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "cascina_dei_gobbi",
+      "nome": "Cascina dei Gobbi, confluenza in alta Val Boazzo",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "paratoie_olginate",
+      "nome": "Paratoie della diga di Olginate",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ponte_olginate",
+      "nome": "Ponte stradale di Olginate, incluso",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "inizio_carcano_molina",
+      "nome": "Inizio dello stabilimento Carcano, località Molina",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "foce_meria_poncia",
+      "nome": "Foce del Meria, località Poncia",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ponte_foce_varrone",
+      "nome": "Ponte in prossimità della foce del Varrone",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ponte_sp72_varrone",
+      "nome": "Ponte della S.P. 72 sul Varrone",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "stazione_canzo_asso",
+      "nome": "Stazione delle Ferrovie Nord di Canzo-Asso",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "prima_briglia_breggia",
+      "nome": "Prima briglia a monte della foce del Breggia",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ponte_frontiera_breggia",
+      "nome": "Ponte stradale presso la frontiera italo-svizzera",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "rete_antialluvione_varrone",
+      "nome": "Rete anti-alluvione sul Varrone",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "briglia_foce_pioverna",
+      "nome": "Briglia del Pioverna in prossimità della foce",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ponte_vedano",
+      "nome": "Ponte di Vedano",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ponte_prato_san_pietro",
+      "nome": "Ponte di Prato San Pietro",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ponte_lavello",
+      "nome": "Nuovo ponte ferroviario del Lavello",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ponte_nibionno",
+      "nome": "Ponte di Nibionno sulla S.P. 342",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "sp342_lanza",
+      "nome": "Attraversamento della S.P. 342 sul Lanza",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "sp342_lura",
+      "nome": "Attraversamento della S.P. 342 sul Lura",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "sp342_seveso",
+      "nome": "Attraversamento della S.P. 342 sul Seveso",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ponte_kennedy",
+      "nome": "Ponte Kennedy",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ponte_manzoni",
+      "nome": "Ponte A. Manzoni",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "inizio_giardino_monastero",
+      "nome": "Inizio del giardino di Villa Monastero",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "balconcino_monastero",
+      "nome": "Balconcino con parapetto in ferro, Villa Monastero",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "foce_adda_lario",
+      "nome": "Foce dell’Adda nel Lario",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "sponda_destra_inganna",
+      "nome": "Sponda destra del torrente Inganna",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "balconcino_perlino",
+      "nome": "Balconcino semicircolare circa 100 m a nord della foce del Perlino",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "scivolo_lido_varenna",
+      "nome": "Scivolo per barche nel Lido di Varenna",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "parcheggio_nord_fiumelatte",
+      "nome": "Estremità nord del parcheggio antistante la chiesa di Fiumelatte",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "parcheggio_sud_incubatoio",
+      "nome": "Estremità sud del parcheggio antistante l’incubatoio M. de Marchi",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "angolo_lido_mandello",
+      "nome": "Angolo del muro a lago del Lido di Mandello",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "albergo_belvedere",
+      "nome": "Albergo Belvedere",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "scalinata_sud_minigolf",
+      "nome": "Scalinata a sud del Minigolf",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "confine_nord_lido_menaggio",
+      "nome": "Confine nord del lido di Menaggio",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "confine_musso_dongo",
+      "nome": "Confine tra Musso e Dongo",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "chiesa_santo_stefano",
+      "nome": "Chiesa di S. Stefano, Dongo",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "foce_liro",
+      "nome": "Foce del torrente Liro",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "foce_livo_lario",
+      "nome": "Foce del torrente Livo",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "scalinata_cimitero_laglio",
+      "nome": "Scalinata di fronte al cimitero di Laglio",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_lecco_canottieri",
+      "nome": "Ormeggio Canottieri",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_malgrate",
+      "nome": "Porticciolo di Malgrate",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_valmadrera_pare",
+      "nome": "Porto Paré",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_onno_molo_nuovo",
+      "nome": "Onno, Molo Nuovo",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_onno_porticciolo",
+      "nome": "Onno, porticciolo",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_vassena",
+      "nome": "Porticciolo di Vassena",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_rigona_limonta",
+      "nome": "Porticciolo della Rigona di Limonta",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_abbadia",
+      "nome": "Porticciolo di Abbadia Lariana",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_mandello_lega_navale",
+      "nome": "Area di ormeggio della Lega Navale",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_mandello_mulini",
+      "nome": "Approdo Mulini",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_mandello_piazza_gera",
+      "nome": "Area di ormeggio di Piazza Gera",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_mandello_olcio",
+      "nome": "Area di ormeggio di Olcio",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_lierna_punta_grumo",
+      "nome": "Porticciolo punta Grumo",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_lierna",
+      "nome": "Porticciolo di Lierna",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_varenna_fiumelatte",
+      "nome": "Porticciolo di Fiumelatte",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_varenna_centro",
+      "nome": "Porticciolo di Varenna Centro",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_bellano_centro",
+      "nome": "Porto di Bellano Centro",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_dervio_santa_cecilia",
+      "nome": "Ormeggio Santa Cecilia",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_dervio_porto_vecchio",
+      "nome": "Ormeggio Porto Vecchio",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_colico_piona",
+      "nome": "Porticciolo di Piona",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_colico_molo",
+      "nome": "Molo centro",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_gera_nuovo",
+      "nome": "Nuovo porto",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_gera_vecchio",
+      "nome": "Vecchio porto",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_domaso",
+      "nome": "Porto comunale",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_gravedona",
+      "nome": "Porto comunale",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_dongo_vecchio",
+      "nome": "Vecchio porto",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_musso",
+      "nome": "Porto comunale",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_sansiro_molvedo",
+      "nome": "Porto Molvedo",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_menaggio_nobiallo",
+      "nome": "Porto comunale di Nobiallo",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_menaggio_mazzini",
+      "nome": "Porto comunale, via Mazzini",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_griante",
+      "nome": "Darsena al cartello di inizio centro abitato, confine con Tremezzina",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_villa_carlotta",
+      "nome": "Darsena dell’imbarcadero di Villa Carlotta",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_ossuccio",
+      "nome": "Porticciolo di Ossuccio",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_ospedaletto",
+      "nome": "Porticciolo di Ospedaletto",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_colonno",
+      "nome": "Porto comunale",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_argegno",
+      "nome": "Porto comunale",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_brienno_vecchio",
+      "nome": "Vecchio porto",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_laglio_tenciuu",
+      "nome": "Porticciolo Riva del Tenciuu, vecchia strada Regina Teodolinda",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_laglio",
+      "nome": "Porto comunale",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_carate",
+      "nome": "Porticciolo di Carate",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_urio",
+      "nome": "Porticciolo di Urio",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_moltrasio",
+      "nome": "Porto comunale",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_cernobbio",
+      "nome": "Porto comunale",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_como_tavernola_rampa",
+      "nome": "Porto comunale di Tavernola, rampa di alaggio",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_como_villa_sforni",
+      "nome": "Darsena di Villa Sforni, Tavernola",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_como_villa_saporiti",
+      "nome": "Darsena di Villa Saporiti",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_como_sant_agostino",
+      "nome": "Area portuale tra il tondello del Molo di Sant’Agostino e il pontile 2 della navigazione",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_como_ceccato",
+      "nome": "Darsena Ceccato",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_blevio",
+      "nome": "Porto comunale",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_torno_vecchio",
+      "nome": "Vecchio porto",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_faggeto_riva",
+      "nome": "Porto comunale, località Riva",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_lezzeno_pescau",
+      "nome": "Porto comunale, località Pescaù",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_lezzeno_sostra",
+      "nome": "Porto comunale, località Sostra",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_bellagio_san_giovanni",
+      "nome": "Porto comunale, San Giovanni",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_bellagio_loppia",
+      "nome": "Porto comunale, Loppia",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_bellagio_lido",
+      "nome": "Porto comunale, Lido",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ormeggio_bellagio_spartivento",
+      "nome": "Porto comunale, Punta Spartivento",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "partegora_canneto",
+      "nome": "Lato ovest del canneto antistante piazza Garibaldi",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "partegora_cicchirolo",
+      "nome": "Spiaggetta Cicchirolo",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "bocca_di_biandino",
+      "nome": "Località Bocca di Biandino",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "fine_orrido_pioverna",
+      "nome": "Fine dell’orrido del Pioverna",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "immissione_rossiga",
+      "nome": "Immissione del canale della Rossiga nel Pioverna",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ponte_eden",
+      "nome": "Ponte dell’Eden",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "cascina_gissone",
+      "nome": "Cascina Gissone",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "confluenza_valle_toff",
+      "nome": "Confluenza del Nosee con la valle del Tuf",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "scarico_cartiera_adda",
+      "nome": "Scarico della cartiera dell’Adda",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "punta_faro_varenna",
+      "nome": "Punta detta del Faro",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "estremo_sud_riva_grande",
+      "nome": "Estremità sud dell’approdo di Riva Grande",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ex_cantiere_branduardi",
+      "nome": "Ex cantiere Branduardi",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "foce_telo_argegno",
+      "nome": "Foce del Telo di Argegno",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "imbocco_porto_dervio",
+      "nome": "Imboccatura del porto di Dervio",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "cantiere_navigazione_dervio",
+      "nome": "Cantiere della Navigazione, Dervio, incluso",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "estremo_nord_circolo_velico",
+      "nome": "Estremità nord della darsena del Circolo Velico",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "scivolo_lido_bellano",
+      "nome": "Scivolo di alaggio subito dopo il Lido di Bellano",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
       "id": "ponte_grantola",
       "nome": "Ponte di Grantola",
       "corpo_idrico": "margorabbia",
@@ -290,6 +1091,15 @@
       "corpo_idrico": "margorabbia",
       "dist_m": 3.0,
       "progressiva_m": 1033.0,
+      "esito": "proiettato",
+      "linea": 1
+    },
+    {
+      "id": "confluenza_tresa",
+      "nome": "Confluenza del Margorabbia nel Tresa",
+      "corpo_idrico": "margorabbia",
+      "dist_m": 0.3,
+      "progressiva_m": 1268.3,
       "esito": "proiettato",
       "linea": 1
     },
@@ -337,13 +1147,6 @@
       "motivo": "senza_estremi_monte_valle"
     },
     {
-      "id": "margorabbia_divieto_foce",
-      "corpo_idrico": "margorabbia",
-      "motivo": "caposaldo_non_proiettato",
-      "monte": "foce_briglia",
-      "valle": "confluenza_tresa"
-    },
-    {
       "id": "tresa_divieto_lavena",
       "corpo_idrico": "tresa",
       "motivo": "senza_estremi_monte_valle"
@@ -385,8 +1188,126 @@
     }
   ],
   "geometrie_scartate": {
-    "fuori_bacino_5": 831,
-    "senza_geometria": 0,
+    "fuori_bacino_5": 829,
+    "senza_geometria": 1,
     "non_in_normativa": 57
+  },
+  "reticolo_senza_scheda": [
+    "Troggia (Torrente)",
+    "Pioverna occidentale (Torrente)",
+    "Pioverna orientale (Torrente)",
+    "Pioverna (Torrente)",
+    "Pioverna (Torrente)",
+    "Pioverna (Torrente)",
+    "Pioverna (Torrente)",
+    "Pioverna (Torrente)",
+    "Pioverna (Torrente)",
+    "Pioverna (Torrente)",
+    "Pioverna (Torrente)",
+    "Liro (Torrente)",
+    "Albano (Torrente)",
+    "Albano (Torrente)",
+    "Cuccio di San Bartolomeo (Torrente) - Valle del Molino (Torrente)",
+    "Varrone (Torrente)",
+    "Varrone (Torrente)",
+    "Varrone (Torrente)",
+    "Varrone (Torrente)",
+    "Faloppia (Torrente)",
+    "Breggia (Torrente)",
+    "Breggia (Torrente)",
+    "Cosia (Torrente)",
+    "Valle di Toff (Torrente)",
+    "Valle Nose` (Torrente) - Valle Marvia (Torrente)",
+    "Liro Caurga (Torrente)",
+    "Perlo (Torrente)",
+    "Esino (Torrente)",
+    "Tavani (Torrente)",
+    "Di Bares (Torrente)",
+    "Livo (Torrente)",
+    "Sanagra (Torrente)",
+    "Sanagra (Torrente)",
+    "Valle Meria (Torrente)",
+    "Valle Meria (Torrente)",
+    "Valle Meria (Torrente)",
+    "Valle Meria (Torrente)",
+    "Rio Torto (Fiume)",
+    "Grigna (Torrente)",
+    "Caldone (Torrente)",
+    "Caldone (Torrente)",
+    "Val Quadrella (Torrente)",
+    "Cosia (Torrente)",
+    "Quaglio (Torrente)",
+    "Vallaccia (Torrente) - Teglio (Torrente)",
+    "Valle Bisurco (Torrente) - Valle Pissarotta (Torrente)",
+    "Telo (Torrente)",
+    "Valle Di Villa (Torrente)",
+    "Civagno (Torrente)",
+    "Borgo (Torrente)",
+    "Borgo (Torrente)",
+    "Val Mora (Torrente)",
+    "Bizzo (Torrente)",
+    "Solda (Torrente)",
+    "Molinara (Rio)",
+    "Bolletta  (Rio)",
+    "Valle dei Corbatt (Torrente) o Valle Motter (Torrente)",
+    "Grantorella (Torrente) - Margorabbia (Fiume)",
+    "Grantorella (Torrente) - Margorabbia (Fiume)",
+    "Grantorella (Torrente) - Margorabbia (Fiume)",
+    "Grantorella (Torrente) - Margorabbia (Fiume)",
+    "Grantorella (Torrente) - Margorabbia (Fiume)",
+    "Rancina (Torrente) - Caprera (Rio)",
+    "Colmegno (Torrente) - Cortesello (Torrente)",
+    "Colmegno (Torrente) - Cortesello (Torrente)",
+    "Monvallina (Torrente)",
+    "Boesio (Torrente)",
+    "Boesio (Torrente)",
+    "Boesio (Torrente)",
+    "Boesio (Torrente)",
+    "Boesio (Torrente)",
+    "Giona (Torrente)",
+    "Giona (Torrente)",
+    "Rezzo (Torrente) - Valle del Cagna (Torrente)",
+    "Boesio (Torrente)",
+    "Boesio (Torrente)",
+    "Boesio (Torrente)",
+    "Boesio (Torrente)",
+    "Boesio (Torrente)",
+    "Giona (Torrente)",
+    "Giona (Torrente)",
+    "Rezzo (Torrente) - Valle del Cagna (Torrente)",
+    "Como (lago) - bacino di Lecco",
+    "Maggiore (lago)",
+    "Garlate (lago)",
+    "Annone Est (lago)",
+    "Segrino (lago)",
+    "Alserio (lago)",
+    "Montorfano (lago)",
+    "Como (lago) - bacino di Como",
+    "Annone ovest (lago)",
+    "Seveso (Torrente)",
+    "Adda (Fiume)",
+    "Adda (Fiume)",
+    "Adda (Fiume)",
+    "Bevera (Torrente)",
+    "Lambro (Fiume)",
+    "Lambro (Fiume)",
+    "Lambro (Fiume)",
+    "Lambro (Fiume)",
+    "Lambro (Fiume)",
+    "Lambro (Fiume)",
+    "Lambro (Fiume)",
+    "Lambro (Fiume)",
+    "Lambro (Fiume)",
+    "Lambro (Fiume)",
+    "Bevera (Torrente)",
+    "Olona (Fiume)",
+    "Lura (Torrente)",
+    "Olona (Fiume)",
+    "Ticino (Fiume)",
+    "Ticino (Fiume)"
+  ],
+  "clip_lombardia": {
+    "feature_in_uscita": 159,
+    "geometrie_intersecate": 4
   }
 }

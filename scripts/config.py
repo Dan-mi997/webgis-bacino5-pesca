@@ -23,6 +23,9 @@ PREVIEW_DIR = ROOT / "preview"
 ACQUE_LOMBARDIA_DIR = GEOJSON_DIR / "AcqueLombardia"
 RETICOLO_FIUMI = ACQUE_LOMBARDIA_DIR / "Fiumi.json"
 RETICOLO_LAGHI = ACQUE_LOMBARDIA_DIR / "Laghi.json"
+# Confine regionale semplificato: taglia Verbano e Ceresio sulla Lombardia
+# (il poligono del Geoportale comprende anche Svizzera e Piemonte).
+CONFINE_LOMBARDIA = GEOJSON_DIR / "lombardia.geojson"
 SOTTOBACINI_BACINO_5 = (
     "Lago Maggiore (Verbano)",
     "Lago di Lugano (Ceresio)",
