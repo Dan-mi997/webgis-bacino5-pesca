@@ -1,6 +1,6 @@
 {
-  "descrizione": "Capisaldi confermati a mano (lat, lon WGS84). Margorabbia e, dal 2026-09-28, i punti del Ceresio. La pipeline del Margorabbia legge solo i propri id.",
-  "aggiornato": "2026-09-28",
+  "descrizione": "Capisaldi confermati a mano (lat, lon WGS84). Dal 2026-10-07 include gli estremi di regola misurati e tutti gli ormeggi del Lario, oltre a Margorabbia e Ceresio. Gli ormeggi non hanno corpo_idrico: non spezzano la rete. La pesca subacquea e le zone riservate alla pesca dilettantistica non sono in questo file.",
+  "aggiornato": "2026-10-07",
   "punti": {
     "outlet_ghirla": {
       "lat": 45.923233,
@@ -121,6 +121,816 @@
       "lon": 9.084980490938772,
       "nome": "Foce del Telo di Osteno",
       "note": "Confermata sulla foce del Lirone. Il prontuario la chiama foce del Telo; l'ultimo corso OSM è il Torrente Lirone."
+    },
+    "confluenza_tresa": {
+      "lat": 45.99298853550696,
+      "lon": 8.732285754358635,
+      "nome": "Confluenza del Margorabbia nel Tresa",
+      "note": "Chiude il divieto di foce, circa 200 m. La briglia a monte è foce_briglia. Coordinate inserite il 2026-10-06."
+    },
+    "foce_trallo": {
+      "lat": 45.948614,
+      "lon": 8.891823,
+      "nome": "Foce del Trallo nel Ceresio",
+      "note": "Chiude il divieto dal ponte di via Bigattini, circa 500 m. Coordinate inserite il 2026-10-06."
+    },
+    "foce_soldo": {
+      "lat": 46.024136,
+      "lon": 9.051694,
+      "nome": "Foce del Soldo, parte di specchio",
+      "note": "Centro del cerchio da 50 m, Valsolda. Coordinate inserite il 2026-10-06."
+    },
+    "foce_cuccio": {
+      "lat": 46.02992012570837,
+      "lon": 9.123063174842022,
+      "nome": "Sbocco del Cuccio nel lago",
+      "note": "Divieto di foce: metà larghezza dell’alveo più 50 m. Porlezza. Coordinate inserite il 2026-10-06."
+    },
+    "foce_tresa_verbano": {
+      "lat": 45.996925,
+      "lon": 8.726331,
+      "nome": "Foce del Tresa nel Lago Maggiore",
+      "note": "Divieto di foce, con pesca solo da riva, una canna, massimo 5 ami. Raggio = metà larghezza più 50 m. Coordinate inserite il 2026-10-06."
+    },
+    "torretta_schiranna": {
+      "lat": 45.80120035248025,
+      "lon": 8.781578468440582,
+      "nome": "Torretta di arrivo della Canottieri, Schiranna",
+      "note": "Divieto: 250 m verso nord e 50 m dalla riva. Coordinate inserite il 2026-10-06."
+    },
+    "foce_tinella": {
+      "lat": 45.82433904867962,
+      "lon": 8.736828713126613,
+      "nome": "Immissione del Tinella nel lago, Oltrona",
+      "note": "Fine del divieto sul torrente e origine della fascia in lago (150 m a monte, 100 a valle, 100 m dalla riva). Coordinate inserite il 2026-10-06."
+    },
+    "cascatella_roverplast": {
+      "lat": 45.823902478751805,
+      "lon": 8.745459093137292,
+      "nome": "Cascatella subito a valle della ditta Roverplast",
+      "note": "Inizio del divieto di circa 1000 m. Non è lo stabilimento. Coordinate inserite il 2026-10-06."
+    },
+    "ponte_giovanni_xxiii": {
+      "lat": 45.819267,
+      "lon": 8.658573,
+      "nome": "Ponte di via Giovanni XXIII",
+      "note": "Estremo del divieto. Vale anche per l’affluente Barona. Coordinate inserite il 2026-10-06."
+    },
+    "ponte_trevisani": {
+      "lat": 45.814268,
+      "lon": 8.655609,
+      "nome": "Ponte di via Trevisani a Monate",
+      "note": "Altro estremo dello stesso divieto. Coordinate inserite il 2026-10-06."
+    },
+    "canneto_brebbia": {
+      "lat": 45.8358,
+      "lon": 8.62358,
+      "nome": "Estremo del canneto tra Brebbia e Ispra",
+      "note": "Il prontuario non nomina i due capi. Segnare i due estremi del canneto: il divieto è 20 m dalla costa. Coordinate inserite il 2026-10-06."
+    },
+    "canneto_ispra": {
+      "lat": 45.82318,
+      "lon": 8.61835,
+      "nome": "Altro estremo del canneto tra Brebbia e Ispra",
+      "note": "Secondo estremo della stessa fascia. Coordinate inserite il 2026-10-06."
+    },
+    "foce_giona": {
+      "lat": 46.03893264931977,
+      "lon": 8.73222254940774,
+      "nome": "Foce del Giona nel Lago Maggiore",
+      "note": "Maccagno. Cerchio da 50 m e inizio del divieto sul torrente. Coordinate inserite il 2026-10-06."
+    },
+    "briglia_giona_museo": {
+      "lat": 46.04122559615495,
+      "lon": 8.735712531695413,
+      "nome": "Seconda briglia a monte del Museo",
+      "note": "Fine del divieto di circa 340 m dalla foce. Coordinate inserite il 2026-10-06."
+    },
+    "ponte_sesto_calende": {
+      "lat": 45.722466239342324,
+      "lon": 8.627005936794719,
+      "nome": "Ponte di Sesto Calende",
+      "note": "Limite di valle del Bacino 5 sul Ticino. Coordinate inserite il 2026-10-06."
+    },
+    "piazza_europa_lavena": {
+      "lat": 45.96839568935182,
+      "lon": 8.85634694253088,
+      "nome": "Piazza Europa, Lavena Ponte Tresa",
+      "note": "Il divieto di sponda nomina Lungo Argine, Piazza Europa e Piazza Mercato. I due estremi già verificati (chiusa e Ponte della Dogana) descrivono la pesca notturna, non questo divieto. Coordinate inserite il 2026-10-06."
+    },
+    "piazza_mercato_lavena": {
+      "lat": 45.969418557871734,
+      "lon": 8.854779529808532,
+      "nome": "Piazza Mercato, Lavena Ponte Tresa",
+      "note": "Secondo luogo nominato dallo stesso divieto di sponda. Coordinate inserite il 2026-10-06."
+    },
+    "confluenza_valmolina_brivola": {
+      "lat": 45.889799,
+      "lon": 8.784015,
+      "nome": "Confluenza Valmolina–Rio Brivola",
+      "note": "Chiude il divieto del Valmolina (dalla sorgente) e quello del Brivola. Coordinate inserite il 2026-10-06."
+    },
+    "ponte_piave_lavatoio": {
+      "lat": 45.887477,
+      "lon": 8.790656,
+      "nome": "Ponte di via Piave, località Lavatoio",
+      "note": "Fuoriuscita del Rio dal Laghetto di Brinzio. Inizio del divieto di circa 980 m. Coordinate inserite il 2026-10-06."
+    },
+    "ponte_ss_besozzo_gemonio": {
+      "lat": 45.873163,
+      "lon": 8.673695,
+      "nome": "Ponte della strada statale Besozzo–Gemonio",
+      "note": "Un estremo del divieto di circa 600 m. Coordinate inserite il 2026-10-06."
+    },
+    "ponte_museo_salvini": {
+      "lat": 45.875624,
+      "lon": 8.678539,
+      "nome": "Ponte del Museo Salvini",
+      "note": "Altro estremo. Coordinate inserite il 2026-10-06."
+    },
+    "ponte_strada_cantello": {
+      "lat": 45.812731,
+      "lon": 8.867973,
+      "nome": "Ponte sulla strada per Cantello",
+      "note": "Non è il Bevera di Costamasnaga. Coordinate inserite il 2026-10-06."
+    },
+    "ponte_caslino": {
+      "lat": 45.835319,
+      "lon": 9.232239,
+      "nome": "Ponte stradale a Caslino d’Erba",
+      "note": "Un estremo del divieto. Coordinate inserite il 2026-10-06."
+    },
+    "cascina_dei_gobbi": {
+      "lat": 45.885219,
+      "lon": 9.458241,
+      "nome": "Cascina dei Gobbi, confluenza in alta Val Boazzo",
+      "note": "Morterone. Il divieto va da qui verso monte fino alle sorgenti. Coordinate inserite il 2026-10-07."
+    },
+    "paratoie_olginate": {
+      "lat": 45.803697,
+      "lon": 9.414154,
+      "nome": "Paratoie della diga di Olginate",
+      "note": "Inizio della tutela ittica, doppia sponda, fino al ponte stradale. Coordinate inserite il 2026-10-07."
+    },
+    "ponte_olginate": {
+      "lat": 45.80283,
+      "lon": 9.41472,
+      "nome": "Ponte stradale di Olginate, incluso",
+      "note": "Fine della tutela ittica. È anche un riferimento della classificazione di tipo C insieme allo scarico della cartiera. Coordinate inserite il 2026-10-07."
+    },
+    "inizio_carcano_molina": {
+      "lat": 45.926159,
+      "lon": 9.323573,
+      "nome": "Inizio dello stabilimento Carcano, località Molina",
+      "note": "Mandello. Inizio del no-kill fino alla foce. Coordinate inserite il 2026-10-07."
+    },
+    "foce_meria_poncia": {
+      "lat": 45.913635,
+      "lon": 9.313161,
+      "nome": "Foce del Meria, località Poncia",
+      "note": "Fine del no-kill. Coordinate inserite il 2026-10-07."
+    },
+    "ponte_foce_varrone": {
+      "lat": 46.072747,
+      "lon": 9.29857,
+      "nome": "Ponte in prossimità della foce del Varrone",
+      "note": "Dervio. Inizio del no-kill a mosca. Coordinate inserite il 2026-10-07."
+    },
+    "ponte_sp72_varrone": {
+      "lat": 46.074474,
+      "lon": 9.304706,
+      "nome": "Ponte della S.P. 72 sul Varrone",
+      "note": "Fine del no-kill. Lo stesso ponte è anche un estremo di un campo gara, tenuto a parte. Coordinate inserite il 2026-10-07."
+    },
+    "stazione_canzo_asso": {
+      "lat": 45.85538551374886,
+      "lon": 9.268423424113141,
+      "nome": "Stazione delle Ferrovie Nord di Canzo-Asso",
+      "note": "Fine del no-kill. È anche un estremo di un campo gara. Coordinate inserite il 2026-10-07."
+    },
+    "prima_briglia_breggia": {
+      "lat": 45.83500348133302,
+      "lon": 9.073083519434984,
+      "nome": "Prima briglia a monte della foce del Breggia",
+      "note": "Inizio del tratto a esche artificiali, rilascio, tutto l’anno. Coordinate inserite il 2026-10-07."
+    },
+    "ponte_frontiera_breggia": {
+      "lat": 45.84182592690469,
+      "lon": 9.039691531211739,
+      "nome": "Ponte stradale presso la frontiera italo-svizzera",
+      "note": "Fine del no-kill e della pesca invernale. Il campo gara prosegue fino a un’altra briglia, tenuta a parte. Coordinate inserite il 2026-10-07."
+    },
+    "rete_antialluvione_varrone": {
+      "lat": 46.07601418347302,
+      "lon": 9.308725067683378,
+      "nome": "Rete anti-alluvione sul Varrone",
+      "note": "Dervio. Inizio del tratto a esche artificiali. Coordinate inserite il 2026-10-07."
+    },
+    "briglia_foce_pioverna": {
+      "lat": 46.04196505317884,
+      "lon": 9.298514239619118,
+      "nome": "Briglia del Pioverna in prossimità della foce",
+      "note": "Bellano. Inizio del no-kill di circa 800 m e limite sul torrente della zona di limitazione del lago. Coordinate inserite il 2026-10-07."
+    },
+    "ponte_vedano": {
+      "lat": 45.779153,
+      "lon": 8.869218,
+      "nome": "Ponte di Vedano",
+      "note": "Limite di valle del Bacino 5 sull’Olona, e fine della pesca invernale dalle sorgenti. Coordinate inserite il 2026-10-07."
+    },
+    "ponte_prato_san_pietro": {
+      "lat": 45.996157,
+      "lon": 9.394931,
+      "nome": "Ponte di Prato San Pietro",
+      "note": "Estremo della pesca invernale e della riserva turistica di Cortenova. Coordinate inserite il 2026-10-07."
+    },
+    "ponte_lavello": {
+      "lat": 45.788,
+      "lon": 9.43215,
+      "nome": "Nuovo ponte ferroviario del Lavello",
+      "note": "Limite di valle del Bacino 5 sull’Adda emissario. Coordinate inserite il 2026-10-07."
+    },
+    "ponte_nibionno": {
+      "lat": 45.75097,
+      "lon": 9.2568,
+      "nome": "Ponte di Nibionno sulla S.P. 342",
+      "note": "Limite di valle del Bacino 5 sul Lambro. Coordinate inserite il 2026-10-07."
+    },
+    "sp342_lanza": {
+      "lat": 45.801641,
+      "lon": 8.872125,
+      "nome": "Attraversamento della S.P. 342 sul Lanza",
+      "note": "Il Bacino 5 tiene il Lanza solo a monte di questa strada. Coordinate inserite il 2026-10-07."
+    },
+    "sp342_lura": {
+      "lat": 45.771707,
+      "lon": 9.001826,
+      "nome": "Attraversamento della S.P. 342 sul Lura",
+      "note": "Stesso limite, solo il tratto a monte. Coordinate inserite il 2026-10-07."
+    },
+    "sp342_seveso": {
+      "lat": 45.787202,
+      "lon": 9.045149,
+      "nome": "Attraversamento della S.P. 342 sul Seveso",
+      "note": "Stesso limite, solo il tratto a monte. Coordinate inserite il 2026-10-07."
+    },
+    "ponte_kennedy": {
+      "lat": 45.849009563961474,
+      "lon": 9.387623656496011,
+      "nome": "Ponte Kennedy",
+      "note": "Lecco. Limite del tratto di tipo C e della pesca da natante fino al ponte Manzoni. Coordinate inserite il 2026-10-07."
+    },
+    "ponte_manzoni": {
+      "lat": 45.83888610529674,
+      "lon": 9.39973068768242,
+      "nome": "Ponte A. Manzoni",
+      "note": "Altro limite dello stesso tratto. Coordinate inserite il 2026-10-07."
+    },
+    "inizio_giardino_monastero": {
+      "lat": 46.008405,
+      "lon": 9.287133,
+      "nome": "Inizio del giardino di Villa Monastero",
+      "note": "Varenna. Divieto fino a metà lago. Coordinate inserite il 2026-10-07."
+    },
+    "balconcino_monastero": {
+      "lat": 46.00661250320906,
+      "lon": 9.289010779856586,
+      "nome": "Balconcino con parapetto in ferro, Villa Monastero",
+      "note": "Altro estremo, verso sud. Coordinate inserite il 2026-10-07."
+    },
+    "foce_adda_lario": {
+      "lat": 46.15133,
+      "lon": 9.37559,
+      "nome": "Foce dell’Adda nel Lario",
+      "note": "Colico e Gera Lario. Tutela: circa 400 m di fronte e 100 m dalla costa. Coordinate inserite il 2026-10-07."
+    },
+    "sponda_destra_inganna": {
+      "lat": 46.142087,
+      "lon": 9.372824,
+      "nome": "Sponda destra del torrente Inganna",
+      "note": "Colico. Inizio della tutela di circa 840 m. Coordinate inserite il 2026-10-07."
+    },
+    "balconcino_perlino": {
+      "lat": 46.13693811706766,
+      "lon": 9.367041539480054,
+      "nome": "Balconcino semicircolare circa 100 m a nord della foce del Perlino",
+      "note": "Altro estremo. Coordinate inserite il 2026-10-07."
+    },
+    "scivolo_lido_varenna": {
+      "lat": 46.015141,
+      "lon": 9.28305,
+      "nome": "Scivolo per barche nel Lido di Varenna",
+      "note": "Inizio della tutela di circa 460 m, Perledo e Varenna. Coordinate inserite il 2026-10-07."
+    },
+    "parcheggio_nord_fiumelatte": {
+      "lat": 46.00035719627579,
+      "lon": 9.291545348777602,
+      "nome": "Estremità nord del parcheggio antistante la chiesa di Fiumelatte",
+      "note": "Tutela temporanea 1° marzo–10 agosto, circa 410 m. Coordinate inserite il 2026-10-07."
+    },
+    "parcheggio_sud_incubatoio": {
+      "lat": 45.99610739622331,
+      "lon": 9.29148445011494,
+      "nome": "Estremità sud del parcheggio antistante l’incubatoio M. de Marchi",
+      "note": "Altro estremo. Coordinate inserite il 2026-10-07."
+    },
+    "angolo_lido_mandello": {
+      "lat": 45.91435055636008,
+      "lon": 9.312774441358854,
+      "nome": "Angolo del muro a lago del Lido di Mandello",
+      "note": "Circa 100 m a nord della sponda destra del Meria. Tutela temporanea. Coordinate inserite il 2026-10-07."
+    },
+    "albergo_belvedere": {
+      "lat": 45.94179899151862,
+      "lon": 9.128313140586908,
+      "nome": "Albergo Belvedere",
+      "note": "Argegno. Inizio della tutela, 150 m dalla riva. Coordinate inserite il 2026-10-07."
+    },
+    "scalinata_sud_minigolf": {
+      "lat": 46.02290808363222,
+      "lon": 9.242580603794426,
+      "nome": "Scalinata a sud del Minigolf",
+      "note": "Menaggio. Estremo condiviso da tutela ittica e zona dilettantistica. Coordinate inserite il 2026-10-07."
+    },
+    "confine_nord_lido_menaggio": {
+      "lat": 46.02501737339941,
+      "lon": 9.240827172810269,
+      "nome": "Confine nord del lido di Menaggio",
+      "note": "Altro estremo della tutela. Coordinate inserite il 2026-10-07."
+    },
+    "confine_musso_dongo": {
+      "lat": 46.117068,
+      "lon": 9.279628,
+      "nome": "Confine tra Musso e Dongo",
+      "note": "Inizio della tutela di Dongo, 100 m dalla riva. Coordinate inserite il 2026-10-07."
+    },
+    "chiesa_santo_stefano": {
+      "lat": 46.126977352172254,
+      "lon": 9.286232355719694,
+      "nome": "Chiesa di S. Stefano, Dongo",
+      "note": "Altro estremo. Coordinate inserite il 2026-10-07."
+    },
+    "foce_liro": {
+      "lat": 46.136759,
+      "lon": 9.304076,
+      "nome": "Foce del torrente Liro",
+      "note": "Gravedona. La tutela è 100 m a sud e 100 m a nord della foce. La zona dilettantistica riparte 100 m a nord, fino alla centrale. Coordinate inserite il 2026-10-07."
+    },
+    "foce_livo_lario": {
+      "lat": 46.148689,
+      "lon": 9.330139,
+      "nome": "Foce del torrente Livo",
+      "note": "Domaso. Tutela 100 m a sud e 100 m a nord, 100 m dalla riva. Coordinate inserite il 2026-10-07."
+    },
+    "scalinata_cimitero_laglio": {
+      "lat": 45.88504752356182,
+      "lon": 9.14180973984731,
+      "nome": "Scalinata di fronte al cimitero di Laglio",
+      "note": "Inizio della tutela verso nord. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_lecco_canottieri": {
+      "lat": 45.85222175649959,
+      "lon": 9.3869096982,
+      "nome": "Ormeggio Canottieri",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_malgrate": {
+      "lat": 45.85288629490481,
+      "lon": 9.3753685642,
+      "nome": "Porticciolo di Malgrate",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_valmadrera_pare": {
+      "lat": 45.858647127304366,
+      "lon": 9.366571273,
+      "nome": "Porto Paré",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_onno_molo_nuovo": {
+      "lat": 45.91183598771953,
+      "lon": 9.2941729664,
+      "nome": "Onno, Molo Nuovo",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_onno_porticciolo": {
+      "lat": 45.902694613682,
+      "lon": 9.301838827258,
+      "nome": "Onno, porticciolo",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_vassena": {
+      "lat": 45.93128423827754,
+      "lon": 9.2847962704,
+      "nome": "Porticciolo di Vassena",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_rigona_limonta": {
+      "lat": 45.95758471406049,
+      "lon": 9.2712291428,
+      "nome": "Porticciolo della Rigona di Limonta",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_abbadia": {
+      "lat": 45.899615499266275,
+      "lon": 9.331435287,
+      "nome": "Porticciolo di Abbadia Lariana",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_mandello_lega_navale": {
+      "lat": 45.91149891443216,
+      "lon": 9.3229143596,
+      "nome": "Area di ormeggio della Lega Navale",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_mandello_mulini": {
+      "lat": 45.91691339157262,
+      "lon": 9.3129462001,
+      "nome": "Approdo Mulini",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_mandello_piazza_gera": {
+      "lat": 45.912720895687364,
+      "lon": 9.316025777,
+      "nome": "Area di ormeggio di Piazza Gera",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_mandello_olcio": {
+      "lat": 45.936991148056656,
+      "lon": 9.312669431,
+      "nome": "Area di ormeggio di Olcio",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_lierna_punta_grumo": {
+      "lat": 45.948857159870684,
+      "lon": 9.302006333,
+      "nome": "Porticciolo punta Grumo",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_lierna": {
+      "lat": 45.96514644595311,
+      "lon": 9.3013476401,
+      "nome": "Porticciolo di Lierna",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_varenna_fiumelatte": {
+      "lat": 45.9997099823717,
+      "lon": 9.29172794412,
+      "nome": "Porticciolo di Fiumelatte",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_varenna_centro": {
+      "lat": 46.01131065200262,
+      "lon": 9.282929226,
+      "nome": "Porticciolo di Varenna Centro",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_bellano_centro": {
+      "lat": 46.044361849053914,
+      "lon": 9.303094765,
+      "nome": "Porto di Bellano Centro",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_dervio_santa_cecilia": {
+      "lat": 46.068466007625716,
+      "lon": 9.306275982,
+      "nome": "Ormeggio Santa Cecilia",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_dervio_porto_vecchio": {
+      "lat": 46.0765160628684,
+      "lon": 9.29882792051,
+      "nome": "Ormeggio Porto Vecchio",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_colico_piona": {
+      "lat": 46.12504490665597,
+      "lon": 9.3449903258,
+      "nome": "Porticciolo di Piona",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_colico_molo": {
+      "lat": 46.137402241052165,
+      "lon": 9.370346369,
+      "nome": "Molo centro",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_gera_nuovo": {
+      "lat": 46.16829671075299,
+      "lon": 9.3710723042,
+      "nome": "Nuovo porto",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_gera_vecchio": {
+      "lat": 46.16795665208273,
+      "lon": 9.3695721324,
+      "nome": "Vecchio porto",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_domaso": {
+      "lat": 46.15744568014244,
+      "lon": 9.3398756633,
+      "nome": "Porto comunale",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_gravedona": {
+      "lat": 46.14409524644216,
+      "lon": 9.3051027446,
+      "nome": "Porto comunale",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_dongo_vecchio": {
+      "lat": 46.12261744627243,
+      "lon": 9.2803338157,
+      "nome": "Vecchio porto",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_musso": {
+      "lat": 46.11457545328475,
+      "lon": 9.2774077437,
+      "nome": "Porto comunale",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_sansiro_molvedo": {
+      "lat": 46.06110834853509,
+      "lon": 9.2655764845,
+      "nome": "Porto Molvedo",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe."
+    },
+    "ormeggio_menaggio_nobiallo": {
+      "lat": 46.0328669901029,
+      "lon": 9.237990761308732,
+      "nome": "Porto comunale di Nobiallo",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_menaggio_mazzini": {
+      "lat": 46.01928079912231,
+      "lon": 9.238111593242706,
+      "nome": "Porto comunale, via Mazzini",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_griante": {
+      "lat": 45.98665877346892,
+      "lon": 9.232712630456579,
+      "nome": "Darsena al cartello di inizio centro abitato, confine con Tremezzina",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_villa_carlotta": {
+      "lat": 45.98547612219417,
+      "lon": 9.230334669963222,
+      "nome": "Darsena dell’imbarcadero di Villa Carlotta",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_ossuccio": {
+      "lat": 45.96592994202432,
+      "lon": 9.17031151930143,
+      "nome": "Porticciolo di Ossuccio",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_ospedaletto": {
+      "lat": 45.966979060631374,
+      "lon": 9.183526222711162,
+      "nome": "Porticciolo di Ospedaletto",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_colonno": {
+      "lat": 45.9570782299602,
+      "lon": 9.154203762308834,
+      "nome": "Porto comunale",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_argegno": {
+      "lat": 45.94404056434802,
+      "lon": 9.128821335910631,
+      "nome": "Porto comunale",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_brienno_vecchio": {
+      "lat": 45.91096186053607,
+      "lon": 9.131710127673015,
+      "nome": "Vecchio porto",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_laglio_tenciuu": {
+      "lat": 45.89015631586407,
+      "lon": 9.143888494935336,
+      "nome": "Porticciolo Riva del Tenciuu, vecchia strada Regina Teodolinda",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_laglio": {
+      "lat": 45.88017801469,
+      "lon": 9.138775870296097,
+      "nome": "Porto comunale",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_carate": {
+      "lat": 45.86918356876722,
+      "lon": 9.11901140464063,
+      "nome": "Porticciolo di Carate",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_urio": {
+      "lat": 45.86892005348828,
+      "lon": 9.117766394448571,
+      "nome": "Porticciolo di Urio",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_moltrasio": {
+      "lat": 45.861138991852485,
+      "lon": 9.103039082001425,
+      "nome": "Porto comunale",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_cernobbio": {
+      "lat": 45.840599158546354,
+      "lon": 9.078215967383796,
+      "nome": "Porto comunale",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_como_tavernola_rampa": {
+      "lat": 45.83162444038162,
+      "lon": 9.072299941485815,
+      "nome": "Porto comunale di Tavernola, rampa di alaggio",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_como_villa_sforni": {
+      "lat": 45.83061277354705,
+      "lon": 9.072112979746844,
+      "nome": "Darsena di Villa Sforni, Tavernola",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_como_villa_saporiti": {
+      "lat": 45.81487447451037,
+      "lon": 9.068870880446026,
+      "nome": "Darsena di Villa Saporiti",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_como_sant_agostino": {
+      "lat": 45.815130665033884,
+      "lon": 9.080305804137895,
+      "nome": "Area portuale tra il tondello del Molo di Sant’Agostino e il pontile 2 della navigazione",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_como_ceccato": {
+      "lat": 45.814434173881764,
+      "lon": 9.082716954595888,
+      "nome": "Darsena Ceccato",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_blevio": {
+      "lat": 45.83981293502088,
+      "lon": 9.102352196100746,
+      "nome": "Porto comunale",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_torno_vecchio": {
+      "lat": 45.85665845569189,
+      "lon": 9.11325085823887,
+      "nome": "Vecchio porto",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_faggeto_riva": {
+      "lat": 45.86429270104664,
+      "lon": 9.149473279756837,
+      "nome": "Porto comunale, località Riva",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_lezzeno_pescau": {
+      "lat": 45.944498373490724,
+      "lon": 9.179649941926193,
+      "nome": "Porto comunale, località Pescaù",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_lezzeno_sostra": {
+      "lat": 45.94582347414123,
+      "lon": 9.18582350350608,
+      "nome": "Porto comunale, località Sostra",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_bellagio_san_giovanni": {
+      "lat": 45.97535394846744,
+      "lon": 9.244602072371913,
+      "nome": "Porto comunale, San Giovanni",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_bellagio_loppia": {
+      "lat": 45.977689451828795,
+      "lon": 9.251947984035548,
+      "nome": "Porto comunale, Loppia",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_bellagio_lido": {
+      "lat": 45.98322655543408,
+      "lon": 9.25706641766759,
+      "nome": "Porto comunale, Lido",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "ormeggio_bellagio_spartivento": {
+      "lat": 45.99113699163952,
+      "lon": 9.264961833489005,
+      "nome": "Porto comunale, Punta Spartivento",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07."
+    },
+    "partegora_canneto": {
+      "lat": 45.76736708567814,
+      "lon": 8.578749272067135,
+      "nome": "Lato ovest del canneto antistante piazza Garibaldi",
+      "note": "Angera, isolino Partegora. Un capo della linea che chiude l’insenatura. Coordinate inserite il 2026-10-07."
+    },
+    "partegora_cicchirolo": {
+      "lat": 45.77024590959989,
+      "lon": 8.569387614737135,
+      "nome": "Spiaggetta Cicchirolo",
+      "note": "Altro capo della linea di demarcazione dell’insenatura. Coordinate inserite il 2026-10-07."
+    },
+    "bocca_di_biandino": {
+      "lat": 46.015838,
+      "lon": 9.470657,
+      "nome": "Località Bocca di Biandino",
+      "note": "Introbio. Il divieto parte circa 200 m a monte di qui, fino alle sorgenti. Coordinate inserite il 2026-10-07."
+    },
+    "fine_orrido_pioverna": {
+      "lat": 46.042357,
+      "lon": 9.305138,
+      "nome": "Fine dell’orrido del Pioverna",
+      "note": "Circa 800 m a monte della briglia di foce. Coordinate inserite il 2026-10-07."
+    },
+    "immissione_rossiga": {
+      "lat": 46.002559,
+      "lon": 9.385194,
+      "nome": "Immissione del canale della Rossiga nel Pioverna",
+      "note": "L’altro estremo è 200 m a valle di questo punto. Coordinate inserite il 2026-10-07."
+    },
+    "ponte_eden": {
+      "lat": 46.154422,
+      "lon": 9.3289,
+      "nome": "Ponte dell’Eden",
+      "note": "Domaso. La riserva turistica parte 200 m a valle di questo ponte. Coordinate inserite il 2026-10-07."
+    },
+    "cascina_gissone": {
+      "lat": 45.830054,
+      "lon": 8.874217,
+      "nome": "Cascina Gissone",
+      "note": "Altro estremo del divieto, comuni di Cantello e Varese. Coordinate inserite il 2026-10-07. Posizione indicata come non del tutto certa."
+    },
+    "confluenza_valle_toff": {
+      "lat": 45.909615,
+      "lon": 9.155828,
+      "nome": "Confluenza del Nosee con la valle del Tuf",
+      "note": "Nesso. Da qui 300 m verso monte. Il Nosee si immette nella valle del Tuf: il prontuario scrive Toff. Coordinate inserite il 2026-10-07. Posizione indicata come non del tutto certa."
+    },
+    "scarico_cartiera_adda": {
+      "lat": 45.8004989695221,
+      "lon": 9.418382388087602,
+      "nome": "Scarico della cartiera dell’Adda",
+      "note": "Limite del tratto di tipo C che parte dalla diga di Olginate. Coordinate inserite il 2026-10-07. Posizione indicata come non del tutto certa."
+    },
+    "punta_faro_varenna": {
+      "lat": 46.01013217144859,
+      "lon": 9.281595100334952,
+      "nome": "Punta detta del Faro",
+      "note": "Altro estremo. Coordinate inserite il 2026-10-07. Posizione indicata come non del tutto certa."
+    },
+    "estremo_sud_riva_grande": {
+      "lat": 45.91148625672688,
+      "lon": 9.318898046230517,
+      "nome": "Estremità sud dell’approdo di Riva Grande",
+      "note": "Altro estremo. Il pin precedente, scartato, cadeva a Varenna. Coordinate inserite il 2026-10-07. Posizione indicata come non del tutto certa."
+    },
+    "ex_cantiere_branduardi": {
+      "lat": 45.89864058079397,
+      "lon": 9.137952485479842,
+      "nome": "Ex cantiere Branduardi",
+      "note": "Altro estremo. Coordinate inserite il 2026-10-07. Posizione indicata come non del tutto certa."
+    },
+    "foce_telo_argegno": {
+      "lat": 45.944755,
+      "lon": 9.129207,
+      "nome": "Foce del Telo di Argegno",
+      "note": "La tutela arriva 100 m a nord di questa foce. Non è il Telo di Osteno. Coordinate inserite il 2026-10-07."
+    },
+    "imbocco_porto_dervio": {
+      "lat": 46.06853278129693,
+      "lon": 9.30548388979493,
+      "nome": "Imboccatura del porto di Dervio",
+      "note": "Inizio della limitazione verso sud, 100 m dalla costa. Temporanea 1° marzo–10 agosto, salvo la barca vietata tutto l’anno. Coordinate inserite il 2026-10-07."
+    },
+    "cantiere_navigazione_dervio": {
+      "lat": 46.070612374726814,
+      "lon": 9.301496873090032,
+      "nome": "Cantiere della Navigazione, Dervio, incluso",
+      "note": "Altro estremo. Coordinate inserite il 2026-10-07."
+    },
+    "estremo_nord_circolo_velico": {
+      "lat": 46.04295727749826,
+      "lon": 9.298904101691306,
+      "nome": "Estremità nord della darsena del Circolo Velico",
+      "note": "Bellano. Inizio della limitazione verso sud. Coordinate inserite il 2026-10-07."
+    },
+    "scivolo_lido_bellano": {
+      "lat": 46.0402011876833,
+      "lon": 9.299665718316467,
+      "nome": "Scivolo di alaggio subito dopo il Lido di Bellano",
+      "note": "Altro estremo. Sul Pioverna la stessa zona arriva alla prima briglia, già elencata. Coordinate inserite il 2026-10-07."
     }
   }
 }

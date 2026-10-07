@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Genera la mappa regolamentare del reticolo Margorabbia.
+"""Pipeline legacy del pilota Margorabbia (OpenStreetMap).
+
+Dal 2026-10-06 le aree nuove non passano di qui: la geometria è il reticolo
+regionale e la segmentazione è scripts/segmenta_rete.py. Questo script resta
+solo per rigenerare il pilota già pubblicato, finché non viene rimpiazzato
+da uno STEP 4 sul reticolo ufficiale.
 
 Pipeline:
   1. laghi (poligoni OSM) e reticolo filtrato (asta + affluenti maggiori nominati);
@@ -235,11 +240,16 @@ def corpo_extra(corpo: dict, **more) -> dict:
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--refresh", action="store_true", help="ignora la cache e riscarica da OSM")
-    ap.add_argument("--area", default="margorabbia", choices=("margorabbia", "ceresio"), help="area da costruire")
+    ap.add_argument("--area", default="margorabbia", choices=("margorabbia", "ceresio", "varese"), help="area da costruire")
     args = ap.parse_args()
+    print("Pipeline legacy OSM: solo il pilota già pubblicato. Le aree nuove usano scripts/segmenta_rete.py.")
     if args.area == "ceresio":
         import build_ceresio
         build_ceresio.main()
+        return
+    if args.area == "varese":
+        import build_varese
+        build_varese.main()
         return
     osm_client.REFRESH = args.refresh
     print("=== Cascata normativa ===")

@@ -18,5 +18,5 @@ desktop.ini
 .idea/
 .vscode/
 
-# Cache HTTP della pipeline (rigenerabile)
-cache/http/
+# Cache HTTP della pipeline OSM, archiviata (rigenerabile)
+old/cache/

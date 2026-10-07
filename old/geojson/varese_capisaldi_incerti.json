@@ -1,0 +1,136 @@
+{
+  "stato": "nessun punto verificato",
+  "ricerche": [
+    {
+      "id": "schiranna",
+      "query": "Canottieri Schiranna, Varese",
+      "motivo": "Torretta di arrivo della Società Canottieri, inizio dei 250 m verso nord.",
+      "hits": [
+        {
+          "nome": "Società Canottieri Varese, fortiora patriae parant pectora remi, Via dei Canottieri, Schiranna, Varese, Lombardia, 21022, Italia",
+          "lon": 8.7802682,
+          "lat": 45.8018933,
+          "classe": "building",
+          "tipo": "sports_centre"
+        },
+        {
+          "nome": "Giulietta al lago Varese, 15, Via dei Canottieri, Schiranna, Varese, Lombardia, 21022, Italia",
+          "lon": 8.7820791,
+          "lat": 45.8016186,
+          "classe": "amenity",
+          "tipo": "bar"
+        }
+      ]
+    },
+    {
+      "id": "oltrona",
+      "query": "Oltrona, Gavirate",
+      "motivo": "Località della foce del Tinella. Il divieto si misura dalla foce, non dal centro abitato.",
+      "hits": [
+        {
+          "nome": "Oltrona al Lago, Gavirate, Comunità Montana Valli del Verbano, Varese, Lombardia, 21025, Italia",
+          "lon": 8.739945,
+          "lat": 45.8297008,
+          "classe": "place",
+          "tipo": "village"
+        },
+        {
+          "nome": "Cimitero di Oltrona, Oltrona al Lago, Gavirate, Comunità Montana Valli del Verbano, Varese, Lombardia, Italia",
+          "lon": 8.7428167,
+          "lat": 45.8278375,
+          "classe": "landuse",
+          "tipo": "cemetery"
+        },
+        {
+          "nome": "Via Oltrona, Voltorre, Gavirate, Comunità Montana Valli del Verbano, Varese, Lombardia, 21010, Italia",
+          "lon": 8.7363859,
+          "lat": 45.8330555,
+          "classe": "highway",
+          "tipo": "unclassified"
+        }
+      ]
+    },
+    {
+      "id": "ponte_xxiii",
+      "query": "via Giovanni XXIII, Travedona-Monate",
+      "motivo": "Estremo del divieto sull'Acquanegra. Serve il ponte, non la via intera.",
+      "hits": [
+        {
+          "nome": "Via Papa Giovanni Ventitreesimo, Giardinetto, Monate, Travedona, Travedona Monate, Varese, Lombardia, 21028, Italia",
+          "lon": 8.6673134,
+          "lat": 45.8141266,
+          "classe": "highway",
+          "tipo": "tertiary"
+        },
+        {
+          "nome": "Via Papa Giovanni Ventitreesimo, Travedona, Travedona Monate, Varese, Lombardia, 21028, Italia",
+          "lon": 8.6607907,
+          "lat": 45.817223,
+          "classe": "highway",
+          "tipo": "residential"
+        },
+        {
+          "nome": "Via Papa Giovanni Ventitreesimo, Travedona, Travedona Monate, Varese, Lombardia, 21023, Italia",
+          "lon": 8.6597859,
+          "lat": 45.8189909,
+          "classe": "highway",
+          "tipo": "tertiary"
+        }
+      ]
+    },
+    {
+      "id": "ponte_trevisani",
+      "query": "via Trevisani, Monate",
+      "motivo": "Estremo del divieto sull'Acquanegra, a Monate.",
+      "hits": [
+        {
+          "nome": "Via Pietro Trevisani, Monate, Travedona, Travedona Monate, Varese, Lombardia, 21028, Italia",
+          "lon": 8.6606813,
+          "lat": 45.8092174,
+          "classe": "highway",
+          "tipo": "unclassified"
+        }
+      ]
+    },
+    {
+      "id": "roverplast",
+      "query": "Roverplast, Gavirate",
+      "motivo": "La cascatella è subito a valle dello stabilimento, non lo stabilimento stesso.",
+      "hits": []
+    }
+  ],
+  "sbocchi": [
+    {
+      "id": "sbocco_bardello",
+      "nome": "Bardello — estremo verso il Lago di Varese",
+      "lon": 8.7022918,
+      "lat": 45.8351987,
+      "distanza_lago_m": 0,
+      "nota": "Estremo OSM più vicino allo specchio. Non è un caposaldo confermato."
+    },
+    {
+      "id": "sbocco_acquanegra",
+      "nome": "Acquanegra — estremo verso il Lago di Monate",
+      "lon": 8.6690698,
+      "lat": 45.8008673,
+      "distanza_lago_m": 0,
+      "nota": "Estremo OSM più vicino allo specchio. Non è un caposaldo confermato."
+    },
+    {
+      "id": "foce_tinella",
+      "nome": "Tinella — estremo verso il Lago di Varese",
+      "lon": 8.7367194,
+      "lat": 45.8245155,
+      "distanza_lago_m": 0,
+      "nota": "Estremo OSM più vicino allo specchio. Non è un caposaldo confermato."
+    }
+  ],
+  "aperti": [
+    "Schiranna: manca la torretta di arrivo. I 250 m × 50 m non sono disegnati.",
+    "Oltrona: la fascia in lago alla foce del Tinella non è disegnata.",
+    "Acquanegra: i due ponti non sono confermati, il tratto in divieto non è tagliato.",
+    "Tinella: relation 3714984 proposta, non indicata. Il tratto da 1.000 m non è tagliato.",
+    "Barona: nessun oggetto OSM. Il divieto resta solo nel testo dell'Acquanegra.",
+    "Campi gara del Varese: fuori, non sono in mappa."
+  ]
+}

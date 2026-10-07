@@ -1,4 +1,9 @@
-"""Percorsi del progetto e parametri della pipeline geografica."""
+"""Percorsi e parametri della pipeline attuale.
+
+La pipeline OpenStreetMap (build_geo_data, osm_*, fetch del Ceresio e di Varese)
+sta in old/scripts. Qui restano solo la segmentazione sul reticolo regionale
+e la lettura del grafo normativo.
+"""
 
 from __future__ import annotations
 
@@ -11,54 +16,31 @@ RAW_DIR = DATA_DIR / "raw"
 NORMATIVA_DIR = DATA_DIR / "normativa"
 GEOJSON_DIR = DATA_DIR / "geojson"
 WEB_DIR = ROOT / "docs"
-CACHE_DIR = ROOT / "cache"
-HTTP_CACHE_DIR = CACHE_DIR / "http"
-
-REGOLE_JSON = NORMATIVA_DIR / "margorabbia_regole.json"
-CERESIO_RAW = RAW_DIR / "ceresio_tresa_raw.geojson"
-CERESIO_TRATTI = GEOJSON_DIR / "ceresio_tratti.geojson"
-CERESIO_INCERTI = GEOJSON_DIR / "ceresio_capisaldi_incerti.json"
-CERESIO_INDICATI = GEOJSON_DIR / "ceresio_capisaldi_indicati.json"
-CERESIO_IMPALCATURA = GEOJSON_DIR / "ceresio_impalcatura.geojson"
 PREVIEW_DIR = ROOT / "preview"
-CERESIO_IMPALCATURA_JS = PREVIEW_DIR / "ceresio_impalcatura.js"
-# Grafo relazionale (matrice, eccezioni, tagli, overlay). I dizionari restano in REGOLE_JSON.
-STRUTTURA_JSON = NORMATIVA_DIR / "struttura_dati_regole.json"
-WATERWAYS_CACHE = CACHE_DIR / "osm_cache_waterways.json"
 
-CAPISALDI_VERIFICATI = GEOJSON_DIR / "capisaldi_verificati.json"
-OUT_TRATTI = GEOJSON_DIR / "margorabbia_tratti.geojson"
-OUT_OVERLAY = GEOJSON_DIR / "margorabbia_overlay.geojson"
-OUT_CAPISALDI = GEOJSON_DIR / "capisaldi.geojson"
-OUT_TODO_GEOJSON = GEOJSON_DIR / "punti_da_verificare.geojson"
-OUT_REPORT = GEOJSON_DIR / "punti_da_verificare.json"
-OUT_WEB_JS = WEB_DIR / "geo_data.js"
+# Reticolo ufficiale Regione Lombardia (Geoportale). Copre tutta la regione:
+# la segmentazione tiene solo i sottobacini del Bacino 5.
+ACQUE_LOMBARDIA_DIR = GEOJSON_DIR / "AcqueLombardia"
+RETICOLO_FIUMI = ACQUE_LOMBARDIA_DIR / "Fiumi.json"
+RETICOLO_LAGHI = ACQUE_LOMBARDIA_DIR / "Laghi.json"
+SOTTOBACINI_BACINO_5 = (
+    "Lago Maggiore (Verbano)",
+    "Lago di Lugano (Ceresio)",
+    "Lago di Como (Lario)",
+)
 
-USER_AGENT = "ProgettoFIPSAS/2.0 (mappa regolamentare locale; uso personale)"
-
-BBOX = (45.875, 8.70, 46.005, 8.87)  # (sud, ovest, nord, est)
-
-OSM_LAKES = {
-    "lago_ghirla": {"osm_type": "relation", "osm_id": 21250532, "name": "Lago di Ghirla"},
-    "lago_ganna": {"osm_type": "relation", "osm_id": 18050127, "name": "Lago di Ganna"},
-}
-
-# Reticolo tenuto in mappa: asta + affluenti maggiori con toponimo OSM noto.
-# Chiave = corpo idrico in margorabbia_regole.json, valore = nomi OSM esatti.
-STEM_OSM_NAMES = ("Fiume Margorabbia", "Torrente Margorabbia")
-MAJOR_TRIBUTARIES = {
-    "rancina": ("Torrente Rancina",),
-    "chiesone": ("Torrente Gesone", "Torrente Chiesone"),
-    "boggione": ("Torrente Boggione",),
-    "rio_boesio": ("Torrente Rio Boesio",),
-    "grantorella": ("Torrente Grantorella",),
-}
-
-RECEIVER_OSM_NAMES = ("Fiume Tresa",)
-RECEIVER_HALF_REACH_M = 800.0  # tratto del Tresa mostrato attorno alla confluenza
-
-# Due pezzi di waterway vengono uniti solo se i loro estremi distano meno di così
-# (lacune di digitalizzazione); oltre, restano geometrie separate.
+# Un caposaldo più lontano di così non spezza la linea: resta nel report.
+MAX_SNAP_CAPOSALDO_M = 300.0
+# Due pezzi della stessa feature si uniscono solo se gli estremi distano al massimo così.
 MAX_JOIN_GAP_M = 60.0
-# Parti più corte di così dopo la fusione (monconi, rami secondari) vengono scartate.
-MIN_ISOLATED_FRAGMENT_M = 100.0
+
+OUT_RETICOLO_SEGMENTATO = GEOJSON_DIR / "reticolo_segmentato.geojson"
+OUT_SEGMENTAZIONE_REPORT = GEOJSON_DIR / "segmentazione_report.json"
+CAPISALDI_VERIFICATI = GEOJSON_DIR / "capisaldi_verificati.json"
+
+# Grafo (matrice, eccezioni, tagli). I dizionari restano in REGOLE_JSON.
+STRUTTURA_JSON = NORMATIVA_DIR / "struttura_dati_regole.json"
+REGOLE_JSON = NORMATIVA_DIR / "margorabbia_regole.json"
+
+# Pubblicazione GitHub Pages. Si riscrive solo allo STEP 4, dopo conferma.
+OUT_WEB_JS = WEB_DIR / "geo_data.js"

@@ -71,7 +71,7 @@
       "id": "lago_varese_misura",
       "corpo_idrico": "lago_varese",
       "nel_pilota": false,
-      "lettura": "FIPSAS + Cat. A + poligono. L'eccezione contiene solo persico reale 18 cm (la base di bacino è 16). Esempio per l'estensione, non è nel reticolo Margorabbia.",
+      "lettura": "FIPSAS + Cat. A + poligono. L'eccezione contiene persico reale 18 cm (la base di bacino è 16) e il divieto di trattenere il lucioperca di notte. La barca non è il contributo FIPSAS: è il permesso della Cooperativa.",
       "passi": ["biologia:A", "amministrazione:fipsas", "geometria:sponda", "eccezione:lago_varese"]
     },
     {
@@ -305,6 +305,7 @@
     },
     "lago_varese": {
       "nome": "Lago di Varese",
+      "alias_osm": ["Lago di Varese"],
       "regime_amministrativo": "fipsas",
       "classificazione_biologica": "A",
       "geometria": "poligono",
@@ -312,7 +313,110 @@
       "nel_pilota": false,
       "mappato": false,
       "citato_in_prontuario": true,
-      "note": "Esempio di estensione Bacino 5. Non è nel reticolo Margorabbia e non viene disegnato dalla pipeline del pilota."
+      "osm_id": 38372,
+      "osm_type": "relation",
+      "note": "Tipo A. Sponda: contributo ridotto FIPSAS. Natante: permesso della Cooperativa dei Pescatori, non il contributo FIPSAS. In impalcatura, non ancora pubblicato."
+    },
+    "lago_comabbio": {
+      "nome": "Lago di Comabbio",
+      "alias_osm": ["Lago di Comabbio"],
+      "regime_amministrativo": "diritti_esclusivi",
+      "classificazione_biologica": "A",
+      "geometria": "poligono",
+      "ruolo": "lago",
+      "nel_pilota": false,
+      "mappato": false,
+      "citato_in_prontuario": true,
+      "osm_id": 1314305,
+      "osm_type": "relation",
+      "note": "Tipo A. Pesca da riva solo per i residenti nei comuni rivieraschi, permesso comunale. Natante sempre vietato. In impalcatura."
+    },
+    "lago_monate": {
+      "nome": "Lago di Monate",
+      "alias_osm": ["Lago di Monate"],
+      "regime_amministrativo": "diritti_esclusivi",
+      "classificazione_biologica": "A",
+      "geometria": "poligono",
+      "ruolo": "lago",
+      "nel_pilota": false,
+      "mappato": false,
+      "citato_in_prontuario": true,
+      "osm_id": 1309665,
+      "osm_type": "relation",
+      "note": "Tipo A. Come il Comabbio: solo residenti rivieraschi, natante sempre vietato. In impalcatura."
+    },
+    "bardello": {
+      "nome": "Fiume Bardello",
+      "alias_osm": ["Fiume Bardello"],
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "C",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "emissario",
+      "nel_pilota": false,
+      "mappato": false,
+      "citato_in_prontuario": true,
+      "osm_id": 3574688,
+      "osm_type": "relation",
+      "note": "Emissario del Lago di Varese verso il Verbano. Tipo C, contributo ridotto. Nessun taglio di sponda. In impalcatura."
+    },
+    "canale_brabbia": {
+      "nome": "Canale Brabbia",
+      "alias_osm": ["Canale Brabbia"],
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "C",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "canale",
+      "nel_pilota": false,
+      "mappato": false,
+      "citato_in_prontuario": true,
+      "osm_id": 88824168,
+      "osm_type": "way",
+      "note": "Collega il Comabbio al Varese attraverso la Palude Brabbia. Tipo C, contributo ridotto. È la way indicata, non altre pezze. In impalcatura."
+    },
+    "acquanegra": {
+      "nome": "Torrente Acquanegra",
+      "alias_osm": ["Torrente Acqua Nera", "Acqua Negra", "Torrente Acquanegra"],
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "C",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "emissario",
+      "nel_pilota": false,
+      "mappato": false,
+      "citato_in_prontuario": true,
+      "osm_id": 3594006,
+      "osm_type": "relation",
+      "note": "Emissario del Lago di Monate. Nel prontuario anche «Acqua Negra». Tipo C, contributo ridotto. In impalcatura."
+    },
+    "tinella": {
+      "nome": "Torrente Tinella",
+      "alias_osm": ["Torrente Tinella"],
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": false,
+      "citato_in_prontuario": true,
+      "osm_id": 3714984,
+      "osm_type": "relation",
+      "codice_proposto": true,
+      "note": "Immissario del Lago di Varese a Oltrona. Tipo B, pesca tutti i giorni. Il codice OSM non è stato fornito: si usa la relation 3714984, unica waterway omonima. Da confermare."
+    },
+    "barona": {
+      "nome": "Torrente Barona",
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": false,
+      "citato_in_prontuario": true,
+      "note": "Affluente dell'Acquanegra, nominato solo nel divieto tra i due ponti di Monate. Nessun oggetto OSM: il divieto resta nel testo dell'Acquanegra e non ha una linea propria."
     },
     "lago_piano": {
       "nome": "Lago di Piano",
@@ -474,8 +578,102 @@
     },
     "lago_varese": {
       "prelievo": { "misure_minime_override_cm": { "persico_reale": 18 } },
+      "vincoli_speciali": [
+        { "id": "lucioperca_notte", "testo": "Nel lago di Varese durante le ore notturne è vietato trattenere il lucioperca.", "livello": "testuale" }
+      ],
+      "per_modalita": {
+        "sponda": {
+          "permessi": { "pacchetto_ref": "fipsas_varese_ridotto", "varianti": [] }
+        },
+        "natante": {
+          "tecniche": {
+            "consentite": ["canna_da_riva", "pesca_notturna", "imbarcazione"],
+            "vietate": []
+          },
+          "permessi": {
+            "pacchetto_ref": null,
+            "etichetta": "Permesso della Società Cooperativa dei Pescatori del Lago di Varese",
+            "nota": "Da barca: licenza, permesso della Cooperativa e tessera FIPSAS. Non è il contributo di gestione FIPSAS."
+          },
+          "vincoli_speciali": [
+            { "id": "cavedanera", "testo": "La cavedanera è consentita nel lago di Varese.", "livello": "testuale" }
+          ]
+        }
+      },
       "fonti": [
-        { "livello": "testuale", "riferimento": "par. 4.2 — misure minime", "estratto": "Persico reale cm 18 nei laghi di Varese Comabbio Monate, Ghirla e del Segrino" }
+        { "livello": "testuale", "riferimento": "par. 4.2 — misure minime", "estratto": "Persico reale cm 18 nei laghi di Varese Comabbio Monate, Ghirla e del Segrino" },
+        { "livello": "testuale", "riferimento": "par. 4.8", "estratto": "Nel lago di Varese durante le ore notturne è vietato trattenere il Lucioperca." },
+        { "livello": "testuale", "riferimento": "Scheda Lago di Varese", "estratto": "Da riva: licenza, tessera, contributo ridotto 15 €, tesserino. Da barca: permesso della Cooperativa dei Pescatori." }
+      ]
+    },
+    "lago_comabbio": {
+      "prelievo": { "misure_minime_override_cm": { "persico_reale": 18 } },
+      "vincoli_speciali": [
+        { "id": "solo_residenti", "testo": "Pesca da riva riservata ai residenti nei comuni rivieraschi. Il permesso si chiede al comune.", "livello": "testuale" }
+      ],
+      "per_modalita": {
+        "natante": {
+          "pesca_consentita": false,
+          "vincoli_speciali": [
+            { "id": "barca_vietata", "testo": "La pesca da barca nel lago di Comabbio è sempre vietata.", "livello": "testuale" }
+          ]
+        }
+      },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Scheda laghi di Comabbio e Monate", "estratto": "La pesca da barca è sempre vietata. Da riva, pesca riservata ai soli residenti nei comuni rivieraschi." },
+        { "livello": "testuale", "riferimento": "par. 4.2", "estratto": "Persico reale cm 18 nei laghi di Varese Comabbio Monate" }
+      ],
+      "interpretazioni": [
+        { "campo": "natante", "nota": "Il par. 4.9 elenca il Comabbio tra le acque in cui il natante è ammesso. La scheda dei permessi lo vieta: in mappa vale la scheda." }
+      ]
+    },
+    "lago_monate": {
+      "prelievo": { "misure_minime_override_cm": { "persico_reale": 18 } },
+      "vincoli_speciali": [
+        { "id": "solo_residenti", "testo": "Pesca da riva riservata ai residenti nei comuni rivieraschi. Il permesso si chiede al comune.", "livello": "testuale" }
+      ],
+      "per_modalita": {
+        "natante": {
+          "pesca_consentita": false,
+          "vincoli_speciali": [
+            { "id": "barca_vietata", "testo": "La pesca da barca nel lago di Monate è sempre vietata.", "livello": "testuale" }
+          ]
+        }
+      },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Scheda laghi di Comabbio e Monate", "estratto": "La pesca da barca è sempre vietata. Da riva, pesca riservata ai soli residenti nei comuni rivieraschi." },
+        { "livello": "testuale", "riferimento": "par. 4.2", "estratto": "Persico reale cm 18 nei laghi di Varese Comabbio Monate" }
+      ],
+      "interpretazioni": [
+        { "campo": "natante", "nota": "Il par. 4.9 elenca il Monate tra le acque in cui il natante è ammesso. La scheda dei permessi lo vieta: in mappa vale la scheda." }
+      ]
+    },
+    "bardello": {
+      "permessi": { "pacchetto_ref": "fipsas_varese_ridotto", "varianti": [] },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "par. 4.10", "estratto": "Acque di tipo C […] fiume Bardello" },
+        { "livello": "testuale", "riferimento": "Fiumi e torrenti — alvei verdi", "estratto": "Bardello - Acqua Negra - Brabbia: licenza, tessera, contributo ridotto 15 €, tesserino." }
+      ]
+    },
+    "canale_brabbia": {
+      "permessi": { "pacchetto_ref": "fipsas_varese_ridotto", "varianti": [] },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "par. 4.10", "estratto": "Acque di tipo C […] canale Brabbia" }
+      ]
+    },
+    "acquanegra": {
+      "permessi": { "pacchetto_ref": "fipsas_varese_ridotto", "varianti": [] },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "par. 4.10", "estratto": "Acque di tipo C […] torrente Acquanegra" }
+      ]
+    },
+    "tinella": {
+      "calendario": { "giorni_ref": "tutti_i_giorni_deroga_varese" },
+      "fonti": [
+        { "livello": "testuale", "riferimento": "par. 4.11", "estratto": "Affluenti del lago di Varese" }
+      ],
+      "interpretazioni": [
+        { "campo": "osm_id", "nota": "Relation 3714984 proposta perché il codice non è stato indicato. Se non è il corso giusto, si sostituisce prima di tagliare il divieto." }
       ]
     },
     "lago_piano": {
@@ -872,6 +1070,91 @@
       "mantieni_classe": true,
       "fonti": [
         { "livello": "testuale", "riferimento": "Ordinanza del Commissario italiano, canneto di Lavena", "estratto": "Zona di protezione ittica Canneto di Lavena: tutto il canneto dall'inizio dello stretto (stabile Vecchia Filanda) fino al termine (stabile Grotto del Bagat). Nella fascia tra la riva e 20 metri dal fronte del canneto la pesca è vietata sia da riva che da natante." }
+      ]
+    },
+    {
+      "id": "lago_varese_schiranna",
+      "nome": "Lago di Varese — divieto Schiranna",
+      "corpo_idrico": "lago_varese",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "stato": "da_verificare",
+      "geometria_tagliata": false,
+      "estensione": {
+        "tipo": "fascia_riva",
+        "descrizione": "Località Schiranna, antistante la Società Canottieri. Dalla torretta di arrivo verso nord per 250 m, 50 m dalla riva.",
+        "lunghezza_dichiarata_m": 250,
+        "distanza_riva_m": 50,
+        "comuni": ["Varese"]
+      },
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Zone di protezione, laghi", "estratto": "Lago di Varese, località Schiranna: dalla torretta di arrivo risalendo verso nord per 250 m e 50 m dalla riva." }
+      ]
+    },
+    {
+      "id": "lago_varese_oltrona",
+      "nome": "Lago di Varese — divieto foce Tinella",
+      "corpo_idrico": "lago_varese",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "stato": "da_verificare",
+      "geometria_tagliata": false,
+      "estensione": {
+        "tipo": "fascia_riva",
+        "descrizione": "Gavirate, località Oltrona, foce del Tinella: 150 m a monte e 100 m a valle lungo la riva, 100 m dalla riva.",
+        "comuni": ["Gavirate"]
+      },
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Zone di protezione, laghi", "estratto": "Lago di Varese, località Oltrona: tratto prospiciente la foce del Torrente Tinella per 150 m a monte, 100 a valle, per 100 m dalla riva." }
+      ]
+    },
+    {
+      "id": "acquanegra_divieto",
+      "nome": "Acquanegra — divieto ponte Giovanni XXIII / ponte Trevisani",
+      "corpo_idrico": "acquanegra",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "bank": "both",
+      "stato": "da_verificare",
+      "geometria_tagliata": false,
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "Tra il ponte di via Giovanni XXIII e il ponte di via Trevisani a Monate, insieme all'affluente Barona. La Barona non ha geometria OSM.",
+        "comuni": ["Travedona-Monate", "Monate"]
+      },
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Zone di protezione, acque correnti", "estratto": "Torrente Acquanegra e affluente Barona, Comune di Travedona Monate: tratto compreso tra il ponte di via Giovanni XXIII e il ponte di via Trevisani a Monate." }
+      ]
+    },
+    {
+      "id": "tinella_divieto",
+      "nome": "Tinella — divieto Roverplast / foce",
+      "corpo_idrico": "tinella",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "bank": "both",
+      "stato": "da_verificare",
+      "geometria_tagliata": false,
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "Circa 1.000 m dalla cascatella subito a valle della Ditta Roverplast fino all'immissione nel lago di Varese.",
+        "lunghezza_dichiarata_m": 1000,
+        "comuni": ["Gavirate"]
+      },
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "fonti": [
+        { "livello": "testuale", "riferimento": "Zone di protezione, acque correnti", "estratto": "Torrente Tinella, Comune di Gavirate: circa 1.000 m dalla cascatella subito a valle della Ditta Roverplast fino all'immissione nel lago di Varese." }
       ]
     }
   ],

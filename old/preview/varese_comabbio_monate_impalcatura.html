@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Varese, Comabbio, Monate — impalcatura</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    :root { --bg: #0f1419; --panel: #18202a; --line: #2a3848; --text: #e8eef4; --muted: #93a4b8; --accent: #3d9cf0; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); }
+    #app { display: grid; grid-template-columns: 360px 1fr; height: 100%; }
+    aside { background: var(--panel); border-right: 1px solid var(--line); overflow: auto; padding: 16px 14px 28px; }
+    h1 { font-size: 1.12rem; margin: 0 0 4px; }
+    .banner { background: #3f2a12; color: #fde68a; border-radius: 8px; padding: 8px 10px; font-size: 0.8rem; line-height: 1.4; margin: 8px 0 12px; }
+    .sub, .legend-note, .pin-btn small { color: var(--muted); }
+    .sub { font-size: 0.8rem; line-height: 1.4; margin: 0 0 8px; }
+    aside h2 { font-size: 0.72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 16px 0 8px; }
+    label { display: flex; gap: 8px; align-items: center; font-size: 0.86rem; padding: 3px 0; cursor: pointer; }
+    .swatch { width: 22px; height: 6px; border-radius: 2px; flex-shrink: 0; }
+    .swatch.pt { width: 10px; height: 10px; border-radius: 50%; }
+    button.pin-btn { display: block; width: 100%; text-align: left; background: #111821; color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 7px 8px; margin: 0 0 6px; cursor: pointer; font: inherit; }
+    button.pin-btn:hover { border-color: var(--accent); }
+    button.pin-btn b { display: block; font-size: 0.84rem; }
+    .legend-note { font-size: 0.75rem; line-height: 1.45; }
+    #map { height: 100%; }
+    .leaflet-popup-content { margin: 12px 14px; font-size: 0.82rem; line-height: 1.4; color: #1e293b; }
+    .leaflet-popup-content h3 { margin: 0 0 4px; font-size: 1rem; }
+    .badge { display: inline-block; font-size: 0.7rem; font-weight: 650; padding: 2px 7px; border-radius: 999px; background: #ffedd5; color: #9a3412; }
+    @media (max-width: 800px) {
+      #app { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+      aside { max-height: 42vh; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <aside>
+      <h1>Varese, Comabbio, Monate</h1>
+      <p class="sub">Impalcatura. I corsi sono interi. I divieti non sono ancora tagliati.</p>
+      <div class="banner">Niente è confermato. Il Tinella è la relation 3714984, proposta perché il codice non c'era. La Barona non è in mappa. I campi gara non ci sono.</div>
+      <h2>Layer</h2>
+      <div id="layers"></div>
+      <h2>Punti da guardare</h2>
+      <div id="pins"></div>
+      <h2>Aperti</h2>
+      <div class="legend-note" id="aperti"></div>
+    </aside>
+    <div id="map"></div>
+  </div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="varese_comabbio_monate_impalcatura.js"></script>
+  <script>
+  (function () {
+    const DATA = window.VARESE_IMPALCATURA;
+    if (!DATA) {
+      document.getElementById("map").textContent = "Manca il file dell'impalcatura.";
+      return;
+    }
+    const STYLE = {
+      lago: { color: "#38bdf8", weight: 1, fillColor: "#0ea5e9", fillOpacity: 0.28 },
+      emissario: { color: "#0369a1", weight: 3 },
+      canale: { color: "#7c3aed", weight: 3 },
+      immissario: { color: "#0f766e", weight: 3 },
+      candidato: { radius: 7, color: "#fff", weight: 2, fillColor: "#94a3b8", fillOpacity: 1 },
+      sbocco: { radius: 7, color: "#fff", weight: 2, fillColor: "#f59e0b", fillOpacity: 1 }
+    };
+    const LABELS = {
+      acque: ["Corpi scaricati", "lago"],
+      candidati: ["Punti non confermati", "candidato"]
+    };
+    const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const map = L.map("map").setView([45.82, 8.72], 12);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap",
+      maxZoom: 19
+    }).addTo(map);
+    const groups = {};
+    function popup(p) {
+      const bits = [`<h3>${esc(p.nome || p.id)}</h3>`, `<span class="badge">${esc(p.stato || "")}</span>`];
+      if (p.lunghezza_m) bits.push(`<div>${p.lunghezza_m} m</div>`);
+      if (p.osm_type) bits.push(`<div>${esc(p.osm_type)} ${esc(p.osm_id)}</div>`);
+      if (p.precisione) bits.push(`<div>${esc(p.precisione)}</div>`);
+      if (p.bank) bits.push(`<div>Sponda: ${esc(p.bank)}</div>`);
+      if (p.note) bits.push(`<div>${esc(p.note)}</div>`);
+      return bits.join("");
+    }
+    function add(f) {
+      const p = f.properties || {};
+      const layerName = p.layer || "acque";
+      if (!groups[layerName]) groups[layerName] = L.layerGroup().addTo(map);
+      const gj = L.geoJSON(f, {
+        style: () => STYLE[p.kind] || STYLE.emissario,
+        pointToLayer: (feat, latlng) => L.circleMarker(latlng, STYLE[feat.properties.kind] || STYLE.candidato),
+        onEachFeature: (feat, layer) => layer.bindPopup(popup(feat.properties))
+      });
+      gj.addTo(groups[layerName]);
+      return gj;
+    }
+    const index = [];
+    DATA.features.forEach(f => {
+      const layer = add(f);
+      if (f.geometry && f.geometry.type === "Point") index.push({ props: f.properties, layer, feature: f });
+    });
+    const layersBox = document.getElementById("layers");
+    Object.keys(groups).forEach(name => {
+      const label = document.createElement("label");
+      const sw = LABELS[name] ? LABELS[name][1] : "emissario";
+      const title = LABELS[name] ? LABELS[name][0] : name;
+      const color = (STYLE[sw].fillColor || STYLE[sw].color);
+      label.innerHTML = `<input type="checkbox" checked /> <span class="swatch ${sw === "candidato" ? "pt" : ""}" style="background:${color}"></span> ${esc(title)}`;
+      label.querySelector("input").addEventListener("change", e => {
+        if (e.target.checked) groups[name].addTo(map);
+        else map.removeLayer(groups[name]);
+      });
+      layersBox.appendChild(label);
+    });
+    const pins = document.getElementById("pins");
+    index.forEach(item => {
+      const b = document.createElement("button");
+      b.className = "pin-btn";
+      b.innerHTML = `<b>${esc(item.props.nome || item.props.id)}</b><small>${esc(item.props.precisione || item.props.stato || "")}</small>`;
+      b.addEventListener("click", () => {
+        const c = item.feature.geometry.coordinates;
+        map.setView([c[1], c[0]], 16);
+        item.layer.eachLayer(l => l.openPopup && l.openPopup());
+      });
+      pins.appendChild(b);
+    });
+    const aperti = (DATA.meta && DATA.meta.aperti) || [];
+    document.getElementById("aperti").innerHTML = aperti.map(t => `<div>• ${esc(t)}</div>`).join("");
+    const bounds = L.latLngBounds([]);
+    DATA.features.forEach(f => {
+      try {
+        const b = L.geoJSON(f).getBounds();
+        if (b.isValid()) bounds.extend(b);
+      } catch (err) { /* punto o geometria vuota */ }
+    });
+    if (bounds.isValid()) map.fitBounds(bounds.pad(0.08));
+  })();
+  </script>
+</body>
+</html>

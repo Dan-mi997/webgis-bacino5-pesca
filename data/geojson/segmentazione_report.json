@@ -1,0 +1,392 @@
+{
+  "fonte_linee": "data/geojson/AcqueLombardia/Fiumi.json",
+  "fonte_laghi": "data/geojson/AcqueLombardia/Laghi.json",
+  "sottobacini": [
+    "Lago Maggiore (Verbano)",
+    "Lago di Lugano (Ceresio)",
+    "Lago di Como (Lario)"
+  ],
+  "max_snap_m": 300.0,
+  "chiavi_ambigue": [],
+  "abbinati": [
+    {
+      "corpo_idrico": "acquanegra",
+      "geometria": "linea",
+      "parti": 12,
+      "nome_regionale": "Acquanegra (Torrente)",
+      "capisaldi_proiettati": 0
+    },
+    {
+      "corpo_idrico": "bardello",
+      "geometria": "linea",
+      "parti": 1,
+      "nome_regionale": "Bardello (Fiume)",
+      "capisaldi_proiettati": 0
+    },
+    {
+      "corpo_idrico": "canale_brabbia",
+      "geometria": "linea",
+      "parti": 1,
+      "nome_regionale": "Brabbia (Canale)",
+      "capisaldi_proiettati": 0
+    },
+    {
+      "corpo_idrico": "cuccio",
+      "geometria": "linea",
+      "parti": 7,
+      "nome_regionale": "Cuccio (Torrente)",
+      "capisaldi_proiettati": 0
+    },
+    {
+      "corpo_idrico": "lagadone",
+      "geometria": "linea",
+      "parti": 1,
+      "nome_regionale": "Lagadone (Canale)",
+      "capisaldi_proiettati": 0
+    },
+    {
+      "corpo_idrico": "lirone",
+      "geometria": "linea",
+      "parti": 1,
+      "nome_regionale": "Lirone (Torrente)",
+      "capisaldi_proiettati": 0
+    },
+    {
+      "corpo_idrico": "margorabbia",
+      "geometria": "linea",
+      "parti": 2,
+      "nome_regionale": "Margorabbia (Fiume)",
+      "capisaldi_proiettati": 3
+    },
+    {
+      "corpo_idrico": "telo_osteno",
+      "geometria": "linea",
+      "parti": 1,
+      "nome_regionale": "Telo di Osteno (Torrente)",
+      "capisaldi_proiettati": 0
+    },
+    {
+      "corpo_idrico": "tresa",
+      "geometria": "linea",
+      "parti": 3,
+      "nome_regionale": "Tresa (Fiume)",
+      "capisaldi_proiettati": 4
+    },
+    {
+      "corpo_idrico": "lago_comabbio",
+      "geometria": "poligono",
+      "parti": 1,
+      "nome_regionale": "Comabbio (lago)"
+    },
+    {
+      "corpo_idrico": "lago_ganna",
+      "geometria": "poligono",
+      "parti": 1,
+      "nome_regionale": "Ganna (lago)"
+    },
+    {
+      "corpo_idrico": "lago_ghirla",
+      "geometria": "poligono",
+      "parti": 1,
+      "nome_regionale": "Ghirla (lago)"
+    },
+    {
+      "corpo_idrico": "lago_lugano",
+      "geometria": "poligono",
+      "parti": 3,
+      "nome_regionale": "Lugano (lago) - bacino nord"
+    },
+    {
+      "corpo_idrico": "lago_monate",
+      "geometria": "poligono",
+      "parti": 1,
+      "nome_regionale": "Monate (lago)"
+    },
+    {
+      "corpo_idrico": "lago_piano",
+      "geometria": "poligono",
+      "parti": 1,
+      "nome_regionale": "Piano (lago)"
+    },
+    {
+      "corpo_idrico": "lago_varese",
+      "geometria": "poligono",
+      "parti": 1,
+      "nome_regionale": "Varese (lago)"
+    }
+  ],
+  "corpi_senza_geometria": [
+    {
+      "corpo_idrico": "barona",
+      "nome": "Torrente Barona",
+      "geometria": "linea"
+    },
+    {
+      "corpo_idrico": "boggione",
+      "nome": "Torrente Boggione",
+      "geometria": "linea"
+    },
+    {
+      "corpo_idrico": "chiesone",
+      "nome": "Torrente Chiesone (Gesone)",
+      "geometria": "linea"
+    },
+    {
+      "corpo_idrico": "grantorella",
+      "nome": "Torrente Grantorella",
+      "geometria": "linea"
+    },
+    {
+      "corpo_idrico": "lisascora",
+      "nome": "Torrente Lisascora",
+      "geometria": "linea"
+    },
+    {
+      "corpo_idrico": "pusiano",
+      "nome": "Lago di Pusiano",
+      "geometria": "poligono"
+    },
+    {
+      "corpo_idrico": "rancina",
+      "nome": "Torrente Rancina",
+      "geometria": "linea"
+    },
+    {
+      "corpo_idrico": "rezzo",
+      "nome": "Torrente Rezzo",
+      "geometria": "linea"
+    },
+    {
+      "corpo_idrico": "rio_boesio",
+      "nome": "Rio Boesio (affluente del Rancina)",
+      "geometria": "linea"
+    },
+    {
+      "corpo_idrico": "soldo",
+      "nome": "Torrente Soldo",
+      "geometria": "linea"
+    },
+    {
+      "corpo_idrico": "tinella",
+      "nome": "Torrente Tinella",
+      "geometria": "linea"
+    },
+    {
+      "corpo_idrico": "trallo",
+      "nome": "Torrente Trallo",
+      "geometria": "linea"
+    }
+  ],
+  "geometrie_composte": [
+    {
+      "nome": "Grantorella (Torrente) - Margorabbia (Fiume)",
+      "sottobacino": "Lago Maggiore (Verbano)",
+      "idronimi": [
+        "grantorella",
+        "margorabbia"
+      ]
+    },
+    {
+      "nome": "Rancina (Torrente) - Caprera (Rio)",
+      "sottobacino": "Lago Maggiore (Verbano)",
+      "idronimi": [
+        "rancina",
+        "caprera"
+      ]
+    },
+    {
+      "nome": "Rezzo (Torrente) - Valle del Cagna (Torrente)",
+      "sottobacino": "Lago di Lugano (Ceresio)",
+      "idronimi": [
+        "rezzo",
+        "valle del cagna"
+      ]
+    },
+    {
+      "nome": "Rezzo (Torrente) - Valle del Cagna (Torrente)",
+      "sottobacino": "Lago di Lugano (Ceresio)",
+      "idronimi": [
+        "rezzo",
+        "valle del cagna"
+      ]
+    }
+  ],
+  "capisaldi": [
+    {
+      "id": "outlet_ghirla",
+      "nome": "Ponte sul Lago di Ghirla",
+      "esito": "overlay_non_spezza",
+      "overlay": [
+        "margorabbia_campo_gara_ghirla"
+      ]
+    },
+    {
+      "id": "chiusa_enel",
+      "nome": "Chiusa Enel in località Ghetto",
+      "esito": "overlay_non_spezza",
+      "overlay": [
+        "margorabbia_campo_gara_ghirla"
+      ]
+    },
+    {
+      "id": "super_mesenzana",
+      "nome": "Supermercato Mesenzana (Carrefour, sponda)",
+      "esito": "overlay_non_spezza",
+      "overlay": [
+        "margorabbia_campo_gara_mesenzana"
+      ]
+    },
+    {
+      "id": "ponte_cucco",
+      "nome": "Ponte del Cucco",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "vecchia_filanda",
+      "nome": "Estremo dello stretto di Lavena",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "grotto_bagat",
+      "nome": "Estremo dello stretto di Lavena",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "foce_rezzo",
+      "nome": "Foce del Rezzo",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "foce_telo",
+      "nome": "Foce del Telo di Osteno",
+      "esito": "senza_corpo_nel_grafo",
+      "overlay": []
+    },
+    {
+      "id": "ponte_grantola",
+      "nome": "Ponte di Grantola",
+      "corpo_idrico": "margorabbia",
+      "dist_m": 5.4,
+      "progressiva_m": 764.4,
+      "esito": "proiettato",
+      "linea": 0
+    },
+    {
+      "id": "nk_end",
+      "nome": "Briglia 150 m a monte del concessionario auto (Mesenzana)",
+      "corpo_idrico": "margorabbia",
+      "dist_m": 0.9,
+      "progressiva_m": 2697.7,
+      "esito": "proiettato",
+      "linea": 0
+    },
+    {
+      "id": "foce_briglia",
+      "nome": "Prima briglia a monte della confluenza con il Tresa",
+      "corpo_idrico": "margorabbia",
+      "dist_m": 3.0,
+      "progressiva_m": 1033.0,
+      "esito": "proiettato",
+      "linea": 1
+    },
+    {
+      "id": "ponte_dogana",
+      "nome": "Ponte della Dogana",
+      "corpo_idrico": "tresa",
+      "dist_m": 3.0,
+      "progressiva_m": 9.9,
+      "esito": "proiettato",
+      "linea": 2
+    },
+    {
+      "id": "chiusa_regolazione",
+      "nome": "Chiusa di regolazione delle acque",
+      "corpo_idrico": "tresa",
+      "dist_m": 2.6,
+      "progressiva_m": 426.2,
+      "esito": "proiettato",
+      "linea": 2
+    },
+    {
+      "id": "ponte_biviglione",
+      "nome": "Ponte di ferro, Biviglione",
+      "corpo_idrico": "tresa",
+      "dist_m": 0.5,
+      "progressiva_m": 4506.5,
+      "esito": "proiettato",
+      "linea": 1
+    },
+    {
+      "id": "diga_creva",
+      "nome": "Diga di Creva",
+      "corpo_idrico": "tresa",
+      "dist_m": 4.7,
+      "progressiva_m": 6383.5,
+      "esito": "proiettato",
+      "linea": 1
+    }
+  ],
+  "segmenti_non_applicati": [
+    {
+      "id": "acquanegra_divieto",
+      "corpo_idrico": "acquanegra",
+      "motivo": "senza_estremi_monte_valle"
+    },
+    {
+      "id": "margorabbia_divieto_foce",
+      "corpo_idrico": "margorabbia",
+      "motivo": "caposaldo_non_proiettato",
+      "monte": "foce_briglia",
+      "valle": "confluenza_tresa"
+    },
+    {
+      "id": "tresa_divieto_lavena",
+      "corpo_idrico": "tresa",
+      "motivo": "senza_estremi_monte_valle"
+    },
+    {
+      "id": "lago_lugano_restrizione_rezzo",
+      "corpo_idrico": "lago_lugano",
+      "motivo": "taglio_su_poligono_non_spezzato"
+    },
+    {
+      "id": "lago_lugano_restrizione_soldo",
+      "corpo_idrico": "lago_lugano",
+      "motivo": "taglio_su_poligono_non_spezzato"
+    },
+    {
+      "id": "lago_lugano_restrizione_telo",
+      "corpo_idrico": "lago_lugano",
+      "motivo": "taglio_su_poligono_non_spezzato"
+    },
+    {
+      "id": "lago_lugano_divieto_cuccio",
+      "corpo_idrico": "lago_lugano",
+      "motivo": "taglio_su_poligono_non_spezzato"
+    },
+    {
+      "id": "lago_lugano_canneto_lavena",
+      "corpo_idrico": "lago_lugano",
+      "motivo": "taglio_su_poligono_non_spezzato"
+    },
+    {
+      "id": "lago_varese_schiranna",
+      "corpo_idrico": "lago_varese",
+      "motivo": "taglio_su_poligono_non_spezzato"
+    },
+    {
+      "id": "lago_varese_oltrona",
+      "corpo_idrico": "lago_varese",
+      "motivo": "taglio_su_poligono_non_spezzato"
+    }
+  ],
+  "geometrie_scartate": {
+    "fuori_bacino_5": 831,
+    "senza_geometria": 0,
+    "non_in_normativa": 57
+  }
+}

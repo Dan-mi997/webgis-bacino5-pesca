@@ -186,6 +186,13 @@
         "testo": "Tutti i giorni: l'asta del Margorabbia rientra tra gli «Affluenti del fiume Tresa»",
         "fonte": { "livello": "interpretazione", "riferimento": "Elenco corpi idrici con pesca tutti i giorni", "estratto": "la pesca è consentita tutti i giorni della settimana […] Affluenti del fiume Tresa", "nota": "Il Margorabbia è affluente diretto del Tresa. Il prontuario non scrive «e affluenti» dopo Tresa: la deroga NON si estende agli affluenti del Margorabbia." }
       },
+      "tutti_i_giorni_deroga_varese": {
+        "etichetta": "Tutti i giorni (affluenti del lago di Varese)",
+        "settimana": ["lun", "mar", "mer", "gio", "ven", "sab", "dom"],
+        "festivi_aggiuntivi": [],
+        "testo": "Tutti i giorni: il corso è affluente del lago di Varese.",
+        "fonte": { "livello": "testuale", "riferimento": "par. 4.11 — giorni tipo B", "estratto": "Affluenti del lago di Varese", "nota": "Deroga dei giorni tipo B. Non si applica a Bardello, Acquanegra e Brabbia, che sono tipo C." }
+      },
       "tutti_i_giorni_deroga_ceresio_va": {
         "etichetta": "Tutti i giorni (affluenti del Ceresio sulla sponda Porto Ceresio–Lavena)",
         "settimana": ["lun", "mar", "mer", "gio", "ven", "sab", "dom"],
@@ -268,6 +275,14 @@
       "richiede_contributo_extra": true,
       "richiede_tesserino": true,
       "note": "Non è acqua libera «solo licenza B»."
+    },
+    "fipsas_varese_ridotto": {
+      "etichetta": "Riva verde e alvei verdi — contributo ridotto FIPSAS Varese",
+      "documenti": ["licenza_B", "tessera_fipsas", "contributo_gestione_ridotto", "tesserino_segnapesci"],
+      "alternativa_non_tesserati": ["licenza_B", "permesso_giornaliero"],
+      "richiede_contributo_extra": true,
+      "richiede_tesserino": true,
+      "note": "Lago di Varese da riva, Fiume Bardello, Torrente Acquanegra, Canale Brabbia. Chi ha già il contributo annuale da 30 € non deve il ridotto."
     },
     "fipsas_lago_riva": {
       "etichetta": "Lago di Ghirla da riva",

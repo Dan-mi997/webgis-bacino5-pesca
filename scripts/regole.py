@@ -474,6 +474,13 @@ def verifica_matrice(m: Matrice | None = None) -> None:
     varese = m.risolvi("lago_varese")
     assert varese["prelievo"]["misure_minime_cm"]["persico_reale"] == 18
     assert varese["matrice"]["classificazione_biologica"] == "A"
+    assert m.risolvi("lago_varese", modalita="sponda")["permessi"]["pacchetto"]["id"] == "fipsas_varese_ridotto"
+    assert m.risolvi("lago_varese", modalita="natante")["permessi"]["pacchetto"]["id"] is None
+    assert m.risolvi("lago_comabbio", modalita="natante")["pesca_consentita"] is False
+    assert m.risolvi("lago_monate")["prelievo"]["misure_minime_cm"]["persico_reale"] == 18
+    assert m.risolvi("bardello")["permessi"]["pacchetto"]["id"] == "fipsas_varese_ridotto"
+    assert m.risolvi("tinella")["calendario"]["giorni"]["id"] == "tutti_i_giorni_deroga_varese"
+    assert m.risolvi("acquanegra", "acquanegra_divieto")["pesca_consentita"] is False
 
     piano = m.risolvi("lago_piano")
     ids = [d["id"] for d in piano["permessi"]["pacchetto"]["documenti"]]

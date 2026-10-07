@@ -1,0 +1,3372 @@
+{
+  "fonte": "Prontuario bacino 5 – Verbano Ceresio e Lario (2026), 55 pagine",
+  "estratto": "2026-10-06",
+  "perimetro": "Porzione lombarda di Verbano, Ceresio e Lario, più Mezzola (poi escluso perché in Sondrio), Garlate, Olginate, Varese, Comabbio, Monate, Montorfano, Alserio, Segrino, Piano, Pusiano, Annone e i tributari. Adda immissario fino al confine di Sondrio, Adda emissario fino al ponte ferroviario del Lavello, Ticino fino al ponte di Sesto Calende, Olona fino al ponte di Vedano, Lambro fino al ponte di Nibionno. Lanza, Lura e Seveso solo a monte della S.P. 342.",
+  "come_rispondere": "id: lat, lon in WGS84. I campi gara e i punti fuori perimetro non servono ora. La pesca subacquea è tenuta da parte. Le zone riservate alla pesca dilettantistica sono tenute da parte.",
+  "corpi_senza_estremi_nominati": [
+    {
+      "id": "lago_biandronno_divieto",
+      "corpo": "Lago di Biandronno",
+      "testo": "Divieto su tutto il bacino.",
+      "pagina": 43
+    },
+    {
+      "id": "lago_ganna_divieto",
+      "corpo": "Lago di Ganna",
+      "testo": "Divieto su tutto il bacino.",
+      "pagina": 43
+    },
+    {
+      "id": "laghetto_puraa_divieto",
+      "corpo": "Laghetto dell’area Puraa",
+      "testo": "Comabbio. Divieto su tutto il bacino.",
+      "pagina": 43
+    },
+    {
+      "id": "lisascora_divieto",
+      "corpo": "Torrente Lisascora",
+      "testo": "Intero corso, Cunardo e Cugliate Fabiasco.",
+      "pagina": 44
+    },
+    {
+      "id": "brugo_rialto_divieto",
+      "corpo": "Torrenti Brugo e Roggia di Rialto",
+      "testo": "Tutto il corso, Cerro di Laveno.",
+      "pagina": 44
+    },
+    {
+      "id": "roggia_alserio_divieto",
+      "corpo": "Roggia di Alserio",
+      "testo": "Tutto il corso.",
+      "pagina": 45
+    },
+    {
+      "id": "adda_letti_frega",
+      "corpo": "Fiume Adda a Lecco",
+      "testo": "Letti di frega artificiali in ghiaia, divieto dal 1° aprile al 30 giugno. Il prontuario non nomina gli estremi.",
+      "pagina": 45
+    }
+  ],
+  "punti": [
+    {
+      "id": "confluenza_tresa",
+      "nome": "Confluenza del Margorabbia nel Tresa",
+      "corpo": "Margorabbia",
+      "zona": "Verbano",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Chiude il divieto di foce, circa 200 m. La briglia a monte è foce_briglia. Coordinate inserite il 2026-10-06.",
+      "lat": 45.99298853550696,
+      "lon": 8.732285754358635
+    },
+    {
+      "id": "foce_trallo",
+      "nome": "Foce del Trallo nel Ceresio",
+      "corpo": "Trallo",
+      "zona": "Ceresio",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Chiude il divieto dal ponte di via Bigattini, circa 500 m. Coordinate inserite il 2026-10-06.",
+      "lat": 45.948614,
+      "lon": 8.891823
+    },
+    {
+      "id": "foce_soldo",
+      "nome": "Foce del Soldo, parte di specchio",
+      "corpo": "Ceresio",
+      "zona": "Ceresio",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Centro del cerchio da 50 m, Valsolda. Coordinate inserite il 2026-10-06.",
+      "lat": 46.024136,
+      "lon": 9.051694
+    },
+    {
+      "id": "foce_cuccio",
+      "nome": "Sbocco del Cuccio nel lago",
+      "corpo": "Ceresio",
+      "zona": "Ceresio",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Divieto di foce: metà larghezza dell’alveo più 50 m. Porlezza. Coordinate inserite il 2026-10-06.",
+      "lat": 46.02992012570837,
+      "lon": 9.123063174842022
+    },
+    {
+      "id": "foce_tresa_verbano",
+      "nome": "Foce del Tresa nel Lago Maggiore",
+      "corpo": "Verbano",
+      "zona": "Verbano",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Divieto di foce, con pesca solo da riva, una canna, massimo 5 ami. Raggio = metà larghezza più 50 m. Coordinate inserite il 2026-10-06.",
+      "lat": 45.996925,
+      "lon": 8.726331
+    },
+    {
+      "id": "torretta_schiranna",
+      "nome": "Torretta di arrivo della Canottieri, Schiranna",
+      "corpo": "Lago di Varese",
+      "zona": "Varese",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Divieto: 250 m verso nord e 50 m dalla riva. Coordinate inserite il 2026-10-06.",
+      "lat": 45.80120035248025,
+      "lon": 8.781578468440582
+    },
+    {
+      "id": "foce_tinella",
+      "nome": "Immissione del Tinella nel lago, Oltrona",
+      "corpo": "Tinella",
+      "zona": "Varese",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Fine del divieto sul torrente e origine della fascia in lago (150 m a monte, 100 a valle, 100 m dalla riva). Coordinate inserite il 2026-10-06.",
+      "lat": 45.82433904867962,
+      "lon": 8.736828713126613
+    },
+    {
+      "id": "cascatella_roverplast",
+      "nome": "Cascatella subito a valle della ditta Roverplast",
+      "corpo": "Tinella",
+      "zona": "Varese",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Inizio del divieto di circa 1000 m. Non è lo stabilimento. Coordinate inserite il 2026-10-06.",
+      "lat": 45.823902478751805,
+      "lon": 8.745459093137292
+    },
+    {
+      "id": "ponte_giovanni_xxiii",
+      "nome": "Ponte di via Giovanni XXIII",
+      "corpo": "Acquanegra",
+      "zona": "Varese",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Estremo del divieto. Vale anche per l’affluente Barona. Coordinate inserite il 2026-10-06.",
+      "lat": 45.819267,
+      "lon": 8.658573
+    },
+    {
+      "id": "ponte_trevisani",
+      "nome": "Ponte di via Trevisani a Monate",
+      "corpo": "Acquanegra",
+      "zona": "Varese",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Altro estremo dello stesso divieto. Coordinate inserite il 2026-10-06.",
+      "lat": 45.814268,
+      "lon": 8.655609
+    },
+    {
+      "id": "canneto_brebbia",
+      "nome": "Estremo del canneto tra Brebbia e Ispra",
+      "corpo": "Verbano",
+      "zona": "Verbano",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Il prontuario non nomina i due capi. Segnare i due estremi del canneto: il divieto è 20 m dalla costa. Coordinate inserite il 2026-10-06.",
+      "lat": 45.8358,
+      "lon": 8.62358
+    },
+    {
+      "id": "canneto_ispra",
+      "nome": "Altro estremo del canneto tra Brebbia e Ispra",
+      "corpo": "Verbano",
+      "zona": "Verbano",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Secondo estremo della stessa fascia. Coordinate inserite il 2026-10-06.",
+      "lat": 45.82318,
+      "lon": 8.61835
+    },
+    {
+      "id": "foce_giona",
+      "nome": "Foce del Giona nel Lago Maggiore",
+      "corpo": "Giona",
+      "zona": "Verbano",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Maccagno. Cerchio da 50 m e inizio del divieto sul torrente. Coordinate inserite il 2026-10-06.",
+      "lat": 46.03893264931977,
+      "lon": 8.73222254940774
+    },
+    {
+      "id": "briglia_giona_museo",
+      "nome": "Seconda briglia a monte del Museo",
+      "corpo": "Giona",
+      "zona": "Verbano",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Fine del divieto di circa 340 m dalla foce. Coordinate inserite il 2026-10-06.",
+      "lat": 46.04122559615495,
+      "lon": 8.735712531695413
+    },
+    {
+      "id": "partegora_canneto",
+      "nome": "Lato ovest del canneto antistante piazza Garibaldi",
+      "corpo": "Verbano",
+      "zona": "Verbano",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Angera, isolino Partegora. Un capo della linea che chiude l’insenatura. Coordinate inserite il 2026-10-07.",
+      "lat": 45.76736708567814,
+      "lon": 8.578749272067135
+    },
+    {
+      "id": "partegora_cicchirolo",
+      "nome": "Spiaggetta Cicchirolo",
+      "corpo": "Verbano",
+      "zona": "Verbano",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Altro capo della linea di demarcazione dell’insenatura. Coordinate inserite il 2026-10-07.",
+      "lat": 45.77024590959989,
+      "lon": 8.569387614737135
+    },
+    {
+      "id": "ponte_ss34_san_bernardino",
+      "nome": "Ponte della Statale 34 sul San Bernardino",
+      "corpo": "San Bernardino",
+      "zona": "Fuori",
+      "uso": "fuori",
+      "stato": "fuori_perimetro",
+      "note": "Inizio del divieto permanente fino alla foce. Il prontuario non indica il comune. Coordinate del 2026-10-06: il ponte della Statale 34 e la foce cadono a Intra, sponda piemontese del Verbano, fuori dal Bacino 5.",
+      "lat": 45.932201,
+      "lon": 8.570902
+    },
+    {
+      "id": "foce_san_bernardino",
+      "nome": "Foce del San Bernardino",
+      "corpo": "San Bernardino",
+      "zona": "Fuori",
+      "uso": "fuori",
+      "stato": "fuori_perimetro",
+      "note": "Divieto anche sulla foce, raggio metà larghezza più 50 m. Coordinate del 2026-10-06: il ponte della Statale 34 e la foce cadono a Intra, sponda piemontese del Verbano, fuori dal Bacino 5.",
+      "lat": 45.930835,
+      "lon": 8.573788
+    },
+    {
+      "id": "madonnina_sesto",
+      "nome": "Cappella Madonnina, lato sud-ovest",
+      "corpo": "Ticino",
+      "zona": "Verbano",
+      "uso": "regola",
+      "stato": "da_misurare",
+      "note": "Sesto Calende. Un capo del divieto verso il fosso Becchemia."
+    },
+    {
+      "id": "fosso_becchemia",
+      "nome": "Fosso colatore Becchemia",
+      "corpo": "Ticino",
+      "zona": "Verbano",
+      "uso": "regola",
+      "stato": "da_misurare",
+      "note": "Altro capo del divieto, diritto Bellini Fauser."
+    },
+    {
+      "id": "ponte_sesto_calende",
+      "nome": "Ponte di Sesto Calende",
+      "corpo": "Ticino",
+      "zona": "Verbano",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Limite di valle del Bacino 5 sul Ticino. Coordinate inserite il 2026-10-06.",
+      "lat": 45.722466239342324,
+      "lon": 8.627005936794719
+    },
+    {
+      "id": "pizzo_bodio",
+      "nome": "Pizzo Bodio",
+      "corpo": "Lago di Varese",
+      "zona": "Varese",
+      "uso": "regola",
+      "stato": "da_misurare",
+      "note": "Un capo del tratto in cui il carp fishing è proibito dal 1° luglio al 30 settembre."
+    },
+    {
+      "id": "pizzo_cazzago",
+      "nome": "Pizzo di Cazzago",
+      "corpo": "Lago di Varese",
+      "zona": "Varese",
+      "uso": "regola",
+      "stato": "da_misurare",
+      "note": "Altro capo dello stesso tratto."
+    },
+    {
+      "id": "piazza_europa_lavena",
+      "nome": "Piazza Europa, Lavena Ponte Tresa",
+      "corpo": "Tresa",
+      "zona": "Ceresio",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Il divieto di sponda nomina Lungo Argine, Piazza Europa e Piazza Mercato. I due estremi già verificati (chiusa e Ponte della Dogana) descrivono la pesca notturna, non questo divieto. Coordinate inserite il 2026-10-06.",
+      "lat": 45.96839568935182,
+      "lon": 8.85634694253088
+    },
+    {
+      "id": "piazza_mercato_lavena",
+      "nome": "Piazza Mercato, Lavena Ponte Tresa",
+      "corpo": "Tresa",
+      "zona": "Ceresio",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Secondo luogo nominato dallo stesso divieto di sponda. Coordinate inserite il 2026-10-06.",
+      "lat": 45.969418557871734,
+      "lon": 8.854779529808532
+    },
+    {
+      "id": "primo_sbarramento_tarca",
+      "nome": "Primo sbarramento artificiale a monte del ponte sulla S.P. 30",
+      "corpo": "Tarca",
+      "zona": "Varese",
+      "uso": "regola",
+      "stato": "da_misurare",
+      "note": "Cadegliano Viconago. Da qui circa 250 m verso valle."
+    },
+    {
+      "id": "confluenza_valmolina_brivola",
+      "nome": "Confluenza Valmolina–Rio Brivola",
+      "corpo": "Valmolina",
+      "zona": "Varese",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Chiude il divieto del Valmolina (dalla sorgente) e quello del Brivola. Coordinate inserite il 2026-10-06.",
+      "lat": 45.889799,
+      "lon": 8.784015
+    },
+    {
+      "id": "ponte_piave_lavatoio",
+      "nome": "Ponte di via Piave, località Lavatoio",
+      "corpo": "Rio Brivola",
+      "zona": "Varese",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Fuoriuscita del Rio dal Laghetto di Brinzio. Inizio del divieto di circa 980 m. Coordinate inserite il 2026-10-06.",
+      "lat": 45.887477,
+      "lon": 8.790656
+    },
+    {
+      "id": "ponte_ss_besozzo_gemonio",
+      "nome": "Ponte della strada statale Besozzo–Gemonio",
+      "corpo": "Viganella",
+      "zona": "Varese",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Un estremo del divieto di circa 600 m. Coordinate inserite il 2026-10-06.",
+      "lat": 45.873163,
+      "lon": 8.673695
+    },
+    {
+      "id": "ponte_museo_salvini",
+      "nome": "Ponte del Museo Salvini",
+      "corpo": "Viganella",
+      "zona": "Varese",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Altro estremo. Coordinate inserite il 2026-10-06.",
+      "lat": 45.875624,
+      "lon": 8.678539
+    },
+    {
+      "id": "ponte_strada_cantello",
+      "nome": "Ponte sulla strada per Cantello",
+      "corpo": "Bevera di Varese",
+      "zona": "Varese",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Non è il Bevera di Costamasnaga. Coordinate inserite il 2026-10-06.",
+      "lat": 45.812731,
+      "lon": 8.867973
+    },
+    {
+      "id": "cascina_gissone",
+      "nome": "Cascina Gissone",
+      "corpo": "Bevera di Varese",
+      "zona": "Varese",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Altro estremo del divieto, comuni di Cantello e Varese. Coordinate inserite il 2026-10-07. Posizione indicata come non del tutto certa.",
+      "lat": 45.830054,
+      "lon": 8.874217
+    },
+    {
+      "id": "ponte_caslino",
+      "nome": "Ponte stradale a Caslino d’Erba",
+      "corpo": "Lambro immissario",
+      "zona": "Lambro",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Un estremo del divieto. Coordinate inserite il 2026-10-06.",
+      "lat": 45.835319,
+      "lon": 9.232239
+    },
+    {
+      "id": "cabina_enel_caslino",
+      "nome": "Cabina Enel circa 300 m a monte del ponte",
+      "corpo": "Lambro immissario",
+      "zona": "Lambro",
+      "uso": "regola",
+      "stato": "da_misurare",
+      "note": "Altro estremo, Caslino d’Erba."
+    },
+    {
+      "id": "ponte_mulattiera_mulini",
+      "nome": "Ponte della mulattiera per Argegno, località Mulini",
+      "corpo": "Telo di Argegno",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "da_misurare",
+      "note": "Schignano. Non è il ponte in pietra del campo gara di Dizzasco."
+    },
+    {
+      "id": "ponte_perla_fusina",
+      "nome": "Ponte della strada per Perla, località Fusina",
+      "corpo": "Telo di Argegno",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "da_misurare",
+      "note": "Altro estremo del divieto."
+    },
+    {
+      "id": "confluenza_valle_toff",
+      "nome": "Confluenza del Nosee con la valle del Tuf",
+      "corpo": "Nosee",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Nesso. Da qui 300 m verso monte. Il Nosee si immette nella valle del Tuf: il prontuario scrive Toff. Coordinate inserite il 2026-10-07. Posizione indicata come non del tutto certa.",
+      "lat": 45.909615,
+      "lon": 9.155828
+    },
+    {
+      "id": "cascina_dei_gobbi",
+      "nome": "Cascina dei Gobbi, confluenza in alta Val Boazzo",
+      "corpo": "Caldone",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Morterone. Il divieto va da qui verso monte fino alle sorgenti. Coordinate inserite il 2026-10-07.",
+      "lat": 45.885219,
+      "lon": 9.458241
+    },
+    {
+      "id": "bocca_di_biandino",
+      "nome": "Località Bocca di Biandino",
+      "corpo": "Troggia",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Introbio. Il divieto parte circa 200 m a monte di qui, fino alle sorgenti. Coordinate inserite il 2026-10-07.",
+      "lat": 46.015838,
+      "lon": 9.470657
+    },
+    {
+      "id": "paratoie_olginate",
+      "nome": "Paratoie della diga di Olginate",
+      "corpo": "Adda",
+      "zona": "Adda",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Inizio della tutela ittica, doppia sponda, fino al ponte stradale. Coordinate inserite il 2026-10-07.",
+      "lat": 45.803697,
+      "lon": 9.414154
+    },
+    {
+      "id": "ponte_olginate",
+      "nome": "Ponte stradale di Olginate, incluso",
+      "corpo": "Adda",
+      "zona": "Adda",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Fine della tutela ittica. È anche un riferimento della classificazione di tipo C insieme allo scarico della cartiera. Coordinate inserite il 2026-10-07.",
+      "lat": 45.80283,
+      "lon": 9.41472
+    },
+    {
+      "id": "scarico_cartiera_adda",
+      "nome": "Scarico della cartiera dell’Adda",
+      "corpo": "Adda",
+      "zona": "Adda",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Limite del tratto di tipo C che parte dalla diga di Olginate. Coordinate inserite il 2026-10-07. Posizione indicata come non del tutto certa.",
+      "lat": 45.8004989695221,
+      "lon": 9.418382388087602
+    },
+    {
+      "id": "inizio_carcano_molina",
+      "nome": "Inizio dello stabilimento Carcano, località Molina",
+      "corpo": "Meria",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Mandello. Inizio del no-kill fino alla foce. Coordinate inserite il 2026-10-07.",
+      "lat": 45.926159,
+      "lon": 9.323573
+    },
+    {
+      "id": "foce_meria_poncia",
+      "nome": "Foce del Meria, località Poncia",
+      "corpo": "Meria",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Fine del no-kill. Coordinate inserite il 2026-10-07.",
+      "lat": 45.913635,
+      "lon": 9.313161
+    },
+    {
+      "id": "ponte_foce_varrone",
+      "nome": "Ponte in prossimità della foce del Varrone",
+      "corpo": "Varrone",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Dervio. Inizio del no-kill a mosca. Coordinate inserite il 2026-10-07.",
+      "lat": 46.072747,
+      "lon": 9.29857
+    },
+    {
+      "id": "ponte_sp72_varrone",
+      "nome": "Ponte della S.P. 72 sul Varrone",
+      "corpo": "Varrone",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Fine del no-kill. Lo stesso ponte è anche un estremo di un campo gara, tenuto a parte. Coordinate inserite il 2026-10-07.",
+      "lat": 46.074474,
+      "lon": 9.304706
+    },
+    {
+      "id": "cabina_enel_castelmarte",
+      "nome": "Cabina Enel, località Castelmarte",
+      "corpo": "Lambro",
+      "zona": "Lambro",
+      "uso": "regola",
+      "stato": "da_misurare",
+      "note": "Inizio del no-kill verso monte."
+    },
+    {
+      "id": "stazione_canzo_asso",
+      "nome": "Stazione delle Ferrovie Nord di Canzo-Asso",
+      "corpo": "Lambro",
+      "zona": "Lambro",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Fine del no-kill. È anche un estremo di un campo gara. Coordinate inserite il 2026-10-07.",
+      "lat": 45.85538551374886,
+      "lon": 9.268423424113141
+    },
+    {
+      "id": "prima_briglia_breggia",
+      "nome": "Prima briglia a monte della foce del Breggia",
+      "corpo": "Breggia",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Inizio del tratto a esche artificiali, rilascio, tutto l’anno. Coordinate inserite il 2026-10-07.",
+      "lat": 45.83500348133302,
+      "lon": 9.073083519434984
+    },
+    {
+      "id": "ponte_frontiera_breggia",
+      "nome": "Ponte stradale presso la frontiera italo-svizzera",
+      "corpo": "Breggia",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Fine del no-kill e della pesca invernale. Il campo gara prosegue fino a un’altra briglia, tenuta a parte. Coordinate inserite il 2026-10-07.",
+      "lat": 45.84182592690469,
+      "lon": 9.039691531211739
+    },
+    {
+      "id": "rete_antialluvione_varrone",
+      "nome": "Rete anti-alluvione sul Varrone",
+      "corpo": "Varrone",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Dervio. Inizio del tratto a esche artificiali. Coordinate inserite il 2026-10-07.",
+      "lat": 46.07601418347302,
+      "lon": 9.308725067683378
+    },
+    {
+      "id": "briglia_centrale_varrone",
+      "nome": "Briglia di derivazione della centrale, circa 900 m a monte",
+      "corpo": "Varrone",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "da_misurare",
+      "note": "Fine di quel tratto."
+    },
+    {
+      "id": "briglia_foce_pioverna",
+      "nome": "Briglia del Pioverna in prossimità della foce",
+      "corpo": "Pioverna",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Bellano. Inizio del no-kill di circa 800 m e limite sul torrente della zona di limitazione del lago. Coordinate inserite il 2026-10-07.",
+      "lat": 46.04196505317884,
+      "lon": 9.298514239619118
+    },
+    {
+      "id": "fine_orrido_pioverna",
+      "nome": "Fine dell’orrido del Pioverna",
+      "corpo": "Pioverna",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Circa 800 m a monte della briglia di foce. Coordinate inserite il 2026-10-07.",
+      "lat": 46.042357,
+      "lon": 9.305138
+    },
+    {
+      "id": "ponte_vedano",
+      "nome": "Ponte di Vedano",
+      "corpo": "Olona",
+      "zona": "Olona",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Limite di valle del Bacino 5 sull’Olona, e fine della pesca invernale dalle sorgenti. Coordinate inserite il 2026-10-07.",
+      "lat": 45.779153,
+      "lon": 8.869218
+    },
+    {
+      "id": "ponte_prato_san_pietro",
+      "nome": "Ponte di Prato San Pietro",
+      "corpo": "Pioverna",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Estremo della pesca invernale e della riserva turistica di Cortenova. Coordinate inserite il 2026-10-07.",
+      "lat": 45.996157,
+      "lon": 9.394931
+    },
+    {
+      "id": "immissione_rossiga",
+      "nome": "Immissione del canale della Rossiga nel Pioverna",
+      "corpo": "Pioverna",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "L’altro estremo è 200 m a valle di questo punto. Coordinate inserite il 2026-10-07.",
+      "lat": 46.002559,
+      "lon": 9.385194
+    },
+    {
+      "id": "ponte_eden",
+      "nome": "Ponte dell’Eden",
+      "corpo": "Livo",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Domaso. La riserva turistica parte 200 m a valle di questo ponte. Coordinate inserite il 2026-10-07.",
+      "lat": 46.154422,
+      "lon": 9.3289
+    },
+    {
+      "id": "briglia_selettiva_livo",
+      "nome": "Briglia selettiva, circa 800 m a monte del Ponte dell’Eden",
+      "corpo": "Livo",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "da_misurare",
+      "note": "Fine della riserva turistica."
+    },
+    {
+      "id": "ponte_lavello",
+      "nome": "Nuovo ponte ferroviario del Lavello",
+      "corpo": "Adda",
+      "zona": "Adda",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Limite di valle del Bacino 5 sull’Adda emissario. Coordinate inserite il 2026-10-07.",
+      "lat": 45.788,
+      "lon": 9.43215
+    },
+    {
+      "id": "ponte_nibionno",
+      "nome": "Ponte di Nibionno sulla S.P. 342",
+      "corpo": "Lambro",
+      "zona": "Lambro",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Limite di valle del Bacino 5 sul Lambro. Coordinate inserite il 2026-10-07.",
+      "lat": 45.75097,
+      "lon": 9.2568
+    },
+    {
+      "id": "sp342_lanza",
+      "nome": "Attraversamento della S.P. 342 sul Lanza",
+      "corpo": "Lanza",
+      "zona": "Olona",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Il Bacino 5 tiene il Lanza solo a monte di questa strada. Coordinate inserite il 2026-10-07.",
+      "lat": 45.801641,
+      "lon": 8.872125
+    },
+    {
+      "id": "sp342_lura",
+      "nome": "Attraversamento della S.P. 342 sul Lura",
+      "corpo": "Lura",
+      "zona": "Olona",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Stesso limite, solo il tratto a monte. Coordinate inserite il 2026-10-07.",
+      "lat": 45.771707,
+      "lon": 9.001826
+    },
+    {
+      "id": "sp342_seveso",
+      "nome": "Attraversamento della S.P. 342 sul Seveso",
+      "corpo": "Seveso",
+      "zona": "Olona",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Stesso limite, solo il tratto a monte. Coordinate inserite il 2026-10-07.",
+      "lat": 45.787202,
+      "lon": 9.045149
+    },
+    {
+      "id": "ponte_kennedy",
+      "nome": "Ponte Kennedy",
+      "corpo": "Adda",
+      "zona": "Adda",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Lecco. Limite del tratto di tipo C e della pesca da natante fino al ponte Manzoni. Coordinate inserite il 2026-10-07.",
+      "lat": 45.849009563961474,
+      "lon": 9.387623656496011
+    },
+    {
+      "id": "ponte_manzoni",
+      "nome": "Ponte A. Manzoni",
+      "corpo": "Adda",
+      "zona": "Adda",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Altro limite dello stesso tratto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.83888610529674,
+      "lon": 9.39973068768242
+    },
+    {
+      "id": "sasso_dascio",
+      "nome": "Sasso di Dascio",
+      "corpo": "Canale del Mera",
+      "zona": "Fuori",
+      "uso": "fuori",
+      "stato": "fuori_perimetro",
+      "note": "Inizio del tratto di tipo C fino alla foce nel Lario. Coordinate del 2026-10-07: il Sasso di Dascio cade a Sorico, provincia di Sondrio, fuori dal Bacino 5.",
+      "lat": 46.19000324375582,
+      "lon": 9.421840807995768
+    },
+    {
+      "id": "foce_mera",
+      "nome": "Foce del canale del Mera nel Lario",
+      "corpo": "Canale del Mera",
+      "zona": "Fuori",
+      "uso": "fuori",
+      "stato": "fuori_perimetro",
+      "note": "Fine di quel tratto. Sorico è in provincia di Sondrio: il prontuario esclude le acque di Sondrio, il punto va segnato solo se cade in Como. Coordinate del 2026-10-07: il pin è circa 4 km a nord della riva del Lario, presso Dascio di Sorico (Sondrio), e non è la foce nel lago.",
+      "lat": 46.18659854913016,
+      "lon": 9.419004860098475
+    },
+    {
+      "id": "inizio_giardino_monastero",
+      "nome": "Inizio del giardino di Villa Monastero",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Varenna. Divieto fino a metà lago. Coordinate inserite il 2026-10-07.",
+      "lat": 46.008405,
+      "lon": 9.287133
+    },
+    {
+      "id": "balconcino_monastero",
+      "nome": "Balconcino con parapetto in ferro, Villa Monastero",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Altro estremo, verso sud. Coordinate inserite il 2026-10-07.",
+      "lat": 46.00661250320906,
+      "lon": 9.289010779856586
+    },
+    {
+      "id": "foce_adda_lario",
+      "nome": "Foce dell’Adda nel Lario",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Colico e Gera Lario. Tutela: circa 400 m di fronte e 100 m dalla costa. Coordinate inserite il 2026-10-07.",
+      "lat": 46.15133,
+      "lon": 9.37559
+    },
+    {
+      "id": "sponda_destra_inganna",
+      "nome": "Sponda destra del torrente Inganna",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Colico. Inizio della tutela di circa 840 m. Coordinate inserite il 2026-10-07.",
+      "lat": 46.142087,
+      "lon": 9.372824
+    },
+    {
+      "id": "balconcino_perlino",
+      "nome": "Balconcino semicircolare circa 100 m a nord della foce del Perlino",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Altro estremo. Coordinate inserite il 2026-10-07.",
+      "lat": 46.13693811706766,
+      "lon": 9.367041539480054
+    },
+    {
+      "id": "scivolo_lido_varenna",
+      "nome": "Scivolo per barche nel Lido di Varenna",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Inizio della tutela di circa 460 m, Perledo e Varenna. Coordinate inserite il 2026-10-07.",
+      "lat": 46.015141,
+      "lon": 9.28305
+    },
+    {
+      "id": "punta_faro_varenna",
+      "nome": "Punta detta del Faro",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Altro estremo. Coordinate inserite il 2026-10-07. Posizione indicata come non del tutto certa.",
+      "lat": 46.01013217144859,
+      "lon": 9.281595100334952
+    },
+    {
+      "id": "parcheggio_nord_fiumelatte",
+      "nome": "Estremità nord del parcheggio antistante la chiesa di Fiumelatte",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Tutela temporanea 1° marzo–10 agosto, circa 410 m. Coordinate inserite il 2026-10-07.",
+      "lat": 46.00035719627579,
+      "lon": 9.291545348777602
+    },
+    {
+      "id": "parcheggio_sud_incubatoio",
+      "nome": "Estremità sud del parcheggio antistante l’incubatoio M. de Marchi",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Altro estremo. Coordinate inserite il 2026-10-07.",
+      "lat": 45.99610739622331,
+      "lon": 9.29148445011494
+    },
+    {
+      "id": "angolo_lido_mandello",
+      "nome": "Angolo del muro a lago del Lido di Mandello",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Circa 100 m a nord della sponda destra del Meria. Tutela temporanea. Coordinate inserite il 2026-10-07.",
+      "lat": 45.91435055636008,
+      "lon": 9.312774441358854
+    },
+    {
+      "id": "estremo_sud_riva_grande",
+      "nome": "Estremità sud dell’approdo di Riva Grande",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Altro estremo. Il pin precedente, scartato, cadeva a Varenna. Coordinate inserite il 2026-10-07. Posizione indicata come non del tutto certa.",
+      "lat": 45.91148625672688,
+      "lon": 9.318898046230517
+    },
+    {
+      "id": "albergo_belvedere",
+      "nome": "Albergo Belvedere",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Argegno. Inizio della tutela, 150 m dalla riva. Coordinate inserite il 2026-10-07.",
+      "lat": 45.94179899151862,
+      "lon": 9.128313140586908
+    },
+    {
+      "id": "foce_telo_argegno",
+      "nome": "Foce del Telo di Argegno",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "La tutela arriva 100 m a nord di questa foce. Non è il Telo di Osteno. Coordinate inserite il 2026-10-07.",
+      "lat": 45.944755,
+      "lon": 9.129207
+    },
+    {
+      "id": "scalinata_sud_minigolf",
+      "nome": "Scalinata a sud del Minigolf",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Menaggio. Estremo condiviso da tutela ittica e zona dilettantistica. Coordinate inserite il 2026-10-07. La zona dilettantistica che finisce qui, dalla caserma della Guardia di Finanza, è tenuta da parte: il punto resta perché apre la tutela ittica verso il lido.",
+      "lat": 46.02290808363222,
+      "lon": 9.242580603794426
+    },
+    {
+      "id": "confine_nord_lido_menaggio",
+      "nome": "Confine nord del lido di Menaggio",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Altro estremo della tutela. Coordinate inserite il 2026-10-07.",
+      "lat": 46.02501737339941,
+      "lon": 9.240827172810269
+    },
+    {
+      "id": "confine_musso_dongo",
+      "nome": "Confine tra Musso e Dongo",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Inizio della tutela di Dongo, 100 m dalla riva. Coordinate inserite il 2026-10-07.",
+      "lat": 46.117068,
+      "lon": 9.279628
+    },
+    {
+      "id": "chiesa_santo_stefano",
+      "nome": "Chiesa di S. Stefano, Dongo",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Altro estremo. Coordinate inserite il 2026-10-07.",
+      "lat": 46.126977352172254,
+      "lon": 9.286232355719694
+    },
+    {
+      "id": "foce_liro",
+      "nome": "Foce del torrente Liro",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Gravedona. La tutela è 100 m a sud e 100 m a nord della foce. La zona dilettantistica riparte 100 m a nord, fino alla centrale. Coordinate inserite il 2026-10-07. La zona dilettantistica da 100 m a nord della foce fino alla centrale è tenuta da parte: il punto resta perché chiude la tutela della foce.",
+      "lat": 46.136759,
+      "lon": 9.304076
+    },
+    {
+      "id": "foce_livo_lario",
+      "nome": "Foce del torrente Livo",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Domaso. Tutela 100 m a sud e 100 m a nord, 100 m dalla riva. Coordinate inserite il 2026-10-07.",
+      "lat": 46.148689,
+      "lon": 9.330139
+    },
+    {
+      "id": "scalinata_cimitero_laglio",
+      "nome": "Scalinata di fronte al cimitero di Laglio",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Inizio della tutela verso nord. Coordinate inserite il 2026-10-07.",
+      "lat": 45.88504752356182,
+      "lon": 9.14180973984731
+    },
+    {
+      "id": "ex_cantiere_branduardi",
+      "nome": "Ex cantiere Branduardi",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Altro estremo. Coordinate inserite il 2026-10-07. Posizione indicata come non del tutto certa.",
+      "lat": 45.89864058079397,
+      "lon": 9.137952485479842
+    },
+    {
+      "id": "punta_del_pizzo",
+      "nome": "Punta del Pizzo",
+      "corpo": "Lario",
+      "zona": "Dilettantistica",
+      "uso": "dilettantistica",
+      "stato": "tenuto_da_parte",
+      "note": "Como. A sud di questa congiungente con il pontile di Blevio: solo pesca dilettantistica, fiocina vietata. Coordinate inserite il 2026-10-07. Tenuto da parte: zona riservata alla pesca dilettantistica.",
+      "lat": 45.84591610675451,
+      "lon": 9.088834342081224
+    },
+    {
+      "id": "pontile_blevio",
+      "nome": "Pontile della navigazione di Blevio",
+      "corpo": "Lario",
+      "zona": "Dilettantistica",
+      "uso": "dilettantistica",
+      "stato": "tenuto_da_parte",
+      "note": "Altro capo della congiungente. Coordinate inserite il 2026-10-07. Tenuto da parte: zona riservata alla pesca dilettantistica.",
+      "lat": 45.839456560817496,
+      "lon": 9.101712714654207
+    },
+    {
+      "id": "stradina_pontili_sossana",
+      "nome": "Stradina di accesso ai pontili, Sossana",
+      "corpo": "Lario",
+      "zona": "Dilettantistica",
+      "uso": "dilettantistica",
+      "stato": "tenuto_da_parte",
+      "note": "Lezzeno. Inizio zona dilettantistica. Tenuto da parte: zona riservata alla pesca dilettantistica."
+    },
+    {
+      "id": "fornace_sossana",
+      "nome": "Fornace di Sossana",
+      "corpo": "Lario",
+      "zona": "Dilettantistica",
+      "uso": "dilettantistica",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo, 100 m dalla riva. Coordinate inserite il 2026-10-07. Tenuto da parte: zona riservata alla pesca dilettantistica.",
+      "lat": 45.951,
+      "lon": 9.21102
+    },
+    {
+      "id": "confine_griante",
+      "nome": "Confine tra Griante e Tremezzina",
+      "corpo": "Lario",
+      "zona": "Dilettantistica",
+      "uso": "dilettantistica",
+      "stato": "tenuto_da_parte",
+      "note": "Inizio di un tratto dilettantistico fino alla scalinata di Villa Carlotta. Coordinate inserite il 2026-10-07. Tenuto da parte: zona riservata alla pesca dilettantistica.",
+      "lat": 45.986748,
+      "lon": 9.23277
+    },
+    {
+      "id": "scalinata_villa_carlotta",
+      "nome": "Scalinata di Villa Carlotta",
+      "corpo": "Lario",
+      "zona": "Dilettantistica",
+      "uso": "dilettantistica",
+      "stato": "tenuto_da_parte",
+      "note": "Estremo del tratto. La darsena dell’imbarcadero è un ormeggio a parte. Coordinate inserite il 2026-10-07. Tenuto da parte: zona riservata alla pesca dilettantistica.",
+      "lat": 45.98592422644384,
+      "lon": 9.23123048964398
+    },
+    {
+      "id": "estremo_sud_parco_mayer",
+      "nome": "Estremità sud del parco Mayer",
+      "corpo": "Lario",
+      "zona": "Dilettantistica",
+      "uso": "dilettantistica",
+      "stato": "tenuto_da_parte",
+      "note": "Inizio del secondo tratto di Tremezzo. Indicato come possibile parco di Villa Meier. Coordinate inserite il 2026-10-07. Posizione indicata come non del tutto certa. Tenuto da parte: zona riservata alla pesca dilettantistica.",
+      "lat": 45.98169125710463,
+      "lon": 9.219837936229704
+    },
+    {
+      "id": "scalinata_villa_sola",
+      "nome": "Scalinata di Villa Sola a Bolvedro",
+      "corpo": "Lario",
+      "zona": "Dilettantistica",
+      "uso": "dilettantistica",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo. Coordinate inserite il 2026-10-07. Tenuto da parte: zona riservata alla pesca dilettantistica.",
+      "lat": 45.982147983772975,
+      "lon": 9.214869157262747
+    },
+    {
+      "id": "caserma_gdf_menaggio",
+      "nome": "Vecchia caserma della Guardia di Finanza, Menaggio",
+      "corpo": "Lario",
+      "zona": "Dilettantistica",
+      "uso": "dilettantistica",
+      "stato": "tenuto_da_parte",
+      "note": "Inizio zona dilettantistica fino alla scalinata a sud del Minigolf. Coordinate inserite il 2026-10-07. Posizione indicata come non del tutto certa. Tenuto da parte: zona riservata alla pesca dilettantistica.",
+      "lat": 46.00899424980739,
+      "lon": 9.235770249153651
+    },
+    {
+      "id": "pontile_acquaseria",
+      "nome": "Pontile di Acquaseria",
+      "corpo": "Lario",
+      "zona": "Dilettantistica",
+      "uso": "dilettantistica",
+      "stato": "tenuto_da_parte",
+      "note": "San Siro. Inizio verso nord fino alla punta di Santa Maria Rezzonico. Coordinate inserite il 2026-10-07. Tenuto da parte: zona riservata alla pesca dilettantistica.",
+      "lat": 46.05419914080801,
+      "lon": 9.260822647675802
+    },
+    {
+      "id": "punta_santa_maria",
+      "nome": "Punta di Santa Maria Rezzonico",
+      "corpo": "Lario",
+      "zona": "Dilettantistica",
+      "uso": "dilettantistica",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo. Coordinate inserite il 2026-10-07. Tenuto da parte: zona riservata alla pesca dilettantistica.",
+      "lat": 46.071028743311736,
+      "lon": 9.278761681421752
+    },
+    {
+      "id": "lido_bellagio",
+      "nome": "Lido di Bellagio",
+      "corpo": "Lario",
+      "zona": "Dilettantistica",
+      "uso": "dilettantistica",
+      "stato": "tenuto_da_parte",
+      "note": "Inizio zona dilettantistica fino al pontile del battello. Coordinate inserite il 2026-10-07. Tenuto da parte: zona riservata alla pesca dilettantistica.",
+      "lat": 45.9829659676911,
+      "lon": 9.256208128027609
+    },
+    {
+      "id": "pontile_battello_bellagio",
+      "nome": "Pontile del battello, Bellagio",
+      "corpo": "Lario",
+      "zona": "Dilettantistica",
+      "uso": "dilettantistica",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo. Coordinate inserite il 2026-10-07. Tenuto da parte: zona riservata alla pesca dilettantistica.",
+      "lat": 45.98740784278324,
+      "lon": 9.260127201305576
+    },
+    {
+      "id": "centrale_gravedona",
+      "nome": "Centrale idroelettrica di Gravedona",
+      "corpo": "Lario",
+      "zona": "Dilettantistica",
+      "uso": "dilettantistica",
+      "stato": "tenuto_da_parte",
+      "note": "Fine della zona dilettantistica che parte 100 m a nord della foce del Liro. Coordinate inserite il 2026-10-07. Tenuto da parte: zona riservata alla pesca dilettantistica.",
+      "lat": 46.14826009424362,
+      "lon": 9.311055696362986
+    },
+    {
+      "id": "confine_varenna_lierna",
+      "nome": "Confine tra Varenna e Lierna",
+      "corpo": "Lario",
+      "zona": "Dilettantistica",
+      "uso": "dilettantistica",
+      "stato": "tenuto_da_parte",
+      "note": "Inizio zona dilettantistica verso sud, circa 1300 m, 250 m da riva. Coordinate inserite il 2026-10-07. Tenuto da parte: zona riservata alla pesca dilettantistica.",
+      "lat": 45.967991,
+      "lon": 9.302555
+    },
+    {
+      "id": "inizio_muro_darsenone",
+      "nome": "Inizio del muro del Darsenone",
+      "corpo": "Lario",
+      "zona": "Dilettantistica",
+      "uso": "dilettantistica",
+      "stato": "tenuto_da_parte",
+      "note": "Lierna. Altro estremo. Coordinate inserite il 2026-10-07. Posizione indicata come non del tutto certa. Tenuto da parte: zona riservata alla pesca dilettantistica.",
+      "lat": 45.966224,
+      "lon": 9.301005
+    },
+    {
+      "id": "punta_sud_campeggio_colico",
+      "nome": "Punta a sud del campeggio di Colico",
+      "corpo": "Lario",
+      "zona": "Dilettantistica",
+      "uso": "dilettantistica",
+      "stato": "tenuto_da_parte",
+      "note": "Inizio di zona dilettantistica e, in altro regime, di zona subacquea: circa 800 m verso sud. Entrambi i regimi sono tenuti da parte. Tenuto da parte: zona riservata alla pesca dilettantistica."
+    },
+    {
+      "id": "secondo_finestrone_morcate",
+      "nome": "Secondo finestrone dopo la Punta del Morcate",
+      "corpo": "Lario",
+      "zona": "Dilettantistica",
+      "uso": "dilettantistica",
+      "stato": "tenuto_da_parte",
+      "note": "Perledo. Inizio zona dilettantistica verso nord, circa 500 m, 90 m da riva. Coordinate inserite il 2026-10-07. Tenuto da parte: zona riservata alla pesca dilettantistica.",
+      "lat": 46.02636124668369,
+      "lon": 9.283912095390615
+    },
+    {
+      "id": "fine_riva_gittana",
+      "nome": "Fine della Riva di Gittana",
+      "corpo": "Lario",
+      "zona": "Dilettantistica",
+      "uso": "dilettantistica",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo. La Riva di Gittana è esclusa dalla zona subacquea contigua. Coordinate inserite il 2026-10-07. Tenuto da parte: zona riservata alla pesca dilettantistica.",
+      "lat": 46.028513890539415,
+      "lon": 9.287924740468464
+    },
+    {
+      "id": "limite_nord_riva_gittana",
+      "nome": "Limite nord della Riva di Gittana",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Inizio della zona subacquea verso Bellano. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale. Coordinate inserite il 2026-10-07. Tenuto da parte: pesca subacquea.",
+      "lat": 46.028513890539415,
+      "lon": 9.287924740468464
+    },
+    {
+      "id": "limite_nord_stupenda",
+      "nome": "Limite nord della riva della Stupenda",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Bellano. Fine di quella zona subacquea. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale. Posizione indicata come non del tutto certa. Coordinate inserite il 2026-10-07. Tenuto da parte: pesca subacquea.",
+      "lat": 46.04130975604512,
+      "lon": 9.298455012039922
+    },
+    {
+      "id": "punta_gaeta",
+      "nome": "Punta di Gaeta",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "San Siro. Inizio zona subacquea fino alla foce del Serio. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale. Coordinate inserite il 2026-10-07. Tenuto da parte: pesca subacquea.",
+      "lat": 46.039892,
+      "lon": 9.251186
+    },
+    {
+      "id": "foce_serio",
+      "nome": "Foce del torrente Serio",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale. Coordinate inserite il 2026-10-07. Tenuto da parte: pesca subacquea.",
+      "lat": 46.051929,
+      "lon": 9.260284
+    },
+    {
+      "id": "scalinata_sud_punta_pizzo",
+      "nome": "Scalinata a sud della punta di Pizzo",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Cernobbio. Inizio zona subacquea fino a Villa Fontanelle. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale."
+    },
+    {
+      "id": "villa_fontanelle",
+      "nome": "Villa Fontanelle",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Moltrasio. Altro estremo. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale."
+    },
+    {
+      "id": "pontile_azzano",
+      "nome": "Pontile di Azzano",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Tremezzina. Inizio zona subacquea fino alla punta di Balbianello. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale."
+    },
+    {
+      "id": "punta_balbianello",
+      "nome": "Punta di Balbianello",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale."
+    },
+    {
+      "id": "molo_punta_spartivento",
+      "nome": "Molo in località Punta Spartivento",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Bellagio. Inizio zona subacquea. L’ormeggio del porto è un punto distinto. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale."
+    },
+    {
+      "id": "piazzetta_pescallo",
+      "nome": "Piazzetta a lago di Pescallo",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale."
+    },
+    {
+      "id": "pontile_plinianina",
+      "nome": "Pontile in località Plinianina",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Torno. Inizio zona subacquea. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale."
+    },
+    {
+      "id": "cantiere_mostes",
+      "nome": "Cantiere Mostes, Faggeto Lario",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale."
+    },
+    {
+      "id": "fine_porto_malgrate",
+      "nome": "Fine del porto di Malgrate",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Inizio zona subacquea fino all’inizio del porto di Parè. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale."
+    },
+    {
+      "id": "inizio_porto_pare",
+      "nome": "Inizio del porto di Parè",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Valmadrera. Altro estremo. I porti stessi sono ormeggi. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale."
+    },
+    {
+      "id": "fine_spiaggia_piona",
+      "nome": "Fine della spiaggia del Laghetto di Piona",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Colico. Inizio zona subacquea verso la Garavina. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale."
+    },
+    {
+      "id": "frana_olgiasca",
+      "nome": "Frana presso Olgiasca",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale."
+    },
+    {
+      "id": "punta_golfo_caviate",
+      "nome": "Punta dopo il golfo delle Caviate",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Abbadia. Inizio zona subacquea verso nord. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale."
+    },
+    {
+      "id": "localita_la_rosa",
+      "nome": "Località La Rosa",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Lecco. Altro estremo. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale."
+    },
+    {
+      "id": "limite_nord_moregallo",
+      "nome": "Limite nord del cantiere nautico di Moregallo",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Mandello. Inizio zona subacquea verso nord. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale."
+    },
+    {
+      "id": "confine_valbrona",
+      "nome": "Confine con il comune di Valbrona",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo, sulla riva di Mandello. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale."
+    },
+    {
+      "id": "confine_como_oliveto",
+      "nome": "Confine tra Como e Lecco sulla riva di Oliveto Lario",
+      "corpo": "Lario",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Inizio zona subacquea per un chilometro verso sud. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale."
+    },
+    {
+      "id": "molino_natante_vercurago",
+      "nome": "Molino natante in fondo al lungolago di Vercurago",
+      "corpo": "Lago di Garlate",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "La zona subacquea parte 100 m a nord di qui. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale."
+    },
+    {
+      "id": "inizio_campeggio_rivabella",
+      "nome": "Inizio della riva del campeggio di Rivabella",
+      "corpo": "Lago di Garlate",
+      "zona": "Subacquea",
+      "uso": "subacquea",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo. Tenuto da parte: pesca subacquea, fuori dal lavoro attuale."
+    },
+    {
+      "id": "imbocco_porto_dervio",
+      "nome": "Imboccatura del porto di Dervio",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Inizio della limitazione verso sud, 100 m dalla costa. Temporanea 1° marzo–10 agosto, salvo la barca vietata tutto l’anno. Coordinate inserite il 2026-10-07.",
+      "lat": 46.06853278129693,
+      "lon": 9.30548388979493
+    },
+    {
+      "id": "cantiere_navigazione_dervio",
+      "nome": "Cantiere della Navigazione, Dervio, incluso",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Altro estremo. Coordinate inserite il 2026-10-07.",
+      "lat": 46.070612374726814,
+      "lon": 9.301496873090032
+    },
+    {
+      "id": "estremo_nord_circolo_velico",
+      "nome": "Estremità nord della darsena del Circolo Velico",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Bellano. Inizio della limitazione verso sud. Coordinate inserite il 2026-10-07.",
+      "lat": 46.04295727749826,
+      "lon": 9.298904101691306
+    },
+    {
+      "id": "scivolo_lido_bellano",
+      "nome": "Scivolo di alaggio subito dopo il Lido di Bellano",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Altro estremo. Sul Pioverna la stessa zona arriva alla prima briglia, già elencata. Coordinate inserite il 2026-10-07.",
+      "lat": 46.0402011876833,
+      "lon": 9.299665718316467
+    },
+    {
+      "id": "ormeggio_lecco_canottieri",
+      "nome": "Ormeggio Canottieri",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Lecco",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 45.85222175649959,
+      "lon": 9.3869096982
+    },
+    {
+      "id": "ormeggio_malgrate",
+      "nome": "Porticciolo di Malgrate",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Malgrate",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 45.85288629490481,
+      "lon": 9.3753685642
+    },
+    {
+      "id": "ormeggio_valmadrera_pare",
+      "nome": "Porto Paré",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Valmadrera",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 45.858647127304366,
+      "lon": 9.366571273
+    },
+    {
+      "id": "ormeggio_onno_molo_nuovo",
+      "nome": "Onno, Molo Nuovo",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Oliveto Lario",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 45.91183598771953,
+      "lon": 9.2941729664
+    },
+    {
+      "id": "ormeggio_onno_porticciolo",
+      "nome": "Onno, porticciolo",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Oliveto Lario",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 45.902694613682,
+      "lon": 9.301838827258
+    },
+    {
+      "id": "ormeggio_vassena",
+      "nome": "Porticciolo di Vassena",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Oliveto Lario",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 45.93128423827754,
+      "lon": 9.2847962704
+    },
+    {
+      "id": "ormeggio_rigona_limonta",
+      "nome": "Porticciolo della Rigona di Limonta",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Oliveto Lario",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 45.95758471406049,
+      "lon": 9.2712291428
+    },
+    {
+      "id": "ormeggio_abbadia",
+      "nome": "Porticciolo di Abbadia Lariana",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Abbadia Lariana",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 45.899615499266275,
+      "lon": 9.331435287
+    },
+    {
+      "id": "ormeggio_mandello_lega_navale",
+      "nome": "Area di ormeggio della Lega Navale",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Mandello del Lario",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 45.91149891443216,
+      "lon": 9.3229143596
+    },
+    {
+      "id": "ormeggio_mandello_mulini",
+      "nome": "Approdo Mulini",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Mandello del Lario",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 45.91691339157262,
+      "lon": 9.3129462001
+    },
+    {
+      "id": "ormeggio_mandello_piazza_gera",
+      "nome": "Area di ormeggio di Piazza Gera",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Mandello del Lario",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 45.912720895687364,
+      "lon": 9.316025777
+    },
+    {
+      "id": "ormeggio_mandello_olcio",
+      "nome": "Area di ormeggio di Olcio",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Mandello del Lario",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 45.936991148056656,
+      "lon": 9.312669431
+    },
+    {
+      "id": "ormeggio_lierna_punta_grumo",
+      "nome": "Porticciolo punta Grumo",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Lierna",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 45.948857159870684,
+      "lon": 9.302006333
+    },
+    {
+      "id": "ormeggio_lierna",
+      "nome": "Porticciolo di Lierna",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Lierna",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 45.96514644595311,
+      "lon": 9.3013476401
+    },
+    {
+      "id": "ormeggio_varenna_fiumelatte",
+      "nome": "Porticciolo di Fiumelatte",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Varenna",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 45.9997099823717,
+      "lon": 9.29172794412
+    },
+    {
+      "id": "ormeggio_varenna_centro",
+      "nome": "Porticciolo di Varenna Centro",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Varenna",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 46.01131065200262,
+      "lon": 9.282929226
+    },
+    {
+      "id": "ormeggio_bellano_centro",
+      "nome": "Porto di Bellano Centro",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Bellano",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 46.044361849053914,
+      "lon": 9.303094765
+    },
+    {
+      "id": "ormeggio_dervio_santa_cecilia",
+      "nome": "Ormeggio Santa Cecilia",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Dervio",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 46.068466007625716,
+      "lon": 9.306275982
+    },
+    {
+      "id": "ormeggio_dervio_porto_vecchio",
+      "nome": "Ormeggio Porto Vecchio",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Dervio",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 46.0765160628684,
+      "lon": 9.29882792051
+    },
+    {
+      "id": "ormeggio_colico_piona",
+      "nome": "Porticciolo di Piona",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Colico",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 46.12504490665597,
+      "lon": 9.3449903258
+    },
+    {
+      "id": "ormeggio_colico_molo",
+      "nome": "Molo centro",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Colico",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 46.137402241052165,
+      "lon": 9.370346369
+    },
+    {
+      "id": "ormeggio_gera_nuovo",
+      "nome": "Nuovo porto",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Gera Lario",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 46.16829671075299,
+      "lon": 9.3710723042
+    },
+    {
+      "id": "ormeggio_gera_vecchio",
+      "nome": "Vecchio porto",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Gera Lario",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 46.16795665208273,
+      "lon": 9.3695721324
+    },
+    {
+      "id": "ormeggio_domaso",
+      "nome": "Porto comunale",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Domaso",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 46.15744568014244,
+      "lon": 9.3398756633
+    },
+    {
+      "id": "ormeggio_gravedona",
+      "nome": "Porto comunale",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Gravedona ed Uniti",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 46.14409524644216,
+      "lon": 9.3051027446
+    },
+    {
+      "id": "ormeggio_dongo_vecchio",
+      "nome": "Vecchio porto",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Dongo",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 46.12261744627243,
+      "lon": 9.2803338157
+    },
+    {
+      "id": "ormeggio_musso",
+      "nome": "Porto comunale",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Musso",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 46.11457545328475,
+      "lon": 9.2774077437
+    },
+    {
+      "id": "ormeggio_sansiro_molvedo",
+      "nome": "Porto Molvedo",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "San Siro",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07. Indicate come non del tutto certe.",
+      "lat": 46.06110834853509,
+      "lon": 9.2655764845
+    },
+    {
+      "id": "ormeggio_menaggio_nobiallo",
+      "nome": "Porto comunale di Nobiallo",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Menaggio",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 46.0328669901029,
+      "lon": 9.237990761308732
+    },
+    {
+      "id": "ormeggio_menaggio_mazzini",
+      "nome": "Porto comunale, via Mazzini",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Menaggio",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 46.01928079912231,
+      "lon": 9.238111593242706
+    },
+    {
+      "id": "ormeggio_griante",
+      "nome": "Darsena al cartello di inizio centro abitato, confine con Tremezzina",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Griante",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.98665877346892,
+      "lon": 9.232712630456579
+    },
+    {
+      "id": "ormeggio_villa_carlotta",
+      "nome": "Darsena dell’imbarcadero di Villa Carlotta",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Tremezzina",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.98547612219417,
+      "lon": 9.230334669963222
+    },
+    {
+      "id": "ormeggio_ossuccio",
+      "nome": "Porticciolo di Ossuccio",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Tremezzina",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.96592994202432,
+      "lon": 9.17031151930143
+    },
+    {
+      "id": "ormeggio_ospedaletto",
+      "nome": "Porticciolo di Ospedaletto",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Tremezzina",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.966979060631374,
+      "lon": 9.183526222711162
+    },
+    {
+      "id": "ormeggio_colonno",
+      "nome": "Porto comunale",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Colonno",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.9570782299602,
+      "lon": 9.154203762308834
+    },
+    {
+      "id": "ormeggio_argegno",
+      "nome": "Porto comunale",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Argegno",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.94404056434802,
+      "lon": 9.128821335910631
+    },
+    {
+      "id": "ormeggio_brienno_vecchio",
+      "nome": "Vecchio porto",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Brienno",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.91096186053607,
+      "lon": 9.131710127673015
+    },
+    {
+      "id": "ormeggio_laglio_tenciuu",
+      "nome": "Porticciolo Riva del Tenciuu, vecchia strada Regina Teodolinda",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Laglio",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.89015631586407,
+      "lon": 9.143888494935336
+    },
+    {
+      "id": "ormeggio_laglio",
+      "nome": "Porto comunale",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Laglio",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.88017801469,
+      "lon": 9.138775870296097
+    },
+    {
+      "id": "ormeggio_carate",
+      "nome": "Porticciolo di Carate",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Carate Urio",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.86918356876722,
+      "lon": 9.11901140464063
+    },
+    {
+      "id": "ormeggio_urio",
+      "nome": "Porticciolo di Urio",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Carate Urio",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.86892005348828,
+      "lon": 9.117766394448571
+    },
+    {
+      "id": "ormeggio_moltrasio",
+      "nome": "Porto comunale",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Moltrasio",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.861138991852485,
+      "lon": 9.103039082001425
+    },
+    {
+      "id": "ormeggio_cernobbio",
+      "nome": "Porto comunale",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Cernobbio",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.840599158546354,
+      "lon": 9.078215967383796
+    },
+    {
+      "id": "ormeggio_como_tavernola_rampa",
+      "nome": "Porto comunale di Tavernola, rampa di alaggio",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Como",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.83162444038162,
+      "lon": 9.072299941485815
+    },
+    {
+      "id": "ormeggio_como_villa_sforni",
+      "nome": "Darsena di Villa Sforni, Tavernola",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Como",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.83061277354705,
+      "lon": 9.072112979746844
+    },
+    {
+      "id": "ormeggio_como_villa_saporiti",
+      "nome": "Darsena di Villa Saporiti",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Como",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.81487447451037,
+      "lon": 9.068870880446026
+    },
+    {
+      "id": "ormeggio_como_sant_agostino",
+      "nome": "Area portuale tra il tondello del Molo di Sant’Agostino e il pontile 2 della navigazione",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Como",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.815130665033884,
+      "lon": 9.080305804137895
+    },
+    {
+      "id": "ormeggio_como_ceccato",
+      "nome": "Darsena Ceccato",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Como",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.814434173881764,
+      "lon": 9.082716954595888
+    },
+    {
+      "id": "ormeggio_blevio",
+      "nome": "Porto comunale",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Blevio",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.83981293502088,
+      "lon": 9.102352196100746
+    },
+    {
+      "id": "ormeggio_torno_vecchio",
+      "nome": "Vecchio porto",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Torno",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.85665845569189,
+      "lon": 9.11325085823887
+    },
+    {
+      "id": "ormeggio_faggeto_riva",
+      "nome": "Porto comunale, località Riva",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Faggeto Lario",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.86429270104664,
+      "lon": 9.149473279756837
+    },
+    {
+      "id": "ormeggio_lezzeno_pescau",
+      "nome": "Porto comunale, località Pescaù",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Lezzeno",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.944498373490724,
+      "lon": 9.179649941926193
+    },
+    {
+      "id": "ormeggio_lezzeno_sostra",
+      "nome": "Porto comunale, località Sostra",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Lezzeno",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.94582347414123,
+      "lon": 9.18582350350608
+    },
+    {
+      "id": "ormeggio_bellagio_san_giovanni",
+      "nome": "Porto comunale, San Giovanni",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Bellagio",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.97535394846744,
+      "lon": 9.244602072371913
+    },
+    {
+      "id": "ormeggio_bellagio_loppia",
+      "nome": "Porto comunale, Loppia",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Bellagio",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.977689451828795,
+      "lon": 9.251947984035548
+    },
+    {
+      "id": "ormeggio_bellagio_lido",
+      "nome": "Porto comunale, Lido",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Bellagio",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.98322655543408,
+      "lon": 9.25706641766759
+    },
+    {
+      "id": "ormeggio_bellagio_spartivento",
+      "nome": "Porto comunale, Punta Spartivento",
+      "corpo": "Lario",
+      "zona": "Lario",
+      "uso": "ormeggio",
+      "stato": "verificato",
+      "comune": "Bellagio",
+      "note": "Divieto dentro l’area di ormeggio dal 1° dicembre al 30 aprile. Un solo pin al centro del porto. Coordinate inserite il 2026-10-07.",
+      "lat": 45.99113699163952,
+      "lon": 9.264961833489005
+    },
+    {
+      "id": "foce_cannobino",
+      "nome": "Foce del Cannobino",
+      "corpo": "Verbano",
+      "zona": "Fuori",
+      "uso": "fuori",
+      "stato": "fuori_perimetro",
+      "note": "Cannobio è in Piemonte. Il prontuario lo cita; il Bacino 5 è la porzione lombarda."
+    },
+    {
+      "id": "foce_san_giovanni",
+      "nome": "Foce del torrente San Giovanni",
+      "corpo": "Verbano",
+      "zona": "Fuori",
+      "uso": "fuori",
+      "stato": "fuori_perimetro",
+      "note": "Il prontuario non indica il comune. Lo sbocco noto è a Intra, in Piemonte."
+    },
+    {
+      "id": "foce_toce",
+      "nome": "Foce del Toce",
+      "corpo": "Verbano",
+      "zona": "Fuori",
+      "uso": "fuori",
+      "stato": "fuori_perimetro",
+      "note": "Fondotoce, Piemonte."
+    },
+    {
+      "id": "foce_maggia",
+      "nome": "Foce della Maggia",
+      "corpo": "Verbano",
+      "zona": "Fuori",
+      "uso": "fuori",
+      "stato": "fuori_perimetro",
+      "note": "Svizzera."
+    },
+    {
+      "id": "foce_ticino_immissario",
+      "nome": "Foce del Ticino immissario",
+      "corpo": "Verbano",
+      "zona": "Fuori",
+      "uso": "fuori",
+      "stato": "fuori_perimetro",
+      "note": "Magadino, Svizzera. Il Ticino emissario fino a Sesto Calende è invece nel bacino."
+    },
+    {
+      "id": "foce_verzasca",
+      "nome": "Foce della Verzasca",
+      "corpo": "Verbano",
+      "zona": "Fuori",
+      "uso": "fuori",
+      "stato": "fuori_perimetro",
+      "note": "Svizzera."
+    },
+    {
+      "id": "foce_vedeggio",
+      "nome": "Foce del Vedeggio",
+      "corpo": "Ceresio",
+      "zona": "Fuori",
+      "uso": "fuori",
+      "stato": "fuori_perimetro",
+      "note": "Svizzera."
+    },
+    {
+      "id": "foce_cassarate",
+      "nome": "Foce del Cassarate",
+      "corpo": "Ceresio",
+      "zona": "Fuori",
+      "uso": "fuori",
+      "stato": "fuori_perimetro",
+      "note": "Svizzera."
+    },
+    {
+      "id": "foce_magliasina",
+      "nome": "Foce della Magliasina",
+      "corpo": "Ceresio",
+      "zona": "Fuori",
+      "uso": "fuori",
+      "stato": "fuori_perimetro",
+      "note": "Svizzera."
+    },
+    {
+      "id": "foce_laveggio",
+      "nome": "Foce del Laveggio",
+      "corpo": "Ceresio",
+      "zona": "Fuori",
+      "uso": "fuori",
+      "stato": "fuori_perimetro",
+      "note": "Svizzera."
+    },
+    {
+      "id": "diga_melide",
+      "nome": "Arcate del ponte diga di Melide",
+      "corpo": "Ceresio",
+      "zona": "Fuori",
+      "uso": "fuori",
+      "stato": "fuori_perimetro",
+      "note": "Svizzera."
+    },
+    {
+      "id": "ponte_legno_ss36_varrone",
+      "nome": "Ponte di legno a monte del viadotto della S.S. 36",
+      "corpo": "Varrone",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Dervio. Dall’S.P. 72, 1000 m."
+    },
+    {
+      "id": "ponte_levino",
+      "nome": "Ponte di Levino",
+      "corpo": "Varrone",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Premana."
+    },
+    {
+      "id": "ponte_gebbio",
+      "nome": "Ponte di Gebbio",
+      "corpo": "Varrone",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Premana. Altro estremo, 1000 m."
+    },
+    {
+      "id": "cascata_forni",
+      "nome": "Cascata artificiale, località Forni",
+      "corpo": "Varrone",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Premana. Da qui 200 m verso monte."
+    },
+    {
+      "id": "ponte_giabbi",
+      "nome": "Ponte dei Giabbi",
+      "corpo": "Varroncello",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Pagnona. Da qui 200 m verso monte."
+    },
+    {
+      "id": "ponte_bonacina",
+      "nome": "Ponte di località Bonacina",
+      "corpo": "Caldone",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Lecco. Fino alla confluenza con il Grigna, 500 m."
+    },
+    {
+      "id": "confluenza_grigna",
+      "nome": "Confluenza del Caldone con il Grigna",
+      "corpo": "Caldone",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "ponte_via_maglio",
+      "nome": "Ponte di via Maglio",
+      "corpo": "Gallavesa",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Calolziocorte."
+    },
+    {
+      "id": "cascina_folla",
+      "nome": "Ultima cascina a valle, località Folla",
+      "corpo": "Gallavesa",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo, 530 m."
+    },
+    {
+      "id": "ponte_resegone",
+      "nome": "Primo ponte dopo la strettoia di via Resegone",
+      "corpo": "Gallavesa",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Erve."
+    },
+    {
+      "id": "sentiero_teleferica",
+      "nome": "Sentiero dopo la piazzola all’altezza della teleferica",
+      "corpo": "Gallavesa",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo, 520 m."
+    },
+    {
+      "id": "ponte_chiuso",
+      "nome": "Ponte di Chiuso",
+      "corpo": "Pioverna",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Introbio. I 600 m a valle sono il campo gara, solo in gara, dal 1° novembre al 15 febbraio."
+    },
+    {
+      "id": "confluenza_pioverna_troggia",
+      "nome": "Confluenza del Pioverna con il Troggia",
+      "corpo": "Pioverna",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Primaluna."
+    },
+    {
+      "id": "ponte_barcone",
+      "nome": "Ponte di Barcone",
+      "corpo": "Pioverna",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Il campo arriva 70 m a valle di questo ponte."
+    },
+    {
+      "id": "diga_taceno",
+      "nome": "Diga di Taceno",
+      "corpo": "Pioverna",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Il campo arriva 200 m a monte della diga. L’altro capo è il canale Rossiga, che è già una regola."
+    },
+    {
+      "id": "diga_enel_troggia",
+      "nome": "Diga Enel sul Troggia",
+      "corpo": "Troggia",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Introbio."
+    },
+    {
+      "id": "ponte_sp62_troggia",
+      "nome": "Ponte sulla S.P. 62",
+      "corpo": "Troggia",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo, 400 m."
+    },
+    {
+      "id": "ponte_colombaio",
+      "nome": "Ponte di frazione Colombaio",
+      "corpo": "Bevera di Lecco",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Costamasnaga. 500 m a monte. Non è il Bevera di Cantello."
+    },
+    {
+      "id": "foce_albano",
+      "nome": "Foce dell’Albano",
+      "corpo": "Albano",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Dongo."
+    },
+    {
+      "id": "ponte_vecchia_regina_albano",
+      "nome": "Ponte sulla vecchia Regina",
+      "corpo": "Albano",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "immissione_reggea",
+      "nome": "Immissione nel bacino della Reggea",
+      "corpo": "Albano",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Garzeno."
+    },
+    {
+      "id": "ponte_lancio",
+      "nome": "Ponte di Lanciò",
+      "corpo": "Albano",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "platani_riprese",
+      "nome": "Località Platani Riprese",
+      "corpo": "Liro",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Gravedona. Dalla foce, che è già una regola, fino a qui."
+    },
+    {
+      "id": "ponte_regina_serio",
+      "nome": "Ponte sulla Statale Regina",
+      "corpo": "Serio",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "San Siro."
+    },
+    {
+      "id": "seconda_briglia_serio",
+      "nome": "Seconda briglia verso monte",
+      "corpo": "Serio",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "presa_chioderia",
+      "nome": "Presa della piscicoltura, Vecchia Chioderia",
+      "corpo": "Senagra",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Grandola e Uniti. Circa 800 m verso valle."
+    },
+    {
+      "id": "ponte_sovera_200m",
+      "nome": "200 m a monte del ponte in pietra di San Pietro Sovera",
+      "corpo": "Cuccio",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Porlezza. Dalla foce, che è già una regola."
+    },
+    {
+      "id": "cascata_mulino_porlezza",
+      "nome": "Cascata del Mulino",
+      "corpo": "Rezzo",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Porlezza."
+    },
+    {
+      "id": "ponte_via_prati",
+      "nome": "Ponte di via Prati",
+      "corpo": "Rezzo",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "ponte_castello",
+      "nome": "Ponte di Castello",
+      "corpo": "Soldo",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Valsolda. 300 m a monte e 300 m a valle."
+    },
+    {
+      "id": "burgantun",
+      "nome": "Località Burgantun",
+      "corpo": "Telo di Osteno",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Laino."
+    },
+    {
+      "id": "burgant_minica",
+      "nome": "Località Burgant della Minica",
+      "corpo": "Telo di Osteno",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Laino."
+    },
+    {
+      "id": "ponte_pietra_dizzasco",
+      "nome": "Ponte in pietra, località Mulini",
+      "corpo": "Telo di Argegno",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Dizzasco. 250 m a valle e 450 m a monte. Non è il ponte della mulattiera di Schignano."
+    },
+    {
+      "id": "confine_pontelambro",
+      "nome": "Confine comunale di Pontelambro",
+      "corpo": "Lambro",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Verso monte."
+    },
+    {
+      "id": "briglia_roggia_molinara",
+      "nome": "Piede della briglia di derivazione della Roggia Molinara",
+      "corpo": "Lambro",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "ponte_oscuro",
+      "nome": "Località Ponte Oscuro",
+      "corpo": "Lambro",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Canzo e Asso. Dalla stazione, che è già una regola, fino a qui."
+    },
+    {
+      "id": "mulino_carlazzo",
+      "nome": "Località Mulino",
+      "corpo": "Cuccio",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Carlazzo."
+    },
+    {
+      "id": "ponte_maggioni",
+      "nome": "Ponte Maggioni",
+      "corpo": "Cuccio",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "fine_gara_cucco",
+      "nome": "200 m a valle del ponte del Cucco",
+      "corpo": "Margorabbia",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Montegrino. Il ponte e il supermercato di Mesenzana sono già verificati."
+    },
+    {
+      "id": "briglia_bennet",
+      "nome": "Briglia a monte del supermercato Bennet, località Tavernerola",
+      "corpo": "Breggia",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Dal ponte di confine, che è già una regola, fino a qui."
+    },
+    {
+      "id": "riva_sp72_laghetto",
+      "nome": "Inizio della riva sottostante la S.P. 72, frazione Laghetto",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Colico, lago di Piona. 1200 m a nord."
+    },
+    {
+      "id": "filatoio_dorio",
+      "nome": "Filatoio di Dorio",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "500 m a nord."
+    },
+    {
+      "id": "riva_capona",
+      "nome": "Riva della Capona",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Dervio, 830 m."
+    },
+    {
+      "id": "molo_vecchio_dervio",
+      "nome": "Molo vecchio di Dervio",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Fino alla spiaggetta, 180 m."
+    },
+    {
+      "id": "spiaggetta_dervio",
+      "nome": "Spiaggetta a destra del molo vecchio",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Dervio."
+    },
+    {
+      "id": "imbarcadero_santa_cecilia",
+      "nome": "Imbarcadero del molo di Santa Cecilia",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Dervio, verso sud fino alla fine della massicciata, 360 m."
+    },
+    {
+      "id": "fine_massicciata_dervio",
+      "nome": "Fine della massicciata, Dervio",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "ex_incubatoio_oro",
+      "nome": "Tratto antistante l’ex incubatoio, località Oro",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Bellano, 240 m."
+    },
+    {
+      "id": "pontile_navigazione_bellano",
+      "nome": "Pontile della navigazione di Bellano",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Fino all’inizio della zona di tutela, 280 m."
+    },
+    {
+      "id": "porticciolo_bellano_gara",
+      "nome": "Porticciolo di Bellano, lato sud della tutela",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Dal confine sud della tutela fino al porticciolo, 220 m."
+    },
+    {
+      "id": "riva_gatta",
+      "nome": "Riva della Gatta",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Varenna."
+    },
+    {
+      "id": "monumento_gatta",
+      "nome": "Monumento, località La Gatta",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo, 850 m."
+    },
+    {
+      "id": "punta_castello_lierna",
+      "nome": "Punta di Castello",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Lierna, riva Bianca, fino al muro di Villa Pina."
+    },
+    {
+      "id": "muro_villa_pina",
+      "nome": "Muro di Villa Pina",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "punta_grumo_gara",
+      "nome": "Punta di Grumo",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Lierna, fino al lido, 270 m."
+    },
+    {
+      "id": "lido_grumo",
+      "nome": "Lido di Grumo",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "porto_olcio",
+      "nome": "Porto di Olcio",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Mandello, verso nord fino alla fine della spiaggia, 350 m."
+    },
+    {
+      "id": "fine_spiaggia_olcio",
+      "nome": "Fine della spiaggia di Olcio",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "molo_mulini_mandello",
+      "nome": "Molo dei Mulini",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Mandello, verso nord fino a Quattro Ruote, 640 m."
+    },
+    {
+      "id": "quattro_ruote",
+      "nome": "Località Quattro Ruote",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "motel_melgone",
+      "nome": "Motel di Melgone",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Mandello, verso nord fino al termine della spiaggia, 580 m."
+    },
+    {
+      "id": "fine_spiaggia_melgone",
+      "nome": "Termine della spiaggia di Melgone",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "chiesa_rotta",
+      "nome": "Chiesa rotta",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Abbadia, fino al molo, 490 m."
+    },
+    {
+      "id": "molo_abbadia_gara",
+      "nome": "Molo di Abbadia",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Poi fino all’ingresso della galleria, 1520 m."
+    },
+    {
+      "id": "ingresso_galleria_abbadia",
+      "nome": "Ingresso della galleria di Abbadia",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "orsa_maggiore",
+      "nome": "Orsa Maggiore, località Pradello",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Abbadia, verso nord fino al termine della spiaggia, 800 m."
+    },
+    {
+      "id": "fine_spiaggia_pradello",
+      "nome": "Termine della spiaggia di Pradello",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "imbarcadero_vassena",
+      "nome": "Imbarcadero del traghetto di Vassena",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Oliveto Lario, 400 m verso sud."
+    },
+    {
+      "id": "primo_molo_onno",
+      "nome": "Primo molo di Onno",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Verso nord fino al molo della strada per Valbrona, 850 m."
+    },
+    {
+      "id": "molo_valbrona_onno",
+      "nome": "Molo in prossimità della strada per Valbrona",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Onno."
+    },
+    {
+      "id": "diga_foranea_geno",
+      "nome": "Diga foranea, passeggiata di Villa Geno",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Como. Il prontuario non dà un secondo estremo."
+    },
+    {
+      "id": "localita_caviate",
+      "nome": "Località Caviate",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Lecco, verso sud fino al Monumento, 2065 m."
+    },
+    {
+      "id": "localita_monumento_lecco",
+      "nome": "Località Monumento",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Lecco."
+    },
+    {
+      "id": "localita_lazzaretto",
+      "nome": "Località Lazzaretto",
+      "corpo": "Lario",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Lecco, 250 m. Il prontuario non nomina il secondo estremo."
+    },
+    {
+      "id": "porto_malgrate_gara",
+      "nome": "Porto di Malgrate",
+      "corpo": "Adda",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Dal ponte Kennedy, che è già una regola, fino a qui, 940 m."
+    },
+    {
+      "id": "ponte_ferrovia_adda",
+      "nome": "Ponte della ferrovia sull’Adda",
+      "corpo": "Adda",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Da 500 m a valle di questo ponte si chiude il campo che parte dal Kennedy, 1680 m."
+    },
+    {
+      "id": "rivenditore_campeggio_garlate",
+      "nome": "Rivenditore di articoli da campeggio, Terzo Ponte",
+      "corpo": "Lago di Garlate",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Garlate, fino all’innesto della rampa, 300 m."
+    },
+    {
+      "id": "rampa_terzo_ponte",
+      "nome": "Inizio innesto rampa del terzo ponte",
+      "corpo": "Lago di Garlate",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "bocciodromo_pescate",
+      "nome": "Bocciodromo di Pescate",
+      "corpo": "Lago di Garlate",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Fino alla fine del campo da tennis, 400 m."
+    },
+    {
+      "id": "campo_tennis_pescate",
+      "nome": "Fine del campo da tennis di Pescate",
+      "corpo": "Lago di Garlate",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "ristorante_torrette",
+      "nome": "Ristorante Torrette",
+      "corpo": "Lago di Garlate",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Kalcherin, fino al rivenditore Piaggio, 500 m."
+    },
+    {
+      "id": "rivenditore_piaggio",
+      "nome": "Rivenditore Piaggio",
+      "corpo": "Lago di Garlate",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "bocciodromo_garlate",
+      "nome": "Bocciodromo di Garlate",
+      "corpo": "Lago di Garlate",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Fino al bar Glicine, 450 m."
+    },
+    {
+      "id": "bar_glicine",
+      "nome": "Bar Glicine",
+      "corpo": "Lago di Garlate",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "mela_verde",
+      "nome": "Ristorante Mela verde",
+      "corpo": "Lago di Garlate",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Vercurago, fino alla fabbrica Pirelli, 750 m."
+    },
+    {
+      "id": "fabbrica_pirelli",
+      "nome": "Fabbrica Pirelli",
+      "corpo": "Lago di Garlate",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "scaletta_torre_olginate",
+      "nome": "Scaletta della torre, località La Torre",
+      "corpo": "Lago di Olginate",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Fino al depuratore, 780 m."
+    },
+    {
+      "id": "depuratore_olginate",
+      "nome": "Depuratore di Olginate",
+      "corpo": "Lago di Olginate",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "punta_corno",
+      "nome": "Punta del Corno",
+      "corpo": "Lago di Pusiano",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Due campi partono da qui: fino al confine con Como, 970 m, e 400 m verso Bosisio."
+    },
+    {
+      "id": "confine_como_pusiano",
+      "nome": "Confine con la provincia di Como sul Pusiano",
+      "corpo": "Lago di Pusiano",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Rogeno / Bosisio."
+    },
+    {
+      "id": "cimitero_bosisio",
+      "nome": "Cimitero di Bosisio Parini",
+      "corpo": "Lago di Pusiano",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Fino ai giardini, 510 m."
+    },
+    {
+      "id": "giardini_bosisio",
+      "nome": "Giardini di Bosisio Parini",
+      "corpo": "Lago di Pusiano",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "meta_penisola_isella",
+      "nome": "Metà della penisola di Isella",
+      "corpo": "Lago di Annone",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Civate e Suello."
+    },
+    {
+      "id": "bivio_ss36_annone",
+      "nome": "500 m prima del bivio Milano–Como della S.S. 36",
+      "corpo": "Lago di Annone",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo, 1270 m."
+    },
+    {
+      "id": "strada_lungolago_gavirate",
+      "nome": "Strada che porta al lungolago di Gavirate",
+      "corpo": "Lago di Varese",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Circa 250 m a monte e 250 m a valle. Rilascio obbligatorio."
+    },
+    {
+      "id": "punta_voltorre",
+      "nome": "Punta di Voltorre, sbocco del torrente Boschetti",
+      "corpo": "Lago di Varese",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "400 m a monte e 350 m a valle. Rilascio obbligatorio."
+    },
+    {
+      "id": "imbarcadero_isolino_virginia",
+      "nome": "Imbarcadero per l’Isolino Virginia",
+      "corpo": "Lago di Varese",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Biandronno, circa 850 m a monte."
+    },
+    {
+      "id": "cimitero_brusimpiano",
+      "nome": "Cimitero di Brusimpiano",
+      "corpo": "Ceresio",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Circa 550 m verso Porto Ceresio, fino al Crotto Zolla."
+    },
+    {
+      "id": "crotto_zolla",
+      "nome": "Crotto Zolla",
+      "corpo": "Ceresio",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "fontana_letizia",
+      "nome": "Fontana Letizia",
+      "corpo": "Ceresio",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Brusimpiano, circa 800 m verso sud."
+    },
+    {
+      "id": "spiaggia_crotto_del_lago",
+      "nome": "Spiaggia presso il ristorante Crotto del Lago",
+      "corpo": "Ceresio",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Porlezza, località Caravina. Il prontuario non dà il secondo estremo."
+    },
+    {
+      "id": "pontile_cima",
+      "nome": "Pontile di località Cima",
+      "corpo": "Ceresio",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Porlezza, fino al parcheggio con il platano."
+    },
+    {
+      "id": "parcheggio_platano_cima",
+      "nome": "Parcheggio con il platano, località Cima",
+      "corpo": "Ceresio",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Altro estremo."
+    },
+    {
+      "id": "piazza_lago_osteno",
+      "nome": "Piazza a lago di Claino con Osteno",
+      "corpo": "Ceresio",
+      "zona": "Campo gara",
+      "uso": "campo_gara",
+      "stato": "tenuto_da_parte",
+      "note": "Il prontuario non dà il secondo estremo."
+    },
+    {
+      "id": "ponte_grantola",
+      "nome": "Ponte di Grantola",
+      "corpo": "Margorabbia",
+      "zona": "Verbano",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "No-kill. Coordinata già in capisaldi_verificati.json."
+    },
+    {
+      "id": "nk_end",
+      "nome": "Briglia 150 m a monte del concessionario auto, Mesenzana",
+      "corpo": "Margorabbia",
+      "zona": "Verbano",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Fine del no-kill. Già verificato."
+    },
+    {
+      "id": "foce_briglia",
+      "nome": "Prima briglia a monte della confluenza con il Tresa",
+      "corpo": "Margorabbia",
+      "zona": "Verbano",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Inizio del divieto di foce. Già verificato."
+    },
+    {
+      "id": "sp54_chiesone",
+      "nome": "Ponte sulla S.S. 394 (il prontuario scrive S.P. 54)",
+      "corpo": "Chiesone",
+      "zona": "Verbano",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Divieto. Già verificato."
+    },
+    {
+      "id": "pianazzo_chiesone",
+      "nome": "Ponte di via Pianazzo",
+      "corpo": "Chiesone",
+      "zona": "Verbano",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Divieto. Già verificato."
+    },
+    {
+      "id": "monumento_ghirla",
+      "nome": "Monumento ai Caduti a Ghirla",
+      "corpo": "Boggione",
+      "zona": "Verbano",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Divieto. Già verificato."
+    },
+    {
+      "id": "strada_marzio_boarezzo",
+      "nome": "Attraversamento della strada Marzio–Boarezzo",
+      "corpo": "Boggione",
+      "zona": "Verbano",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Divieto. Già verificato."
+    },
+    {
+      "id": "ponte_dogana",
+      "nome": "Ponte della Dogana",
+      "corpo": "Tresa",
+      "zona": "Ceresio",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Pesca notturna e area doganale. Già verificato."
+    },
+    {
+      "id": "chiusa_regolazione",
+      "nome": "Chiusa di regolazione delle acque",
+      "corpo": "Tresa",
+      "zona": "Ceresio",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Pesca notturna. Già verificato."
+    },
+    {
+      "id": "ponte_biviglione",
+      "nome": "Ponte di ferro, Biviglione",
+      "corpo": "Tresa",
+      "zona": "Ceresio",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Notturna della bottatrice. Già verificato."
+    },
+    {
+      "id": "diga_creva",
+      "nome": "Diga di Creva",
+      "corpo": "Tresa",
+      "zona": "Ceresio",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Notturna della bottatrice. Già verificato."
+    },
+    {
+      "id": "vecchia_filanda",
+      "nome": "Stabile Vecchia Filanda, inizio dello stretto",
+      "corpo": "Ceresio",
+      "zona": "Ceresio",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Canneto. Già verificato."
+    },
+    {
+      "id": "grotto_bagat",
+      "nome": "Stabile Grotto del Bagat, fine dello stretto",
+      "corpo": "Ceresio",
+      "zona": "Ceresio",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Canneto. Già verificato."
+    },
+    {
+      "id": "ponte_bigattini",
+      "nome": "Ponte di via Bigattini",
+      "corpo": "Trallo",
+      "zona": "Ceresio",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Il prontuario scrive Bigattini. Già verificato."
+    },
+    {
+      "id": "foce_rezzo",
+      "nome": "Foce del Rezzo",
+      "corpo": "Ceresio",
+      "zona": "Ceresio",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Cerchio da 50 m. Già verificato."
+    },
+    {
+      "id": "foce_telo",
+      "nome": "Foce del Telo di Osteno (sul posto è la foce del Lirone)",
+      "corpo": "Ceresio",
+      "zona": "Ceresio",
+      "uso": "regola",
+      "stato": "verificato",
+      "note": "Cerchio da 50 m. Già verificato. Non è il Telo di Argegno."
+    },
+    {
+      "id": "outlet_ghirla",
+      "nome": "Ponte sul Lago di Ghirla",
+      "corpo": "Margorabbia",
+      "zona": "Verbano",
+      "uso": "campo_gara",
+      "stato": "verificato",
+      "note": "Campo gara. Già verificato, tenuto da parte."
+    },
+    {
+      "id": "chiusa_enel",
+      "nome": "Chiusa Enel in località Ghetto",
+      "corpo": "Margorabbia",
+      "zona": "Verbano",
+      "uso": "campo_gara",
+      "stato": "verificato",
+      "note": "Campo gara. Già verificato, tenuto da parte."
+    },
+    {
+      "id": "super_mesenzana",
+      "nome": "Supermercato di Mesenzana",
+      "corpo": "Margorabbia",
+      "zona": "Verbano",
+      "uso": "campo_gara",
+      "stato": "verificato",
+      "note": "Campo gara. Già verificato, tenuto da parte."
+    },
+    {
+      "id": "ponte_cucco",
+      "nome": "Ponte del Cucco",
+      "corpo": "Margorabbia",
+      "zona": "Verbano",
+      "uso": "campo_gara",
+      "stato": "verificato",
+      "note": "Campo gara. Già verificato. I 200 m a valle sono un punto a parte, fine_gara_cucco."
+    }
+  ]
+}

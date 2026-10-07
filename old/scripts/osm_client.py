@@ -1,4 +1,8 @@
-"""Accesso a OSM API, Nominatim e Overpass con cache su disco (cache/http)."""
+"""Accesso a OSM API, Nominatim e Overpass con cache su disco (cache/http).
+
+Modulo della pipeline precedente. La segmentazione corrente legge il GeoJSON
+regionale in data/geojson/AcqueLombardia e non importa questo modulo.
+"""
 
 from __future__ import annotations
 
