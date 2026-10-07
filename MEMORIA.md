@@ -3,7 +3,7 @@
 Documento vivo: aggiornarlo al termine di ogni sessione di lavoro sostanziale.  
 Serve alle chat successive per riprendere il contesto senza ricostruire tutto da zero.
 
-**Ultimo aggiornamento:** 2026-10-07 (cartelle riordinate)
+**Ultimo aggiornamento:** 2026-10-07 (caricato su GitHub)
 
 ---
 
@@ -101,10 +101,10 @@ Boggione: Monumento ai Caduti (ok) → attraversamento Marzio–Boarezzo (ok). D
 - Ceresio pubblicato. Lirone intero (9,5 km) fino alla foce confermata 46.009072, 9.084980: è la foce che il prontuario chiama Telo; il cerchio da 50 m è solo la parte di specchio. Il Telo OSM resta a monte e non arriva a riva. Lagadone 2,6 km, non citato nel prontuario, in mappa come tipo B. Canneto di Lavena: 438 m sulla riva tra i due estremi, divieto; la fascia d'acqua fino ai gavitelli non è disegnata. Tresa tagliato a riva del Verbano (tolti circa 1,8 km di centerline che entrava nel lago; la punta resta a 8.72638, 45.99685). Divieto Lavena ~199 m, sponda sinistra idrografica (sud). Trallo ponte–foce 650 m (prontuario ~500). Foce Tresa nel Verbano e raggio del Cuccio (metà alveo + 50 m) ancora aperti. Campi gara fuori. Sponda svizzera esclusa.
 - Prima corsa della segmentazione regionale (2026-10-06), non pubblicata. Snap dei tagli già verificati: Margorabbia 0,9–5,4 m, Tresa 0,5–4,7 m. No-Kill Grantola–Mesenzana sulla centerline regionale: circa 1897 m. Il divieto di foce del Margorabbia non è applicato sulla geometria: `confluenza_tresa` è misurato, la segmentazione non è stata rilanciata. Nomi composti non assegnati: Grantorella–Margorabbia, Rancina–Caprera, Rezzo–Valle del Cagna. Senza geometria nel reticolo filtrato: Boggione, Chiesone, Lisascora, Barona, Rio Boesio, Soldo, Trallo, Tinella; Pusiano è nel Lambro, fuori dai tre sottobacini. I tagli sul poligono (canneto, foci, Schiranna) non spezzano lo specchio.
 - Il sottobacino «Lago di Como (Lario)» non ha un attributo di provincia: un affluente in Sondrio classificato lì non è ancora clippato.
-- La pipeline OpenStreetMap è in `old/` (script, scarichi, tratti, overlay, anteprime, cache). `docs/` resta la mappa pubblicata e non si rigenera da lì. `py -3 scripts/regole.py --verifica` e `py -3 scripts/segmenta_rete.py` sono i comandi attuali.
+- La pipeline OpenStreetMap è in `old/` (script, scarichi, tratti, overlay, anteprime, cache). `docs/` resta la mappa pubblicata e non si rigenera da lì. `py -3 scripts/regole.py --verifica` e `py -3 scripts/segmenta_rete.py` sono i comandi attuali. Il riordino e il reticolo regionale sono su `main` dal 2026-10-07; la mappa online non è cambiata.
 - Il CLI `regole.py --zona` non è la cascata nuova: usare `--matrice` / `--verifica`.
 - Identità git locale usata al primo commit: `Daniele` / `daniele@users.noreply.github.com` (senza scrivere la git config globale). Git/`gh` portable in `%LOCALAPPDATA%\Programs\MinGit` e `...\gh`.
-- Non committare `cache/http/` né `__pycache__`.
+- Non committare `old/cache/` né `__pycache__`.
 
 ---
 
