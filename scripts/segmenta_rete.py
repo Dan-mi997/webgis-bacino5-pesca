@@ -114,10 +114,18 @@ def _nel_bacino(props: dict) -> bool:
     return (props or {}).get("SOTTOBACIN") in cfg.SOTTOBACINI_BACINO_5
 
 
-# Il Pusiano è nel grafo, ma il Geoportale lo mette nel sottobacino Lambro.
-_CORPI_FUORI_AMMESSI = {"pusiano"}
-# Laghi del prontuario fuori dai tre sottobacini, ancora senza scheda nel grafo.
+# Laghi del prontuario che il Geoportale mette fuori dai tre sottobacini.
+_CORPI_FUORI_AMMESSI = {"pusiano", "garlate", "segrino", "alserio", "montorfano"}
 _LAGHI_FUORI_SOTTOBACINO = {"garlate", "segrino", "alserio", "montorfano"}
+# Idronimo regionale del tratto limite → corpo nel grafo. Il residuo non sta qui.
+_IDRONIMO_CORPO = {
+    "adda": "adda",
+    "lambro": "lambro",
+    "olona": "olona",
+    "ticino": "ticino",
+    "lura": "lura",
+    "seveso": "seveso",
+}
 # Idronimo, caposaldo che chiude a valle, ancora (lon, lat) verso i laghi del bacino.
 _LIMITI_VALLE = (
     ("adda", "ponte_lavello", (9.41, 45.82)),
@@ -217,15 +225,93 @@ def _pezzi_utili(geom) -> list:
     return []
 
 
-def _completa_reticolo(fiumi: list[dict], laghi: list[dict], consumati: set[int], punti: dict,
-                       features: list[dict], report: dict) -> None:
-    """Aggiunge il reticolo del bacino che non ha ancora una scheda nel grafo."""
-    nomi = []
+def _tratto_kennedy(line: LineString, punti: dict) -> LineString | None:
+    """Adda fra ponte Kennedy e ponte Manzoni, se entrambi cadono sulla linea."""
+    a = punti.get("ponte_kennedy") or {}
+    b = punti.get("ponte_manzoni") or {}
+    if "lat" not in a or "lat" not in b:
+        return None
+    _pa, ma, da = project_info(line, float(a["lon"]), float(a["lat"]))
+    _pb, mb, db = project_info(line, float(b["lon"]), float(b["lat"]))
+    if da > cfg.MAX_SNAP_CAPOSALDO_M or db > cfg.MAX_SNAP_CAPOSALDO_M:
+        return None
+    lo, hi = (ma, mb) if ma <= mb else (mb, ma)
+    if hi - lo < 30 or hi - lo > 4000:
+        return None
+    return substring_m(line, lo, hi)
 
-    def _emetti(geom, props_reg: dict, nota: str) -> None:
+
+def _corpo_nominato(nome: str, matrice: Matrice) -> str | None:
+    """Se il nome regionale cita un solo corpo a linea, usa quello.
+
+    «Grantorella - Margorabbia» tiene il tributario: l'asta è già un'altra feature.
+    """
+    indice: dict[str, set[str]] = {}
+    for corpo_id, corpo in matrice.corpi.items():
+        if corpo.get("geometria") != "linea":
+            continue
+        if corpo_id.startswith("residuo_"):
+            continue
+        for chiave in _chiavi_corpo(corpo):
+            indice.setdefault(chiave, set()).add(corpo_id)
+    chiavi = [_chiave(p) for p in _parti_nome(nome) if _chiave(p)]
+    hits = []
+    for chiave in chiavi:
+        ids = indice.get(chiave) or set()
+        if len(ids) == 1:
+            hits.append(next(iter(ids)))
+    unici = list(dict.fromkeys(hits))
+    if len(unici) == 1:
+        return unici[0]
+    if len(unici) > 1:
+        tributari = [c for c in unici if c not in {"margorabbia", "tresa", "adda", "lambro", "olona"}]
+        if len(tributari) == 1:
+            return tributari[0]
+    return None
+
+
+def _corpo_residuo(props: dict, idr: str | None, nome: str = "") -> str:
+    """Tipo B di chiusura del par. 4.10, con la deroga dei giorni dove il prontuario la scrive."""
+    chiavi = {_chiave(p) for p in _parti_nome(nome) if _chiave(p)}
+    # Grantorella e Rancina sono affluenti del Margorabbia: la deroga del Maggiore non li copre.
+    if chiavi & {"grantorella", "rancina", "caprera"}:
+        return "residuo_b"
+    sotto = props.get("SOTTOBACIN") or ""
+    if sotto == "Lago Maggiore (Verbano)" or idr == "breggia":
+        return "residuo_b_verbano"
+    if sotto == "Olona" and idr != "lanza":
+        return "residuo_b_olona"
+    return "residuo_b"
+
+
+def _completa_reticolo(fiumi: list[dict], laghi: list[dict], consumati: set[int], punti: dict,
+                       features: list[dict], report: dict, matrice: Matrice) -> None:
+    """Assegna la scheda ai corsi già disegnati che il nome non ha agganciato a un corpo."""
+    grigi = []
+    usati: set[str] = set()
+
+    def _emetti(geom, props_reg: dict, corpo_id: str | None, nota: str) -> None:
         nome = props_reg.get("NOME") or "Corso"
-        features.append(feature(geom, _props_senza_scheda(nome, props_reg, geom, nota)))
-        nomi.append(nome)
+        atteso = None if corpo_id is None else (matrice.corpi.get(corpo_id) or {}).get("geometria")
+        lineare = geom.geom_type in ("LineString", "MultiLineString")
+        compatibile = (lineare and atteso == "linea") or (not lineare and atteso == "poligono")
+        if corpo_id and compatibile:
+            props = _props_base(matrice, corpo_id, None, nome, props_reg, geom)
+            if nota:
+                props["regole"]["note_corpo"] = ((props["regole"].get("note_corpo") or "") + " " + nota).strip()
+            features.append(feature(geom, props))
+            usati.add(corpo_id)
+            return
+        features.append(feature(geom, _props_senza_scheda(nome, props_reg, geom, nota or _NOTA_SENZA_SCHEDA)))
+        grigi.append(nome)
+
+    def _emetti_linea(line: LineString, props_reg: dict, corpo_id: str | None, nota: str) -> None:
+        if corpo_id == "adda":
+            tratto = _tratto_kennedy(line, punti)
+            if tratto is not None:
+                _emetti(tratto, props_reg, "adda_lecco_tipo_c", "Dal ponte Kennedy al ponte Manzoni.")
+                return
+        _emetti(line, props_reg, corpo_id, nota)
 
     for ft in fiumi + laghi:
         if id(ft) in consumati:
@@ -239,11 +325,13 @@ def _completa_reticolo(fiumi: list[dict], laghi: list[dict], consumati: set[int]
         if not ft.get("geometry"):
             continue
         geom = shape(ft["geometry"])
+        idr = _idronimo(nome)
         if geom.geom_type in ("LineString", "MultiLineString"):
+            corpo_id = _corpo_nominato(nome, matrice) or _corpo_residuo(props, idr, nome)
             for line in _linee(geom):
-                _emetti(line, props, _NOTA_SENZA_SCHEDA)
+                _emetti_linea(line, props, corpo_id, "")
         elif geom.geom_type in ("Polygon", "MultiPolygon"):
-            _emetti(geom, props, _NOTA_SENZA_SCHEDA)
+            _emetti(geom, props, None, _NOTA_SENZA_SCHEDA)
 
     limiti = {idr: (pid, ancora) for idr, pid, ancora in _LIMITI_VALLE}
     for ft in fiumi:
@@ -257,9 +345,8 @@ def _completa_reticolo(fiumi: list[dict], laghi: list[dict], consumati: set[int]
         sotto = props.get("SOTTOBACIN") or ""
         if idr == "bevera" and sotto == "Olona":
             for line in _linee(shape(ft["geometry"])):
-                _emetti(line, props, _NOTA_SENZA_SCHEDA + " Bevera di Cantello, nel bacino dell'Olona.")
+                _emetti_linea(line, props, "residuo_b_olona", "Bevera di Cantello, affluente dell'Olona.")
             continue
-        cappa = None
         if idr == "adda" and "Sopra" in sotto:
             bocca = Point(9.40, 46.15)
             for line in _linee(shape(ft["geometry"])):
@@ -269,20 +356,26 @@ def _completa_reticolo(fiumi: list[dict], laghi: list[dict], consumati: set[int]
                     _vicino, quota, _dist = project_info(line, bocca.x, bocca.y)
                     totale = line_length_m(line)
                     line = substring_m(line, max(0.0, quota - 4000), min(totale, quota + 4000))
-                _emetti(line, props, _NOTA_SENZA_SCHEDA + " Foce dell'Adda nel Lario: la Valtellina è in Sondrio.")
+                _emetti_linea(line, props, "adda", "Foce dell'Adda nel Lario: la Valtellina è in Sondrio.")
             continue
-        if idr == "bevera" and "Lambro" in sotto:
-            idr = "lambro"
-        spec = limiti.get(idr or "")
+        idr_clip = "lambro" if idr == "bevera" and "Lambro" in sotto else idr
+        spec = limiti.get(idr_clip or "")
         if not spec:
             continue
         pid, ancora = spec
+        if idr == "bevera":
+            corpo_id = "residuo_b"
+        else:
+            corpo_id = _IDRONIMO_CORPO.get(idr or "")
         for line in _linee(shape(ft["geometry"])):
-            for piece in _linee_verso_ancora(line, punti.get(pid), ancora, cappa):
+            for piece in _linee_verso_ancora(line, punti.get(pid), ancora):
                 if line_length_m(piece) < 30:
                     continue
-                _emetti(piece, props, _NOTA_SENZA_SCHEDA + f" Tratto tenuto fino al caposaldo {pid}.")
-    report["reticolo_senza_scheda"] = nomi
+                _emetti_linea(piece, props, corpo_id, f"Tratto tenuto fino al caposaldo {pid}.")
+    report["reticolo_senza_scheda"] = grigi
+    report["corpi_senza_geometria"] = [
+        row for row in report["corpi_senza_geometria"] if row["corpo_idrico"] not in usati
+    ]
 
 
 def _clip_lombardia(features: list[dict], report: dict) -> None:
@@ -747,7 +840,7 @@ def segmenta(matrice: Matrice, fiumi: list[dict], laghi: list[dict], punti: dict
             "geometria": matrice.corpi[corpo_id].get("geometria"),
         })
 
-    _completa_reticolo(fiumi, laghi, consumati, punti, features, report)
+    _completa_reticolo(fiumi, laghi, consumati, punti, features, report, matrice)
     _clip_lombardia(features, report)
 
     for i, ft in enumerate(features, start=1):

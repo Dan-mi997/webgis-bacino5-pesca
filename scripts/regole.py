@@ -344,6 +344,18 @@ class Matrice:
         if chiavi_exc:
             trace.append({"livello": 3, "asse": "eccezione_locale", "id": corpo_id, "chiavi": chiavi_exc})
 
+        if not amm.get("sostituisce_biologia"):
+            if bio_id == "A" and eff.get("regime") == "ordinario_C_lago":
+                eff["regime"] = "ordinario_A"
+                eff["interpretazioni"] = [
+                    i for i in (eff.get("interpretazioni") or [])
+                    if "tipo C" not in (i.get("nota") or "")
+                ]
+            elif bio_id == "C" and corpo.get("geometria") == "linea" and eff.get("regime") == "ordinario_C_lago":
+                eff["regime"] = "ordinario_C"
+        if amm_id == "diritti_esclusivi" and eff.get("regime") in ("ordinario_A", "ordinario_B", "ordinario_C", "ordinario_C_lago"):
+            eff["regime"] = "diritti_esclusivi"
+
         for k in ("fonti", "interpretazioni"):
             if corpo.get(k):
                 eff[k] = list(eff.get(k) or []) + list(corpo[k])
@@ -500,8 +512,14 @@ def verifica_matrice(m: Matrice | None = None) -> None:
 
     pusiano = m.risolvi("pusiano")
     assert pusiano["matrice"]["regime_amministrativo"] == "diritti_esclusivi"
-    assert pusiano["permessi"]["pacchetto"]["id"] is None
-    assert pusiano["tipo_acqua"] == "C"
+    assert pusiano["regime"] == "diritti_esclusivi"
+    assert pusiano["tipo_acqua"] == "A"
+    assert pusiano["permessi"]["pacchetto"]["id"] == "diritti_pusiano"
+    assert pusiano["prelievo"]["rilascio_obbligatorio"] is True
+    assert m.risolvi("lario", modalita="natante")["permessi"]["pacchetto"]["id"] == "fipsas_co_lc_barca"
+    assert m.risolvi("olona")["calendario"]["giorni"]["id"] == "tutti_i_giorni_deroga_olona"
+    assert m.risolvi("lambro")["tipo_acqua"] == "C"
+    assert m.risolvi("verbano")["regime"] == "cispp"
 
 
 def main():

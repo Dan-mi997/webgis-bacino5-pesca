@@ -24,6 +24,13 @@
       "capisaldi_proiettati": 0
     },
     {
+      "corpo_idrico": "breggia",
+      "geometria": "linea",
+      "parti": 2,
+      "nome_regionale": "Breggia (Torrente)",
+      "capisaldi_proiettati": 0
+    },
+    {
       "corpo_idrico": "canale_brabbia",
       "geometria": "linea",
       "parti": 1,
@@ -59,6 +66,20 @@
       "capisaldi_proiettati": 4
     },
     {
+      "corpo_idrico": "pioverna",
+      "geometria": "linea",
+      "parti": 10,
+      "nome_regionale": "Pioverna occidentale (Torrente)",
+      "capisaldi_proiettati": 0
+    },
+    {
+      "corpo_idrico": "rio_torto",
+      "geometria": "linea",
+      "parti": 1,
+      "nome_regionale": "Rio Torto (Fiume)",
+      "capisaldi_proiettati": 0
+    },
+    {
       "corpo_idrico": "telo_osteno",
       "geometria": "linea",
       "parti": 1,
@@ -71,6 +92,24 @@
       "parti": 3,
       "nome_regionale": "Tresa (Fiume)",
       "capisaldi_proiettati": 4
+    },
+    {
+      "corpo_idrico": "alserio",
+      "geometria": "poligono",
+      "parti": 1,
+      "nome_regionale": "Alserio (lago)"
+    },
+    {
+      "corpo_idrico": "annone",
+      "geometria": "poligono",
+      "parti": 2,
+      "nome_regionale": "Annone Est (lago)"
+    },
+    {
+      "corpo_idrico": "garlate",
+      "geometria": "poligono",
+      "parti": 1,
+      "nome_regionale": "Garlate (lago)"
     },
     {
       "corpo_idrico": "lago_comabbio",
@@ -115,10 +154,34 @@
       "nome_regionale": "Varese (lago)"
     },
     {
+      "corpo_idrico": "lario",
+      "geometria": "poligono",
+      "parti": 2,
+      "nome_regionale": "Como (lago) - bacino di Lecco"
+    },
+    {
+      "corpo_idrico": "montorfano",
+      "geometria": "poligono",
+      "parti": 1,
+      "nome_regionale": "Montorfano (lago)"
+    },
+    {
       "corpo_idrico": "pusiano",
       "geometria": "poligono",
       "parti": 1,
       "nome_regionale": "Pusiano (Lago)"
+    },
+    {
+      "corpo_idrico": "segrino",
+      "geometria": "poligono",
+      "parti": 1,
+      "nome_regionale": "Segrino (lago)"
+    },
+    {
+      "corpo_idrico": "verbano",
+      "geometria": "poligono",
+      "parti": 1,
+      "nome_regionale": "Maggiore (lago)"
     }
   ],
   "corpi_senza_geometria": [
@@ -138,23 +201,8 @@
       "geometria": "linea"
     },
     {
-      "corpo_idrico": "grantorella",
-      "nome": "Torrente Grantorella",
-      "geometria": "linea"
-    },
-    {
       "corpo_idrico": "lisascora",
       "nome": "Torrente Lisascora",
-      "geometria": "linea"
-    },
-    {
-      "corpo_idrico": "rancina",
-      "nome": "Torrente Rancina",
-      "geometria": "linea"
-    },
-    {
-      "corpo_idrico": "rezzo",
-      "nome": "Torrente Rezzo",
       "geometria": "linea"
     },
     {
@@ -1188,124 +1236,11 @@
     }
   ],
   "geometrie_scartate": {
-    "fuori_bacino_5": 829,
+    "fuori_bacino_5": 825,
     "senza_geometria": 1,
-    "non_in_normativa": 57
+    "non_in_normativa": 45
   },
-  "reticolo_senza_scheda": [
-    "Troggia (Torrente)",
-    "Pioverna occidentale (Torrente)",
-    "Pioverna orientale (Torrente)",
-    "Pioverna (Torrente)",
-    "Pioverna (Torrente)",
-    "Pioverna (Torrente)",
-    "Pioverna (Torrente)",
-    "Pioverna (Torrente)",
-    "Pioverna (Torrente)",
-    "Pioverna (Torrente)",
-    "Pioverna (Torrente)",
-    "Liro (Torrente)",
-    "Albano (Torrente)",
-    "Albano (Torrente)",
-    "Cuccio di San Bartolomeo (Torrente) - Valle del Molino (Torrente)",
-    "Varrone (Torrente)",
-    "Varrone (Torrente)",
-    "Varrone (Torrente)",
-    "Varrone (Torrente)",
-    "Faloppia (Torrente)",
-    "Breggia (Torrente)",
-    "Breggia (Torrente)",
-    "Cosia (Torrente)",
-    "Valle di Toff (Torrente)",
-    "Valle Nose` (Torrente) - Valle Marvia (Torrente)",
-    "Liro Caurga (Torrente)",
-    "Perlo (Torrente)",
-    "Esino (Torrente)",
-    "Tavani (Torrente)",
-    "Di Bares (Torrente)",
-    "Livo (Torrente)",
-    "Sanagra (Torrente)",
-    "Sanagra (Torrente)",
-    "Valle Meria (Torrente)",
-    "Valle Meria (Torrente)",
-    "Valle Meria (Torrente)",
-    "Valle Meria (Torrente)",
-    "Rio Torto (Fiume)",
-    "Grigna (Torrente)",
-    "Caldone (Torrente)",
-    "Caldone (Torrente)",
-    "Val Quadrella (Torrente)",
-    "Cosia (Torrente)",
-    "Quaglio (Torrente)",
-    "Vallaccia (Torrente) - Teglio (Torrente)",
-    "Valle Bisurco (Torrente) - Valle Pissarotta (Torrente)",
-    "Telo (Torrente)",
-    "Valle Di Villa (Torrente)",
-    "Civagno (Torrente)",
-    "Borgo (Torrente)",
-    "Borgo (Torrente)",
-    "Val Mora (Torrente)",
-    "Bizzo (Torrente)",
-    "Solda (Torrente)",
-    "Molinara (Rio)",
-    "Bolletta  (Rio)",
-    "Valle dei Corbatt (Torrente) o Valle Motter (Torrente)",
-    "Grantorella (Torrente) - Margorabbia (Fiume)",
-    "Grantorella (Torrente) - Margorabbia (Fiume)",
-    "Grantorella (Torrente) - Margorabbia (Fiume)",
-    "Grantorella (Torrente) - Margorabbia (Fiume)",
-    "Grantorella (Torrente) - Margorabbia (Fiume)",
-    "Rancina (Torrente) - Caprera (Rio)",
-    "Colmegno (Torrente) - Cortesello (Torrente)",
-    "Colmegno (Torrente) - Cortesello (Torrente)",
-    "Monvallina (Torrente)",
-    "Boesio (Torrente)",
-    "Boesio (Torrente)",
-    "Boesio (Torrente)",
-    "Boesio (Torrente)",
-    "Boesio (Torrente)",
-    "Giona (Torrente)",
-    "Giona (Torrente)",
-    "Rezzo (Torrente) - Valle del Cagna (Torrente)",
-    "Boesio (Torrente)",
-    "Boesio (Torrente)",
-    "Boesio (Torrente)",
-    "Boesio (Torrente)",
-    "Boesio (Torrente)",
-    "Giona (Torrente)",
-    "Giona (Torrente)",
-    "Rezzo (Torrente) - Valle del Cagna (Torrente)",
-    "Como (lago) - bacino di Lecco",
-    "Maggiore (lago)",
-    "Garlate (lago)",
-    "Annone Est (lago)",
-    "Segrino (lago)",
-    "Alserio (lago)",
-    "Montorfano (lago)",
-    "Como (lago) - bacino di Como",
-    "Annone ovest (lago)",
-    "Seveso (Torrente)",
-    "Adda (Fiume)",
-    "Adda (Fiume)",
-    "Adda (Fiume)",
-    "Bevera (Torrente)",
-    "Lambro (Fiume)",
-    "Lambro (Fiume)",
-    "Lambro (Fiume)",
-    "Lambro (Fiume)",
-    "Lambro (Fiume)",
-    "Lambro (Fiume)",
-    "Lambro (Fiume)",
-    "Lambro (Fiume)",
-    "Lambro (Fiume)",
-    "Lambro (Fiume)",
-    "Bevera (Torrente)",
-    "Olona (Fiume)",
-    "Lura (Torrente)",
-    "Olona (Fiume)",
-    "Ticino (Fiume)",
-    "Ticino (Fiume)"
-  ],
+  "reticolo_senza_scheda": [],
   "clip_lombardia": {
     "feature_in_uscita": 159,
     "geometrie_intersecate": 4
