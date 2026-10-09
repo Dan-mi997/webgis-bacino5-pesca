@@ -878,6 +878,12 @@
       "nome": "Confluenza del Nosee con la valle del Tuf",
       "note": "Nesso. Da qui 300 m verso monte. Il Nosee si immette nella valle del Tuf: il prontuario scrive Toff. Coordinate inserite il 2026-10-07. Posizione indicata come non del tutto certa."
     },
+    "nosee_300_monte": {
+      "lat": 45.908276,
+      "lon": 9.158629,
+      "nome": "Nosee, 300 m a monte della confluenza con la Valle di Toff",
+      "note": "Non è un manufatto. È il punto a 300 m lungo la centerline regionale, a monte della confluenza. La confluenza è indicata come non del tutto certa, quindi lo è anche questo estremo. Inserito il 2026-10-09."
+    },
     "scarico_cartiera_adda": {
       "lat": 45.8004989695221,
       "lon": 9.418382388087602,

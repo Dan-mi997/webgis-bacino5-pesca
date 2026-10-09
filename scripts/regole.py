@@ -167,7 +167,36 @@ class Regole:
         pre["specie_protette"] = sp["protette_sempre"]["elenco"] + pre.get("specie_sempre_protette_extra", [])
         if pre.get("limiti_ref"):
             pre["limiti"] = sp[pre["limiti_ref"]]
+        pre["periodi_divieto"] = self._periodi_divieto()
+        nota = (sp.get("periodi_divieto_fonte") or {}).get("estratto")
+        if nota:
+            pre["periodi_divieto_nota"] = nota
         return pre
+
+    def _periodi_divieto(self) -> list[dict]:
+        mesi = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"]
+
+        def giorno(mmdd: str) -> str:
+            mese, g = mmdd.split("-")
+            return f"{int(g)} {mesi[int(mese) - 1]}"
+
+        out = []
+        for p in self.data["specie"].get("periodi_divieto") or []:
+            if p.get("dal_ref"):
+                dal = self.td["date_mobili"][p["dal_ref"]]["etichetta"]
+                al = self.td["date_mobili"][p["al_ref"]]["etichetta"]
+            else:
+                dal, al = giorno(p["dal"]), giorno(p["al"])
+            if dal[:1].isalpha():
+                ponte = "all'" if al[:1].lower() in "aeiou" else "alla "
+                testo = f"dalla {dal} {ponte}{al}"
+            else:
+                testo = f"dal {dal} al {al}"
+            voce = {"specie": p["specie"], "dal": dal, "al": al, "testo": testo}
+            if p.get("ambito"):
+                voce["ambito"] = p["ambito"]
+            out.append(voce)
+        return out
 
     def _pacchetto(self, ref):
         pk = self.data["pacchetti_permessi"][ref]
@@ -493,7 +522,7 @@ class Matrice:
             "attrezzatura": eff.get("attrezzatura"),
             "esche": eff.get("esche"),
             "tecniche": eff.get("tecniche"),
-            "prelievo": self.base._prelievo(eff.get("prelievo")),
+            "prelievo": self._prelievo_contestuale(self.base._prelievo(eff.get("prelievo")), tipo, eff["regime"]),
             "permessi": self.base._permessi(eff.get("permessi")),
             "vincoli_speciali": eff.get("vincoli_speciali", []),
             "interpretazioni": interpretazioni,
@@ -503,6 +532,17 @@ class Matrice:
         if extra_docs and out.get("permessi"):
             out["permessi"]["pacchetto"]["documenti"].extend(extra_docs)
         return out
+
+    def _prelievo_contestuale(self, pre: dict | None, tipo: str | None, regime: str) -> dict | None:
+        if not pre or not pre.get("periodi_divieto"):
+            return pre
+        if regime == "cispp" or tipo == "CISPP":
+            pre["periodi_divieto"] = []
+            pre["periodi_divieto_nota"] = "I periodi di divieto per specie del Capitolo 5 non sono ancora nella scheda."
+            return pre
+        if tipo == "A":
+            pre["periodi_divieto"] = [p for p in pre["periodi_divieto"] if "altre acque" not in (p.get("ambito") or "")]
+        return pre
 
 
 def verifica_matrice(m: Matrice | None = None) -> None:
@@ -519,12 +559,23 @@ def verifica_matrice(m: Matrice | None = None) -> None:
     assert "rinvio_esterno" not in json.dumps(m.base.data)
     for seg in m.spec["segmenti"]:
         assert seg.get("geometria_vincolo"), seg["id"]
-    assert m.corpi["lago_brinzio"]["stato"] == "predisposto"
-    assert m.corpi["rio_briviola"]["stato"] == "predisposto"
+    assert m.corpi["lago_brinzio"].get("stato") != "predisposto"
+    assert m.corpi["rio_briviola"].get("stato") != "predisposto"
 
     asta = m.risolvi("margorabbia")
     assert asta["calendario"]["giorni"]["id"] == "tutti_i_giorni_deroga_tresa"
     assert "temolo" in asta["prelievo"]["specie_sempre_protette_extra"]
+    periodi_asta = {p["specie"]: p["testo"] for p in asta["prelievo"]["periodi_divieto"]}
+    assert periodi_asta["trota_fario"] == "dalla prima domenica di ottobre all'ultima domenica di febbraio"
+    assert periodi_asta["luccio"] == "dal 1 febbraio al 15 aprile"
+    assert periodi_asta["barbo"] == "dal 1 maggio al 30 giugno"
+    piano_pre = m.risolvi("lago_piano")["prelievo"]["periodi_divieto"]
+    assert all(p["specie"] != "trota_fario" for p in piano_pre)
+    assert any(p["specie"] == "luccio" for p in piano_pre)
+    assert m.risolvi("verbano")["prelievo"]["periodi_divieto"] == []
+    ranco_pre = m.risolvi("verbano", "verbano_ranco_angera")["prelievo"]
+    assert ranco_pre["periodi_divieto"] == []
+    assert "Capitolo 5" in ranco_pre["periodi_divieto_nota"]
     assert m.risolvi("rancina")["calendario"]["giorni"]["id"] == "giorni_tipo_B"
 
     nk = "margorabbia_no_kill_grantola_mesenzana"
@@ -572,6 +623,21 @@ def verifica_matrice(m: Matrice | None = None) -> None:
     assert "libretto_lago_piano" in ids
     assert piano["tipo_acqua"] == "A"
     assert piano["attrezzatura"]["ardiglione"] == "vietato"
+    assert m.risolvi("lago_piano", modalita="sponda")["permessi"]["pacchetto"]["id"] == "fipsas_co_lc_riva"
+    assert m.risolvi("lago_piano", modalita="sponda")["matrice"]["livello_permesso"] == "fipsas_base"
+    barca_piano = m.risolvi("lago_piano", modalita="natante")
+    assert barca_piano["permessi"]["pacchetto"]["id"] == "fipsas_co_lc_barca"
+    assert barca_piano["matrice"]["livello_permesso"] == "fipsas_contributo_intero"
+    assert "libretto_lago_piano" in [d["id"] for d in barca_piano["permessi"]["pacchetto"]["documenti"]]
+    brinzio = m.risolvi("lago_brinzio", modalita="sponda")
+    assert brinzio["tipo_acqua"] == "C"
+    assert brinzio["matrice"]["regime_amministrativo"] == "diritti_esclusivi"
+    assert brinzio["matrice"]["livello_permesso"] == "esclusivi"
+    assert brinzio["permessi"]["pacchetto"]["id"] == "diritti_brinzio"
+    assert m.risolvi("lago_brinzio", modalita="natante")["pesca_consentita"] is False
+    assert m.risolvi("rio_briviola")["tipo_acqua"] == "B"
+    assert m.risolvi("rio_briviola")["matrice"]["livello_permesso"] == "esclusivi"
+    assert m.risolvi("rio_briviola", "rio_brivola_divieto")["pesca_consentita"] is False
 
     lugano = m.risolvi("lago_lugano")
     assert lugano["regime"] == "cispp"

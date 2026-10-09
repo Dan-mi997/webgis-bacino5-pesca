@@ -446,13 +446,152 @@
       "geometria": "linea",
       "ruolo": "affluente",
       "nel_pilota": true,
-      "mappato": false,
+      "mappato": true,
       "citato_in_prontuario": true,
       "comuni": [
         "Cunardo",
         "Cugliate Fabiasco"
       ],
-      "note": "Nome assente da OSM; corso troppo piccolo per essere cartografato. Il divieto resta in normativa ma non ha geometria."
+      "note": "Corso assente dal Geoportale: la linea è in integrazioni.geojson. Divieto sull'intero corso, Cunardo e Cugliate Fabiasco."
+    },
+    "brugo": {
+      "nome": "Torrente Brugo",
+      "alias_regionale": [
+        "Brugo"
+      ],
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "comuni": [
+        "Laveno-Mombello"
+      ],
+      "note": "Cerro di Laveno. Classe B di chiusura del par. 4.10. Divieto sull'intero corso, insieme alla Roggia di Rialto."
+    },
+    "rialto": {
+      "nome": "Roggia di Rialto",
+      "alias_regionale": [
+        "Roggia di Rialto",
+        "Riale di Rialto"
+      ],
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "comuni": [
+        "Laveno-Mombello"
+      ],
+      "note": "Anche «Riale». Cerro di Laveno. Classe B di chiusura del par. 4.10. Divieto sull'intero corso."
+    },
+    "roggia_alserio": {
+      "nome": "Roggia di Alserio",
+      "alias_regionale": [
+        "Roggia di Alserio"
+      ],
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "note": "Divieto sull'intero corso. Classe B di chiusura del par. 4.10. Il Geoportale mette il lago nel sottobacino Lambro (Asta): la roggia entra in mappa con la stessa eccezione."
+    },
+    "nosee": {
+      "nome": "Torrente Nosee (Nosè)",
+      "alias_regionale": [
+        "Valle Nose",
+        "Nosee",
+        "Nosè",
+        "Nose"
+      ],
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "comuni": [
+        "Nesso"
+      ],
+      "note": "Classe B di chiusura del par. 4.10. Il geoportale lo unisce alla Valle Marvia sotto il nome Valle Nose. Si immette nella Valle di Toff (il prontuario scrive anche Tuf). Il divieto è di 300 m a monte della confluenza: l'estremo di monte è preso lungo la centerline, non è un manufatto rilevato."
+    },
+    "valmolina": {
+      "nome": "Rio Valmolina",
+      "alias_regionale": [
+        "Rio Valmolina",
+        "Valmolina"
+      ],
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "note": "Classe B di chiusura del par. 4.10. Divieto dalla sorgente alla confluenza con il Rio Brivola: il tratto disegnato è quel corso."
+    },
+    "viganella": {
+      "nome": "Rio Viganella",
+      "alias_regionale": [
+        "Rio Viganella",
+        "Viganella"
+      ],
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "note": "Classe B di chiusura del par. 4.10. Divieto di circa 600 m tra il ponte della strada statale Besozzo–Gemonio e il ponte del Museo Salvini."
+    },
+    "tarca": {
+      "nome": "Torrente Tarca",
+      "alias_regionale": [
+        "Tarca"
+      ],
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "comuni": [
+        "Cadegliano Viconago"
+      ],
+      "note": "Classe B di chiusura del par. 4.10. Il divieto di circa 250 m a valle del primo sbarramento sopra il ponte della S.P. 30 non è disegnato: l'estremo è ancora da misurare."
+    },
+    "lanza": {
+      "nome": "Torrente Lanza (Gaggiola)",
+      "alias_regionale": [
+        "Lanza",
+        "Gaggiola"
+      ],
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "note": "Classe B di chiusura del par. 4.10, escluso dalla deroga dei giorni dell'Olona. Il Bacino 5 lo tiene solo a monte della S.P. 342."
     },
     "tresa": {
       "nome": "Fiume Tresa",
@@ -781,6 +920,10 @@
     },
     "soldo": {
       "nome": "Torrente Soldo",
+      "alias_regionale": [
+        "Solda",
+        "Soldo"
+      ],
       "regime_amministrativo": "fipsas",
       "classificazione_biologica": "B",
       "geometria": "linea",
@@ -1235,41 +1378,104 @@
     },
     "lago_brinzio": {
       "nome": "Lago di Brinzio",
-      "regime_amministrativo": null,
-      "classificazione_biologica": null,
+      "regime_amministrativo": "diritti_esclusivi",
+      "classificazione_biologica": "C",
       "geometria": "poligono",
       "entita_separate": true,
       "entita": {
         "sponda": {
-          "geometria": "linea_costa"
+          "geometria": "linea_costa",
+          "regime_amministrativo": "diritti_esclusivi"
         },
         "natante": {
-          "geometria": "poligono_interno"
+          "geometria": "poligono_interno",
+          "regime_amministrativo": "diritti_esclusivi"
         }
       },
       "ruolo": "lago",
-      "stato": "predisposto",
       "nel_pilota": false,
-      "mappato": false,
+      "mappato": true,
       "citato_in_prontuario": true,
-      "note": "Predisposto. Regole e geometria si aggiungono dopo: costa e interno sono già due entità."
+      "alias_regionale": [
+        "Brinzio"
+      ],
+      "note": "Tipo C, par. 4.10. Diritti esclusivi dell'Associazione Pescatori Dilettanti di Brinzio, solo da riva. Il par. 4.9 non elenca il lago fra le acque da natante."
     },
     "rio_briviola": {
-      "nome": "Rio Briviola",
-      "alias": [
+      "nome": "Rio Brivola",
+      "alias_regionale": [
         "Rio Brivola",
+        "Rio Briviola",
         "Brivola",
         "Briviola"
       ],
-      "regime_amministrativo": null,
-      "classificazione_biologica": null,
+      "regime_amministrativo": "diritti_esclusivi",
+      "classificazione_biologica": "B",
       "geometria": "linea",
+      "bank": "both",
       "ruolo": "affluente",
-      "stato": "predisposto",
       "nel_pilota": false,
-      "mappato": false,
+      "mappato": true,
       "citato_in_prontuario": true,
-      "note": "Predisposto. La geometria e le regole si aggiungono dopo. Non entra nell'indice idronimi finché lo stato resta predisposto."
+      "note": "Tipo B: non è fra le acque A o C del par. 4.10. Stesso diritto esclusivo del lago. Dal ponte di via Piave alla confluenza con il Valmolina la pesca è vietata."
+    },
+    "giona": {
+      "nome": "Torrente Giona",
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "alias_regionale": [
+        "Giona"
+      ],
+      "note": "Tipo B. Affluente del Verbano: pesca tutti i giorni. Dalla foce alla seconda briglia a monte del Museo la pesca è vietata."
+    },
+    "varrone": {
+      "nome": "Torrente Varrone",
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "alias_regionale": [
+        "Varrone"
+      ],
+      "note": "Tipo B. Dal ponte di foce al ponte della SP 72 è no-kill a mosca."
+    },
+    "meria": {
+      "nome": "Torrente Meria",
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "alias_regionale": [
+        "Valle Meria",
+        "Meria"
+      ],
+      "note": "Tipo B. Dallo stabilimento Carcano alla foce è no-kill a mosca."
+    },
+    "bevera_varese": {
+      "nome": "Torrente Bevera di Varese",
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "B",
+      "geometria": "linea",
+      "bank": "both",
+      "ruolo": "affluente",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "note": "Bevera di Cantello, affluente dell'Olona. Non è il Bevera di Costamasnaga. Dal ponte per Cantello alla cascina Gissone la pesca è vietata."
     }
   },
   "eccezioni_locali": {
@@ -1648,7 +1854,7 @@
             ]
           },
           "permessi": {
-            "pacchetto_ref": "fipsas_co_lc_riva",
+            "pacchetto_ref": "fipsas_co_lc_barca",
             "varianti": [],
             "documenti_extra": [
               {
@@ -1673,7 +1879,7 @@
         {
           "livello": "testuale",
           "riferimento": "par. 4.10",
-          "estratto": "Acque di tipo A […] lago di Piano."
+          "estratto": "Acque di tipo A […] lago di Piano. Il par. 4.9 consente la pesca da natante. Da barca vale il contributo annuale di 30 € della scheda dei laghi di Como e Lecco: l'interno è azzurro, la riva resta gialla. Le imbarcazioni a motore restano vietate."
         },
         {
           "livello": "testuale",
@@ -2402,6 +2608,101 @@
         "tipo": "intero_corpo",
         "confine": "geometria_esatta_del_corpo_o_della_entita"
       }
+    },
+    "lago_brinzio": {
+      "per_modalita": {
+        "sponda": {
+          "permessi": {
+            "pacchetto_ref": "diritti_brinzio",
+            "varianti": []
+          }
+        },
+        "natante": {
+          "pesca_consentita": false,
+          "vincoli_speciali": [
+            {
+              "id": "barca_vietata",
+              "testo": "Il Lago di Brinzio non è fra le acque in cui il par. 4.9 consente la pesca da natante.",
+              "livello": "testuale"
+            }
+          ]
+        }
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "par. 3.4",
+          "estratto": "Lago di Brinzio e Rio Brivola, da riva: licenza e tessera dell'Associazione Pescatori Dilettanti di Brinzio."
+        },
+        {
+          "livello": "testuale",
+          "riferimento": "par. 4.10",
+          "estratto": "Acque di tipo C […] lago di Brinzio."
+        },
+        {
+          "livello": "testuale",
+          "riferimento": "par. 4.9",
+          "estratto": "La pesca da natante è consentita esclusivamente nei corpi idrici elencati. Il Lago di Brinzio non c'è."
+        }
+      ],
+      "ambito_geometrico": {
+        "tipo": "intero_corpo",
+        "confine": "geometria_esatta_del_corpo_o_della_entita"
+      }
+    },
+    "rio_briviola": {
+      "permessi": {
+        "pacchetto_ref": "diritti_brinzio",
+        "varianti": []
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "par. 3.4 e par. 3.5",
+          "estratto": "Lago di Brinzio e Rio Brivola: permessi dell'associazione pescatori di Brinzio."
+        },
+        {
+          "livello": "testuale",
+          "riferimento": "par. 4.10",
+          "estratto": "Tipo B: tutte le restanti acque del bacino. Il Rio Brivola non è nominato fra le acque di tipo A o C."
+        }
+      ],
+      "ambito_geometrico": {
+        "tipo": "intero_corpo",
+        "confine": "geometria_esatta_del_corpo_o_della_entita"
+      }
+    },
+    "giona": {
+      "calendario": {
+        "giorni_ref": "tutti_i_giorni_deroga_verbano"
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "par. 4.11",
+          "estratto": "Affluenti del lago Maggiore"
+        }
+      ],
+      "ambito_geometrico": {
+        "tipo": "intero_corpo",
+        "confine": "geometria_esatta_del_corpo_o_della_entita"
+      }
+    },
+    "bevera_varese": {
+      "calendario": {
+        "giorni_ref": "tutti_i_giorni_deroga_olona"
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "par. 4.11",
+          "estratto": "Fiume Olona e affluenti, escluso il torrente Lanza"
+        }
+      ],
+      "ambito_geometrico": {
+        "tipo": "intero_corpo",
+        "confine": "geometria_esatta_del_corpo_o_della_entita"
+      }
     }
   },
   "segmenti": [
@@ -2639,6 +2940,176 @@
       ],
       "geometria_vincolo": {
         "tipo": "intero_corpo"
+      }
+    },
+    {
+      "id": "brugo_divieto",
+      "nome": "Brugo — divieto su tutto il corso",
+      "corpo_idrico": "brugo",
+      "effetto": "taglio",
+      "intero_corpo": true,
+      "priorita": 100,
+      "bank": "both",
+      "estensione": {
+        "tipo": "intero_corpo",
+        "descrizione": "Tutto il corso, Cerro di Laveno",
+        "comuni": [
+          "Laveno-Mombello"
+        ]
+      },
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Zone di protezione e ripopolamento",
+          "estratto": "Torrenti Brugo e Roggia di Rialto, Cerro di Laveno: tutto il corso."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "intero_corpo"
+      }
+    },
+    {
+      "id": "rialto_divieto",
+      "nome": "Roggia di Rialto — divieto su tutto il corso",
+      "corpo_idrico": "rialto",
+      "effetto": "taglio",
+      "intero_corpo": true,
+      "priorita": 100,
+      "bank": "both",
+      "estensione": {
+        "tipo": "intero_corpo",
+        "descrizione": "Tutto il corso, Cerro di Laveno",
+        "comuni": [
+          "Laveno-Mombello"
+        ]
+      },
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Zone di protezione e ripopolamento",
+          "estratto": "Torrenti Brugo e Roggia di Rialto, Cerro di Laveno: tutto il corso."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "intero_corpo"
+      }
+    },
+    {
+      "id": "roggia_alserio_divieto",
+      "nome": "Roggia di Alserio — divieto su tutto il corso",
+      "corpo_idrico": "roggia_alserio",
+      "effetto": "taglio",
+      "intero_corpo": true,
+      "priorita": 100,
+      "bank": "both",
+      "estensione": {
+        "tipo": "intero_corpo",
+        "descrizione": "Tutto il corso"
+      },
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Zone di protezione e ripopolamento",
+          "estratto": "Roggia di Alserio: tutto il corso."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "intero_corpo"
+      }
+    },
+    {
+      "id": "valmolina_divieto",
+      "nome": "Valmolina — divieto dalla sorgente alla confluenza con il Brivola",
+      "corpo_idrico": "valmolina",
+      "effetto": "taglio",
+      "intero_corpo": true,
+      "priorita": 100,
+      "bank": "both",
+      "estensione": {
+        "tipo": "intero_corpo",
+        "descrizione": "Dalla sorgente alla confluenza con il Rio Brivola"
+      },
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Zone di protezione e ripopolamento",
+          "estratto": "Rio Valmolina: divieto dalla sorgente alla confluenza con il Rio Brivola."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "intero_corpo"
+      }
+    },
+    {
+      "id": "viganella_divieto",
+      "nome": "Viganella — divieto ponte Besozzo–Gemonio / ponte del Museo Salvini",
+      "corpo_idrico": "viganella",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "bank": "both",
+      "monte": "ponte_ss_besozzo_gemonio",
+      "valle": "ponte_museo_salvini",
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "Tra il ponte della strada statale Besozzo–Gemonio e il ponte del Museo Salvini, circa 600 m."
+      },
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Zone di protezione e ripopolamento",
+          "estratto": "Rio Viganella: tratto di circa 600 m tra il ponte della strada statale Besozzo–Gemonio e il ponte del Museo Salvini."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "tratto_ab",
+        "da": "ponte_ss_besozzo_gemonio",
+        "a": "ponte_museo_salvini",
+        "riferimento": "caposaldo"
+      }
+    },
+    {
+      "id": "nosee_divieto_confluenza",
+      "nome": "Nosee — divieto 300 m a monte della Valle di Toff",
+      "corpo_idrico": "nosee",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "bank": "both",
+      "monte": "nosee_300_monte",
+      "valle": "confluenza_valle_toff",
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "300 m a monte della confluenza con la Valle di Toff.",
+        "lunghezza_dichiarata_m": 300,
+        "comuni": [
+          "Nesso"
+        ]
+      },
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Zone di protezione e ripopolamento",
+          "estratto": "Torrente Nosee, Comune di Nesso: 300 m a monte della confluenza con la valle del Tuf."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "tratto_ab",
+        "da": "nosee_300_monte",
+        "a": "confluenza_valle_toff",
+        "riferimento": "caposaldo"
       }
     },
     {
@@ -6158,6 +6629,907 @@
           "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
         }
       ]
+    },
+    {
+      "id": "lario_divieto_monastero",
+      "nome": "Lario — divieto Villa Monastero",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "monte": "inizio_giardino_monastero",
+      "valle": "balconcino_monastero",
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "Varenna, acque antistanti Villa Monastero, dall'inizio del giardino al balconcino. Il prontuario estende il divieto fino a metà lago: in mappa c'è la costa fra i due capisaldi, non lo specchio fino al centro."
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Zone di protezione, Lago di Como",
+          "estratto": "Comune di Varenna: nelle acque antistanti Villa Monastero, fino a metà lago dall'inizio del giardino in direzione sud fino al balconcino con parapetto in ferro."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Manca un caposaldo a metà lago. Si disegna solo l'arco di costa fra i due estremi misurati."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "tratto_ab",
+        "da": "inizio_giardino_monastero",
+        "a": "balconcino_monastero",
+        "riferimento": "caposaldo"
+      }
+    },
+    {
+      "id": "lario_tutela_inganna",
+      "nome": "Lario — tutela Inganna / Perlino",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 40,
+      "monte": "sponda_destra_inganna",
+      "valle": "balconcino_perlino",
+      "estensione": {
+        "tipo": "fascia_riva",
+        "descrizione": "Colico, circa 840 m dalla sponda destra dell'Inganna al balconcino a nord del Perlino, 100 m dalla costa.",
+        "distanza_riva_m": 100
+      },
+      "override": {
+        "tecniche": {
+          "consentite": ["canna_da_riva", "piede_asciutto"],
+          "vietate": ["imbarcazione", "guado"]
+        },
+        "attrezzatura": {"canne_max": 1, "ami_max_per_canna": 3}
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Zone di tutela ittica",
+          "estratto": "Colico: dalla sponda destra del torrente Inganna fino al balconcino circa 100 m a nord della foce del Perlino, 100 m dalla costa. Pesca solo da terra, una canna, massimo tre ami."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "fascia_fra_punti",
+        "da": "sponda_destra_inganna",
+        "a": "balconcino_perlino",
+        "distanza_riva_m": 100
+      }
+    },
+    {
+      "id": "lario_tutela_varenna_lido",
+      "nome": "Lario — tutela Lido di Varenna / Faro",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 40,
+      "monte": "scivolo_lido_varenna",
+      "valle": "punta_faro_varenna",
+      "estensione": {
+        "tipo": "fascia_riva",
+        "descrizione": "Perledo e Varenna, circa 460 m dallo scivolo del Lido alla punta del Faro, 100 m dalla costa.",
+        "distanza_riva_m": 100
+      },
+      "override": {
+        "tecniche": {
+          "consentite": ["canna_da_riva", "piede_asciutto"],
+          "vietate": ["imbarcazione", "guado"]
+        },
+        "attrezzatura": {"canne_max": 1, "ami_max_per_canna": 3}
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Zone di tutela ittica",
+          "estratto": "Perledo e Varenna: dallo scivolo nel Lido di Varenna alla punta detta del Faro, 100 m dalla costa."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "punta_faro_varenna",
+          "nota": "Il caposaldo della punta del Faro è segnato come non del tutto certo."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "fascia_fra_punti",
+        "da": "scivolo_lido_varenna",
+        "a": "punta_faro_varenna",
+        "distanza_riva_m": 100
+      }
+    },
+    {
+      "id": "lario_tutela_fiumelatte",
+      "nome": "Lario — tutela Fiumelatte",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 40,
+      "monte": "parcheggio_nord_fiumelatte",
+      "valle": "parcheggio_sud_incubatoio",
+      "estensione": {
+        "tipo": "fascia_riva",
+        "descrizione": "Fiumelatte, circa 410 m fra i due parcheggi, 100 m dalla costa. In vigore dal 1° marzo al 10 agosto.",
+        "distanza_riva_m": 100
+      },
+      "override": {
+        "tecniche": {
+          "consentite": ["canna_da_riva", "piede_asciutto"],
+          "vietate": ["imbarcazione", "guado"]
+        },
+        "attrezzatura": {"canne_max": 1, "ami_max_per_canna": 3},
+        "vincoli_speciali": [
+          {
+            "id": "stagione",
+            "testo": "Zona temporanea: le prescrizioni valgono dal 1° marzo al 10 agosto. In mappa la fascia resta segnata tutto l'anno.",
+            "livello": "testuale"
+          }
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Zone di tutela ittica",
+          "estratto": "Fiumelatte: dal parcheggio della chiesa all'estremità sud del parcheggio dell'incubatoio De Marchi, 100 m dalla costa. Dal 1° marzo al 10 agosto."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "fascia_fra_punti",
+        "da": "parcheggio_nord_fiumelatte",
+        "a": "parcheggio_sud_incubatoio",
+        "distanza_riva_m": 100
+      }
+    },
+    {
+      "id": "lario_tutela_mandello",
+      "nome": "Lario — tutela Lido di Mandello / Riva Grande",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 40,
+      "monte": "angolo_lido_mandello",
+      "valle": "estremo_sud_riva_grande",
+      "estensione": {
+        "tipo": "fascia_riva",
+        "descrizione": "Mandello, dal muro del Lido all'approdo di Riva Grande, 100 m dalla costa. In vigore dal 1° marzo al 10 agosto.",
+        "distanza_riva_m": 100
+      },
+      "override": {
+        "tecniche": {
+          "consentite": ["canna_da_riva", "piede_asciutto"],
+          "vietate": ["imbarcazione", "guado"]
+        },
+        "attrezzatura": {"canne_max": 1, "ami_max_per_canna": 3},
+        "vincoli_speciali": [
+          {
+            "id": "stagione",
+            "testo": "Zona temporanea: le prescrizioni valgono dal 1° marzo al 10 agosto. In mappa la fascia resta segnata tutto l'anno.",
+            "livello": "testuale"
+          }
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Zone di tutela ittica",
+          "estratto": "Mandello: dall'angolo del Lido, circa 100 m a nord della sponda destra del Meria, all'estremità sud dell'approdo di Riva Grande, 100 m dalla costa. Dal 1° marzo al 10 agosto."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "estremo_sud_riva_grande",
+          "nota": "Il caposaldo di Riva Grande è segnato come non del tutto certo."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "fascia_fra_punti",
+        "da": "angolo_lido_mandello",
+        "a": "estremo_sud_riva_grande",
+        "distanza_riva_m": 100
+      }
+    },
+    {
+      "id": "lario_tutela_menaggio",
+      "nome": "Lario — tutela Minigolf / lido di Menaggio",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 40,
+      "monte": "scalinata_sud_minigolf",
+      "valle": "confine_nord_lido_menaggio",
+      "estensione": {
+        "tipo": "fascia_riva",
+        "descrizione": "Menaggio, dalla scalinata a sud del Minigolf al confine nord del lido, 100 m dalla riva.",
+        "distanza_riva_m": 100
+      },
+      "override": {
+        "tecniche": {
+          "consentite": ["canna_da_riva", "piede_asciutto"],
+          "vietate": ["imbarcazione", "guado"]
+        },
+        "attrezzatura": {"canne_max": 1, "ami_max_per_canna": 3}
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Zone di tutela ittica",
+          "estratto": "Menaggio: dalla scalinata a sud del Minigolf al confine nord del lido, 100 m dalla riva. Solo da terra, una canna, massimo tre ami."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "fascia_fra_punti",
+        "da": "scalinata_sud_minigolf",
+        "a": "confine_nord_lido_menaggio",
+        "distanza_riva_m": 100
+      }
+    },
+    {
+      "id": "lario_tutela_dongo",
+      "nome": "Lario — tutela Musso / Dongo",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 40,
+      "monte": "confine_musso_dongo",
+      "valle": "chiesa_santo_stefano",
+      "estensione": {
+        "tipo": "fascia_riva",
+        "descrizione": "Dongo, dal confine con Musso alla chiesa di Santo Stefano, 100 m dalla riva.",
+        "distanza_riva_m": 100
+      },
+      "override": {
+        "tecniche": {
+          "consentite": ["canna_da_riva", "piede_asciutto"],
+          "vietate": ["imbarcazione", "guado"]
+        },
+        "attrezzatura": {"canne_max": 1, "ami_max_per_canna": 3}
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Zone di tutela ittica",
+          "estratto": "Dongo: dal confine con Musso alla chiesa di S. Stefano, 100 m dalla riva."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "fascia_fra_punti",
+        "da": "confine_musso_dongo",
+        "a": "chiesa_santo_stefano",
+        "distanza_riva_m": 100
+      }
+    },
+    {
+      "id": "lario_tutela_laglio",
+      "nome": "Lario — tutela cimitero di Laglio / ex Branduardi",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 40,
+      "monte": "scalinata_cimitero_laglio",
+      "valle": "ex_cantiere_branduardi",
+      "estensione": {
+        "tipo": "fascia_riva",
+        "descrizione": "Laglio, dalla scalinata del cimitero verso nord fino all'ex cantiere Branduardi, 100 m dalla riva.",
+        "distanza_riva_m": 100
+      },
+      "override": {
+        "tecniche": {
+          "consentite": ["canna_da_riva", "piede_asciutto"],
+          "vietate": ["imbarcazione", "guado"]
+        },
+        "attrezzatura": {"canne_max": 1, "ami_max_per_canna": 3}
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Zone di tutela ittica",
+          "estratto": "Laglio: dalla scalinata di fronte al cimitero verso nord sino all'ex cantiere Branduardi, 100 m dalla riva."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "ex_cantiere_branduardi",
+          "nota": "Il caposaldo dell'ex cantiere Branduardi è segnato come non del tutto certo."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "fascia_fra_punti",
+        "da": "scalinata_cimitero_laglio",
+        "a": "ex_cantiere_branduardi",
+        "distanza_riva_m": 100
+      }
+    },
+    {
+      "id": "lario_limitazione_dervio",
+      "nome": "Lario — limitazione porto di Dervio",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 40,
+      "monte": "imbocco_porto_dervio",
+      "valle": "cantiere_navigazione_dervio",
+      "estensione": {
+        "tipo": "fascia_riva",
+        "descrizione": "Dervio, dall'imboccatura del porto al cantiere della Navigazione, 100 m dalla costa. Prescrizioni dal 1° marzo al 10 agosto.",
+        "distanza_riva_m": 100
+      },
+      "override": {
+        "tecniche": {
+          "consentite": ["canna_da_riva", "piede_asciutto"],
+          "vietate": ["imbarcazione", "guado"]
+        },
+        "attrezzatura": {"canne_max": 1, "ami_max_per_canna": 5},
+        "esche": {"pasturazione": "vietata"},
+        "vincoli_speciali": [
+          {
+            "id": "stagione",
+            "testo": "Prescrizioni in vigore dal 1° marzo al 10 agosto: da riva a piede asciutto, una canna, massimo cinque esche, senza pasturare. La barca solo oltre 100 m dalla riva. In mappa la fascia resta segnata tutto l'anno.",
+            "livello": "testuale"
+          }
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Altre zone soggette a limitazioni",
+          "estratto": "Dervio: dall'imboccatura del porto fino al cantiere della Navigazione, 100 m dalla costa. Dal 1° marzo al 10 agosto."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "fascia_fra_punti",
+        "da": "imbocco_porto_dervio",
+        "a": "cantiere_navigazione_dervio",
+        "distanza_riva_m": 100
+      }
+    },
+    {
+      "id": "lario_limitazione_bellano",
+      "nome": "Lario — limitazione Bellano",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 40,
+      "monte": "estremo_nord_circolo_velico",
+      "valle": "scivolo_lido_bellano",
+      "estensione": {
+        "tipo": "fascia_riva",
+        "descrizione": "Bellano, dalla darsena del Circolo Velico allo scivolo dopo il Lido, 100 m dalla costa. La barca è vietata in fascia tutto l'anno.",
+        "distanza_riva_m": 100
+      },
+      "override": {
+        "tecniche": {
+          "vietate": ["imbarcazione"]
+        },
+        "vincoli_speciali": [
+          {
+            "id": "barca_tutto_anno",
+            "testo": "La pesca da barca entro 100 m dalla riva è vietata tutto l'anno. Dal 1° marzo al 10 agosto, da riva, una sola canna, massimo cinque esche, senza pasturare. Sul Pioverna la stessa zona arriva alla prima briglia.",
+            "livello": "testuale"
+          }
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Altre zone soggette a limitazioni",
+          "estratto": "Bellano: dalla darsena del Circolo Velico allo scivolo dopo il Lido, 100 m dalla costa, e sul Pioverna fino alla prima briglia. La barca è vietata tutto l'anno; le altre prescrizioni dal 1° marzo al 10 agosto."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "fascia_fra_punti",
+        "da": "estremo_nord_circolo_velico",
+        "a": "scivolo_lido_bellano",
+        "distanza_riva_m": 100
+      }
+    },
+    {
+      "id": "lario_tutela_foce_adda",
+      "nome": "Lario — tutela foce dell'Adda",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 40,
+      "monte": "foce_adda_lario",
+      "valle": "foce_adda_lario",
+      "estensione": {
+        "tipo": "fascia_riva",
+        "descrizione": "Colico e Gera Lario, fronte di circa 400 m alla foce dell'Adda, 100 m dalla costa. Il fronte è stimato 200 m per lato lungo la riva.",
+        "distanza_riva_m": 100
+      },
+      "override": {
+        "tecniche": {
+          "consentite": ["canna_da_riva", "piede_asciutto"],
+          "vietate": ["imbarcazione", "guado"]
+        },
+        "attrezzatura": {"canne_max": 1, "ami_max_per_canna": 3}
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Zone di tutela ittica",
+          "estratto": "Colico e Gera Lario: foce dell'Adda, larghezza complessiva di circa 400 m e 100 m dalla costa."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "C'è un solo caposaldo, la foce. I 400 m di fronte sono presi 200 m per lato lungo la costa."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "fascia_riva",
+        "centro": "foce_adda_lario",
+        "monte_m": 200,
+        "valle_m": 200,
+        "distanza_riva_m": 100
+      }
+    },
+    {
+      "id": "lario_tutela_foce_liro",
+      "nome": "Lario — tutela foce del Liro",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 40,
+      "monte": "foce_liro",
+      "valle": "foce_liro",
+      "estensione": {
+        "tipo": "fascia_riva",
+        "descrizione": "Gravedona, 100 m a sud e 100 m a nord della foce del Liro, 100 m dalla riva.",
+        "distanza_riva_m": 100
+      },
+      "override": {
+        "tecniche": {
+          "consentite": ["canna_da_riva", "piede_asciutto"],
+          "vietate": ["imbarcazione", "guado"]
+        },
+        "attrezzatura": {"canne_max": 1, "ami_max_per_canna": 3}
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Zone di tutela ittica",
+          "estratto": "Gravedona: da 100 m a sud della foce del Liro a 100 m a nord, 100 m dalla riva."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "fascia_riva",
+        "centro": "foce_liro",
+        "monte_m": 100,
+        "valle_m": 100,
+        "distanza_riva_m": 100
+      }
+    },
+    {
+      "id": "lario_tutela_foce_livo",
+      "nome": "Lario — tutela foce del Livo",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 40,
+      "monte": "foce_livo_lario",
+      "valle": "foce_livo_lario",
+      "estensione": {
+        "tipo": "fascia_riva",
+        "descrizione": "Domaso, 100 m a sud e 100 m a nord della foce del Livo, 100 m dalla riva.",
+        "distanza_riva_m": 100
+      },
+      "override": {
+        "tecniche": {
+          "consentite": ["canna_da_riva", "piede_asciutto"],
+          "vietate": ["imbarcazione", "guado"]
+        },
+        "attrezzatura": {"canne_max": 1, "ami_max_per_canna": 3}
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Zone di tutela ittica",
+          "estratto": "Domaso: da 100 m a sud della foce del Livo a 100 m a nord, 100 m dalla riva."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "fascia_riva",
+        "centro": "foce_livo_lario",
+        "monte_m": 100,
+        "valle_m": 100,
+        "distanza_riva_m": 100
+      }
+    },
+    {
+      "id": "verbano_canneto_brebbia",
+      "nome": "Verbano — canneto Brebbia / Ispra",
+      "corpo_idrico": "verbano",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "monte": "canneto_brebbia",
+      "valle": "canneto_ispra",
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "estensione": {
+        "tipo": "fascia_riva",
+        "descrizione": "Canneto fra Brebbia e Ispra, 20 m dalla costa. I due capi sono i capisaldi misurati: il prontuario non li nomina.",
+        "distanza_riva_m": 20
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Lago Maggiore",
+          "estratto": "Comuni di Brebbia e Ispra, in corrispondenza dell'area a canneto, per una larghezza di 20 metri dalla costa."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "fascia_fra_punti",
+        "da": "canneto_brebbia",
+        "a": "canneto_ispra",
+        "distanza_riva_m": 20
+      }
+    },
+    {
+      "id": "verbano_partegora",
+      "nome": "Verbano — insenatura dell'isolino Partegora",
+      "corpo_idrico": "verbano",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 50,
+      "monte": "partegora_canneto",
+      "valle": "partegora_cicchirolo",
+      "estensione": {
+        "tipo": "insenatura",
+        "descrizione": "Angera, insenatura chiusa dalla linea fra il canneto di piazza Garibaldi e la spiaggetta Cicchirolo. Solo da riva, una canna, massimo cinque ami."
+      },
+      "override": {
+        "tecniche": {
+          "consentite": ["canna_da_riva"],
+          "vietate": ["imbarcazione"]
+        },
+        "attrezzatura": {"canne_max": 1, "ami_max_per_canna": 5}
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Lago Maggiore",
+          "estratto": "Angera, insenatura dell'isolino Partegora: pesca solo da riva, una canna, massimo 5 ami. La linea congiunge il lato ovest del canneto di piazza Garibaldi con la spiaggetta Cicchirolo."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "poligono_due_punti_costa",
+        "da": "partegora_canneto",
+        "a": "partegora_cicchirolo",
+        "punti": [
+          [45.76736708567814, 8.578749272067135],
+          [45.77024590959989, 8.569387614737135]
+        ]
+      }
+    },
+    {
+      "id": "verbano_foce_giona",
+      "nome": "Verbano — foce del Giona, 50 m",
+      "corpo_idrico": "verbano",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "monte": "foce_giona",
+      "valle": "foce_giona",
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "estensione": {
+        "tipo": "cerchio",
+        "raggio_m": 50,
+        "descrizione": "Maccagno, divieto permanente nel raggio di 50 m alla foce del Giona."
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Lago Maggiore",
+          "estratto": "Comune di Maccagno, per un raggio di 50 metri in corrispondenza della foce del torrente Giona. Divieto di pesca permanente."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "foce_giona",
+        "raggio_m": 50,
+        "parte": "specchio"
+      }
+    },
+    {
+      "id": "giona_divieto",
+      "nome": "Giona — divieto foce / Museo",
+      "corpo_idrico": "giona",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "bank": "both",
+      "monte": "foce_giona",
+      "valle": "briglia_giona_museo",
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "Maccagno, dalla foce alla seconda briglia a monte del Museo, circa 340 m.",
+        "lunghezza_dichiarata_m": 340
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Acque correnti",
+          "estratto": "Torrente Giona, Maccagno: dalla foce nel Lago Maggiore alla seconda briglia a monte del Museo, circa 340 m."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "tratto_ab",
+        "da": "foce_giona",
+        "a": "briglia_giona_museo",
+        "riferimento": "caposaldo"
+      }
+    },
+    {
+      "id": "bevera_varese_divieto",
+      "nome": "Bevera di Varese — divieto Cantello / Gissone",
+      "corpo_idrico": "bevera_varese",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "bank": "both",
+      "monte": "ponte_strada_cantello",
+      "valle": "cascina_gissone",
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "Cantello e Varese, dal ponte sulla strada per Cantello alla cascina Gissone."
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Acque correnti",
+          "estratto": "Torrente Bevera, Cantello e Varese: dal ponte sulla strada per Cantello alla cascina Gissone."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "cascina_gissone",
+          "nota": "Il caposaldo della cascina Gissone è segnato come non del tutto certo."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "tratto_ab",
+        "da": "ponte_strada_cantello",
+        "a": "cascina_gissone",
+        "riferimento": "caposaldo"
+      }
+    },
+    {
+      "id": "rio_brivola_divieto",
+      "nome": "Rio Brivola — divieto Lavatoio / Valmolina",
+      "corpo_idrico": "rio_briviola",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "bank": "both",
+      "monte": "ponte_piave_lavatoio",
+      "valle": "confluenza_valmolina_brivola",
+      "sostituisci_con_blocco": "divieto",
+      "mantieni_classe": true,
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "Brinzio, dal ponte di via Piave in località Lavatoio alla confluenza con il Valmolina, circa 980 m. Il resto del rio resta a diritti esclusivi.",
+        "lunghezza_dichiarata_m": 980
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Acque correnti",
+          "estratto": "Rio Brivola, Brinzio: dal ponte di via Piave in località Lavatoio alla confluenza con il Valmolina, circa 980 m."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "tratto_ab",
+        "da": "ponte_piave_lavatoio",
+        "a": "confluenza_valmolina_brivola",
+        "riferimento": "caposaldo"
+      }
+    },
+    {
+      "id": "meria_nokill",
+      "nome": "Meria — no-kill Carcano / foce",
+      "corpo_idrico": "meria",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 30,
+      "bank": "both",
+      "monte": "inizio_carcano_molina",
+      "valle": "foce_meria_poncia",
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "Mandello, dallo stabilimento Carcano in località Molina alla foce in località Poncia. Mosca, amo senza ardiglione, rilascio."
+      },
+      "override": {
+        "regime": "no_kill",
+        "esche": {
+          "consentite": ["artificiale"],
+          "vietate": ["naturale", "cagnotto", "pesce_vivo", "pesce_morto"],
+          "pasturazione": "vietata"
+        },
+        "attrezzatura": {"ardiglione": "vietato"},
+        "tecniche": {
+          "consentite": ["canna_da_riva", "guado", "piede_asciutto", "mosca", "mosca_coda_di_topo"],
+          "vietate": ["pesca_da_ponte", "imbarcazione", "pesca_notturna"]
+        },
+        "prelievo": {"tipo": "no_kill", "rilascio_obbligatorio": true, "capi_trattenibili": 0}
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Pesca a mosca con coda di topo",
+          "estratto": "Torrente Meria, Mandello: dall'inizio dello stabilimento Carcano in località Molina fino alla foce in località Poncia. Rilascio immediato, amo senza ardiglione."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "tratto_ab",
+        "da": "inizio_carcano_molina",
+        "a": "foce_meria_poncia",
+        "riferimento": "caposaldo"
+      }
+    },
+    {
+      "id": "varrone_nokill",
+      "nome": "Varrone — no-kill foce / SP 72",
+      "corpo_idrico": "varrone",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 30,
+      "bank": "both",
+      "monte": "ponte_foce_varrone",
+      "valle": "ponte_sp72_varrone",
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "Dervio, dal ponte di foce al ponte della SP 72. Mosca, amo senza ardiglione, rilascio."
+      },
+      "override": {
+        "regime": "no_kill",
+        "esche": {
+          "consentite": ["artificiale"],
+          "vietate": ["naturale", "cagnotto", "pesce_vivo", "pesce_morto"],
+          "pasturazione": "vietata"
+        },
+        "attrezzatura": {"ardiglione": "vietato"},
+        "tecniche": {
+          "consentite": ["canna_da_riva", "guado", "piede_asciutto", "mosca", "mosca_coda_di_topo"],
+          "vietate": ["pesca_da_ponte", "imbarcazione", "pesca_notturna"]
+        },
+        "prelievo": {"tipo": "no_kill", "rilascio_obbligatorio": true, "capi_trattenibili": 0}
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Pesca a mosca con coda di topo",
+          "estratto": "Torrente Varrone, Dervio: dal ponte in prossimità della foce al ponte della S.P. 72. Rilascio immediato, amo senza ardiglione."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "tratto_ab",
+        "da": "ponte_foce_varrone",
+        "a": "ponte_sp72_varrone",
+        "riferimento": "caposaldo"
+      }
+    },
+    {
+      "id": "breggia_nokill",
+      "nome": "Breggia — no-kill foce / frontiera",
+      "corpo_idrico": "breggia",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 30,
+      "bank": "both",
+      "monte": "prima_briglia_breggia",
+      "valle": "ponte_frontiera_breggia",
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "Dalla prima briglia a monte della foce al ponte della frontiera. Esche artificiali, rilascio, tutto l'anno."
+      },
+      "override": {
+        "regime": "no_kill",
+        "calendario": {"stagione_ref": "tutto_anno"},
+        "esche": {
+          "consentite": ["artificiale"],
+          "vietate": ["naturale", "cagnotto", "pesce_vivo", "pesce_morto"],
+          "pasturazione": "vietata"
+        },
+        "attrezzatura": {"ardiglione": "vietato"},
+        "prelievo": {"tipo": "no_kill", "rilascio_obbligatorio": true, "capi_trattenibili": 0}
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Esche artificiali con rilascio",
+          "estratto": "Torrente Breggia: dalla prima briglia a monte della foce al ponte presso la frontiera. Tutto l'anno, tutti i giorni, rilascio immediato."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "tratto_ab",
+        "da": "prima_briglia_breggia",
+        "a": "ponte_frontiera_breggia",
+        "riferimento": "caposaldo"
+      }
+    },
+    {
+      "id": "pioverna_nokill",
+      "nome": "Pioverna — no-kill foce / orrido",
+      "corpo_idrico": "pioverna",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 30,
+      "bank": "both",
+      "monte": "briglia_foce_pioverna",
+      "valle": "fine_orrido_pioverna",
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "Bellano, dalla briglia di foce per circa 800 m fino alla fine dell'orrido. Esche artificiali e rilascio.",
+        "lunghezza_dichiarata_m": 800
+      },
+      "override": {
+        "regime": "no_kill",
+        "esche": {
+          "consentite": ["artificiale"],
+          "vietate": ["naturale", "cagnotto", "pesce_vivo", "pesce_morto"],
+          "pasturazione": "vietata"
+        },
+        "attrezzatura": {"ardiglione": "vietato"},
+        "prelievo": {"tipo": "no_kill", "rilascio_obbligatorio": true, "capi_trattenibili": 0}
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Esche artificiali con rilascio",
+          "estratto": "Torrente Pioverna, Bellano: dalla briglia presso la foce per circa 800 m verso monte, fino alla fine dell'orrido."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "tratto_ab",
+        "da": "briglia_foce_pioverna",
+        "a": "fine_orrido_pioverna",
+        "riferimento": "caposaldo"
+      }
+    },
+    {
+      "id": "adda_tutela_olginate",
+      "nome": "Adda — tutela diga di Olginate",
+      "corpo_idrico": "adda",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 40,
+      "bank": "both",
+      "monte": "paratoie_olginate",
+      "valle": "ponte_olginate",
+      "estensione": {
+        "tipo": "tratto",
+        "descrizione": "Olginate e Calolziocorte, doppia sponda, dalle paratoie della diga al ponte stradale incluso. Solo da terra, una canna, massimo tre ami."
+      },
+      "override": {
+        "tecniche": {
+          "consentite": ["canna_da_riva", "piede_asciutto"],
+          "vietate": ["imbarcazione", "guado"]
+        },
+        "attrezzatura": {"canne_max": 1, "ami_max_per_canna": 3}
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Appendice II — Zone di tutela ittica",
+          "estratto": "Adda, Olginate e Calolziocorte: doppia sponda, dalle paratoie della diga di Olginate al ponte stradale incluso. Solo da terra, una canna, massimo tre ami."
+        }
+      ],
+      "geometria_vincolo": {
+        "tipo": "tratto_ab",
+        "da": "paratoie_olginate",
+        "a": "ponte_olginate",
+        "riferimento": "caposaldo"
+      }
     }
   ],
   "overlay_temporanei": [

@@ -405,6 +405,15 @@ def fascia_lungo_costa(lago, origine: Point, lunghezza_m: float, distanza_m: flo
     return pezzi_poligono(lago.intersection(arco.buffer(gradi)))
 
 
+def fascia_fra_punti(lago, punto_a: dict, punto_b: dict, distanza_m: float):
+    """Striscia d'acqua fra due capisaldi di costa, larga `distanza_m` verso il lago."""
+    lago = pulisci(lago)
+    arco = arco_fra_punti(costa_di(lago), punto_a, punto_b)
+    if arco.is_empty:
+        return []
+    return pezzi_poligono(lago.intersection(arco.buffer(distanza_m / 111320.0)))
+
+
 def arco_fra_punti(costa, punto_a: dict, punto_b: dict) -> LineString:
     """Arco di costa più corto fra due capisaldi con lat/lon."""
     if costa is None or costa.is_empty:
@@ -423,6 +432,8 @@ def self_test() -> None:
     assert all(p.representative_point().y < 45.82 for p in sud)
     zona = poligono_due_punti_costa(lago, [[45.84, 9.33], [45.82, 9.36]])
     assert zona and sum(p.area for p in zona) < lago.area * 0.5
+    fascia = fascia_fra_punti(lago, {"lat": 45.84, "lon": 9.32}, {"lat": 45.84, "lon": 9.34}, 100)
+    assert fascia and sum(p.area for p in fascia) < lago.area * 0.5
     print("tagli_geometrici self-test ok")
 
 

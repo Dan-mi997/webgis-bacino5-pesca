@@ -877,6 +877,17 @@
       "richiede_tesserino": false,
       "note": "Permesso di pesca del Lago di Montorfano. Importo non indicato nel prontuario."
     },
+    "diritti_brinzio": {
+      "etichetta": "Lago di Brinzio e Rio Brivola",
+      "documenti": [
+        "licenza_B",
+        "permesso_titolare"
+      ],
+      "alternativa_non_tesserati": null,
+      "richiede_contributo_extra": false,
+      "richiede_tesserino": false,
+      "note": "Tessera dell'Associazione Pescatori Dilettanti di Brinzio. Il prontuario non indica l'importo."
+    },
     "diritti_citterio": {
       "etichetta": "Diritto esclusivo Eredi Carlo Citterio",
       "documenti": [

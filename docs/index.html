@@ -102,7 +102,7 @@
       <h2>Sempre in mappa</h2>
       <p class="legend-note">
         I divieti permanenti restano in rosso, sopra gli altri layer, anche se la categoria o il permesso è spento.
-        Un divieto limitato a un periodo, come le aree di ormeggio del Lario, segue la data quando la mappa è colorata per data/ora.
+        Un divieto limitato a un periodo, come le aree di ormeggio del Lario, ha il colore della zona e diventa rosso solo dentro quel periodo.
         Le segmentazioni speciali tengono il colore della vista e un tratteggio alternato nero.
       </p>
 
@@ -359,21 +359,24 @@
       if (!r || r.pesca_consentita === false || p.regime === "divieto") return false;
       return ((r.calendario && r.calendario.periodi_speciali) || []).some(x => x.vietata);
     }
+    function nelDivietoPeriodico(p) {
+      const periodi = (p.regole && p.regole.calendario && p.regole.calendario.periodi_speciali) || [];
+      return periodi.some(per => per.vietata && inStagione(per.stagione, whenT()) === true);
+    }
     function styleDivieto(p) {
       const poly = (p.geometria || "").includes("Polygon");
-      let color = "#dc2626";
-      if (modeEl.checked && divietoPeriodico(p)) {
-        const ok = valuta(p.regole, whenT()).ok;
-        color = ok === true ? "#16a34a" : ok === false ? "#dc2626" : "#64748b";
+      if (divietoPeriodico(p)) {
+        if (modeEl.checked || !nelDivietoPeriodico(p)) return styleFeat(p);
+        return { color: "#dc2626", weight: poly ? 2 : 4, opacity: 1, fillColor: "#dc2626", fillOpacity: poly ? 0.65 : 0, lineCap: "round" };
       }
-      return { color, weight: poly ? 2 : 4, opacity: 1, fillColor: color, fillOpacity: poly ? 0.65 : 0, lineCap: "round" };
+      return { color: "#dc2626", weight: poly ? 2 : 4, opacity: 1, fillColor: "#dc2626", fillOpacity: poly ? 0.65 : 0, lineCap: "round" };
     }
 
     // ------------------------------------------------------------ popup
     const lbl = (dict, ids) => (ids || []).map(i => dict[i] || i);
     const chips = (items, cls) => items.map(x => `<span class="chip ${cls}">${esc(x)}</span>`).join("");
     const row = (k, v) => v === undefined || v === null || v === "" ? "" : `<tr><td>${esc(k)}</td><td>${v}</td></tr>`;
-    const SPECIE = { trota_fario: "Trota fario", trota_marmorata: "Trota marmorata", temolo: "Temolo", luccio: "Luccio", persico_reale: "Persico reale", salmerino_alpino: "Salmerino alpino" };
+    const SPECIE = { trota_fario: "Trota fario", trota_marmorata: "Trota marmorata", temolo: "Temolo", luccio: "Luccio", persico_reale: "Persico reale", salmerino_alpino: "Salmerino alpino", barbo: "Barbo", carpa: "Carpa", trota: "Trota", agone: "Agone", coregone_bondella: "Coregone bondella", coregone_lavarello: "Coregone lavarello", lucioperca: "Lucioperca", persico_trota: "Persico trota", tinca: "Tinca" };
 
     function statusHtml(r, p) {
       const t = whenT(), v = valuta(r, t);
@@ -417,20 +420,39 @@
       </table></details>`;
     }
 
+    function periodiPrelievo(r) {
+      const p = r.prelievo || {};
+      if (r.regime === "cispp" || r.tipo_acqua === "CISPP") return [];
+      const sempre = new Set(p.specie_protette || p.specie_sempre_protette_extra || []);
+      return (p.periodi_divieto || []).filter(x => !sempre.has(x.specie));
+    }
     function secPrelievo(r) {
       const p = r.prelievo;
       if (!p || p.tipo === "nessuno") return "";
       const base = { trota_fario: 25, trota_marmorata: 40, temolo: 35, luccio: 60, persico_reale: 16, salmerino_alpino: 25 };
-      const mis = Object.entries(p.misure_minime_cm || {}).map(([k, v]) =>
-        `${esc(SPECIE[k] || k)} <b>${v} cm</b>${base[k] !== undefined && base[k] !== v ? " <span class='chip c'>locale</span>" : ""}`).join("<br>");
+      const perSpecie = {};
+      periodiPrelievo(r).forEach(x => { perSpecie[x.specie] = x; });
+      const rigaMisura = (k, v) => {
+        const per = perSpecie[k];
+        const periodo = per ? ` <span style="color:#64748b">· divieto ${esc(per.testo)}</span>${per.ambito ? ` <span class="chip c">${esc(per.ambito)}</span>` : ""}` : "";
+        if (per) delete perSpecie[k];
+        const locale = base[k] !== undefined && base[k] !== v ? " <span class='chip c'>locale</span>" : "";
+        return `${esc(SPECIE[k] || k)} <b>${v} cm</b>${locale}${periodo}`;
+      };
+      const mis = Object.entries(p.misure_minime_cm || {}).map(([k, v]) => rigaMisura(k, v)).join("<br>");
+      const soloPeriodo = Object.values(perSpecie).map(x =>
+        `${esc(SPECIE[x.specie] || x.specie)} <span style="color:#64748b">· divieto ${esc(x.testo)}</span>${x.ambito ? ` <span class="chip c">${esc(x.ambito)}</span>` : ""}`).join("<br>");
       const extra = (p.specie_sempre_protette_extra || []).map(s => SPECIE[s] || s);
       const lim = p.limiti ? `${p.limiti.salmonidi_complessivi} salmonidi/giorno · luccio ${p.limiti.per_specie.luccio} · marmorata ${p.limiti.per_specie.trota_marmorata} · max ${p.limiti.kg_giornalieri_max} kg` : null;
+      const notaPeriodi = (!p.rilascio_obbligatorio && (periodiPrelievo(r).length || p.periodi_divieto_nota))
+        ? `<div class="foot">${esc(p.periodi_divieto_nota || "I divieti di specie decorrono da un'ora dopo il tramonto del giorno di inizio a un'ora prima dell'alba del giorno di scadenza.")}</div>` : "";
       return `<details${p.rilascio_obbligatorio ? " open" : ""}><summary>Prelievo</summary><table>
         ${row("Regime", p.rilascio_obbligatorio ? "<b style='color:#7c3aed'>No-kill: rilascio immediato di tutto il pescato</b>" : "Prelievo consentito")}
         ${row("Sempre protette qui", extra.length ? chips(extra, "n") : null)}
         ${p.rilascio_obbligatorio ? "" : row("Misure minime", mis)}
+        ${p.rilascio_obbligatorio ? "" : row("Altri periodi di divieto", soloPeriodo)}
         ${p.rilascio_obbligatorio ? "" : row("Limiti", esc(lim))}
-      </table></details>`;
+      </table>${p.rilascio_obbligatorio ? "" : notaPeriodi}</details>`;
     }
 
     function pacchettoHtml(pk) {
