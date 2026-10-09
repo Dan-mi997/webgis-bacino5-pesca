@@ -58,13 +58,13 @@
           "estratto": "laghi minori e corsi d’acqua popolati prevalentemente da ciprinidi — Lago di Ghirla, lago di Ganna, lago Delio, lago di Brinzio, …"
         }
       },
-      "fuori_cap4": {
-        "etichetta": "Fuori dal cap. 4 (CISPP)",
-        "descrizione": "Ceresio e Tresa: non sono negli elenchi A, B o C. Il regolamento operativo è la convenzione italo-svizzera.",
+      "CISPP": {
+        "etichetta": "Cat. CISPP",
+        "descrizione": "Verbano, Ceresio e Tresa. Regole del Capitolo 5 del prontuario del bacino.",
         "fonte": {
           "livello": "testuale",
-          "riferimento": "par. 4.10",
-          "estratto": "Nel Verbano, nel Ceresio e nel fiume Tresa, la pesca è regolamentata in modo differente"
+          "riferimento": "Capitolo 5 del prontuario",
+          "estratto": "Nel Verbano, nel Ceresio e nel fiume Tresa le regole di pesca sono quelle del Capitolo 5."
         }
       }
     },
@@ -105,8 +105,8 @@
         "pesca_consentita": false
       },
       "cispp": {
-        "etichetta": "Regime CISPP (Commissione italo-svizzera)",
-        "descrizione": "Acque regolate dalla Convenzione italo-svizzera: regole diverse dal cap. 4 del prontuario.",
+        "etichetta": "Cat. CISPP — Capitolo 5 del prontuario",
+        "descrizione": "Regole operative del Capitolo 5 del prontuario per Verbano, Ceresio e Tresa. Nessun rinvio a un regolamento esterno.",
         "colore": "#0369a1",
         "tratteggio": "2 5",
         "pesca_consentita": true
@@ -135,7 +135,7 @@
       "diritti_esclusivi": {
         "etichetta": "Diritti esclusivi",
         "descrizione": "Il permesso lo rilascia il titolare del diritto. Tecniche e periodi restano quelli della classe del par. 4.10.",
-        "colore": "#b45309",
+        "colore": "#f97316",
         "tratteggio": null,
         "pesca_consentita": true
       }
@@ -243,15 +243,14 @@
         }
       },
       "rinvio_cispp": {
-        "etichetta": "Calendario CISPP",
+        "etichetta": "Periodi del Capitolo 5",
         "inizio": null,
         "fine": null,
-        "rinvio_esterno": "https://www.cispp.org/",
-        "testo": "Calendario stabilito dal Regolamento di applicazione CISPP (in vigore dal 1° gennaio 2025)",
+        "testo": "Periodi scritti nel Capitolo 5 del prontuario del bacino.",
         "fonte": {
           "livello": "testuale",
-          "riferimento": "Premessa cap. 4",
-          "estratto": "Nel Verbano, nel Ceresio e nel fiume Tresa, la pesca è regolamentata in modo differente"
+          "riferimento": "Capitolo 5 del prontuario",
+          "estratto": "Le regole di Verbano, Ceresio e Tresa stanno nel Capitolo 5 del prontuario."
         }
       }
     },
@@ -292,15 +291,14 @@
         }
       },
       "rinvio_cispp": {
-        "etichetta": "Orari CISPP",
+        "etichetta": "Orari del Capitolo 5",
         "da": null,
         "a": null,
-        "rinvio_esterno": "https://www.cispp.org/",
-        "testo": "Pesca notturna solo nei tratti CISPP specifici del Tresa",
+        "testo": "Orari scritti nel Capitolo 5 del prontuario. Sul Tresa la pesca notturna è solo nei tratti indicati da quel capitolo.",
         "fonte": {
           "livello": "testuale",
-          "riferimento": "Regolamento CISPP (sintesi prontuario)",
-          "estratto": "Pesca notturna solo in tratti CISPP specifici"
+          "riferimento": "Capitolo 5 del prontuario",
+          "estratto": "Pesca notturna solo nei tratti del Tresa indicati nel Capitolo 5."
         }
       }
     },
@@ -1185,7 +1183,7 @@
       "prelievo": {
         "tipo": "ordinario",
         "rilascio_obbligatorio": false,
-        "capi_trattenibili": "secondo Regolamento CISPP",
+        "capi_trattenibili": "secondo il Capitolo 5 del prontuario",
         "misure_minime_override_cm": {},
         "specie_sempre_protette_extra": [
           "trota_marmorata"
@@ -1200,7 +1198,7 @@
       "fonti": [
         {
           "livello": "testuale",
-          "riferimento": "Regolamento CISPP (sintesi prontuario)",
+          "riferimento": "Capitolo 5 del prontuario",
           "estratto": "pesca «solo da riva» con «una sola canna per pescatore, armata con un massimo di 5 ami»; vietati sangue e uova di pesce come esca; vietata ogni pasturazione. «Nel fiume Tresa è sempre vietata anche la cattura e la detenzione della trota marmorata.»"
         }
       ],
@@ -1240,7 +1238,7 @@
         "vietate": [
           "pesce_vivo_fuori_comunita"
         ],
-        "pasturazione": "secondo_cispp"
+        "pasturazione": "secondo il Capitolo 5 del prontuario"
       },
       "tecniche": {
         "consentite": [
@@ -1255,7 +1253,7 @@
       "prelievo": {
         "tipo": "ordinario",
         "rilascio_obbligatorio": false,
-        "capi_trattenibili": "secondo Regolamento CISPP",
+        "capi_trattenibili": "secondo il Capitolo 5 del prontuario",
         "misure_minime_override_cm": {
           "agone": 20,
           "carpa": 30,
@@ -1306,7 +1304,7 @@
       "interpretazioni": [
         {
           "campo": "classificazione",
-          "nota": "Il Ceresio non compare negli elenchi tipo A, B o C del par. 4.10: il cap. 4 non lo regola. La classe è un attributo non operativo."
+          "nota": "Verbano e Ceresio sono Cat. CISPP, paritetica ad A, B e C. Le regole operative sono il Capitolo 5 del prontuario."
         }
       ]
     }

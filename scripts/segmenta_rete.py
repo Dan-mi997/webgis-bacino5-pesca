@@ -33,7 +33,7 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 from shapely.geometry import LineString, Point, shape
-from shapely.ops import split
+from shapely.ops import split, unary_union
 
 import config as cfg
 from geo_utils import (
@@ -47,6 +47,22 @@ from geo_utils import (
     substring_m,
 )
 from regole import Matrice
+from tagli_geometrici import (
+    TIPI_SPAZIALI,
+    buffer_m,
+    costa_di,
+    costa_sul_pezzo,
+    fascia_lungo_costa,
+    latlon,
+    pezzi_poligono,
+    poligono_costa_e_confine,
+    poligono_due_punti_costa,
+    pulisci,
+    split_semipiano,
+    tratto_fino_al_lago,
+    unisci,
+    arco_fra_punti,
+)
 
 # Un taglio a meno di così da un estremo non crea un moncone: il caposaldo
 # resta il limite dell'intervallo, agganciato all'estremo.
@@ -310,6 +326,11 @@ def _completa_reticolo(fiumi: list[dict], laghi: list[dict], consumati: set[int]
             tratto = _tratto_kennedy(line, punti)
             if tratto is not None:
                 _emetti(tratto, props_reg, "adda_lecco_tipo_c", "Dal ponte Kennedy al ponte Manzoni.")
+                resto = line.difference(tratto.buffer(0.00008))
+                for parte in _linee_di(resto):
+                    if line_length_m(parte) < 30:
+                        continue
+                    _emetti(parte, props_reg, "adda", nota or "Adda fuori dal tratto Kennedy–Manzoni.")
                 return
         _emetti(line, props_reg, corpo_id, nota)
 
@@ -434,21 +455,27 @@ def carica_capisaldi(path: Path) -> dict[str, dict]:
     return punti
 
 
-def _corpi_del_punto(pid: str, punto: dict, segmenti: list[dict]) -> set[str]:
+def _corpi_del_punto(pid: str, punto: dict, segmenti: list[dict], overlay: list[dict] | None = None) -> set[str]:
     esplicito = punto.get("corpo_idrico") or punto.get("corpo")
     if esplicito:
         return {str(esplicito)}
-    return {
+    corpi = {
         s["corpo_idrico"]
         for s in segmenti
         if pid in (s.get("monte"), s.get("valle")) and s.get("corpo_idrico")
     }
+    for o in overlay or []:
+        if pid in (o.get("monte"), o.get("valle")) and o.get("corpo_idrico"):
+            corpi.add(o["corpo_idrico"])
+    return corpi
 
 
 def _indicizza(matrice: Matrice) -> dict[str, dict[str, str]]:
     """geometria normativa -> chiave idronimo -> corpo_id. Le chiavi ambigue si scartano."""
     grezzo: dict[str, dict[str, set[str]]] = {"linea": {}, "poligono": {}}
     for corpo_id, corpo in matrice.corpi.items():
+        if corpo.get("stato") == "predisposto":
+            continue
         geom = corpo.get("geometria")
         if geom not in grezzo:
             continue
@@ -592,17 +619,24 @@ def _segmento_a(metri: float, partials: list[tuple[dict, float, float]], interi:
     return best_id
 
 
-def _props_base(matrice: Matrice, corpo_id: str, segmento_id: str | None, nome_tratto: str, regionale: dict, geom) -> dict:
+def _props_base(matrice: Matrice, corpo_id: str, segmento_id: str | None, nome_tratto: str, regionale: dict, geom, modalita: str = "sponda") -> dict:
     poly = geom.geom_type in ("Polygon", "MultiPolygon")
-    risolto = matrice.risolvi(corpo_id, segmento_id, "sponda")
+    risolto = matrice.risolvi(corpo_id, segmento_id, modalita)
     corpo = matrice.corpi[corpo_id]
     segmento = matrice.segmenti.get(segmento_id) if segmento_id else None
+    divieto = risolto["pesca_consentita"] is False or risolto["regime"] == "divieto"
+    speciale = bool(segmento) and not segmento.get("intero_corpo") and (segmento.get("geometria_vincolo") or {}).get("tipo") != "intero_entita" and not divieto
     props = {
         "nome_tratto": nome_tratto,
         "corpo_idrico": corpo_id,
         "corpo_nome": corpo["nome"],
         "layer": "base",
         "segmento_id": segmento_id,
+        "entita": modalita,
+        "categoria": risolto["matrice"]["classificazione_biologica"],
+        "livello_permesso": risolto["matrice"]["livello_permesso"],
+        "divieto": divieto,
+        "segmentazione_speciale": speciale,
         "bank": (segmento or corpo).get("bank") or ("both" if not poly else None),
         "zona_id": risolto["zona_id"],
         "regime": risolto["regime"],
@@ -621,12 +655,350 @@ def _props_base(matrice: Matrice, corpo_id: str, segmento_id: str | None, nome_t
     }
     if props["bank"] is None:
         del props["bank"]
-    if poly:
-        props["regole_natante"] = matrice.risolvi(corpo_id, segmento_id, "natante")
     if geom.geom_type in ("LineString", "MultiLineString"):
         parts = [geom] if geom.geom_type == "LineString" else list(geom.geoms)
         props["lunghezza_m"] = round(sum(line_length_m(p) for p in parts))
     return props
+
+
+def _in_overlay(matrice: Matrice, corpo_id: str, mid: float, misure: dict) -> bool:
+    for ov in matrice.overlays(corpo_id):
+        a, b = ov.get("monte"), ov.get("valle")
+        if a in misure and b in misure:
+            lo, hi = min(misure[a], misure[b]), max(misure[a], misure[b])
+            if lo - 1 <= mid <= hi + 1:
+                return True
+    return False
+
+
+def _regionale_da(props: dict) -> dict:
+    return {
+        "NOME": props.get("nome_regionale"),
+        "BACINO": props.get("bacino_regionale"),
+        "SOTTOBACIN": props.get("sottobacino"),
+        "COD_PTUA16": props.get("cod_ptua16"),
+        "NATURA": props.get("natura"),
+    }
+
+
+def _confine_lombardia():
+    path = cfg.CONFINE_LOMBARDIA
+    if not path.exists():
+        return None
+    data = json.loads(path.read_text(encoding="utf-8"))
+    confine = shape(data["features"][0]["geometry"])
+    return confine if confine.is_valid else confine.buffer(0)
+
+
+def _costa_reale(geom, confine):
+    bordo = costa_di(geom)
+    if confine is None or bordo.is_empty:
+        return bordo
+    tratto = bordo.difference(confine.boundary.buffer(0.00035))
+    linee = _linee_di(tratto)
+    if not linee:
+        return bordo
+    if len(linee) == 1:
+        return linee[0]
+    return unary_union(linee)
+
+
+def _segmento_entita(matrice: Matrice, corpo_id: str, modalita: str, base_id: str | None) -> str | None:
+    scelto = base_id
+    priorita = int((matrice.segmenti.get(base_id) or {}).get("priorita") or 0) if base_id else -1
+    for seg in matrice.spec["segmenti"]:
+        if seg.get("corpo_idrico") != corpo_id:
+            continue
+        vin = seg.get("geometria_vincolo") or {}
+        if vin.get("tipo") == "intero_entita" and vin.get("entita") == modalita and int(seg.get("priorita") or 0) >= priorita:
+            scelto = seg["id"]
+            priorita = int(seg.get("priorita") or 0)
+    return scelto
+
+
+def _ritaglia_lago(poly, seg: dict, punti: dict, confine):
+    vin = seg.get("geometria_vincolo") or {}
+    tipo = vin.get("tipo")
+    if tipo == "semipiano":
+        nord, sud = split_semipiano(poly, vin["linea"])
+        return (sud, nord) if vin.get("lato") == "sud" else (nord, sud)
+    if tipo == "poligono_costa_e_confine":
+        if confine is None:
+            return [], [poly]
+        zone, _classi = poligono_costa_e_confine(poly, confine, vin["vertici"], costa=_costa_reale(poly, confine))
+        zona = unisci(zone)
+        if zona.is_empty:
+            return [], [poly]
+        return pezzi_poligono(poly.intersection(zona)), pezzi_poligono(poly.difference(zona.buffer(1e-6)))
+    if tipo == "poligono_due_punti_costa":
+        zona = unisci(poligono_due_punti_costa(poly, vin["punti"]))
+        if zona.is_empty:
+            return [], [poly]
+        return pezzi_poligono(poly.intersection(zona)), pezzi_poligono(poly.difference(zona.buffer(1e-6)))
+    if tipo == "raggio" and vin.get("raggio_m") and vin.get("centro") in punti and "lat" in punti[vin["centro"]]:
+        p = punti[vin["centro"]]
+        circ = buffer_m(Point(float(p["lon"]), float(p["lat"])), float(vin["raggio_m"]))
+        zona = unisci(pezzi_poligono(poly.intersection(circ)))
+        if zona.is_empty:
+            return [], [poly]
+        return pezzi_poligono(zona), pezzi_poligono(poly.difference(circ))
+    if tipo == "fascia_riva":
+        pid = vin.get("da") or vin.get("centro")
+        if not pid or pid not in punti or "lat" not in punti[pid]:
+            return [], [poly]
+        origine = Point(float(punti[pid]["lon"]), float(punti[pid]["lat"]))
+        if vin.get("monte_m") or vin.get("valle_m"):
+            pezzi = fascia_lungo_costa(poly, origine, float(vin.get("monte_m") or 0), float(vin["distanza_riva_m"]), "nord")
+            pezzi += fascia_lungo_costa(poly, origine, float(vin.get("valle_m") or 0), float(vin["distanza_riva_m"]), "sud")
+            zona = unisci(pezzi)
+        else:
+            zona = unisci(fascia_lungo_costa(
+                poly, origine, float(vin.get("lunghezza_m") or 0), float(vin["distanza_riva_m"]), vin.get("verso"),
+            ))
+        if zona.is_empty:
+            return [], [poly]
+        return pezzi_poligono(poly.intersection(zona)), pezzi_poligono(poly.difference(zona.buffer(1e-6)))
+    return [], [poly]
+
+
+def _linee_di(geom) -> list[LineString]:
+    if geom is None or geom.is_empty:
+        return []
+    if geom.geom_type == "LineString":
+        return [geom]
+    if geom.geom_type == "LinearRing":
+        return [LineString(geom.coords)]
+    if geom.geom_type == "MultiLineString":
+        return [g for g in geom.geoms if g.geom_type == "LineString"]
+    if geom.geom_type == "GeometryCollection":
+        out = []
+        for g in geom.geoms:
+            out.extend(_linee_di(g))
+        return out
+    return []
+
+
+def _catena_verso_lago(linee: list[LineString], origine_latlon, lago) -> list[LineString]:
+    """Dal punto verso il lago, anche attraversando più centerline dello stesso fiume."""
+    primi = tratto_fino_al_lago(linee, origine_latlon, lago)
+    if not primi:
+        return []
+    presi = list(primi)
+    usati: set[int] = set()
+    origine = latlon(origine_latlon)
+    for i, line in enumerate(linee):
+        if geom_distance_m(line, origine) < 30 or line.buffer(0.00015).covers(Point(presi[0].coords[0])):
+            usati.add(i)
+    fronte = Point(presi[-1].coords[-1])
+    if lago is not None and not lago.is_empty and geom_distance_m(lago, fronte) < 40:
+        return presi
+    guard = 0
+    while guard < len(linee):
+        guard += 1
+        scelto = None
+        for i, line in enumerate(linee):
+            if i in usati or geom_distance_m(line, fronte) > 120:
+                continue
+            orientata = line
+            if geom_distance_m(Point(line.coords[0]), fronte) > geom_distance_m(Point(line.coords[-1]), fronte):
+                orientata = LineString(list(line.coords)[::-1])
+            if lago is not None and not lago.is_empty and orientata.intersects(lago):
+                fuori = orientata.difference(lago.buffer(1e-5))
+                candidati = _linee_di(fuori)
+                if candidati:
+                    orientata = min(candidati, key=lambda g: geom_distance_m(g, fronte))
+            if line_length_m(orientata) < 20:
+                usati.add(i)
+                continue
+            scelto = (i, orientata)
+            break
+        if scelto is None:
+            break
+        i, orientata = scelto
+        usati.add(i)
+        presi.append(orientata)
+        fronte = Point(orientata.coords[-1])
+        if lago is not None and not lago.is_empty and geom_distance_m(lago, fronte) < 40:
+            break
+    return presi
+
+
+def _applica_tratti_asta(features: list[dict], matrice: Matrice, report: dict) -> None:
+    laghi = {}
+    for ft in features:
+        geom = shape(ft["geometry"])
+        if geom.geom_type not in ("Polygon", "MultiPolygon"):
+            continue
+        cid = (ft.get("properties") or {}).get("corpo_idrico")
+        if cid:
+            laghi.setdefault(cid, []).append(geom)
+    laghi = {k: unisci(v) for k, v in laghi.items()}
+    sostituzioni: dict[int, list[dict]] = {}
+    for seg in matrice.spec["segmenti"]:
+        vin = seg.get("geometria_vincolo") or {}
+        if vin.get("tipo") != "tratto_verso_valle_fino_a_lago":
+            continue
+        lago = laghi.get(vin.get("fino_a_corpo"))
+        if lago is None or lago.is_empty:
+            report["segmenti_non_applicati"].append({"id": seg["id"], "motivo": "lago_di_chiusura_assente"})
+            continue
+        origine = latlon(vin["da"])
+        corpi_ok = {seg["corpo_idrico"]}
+        if seg["corpo_idrico"] == "adda":
+            corpi_ok.add("adda_lecco_tipo_c")
+        candidati = []
+        for i, ft in enumerate(features):
+            if (ft.get("properties") or {}).get("corpo_idrico") not in corpi_ok:
+                continue
+            geom = shape(ft["geometry"])
+            if geom.geom_type != "LineString":
+                continue
+            candidati.append((i, geom, ft["properties"]))
+        if not candidati:
+            report["segmenti_non_applicati"].append({"id": seg["id"], "motivo": "tratto_non_trovato"})
+            continue
+        linee = [g for _i, g, _p in candidati]
+        if min(geom_distance_m(g, origine) for g in linee) > 800:
+            report["segmenti_non_applicati"].append({"id": seg["id"], "motivo": "tratto_non_trovato"})
+            continue
+        pezzi = _catena_verso_lago(linee, vin["da"], lago)
+        if not pezzi:
+            report["segmenti_non_applicati"].append({"id": seg["id"], "motivo": "tratto_non_trovato"})
+            continue
+        regionale = _regionale_da(candidati[0][2])
+        coperti = unisci([p.buffer(0.00008) for p in pezzi])
+        for i, geom, props in candidati:
+            resto = geom.difference(coperti)
+            emessi = []
+            for parte in _linee_di(resto):
+                if line_length_m(parte) < 20:
+                    continue
+                emessi.append(feature(parte, _props_base(
+                    matrice, props.get("corpo_idrico") or seg["corpo_idrico"], props.get("segmento_id"),
+                    props.get("nome_tratto") or matrice.corpi[seg["corpo_idrico"]]["nome"], regionale, parte, "sponda",
+                )))
+            if emessi or geom.intersects(coperti):
+                sostituzioni[i] = emessi
+        for pezzo in pezzi:
+            props = _props_base(matrice, seg["corpo_idrico"], seg["id"], seg["nome"], regionale, pezzo, "sponda")
+            props["sponda_idrografica"] = vin.get("sponda") or "sinistra_idrografica"
+            props["segmentazione_speciale"] = True
+            sostituzioni.setdefault(-1, []).append(feature(pezzo, props))
+        raggiunge = lago is not None and geom_distance_m(lago, Point(pezzi[-1].coords[-1])) < 80
+        report.setdefault("tagli_asta", []).append({
+            "id": seg["id"],
+            "lunghezza_m": round(sum(line_length_m(p) for p in pezzi)),
+            "raggiunge_il_lago": raggiunge,
+        })
+    if not sostituzioni:
+        return
+    nuovo = []
+    extra = sostituzioni.pop(-1, [])
+    for i, ft in enumerate(features):
+        if i in sostituzioni:
+            nuovo.extend(sostituzioni[i])
+        else:
+            nuovo.append(ft)
+    nuovo.extend(extra)
+    features.clear()
+    features.extend(nuovo)
+
+
+def _separa_laghi(features: list[dict], matrice: Matrice, punti: dict, report: dict) -> None:
+    confine = _confine_lombardia()
+    out = []
+    riusciti: set[str] = set()
+    pendenti: dict[str, dict] = {}
+    archi_fatti: set[str] = set()
+    for ft in features:
+        props = ft.get("properties") or {}
+        geom = shape(ft["geometry"])
+        corpo_id = props.get("corpo_idrico")
+        corpo = matrice.corpi.get(corpo_id) if corpo_id else None
+        if not corpo or corpo.get("geometria") != "poligono" or geom.geom_type not in ("Polygon", "MultiPolygon"):
+            out.append(ft)
+            continue
+        if corpo.get("stato") == "predisposto":
+            out.append(ft)
+            continue
+        geom = pulisci(geom)
+        pezzi = [(g, props.get("segmento_id")) for g in pezzi_poligono(geom)]
+        spaziali = [
+            seg for seg in matrice.spec["segmenti"]
+            if seg.get("corpo_idrico") == corpo_id
+            and (seg.get("geometria_vincolo") or {}).get("tipo") in (*TIPI_SPAZIALI, "raggio", "fascia_riva")
+        ]
+        spaziali.sort(key=lambda s: int(s.get("priorita") or 0))
+        for seg in spaziali:
+            nuovi = []
+            applicato = False
+            for poly, sid in pezzi:
+                ritagli, resto = _ritaglia_lago(poly, seg, punti, confine)
+                if ritagli:
+                    applicato = True
+                    pr_new = int(seg.get("priorita") or 0)
+                    pr_old = int((matrice.segmenti.get(sid) or {}).get("priorita") or 0) if sid else -1
+                    uso = seg["id"] if pr_new >= pr_old else sid
+                    nuovi.extend((r, uso) for r in ritagli)
+                    nuovi.extend((r, sid) for r in resto)
+                else:
+                    nuovi.append((poly, sid))
+            pezzi = [(p, s) for p, s in nuovi if p is not None and not p.is_empty]
+            if not applicato:
+                vin = seg.get("geometria_vincolo") or {}
+                motivo = "raggio_non_misurato" if vin.get("tipo") == "raggio" and not vin.get("raggio_m") else "taglio_spaziale_vuoto"
+                pendenti.setdefault(seg["id"], {"id": seg["id"], "corpo_idrico": corpo_id, "motivo": motivo})
+            else:
+                riusciti.add(seg["id"])
+                pendenti.pop(seg["id"], None)
+        regionale = _regionale_da(props)
+        costa_orig = _costa_reale(geom, confine) if props.get("clip_lombardia") else costa_di(geom)
+        for poly, sid in pezzi:
+            if poly.is_empty or poly.area < 1e-10:
+                continue
+            nome = matrice.segmenti[sid]["nome"] if sid else corpo["nome"]
+            nat_props = _props_base(
+                matrice, corpo_id, _segmento_entita(matrice, corpo_id, "natante", sid),
+                f"{nome} — interno", regionale, poly, "natante",
+            )
+            out.append(feature(poly, nat_props))
+            costa = costa_sul_pezzo(poly, costa_orig)
+            linee = _linee_di(costa)
+            if not linee:
+                continue
+            costa_geom = linee[0] if len(linee) == 1 else unary_union(linee)
+            spo_props = _props_base(
+                matrice, corpo_id, _segmento_entita(matrice, corpo_id, "sponda", sid),
+                f"{nome} — costa", regionale, costa_geom, "sponda",
+            )
+            out.append(feature(costa_geom, spo_props))
+        for seg in matrice.spec["segmenti"]:
+            vin = seg.get("geometria_vincolo") or {}
+            if seg.get("corpo_idrico") != corpo_id or vin.get("tipo") != "tratto_ab" or seg.get("intero_corpo"):
+                continue
+            if not (isinstance(vin.get("da"), str) and isinstance(vin.get("a"), str)):
+                continue
+            if seg["id"] in archi_fatti:
+                continue
+            if vin["da"] not in punti or vin["a"] not in punti or "lat" not in punti[vin["da"]] or "lat" not in punti[vin["a"]]:
+                pendenti.setdefault(seg["id"], {"id": seg["id"], "motivo": "caposaldo_senza_coordinate"})
+                continue
+            pa = Point(float(punti[vin["da"]]["lon"]), float(punti[vin["da"]]["lat"]))
+            pb = Point(float(punti[vin["a"]]["lon"]), float(punti[vin["a"]]["lat"]))
+            if geom_distance_m(costa_orig, pa) > 400 or geom_distance_m(costa_orig, pb) > 400:
+                continue
+            arco = arco_fra_punti(costa_orig, punti[vin["da"]], punti[vin["a"]])
+            if arco.is_empty or line_length_m(arco) < 15:
+                pendenti.setdefault(seg["id"], {"id": seg["id"], "motivo": "arco_di_costa_assente"})
+                continue
+            archi_fatti.add(seg["id"])
+            pendenti.pop(seg["id"], None)
+            out.append(feature(arco, _props_base(matrice, corpo_id, seg["id"], seg["nome"], regionale, arco, "sponda")))
+    for voce in pendenti.values():
+        if voce["id"] not in riusciti and voce["id"] not in archi_fatti:
+            report["segmenti_non_applicati"].append(voce)
+    features.clear()
+    features.extend(out)
 
 
 def segmenta(matrice: Matrice, fiumi: list[dict], laghi: list[dict], punti: dict[str, dict],
@@ -693,7 +1065,7 @@ def segmenta(matrice: Matrice, fiumi: list[dict], laghi: list[dict], punti: dict
         if "lat" not in punto or "lon" not in punto:
             report["capisaldi"].append({"id": pid, "esito": "coordinate_assenti"})
             continue
-        corpi = _corpi_del_punto(pid, punto, matrice.spec["segmenti"])
+        corpi = _corpi_del_punto(pid, punto, matrice.spec["segmenti"], matrice.spec.get("overlay_temporanei"))
         if not corpi:
             overlay = [
                 o["id"] for o in (matrice.spec.get("overlay_temporanei") or [])
@@ -797,6 +1169,8 @@ def segmenta(matrice: Matrice, fiumi: list[dict], laghi: list[dict], punti: dict
                 segmento_id = _segmento_a(mid, partials, interi)
                 nome = matrice.segmenti[segmento_id]["nome"] if segmento_id else matrice.corpi[corpo_id]["nome"]
                 props = _props_base(matrice, corpo_id, segmento_id, nome, reg_props, piece)
+                if _in_overlay(matrice, corpo_id, mid, misure):
+                    props["segmentazione_speciale"] = True
                 estremi = [pid for pid, quota in misure.items() if abs(quota - locate_m(line, Point(piece.coords[0]))) <= _MIN_PEZZO_M + 1 or abs(quota - locate_m(line, Point(piece.coords[-1]))) <= _MIN_PEZZO_M + 1]
                 props["capisaldi_estremi"] = estremi
                 features.append(feature(piece, props))
@@ -813,12 +1187,16 @@ def segmenta(matrice: Matrice, fiumi: list[dict], laghi: list[dict], punti: dict
         interi = matrice.tagli(corpo_id, intero=True)
         segmento_id = interi[0]["id"] if len(interi) == 1 else (max(interi, key=lambda s: int(s.get("priorita") or 0))["id"] if interi else None)
         for seg in matrice.tagli(corpo_id):
-            if not seg.get("intero_corpo"):
-                report["segmenti_non_applicati"].append({
-                    "id": seg["id"],
-                    "corpo_idrico": corpo_id,
-                    "motivo": "taglio_su_poligono_non_spezzato",
-                })
+            if seg.get("intero_corpo"):
+                continue
+            vin = (seg.get("geometria_vincolo") or {}).get("tipo")
+            if vin in (*TIPI_SPAZIALI, "raggio", "fascia_riva", "tratto_verso_valle_fino_a_lago", "tratto_ab"):
+                continue
+            report["segmenti_non_applicati"].append({
+                "id": seg["id"],
+                "corpo_idrico": corpo_id,
+                "motivo": "taglio_su_poligono_non_spezzato",
+            })
         for geom, reg_props in specchi:
             nome = matrice.segmenti[segmento_id]["nome"] if segmento_id else matrice.corpi[corpo_id]["nome"]
             props = _props_base(matrice, corpo_id, segmento_id, nome, reg_props, geom)
@@ -842,6 +1220,8 @@ def segmenta(matrice: Matrice, fiumi: list[dict], laghi: list[dict], punti: dict
 
     _completa_reticolo(fiumi, laghi, consumati, punti, features, report, matrice)
     _clip_lombardia(features, report)
+    _applica_tratti_asta(features, matrice, report)
+    _separa_laghi(features, matrice, punti, report)
 
     for i, ft in enumerate(features, start=1):
         ft["properties"]["id"] = f"{ft['properties']['corpo_idrico']}_{i:03d}"

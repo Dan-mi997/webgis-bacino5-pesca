@@ -14,7 +14,7 @@
       "geometria": "linea",
       "parti": 12,
       "nome_regionale": "Acquanegra (Torrente)",
-      "capisaldi_proiettati": 0
+      "capisaldi_proiettati": 2
     },
     {
       "corpo_idrico": "bardello",
@@ -42,7 +42,7 @@
       "geometria": "linea",
       "parti": 7,
       "nome_regionale": "Cuccio (Torrente)",
-      "capisaldi_proiettati": 0
+      "capisaldi_proiettati": 1
     },
     {
       "corpo_idrico": "lagadone",
@@ -63,7 +63,7 @@
       "geometria": "linea",
       "parti": 2,
       "nome_regionale": "Margorabbia (Fiume)",
-      "capisaldi_proiettati": 4
+      "capisaldi_proiettati": 5
     },
     {
       "corpo_idrico": "pioverna",
@@ -91,7 +91,7 @@
       "geometria": "linea",
       "parti": 3,
       "nome_regionale": "Tresa (Fiume)",
-      "capisaldi_proiettati": 4
+      "capisaldi_proiettati": 6
     },
     {
       "corpo_idrico": "alserio",
@@ -201,6 +201,11 @@
       "geometria": "linea"
     },
     {
+      "corpo_idrico": "lago_brinzio",
+      "nome": "Lago di Brinzio",
+      "geometria": "poligono"
+    },
+    {
       "corpo_idrico": "lisascora",
       "nome": "Torrente Lisascora",
       "geometria": "linea"
@@ -208,6 +213,11 @@
     {
       "corpo_idrico": "rio_boesio",
       "nome": "Rio Boesio (affluente del Rancina)",
+      "geometria": "linea"
+    },
+    {
+      "corpo_idrico": "rio_briviola",
+      "nome": "Rio Briviola",
       "geometria": "linea"
     },
     {
@@ -262,44 +272,8 @@
   ],
   "capisaldi": [
     {
-      "id": "outlet_ghirla",
-      "nome": "Ponte sul Lago di Ghirla",
-      "esito": "overlay_non_spezza",
-      "overlay": [
-        "margorabbia_campo_gara_ghirla"
-      ]
-    },
-    {
-      "id": "chiusa_enel",
-      "nome": "Chiusa Enel in località Ghetto",
-      "esito": "overlay_non_spezza",
-      "overlay": [
-        "margorabbia_campo_gara_ghirla"
-      ]
-    },
-    {
-      "id": "super_mesenzana",
-      "nome": "Supermercato Mesenzana (Carrefour, sponda)",
-      "esito": "overlay_non_spezza",
-      "overlay": [
-        "margorabbia_campo_gara_mesenzana"
-      ]
-    },
-    {
       "id": "ponte_cucco",
       "nome": "Ponte del Cucco",
-      "esito": "senza_corpo_nel_grafo",
-      "overlay": []
-    },
-    {
-      "id": "vecchia_filanda",
-      "nome": "Estremo dello stretto di Lavena",
-      "esito": "senza_corpo_nel_grafo",
-      "overlay": []
-    },
-    {
-      "id": "grotto_bagat",
-      "nome": "Estremo dello stretto di Lavena",
       "esito": "senza_corpo_nel_grafo",
       "overlay": []
     },
@@ -322,14 +296,6 @@
       "overlay": []
     },
     {
-      "id": "foce_cuccio",
-      "nome": "Sbocco del Cuccio nel lago",
-      "esito": "overlay_non_spezza",
-      "overlay": [
-        "cuccio_campo_gara_porlezza"
-      ]
-    },
-    {
       "id": "foce_tresa_verbano",
       "nome": "Foce del Tresa nel Lago Maggiore",
       "esito": "senza_corpo_nel_grafo",
@@ -338,30 +304,6 @@
     {
       "id": "torretta_schiranna",
       "nome": "Torretta di arrivo della Canottieri, Schiranna",
-      "esito": "senza_corpo_nel_grafo",
-      "overlay": []
-    },
-    {
-      "id": "foce_tinella",
-      "nome": "Immissione del Tinella nel lago, Oltrona",
-      "esito": "senza_corpo_nel_grafo",
-      "overlay": []
-    },
-    {
-      "id": "cascatella_roverplast",
-      "nome": "Cascatella subito a valle della ditta Roverplast",
-      "esito": "senza_corpo_nel_grafo",
-      "overlay": []
-    },
-    {
-      "id": "ponte_giovanni_xxiii",
-      "nome": "Ponte di via Giovanni XXIII",
-      "esito": "senza_corpo_nel_grafo",
-      "overlay": []
-    },
-    {
-      "id": "ponte_trevisani",
-      "nome": "Ponte di via Trevisani a Monate",
       "esito": "senza_corpo_nel_grafo",
       "overlay": []
     },
@@ -392,18 +334,6 @@
     {
       "id": "ponte_sesto_calende",
       "nome": "Ponte di Sesto Calende",
-      "esito": "senza_corpo_nel_grafo",
-      "overlay": []
-    },
-    {
-      "id": "piazza_europa_lavena",
-      "nome": "Piazza Europa, Lavena Ponte Tresa",
-      "esito": "senza_corpo_nel_grafo",
-      "overlay": []
-    },
-    {
-      "id": "piazza_mercato_lavena",
-      "nome": "Piazza Mercato, Lavena Ponte Tresa",
       "esito": "senza_corpo_nel_grafo",
       "overlay": []
     },
@@ -1116,6 +1046,49 @@
       "overlay": []
     },
     {
+      "id": "ponte_giovanni_xxiii",
+      "nome": "Ponte di via Giovanni XXIII",
+      "corpo_idrico": "acquanegra",
+      "dist_m": 1.0,
+      "progressiva_m": 5967.5,
+      "esito": "proiettato",
+      "linea": 5
+    },
+    {
+      "id": "ponte_trevisani",
+      "nome": "Ponte di via Trevisani a Monate",
+      "corpo_idrico": "acquanegra",
+      "dist_m": 2.9,
+      "progressiva_m": 6630.7,
+      "esito": "proiettato",
+      "linea": 5
+    },
+    {
+      "id": "foce_cuccio",
+      "nome": "Sbocco del Cuccio nel lago",
+      "corpo_idrico": "cuccio",
+      "dist_m": 19.3,
+      "progressiva_m": 120.5,
+      "esito": "proiettato",
+      "linea": 2
+    },
+    {
+      "id": "outlet_ghirla",
+      "nome": "Ponte sul Lago di Ghirla",
+      "corpo_idrico": "margorabbia",
+      "dist_m": 4084.4,
+      "progressiva_m": 0.0,
+      "esito": "troppo_lontano"
+    },
+    {
+      "id": "chiusa_enel",
+      "nome": "Chiusa Enel in località Ghetto",
+      "corpo_idrico": "margorabbia",
+      "dist_m": 4041.6,
+      "progressiva_m": 0.0,
+      "esito": "troppo_lontano"
+    },
+    {
       "id": "ponte_grantola",
       "nome": "Ponte di Grantola",
       "corpo_idrico": "margorabbia",
@@ -1130,6 +1103,15 @@
       "corpo_idrico": "margorabbia",
       "dist_m": 0.9,
       "progressiva_m": 2697.7,
+      "esito": "proiettato",
+      "linea": 0
+    },
+    {
+      "id": "super_mesenzana",
+      "nome": "Supermercato Mesenzana (Carrefour, sponda)",
+      "corpo_idrico": "margorabbia",
+      "dist_m": 16.3,
+      "progressiva_m": 2152.7,
       "esito": "proiettato",
       "linea": 0
     },
@@ -1186,53 +1168,31 @@
       "progressiva_m": 6383.5,
       "esito": "proiettato",
       "linea": 1
+    },
+    {
+      "id": "piazza_europa_lavena",
+      "nome": "Piazza Europa, Lavena Ponte Tresa",
+      "corpo_idrico": "tresa",
+      "dist_m": 23.0,
+      "progressiva_m": 286.5,
+      "esito": "proiettato",
+      "linea": 2
+    },
+    {
+      "id": "piazza_mercato_lavena",
+      "nome": "Piazza Mercato, Lavena Ponte Tresa",
+      "corpo_idrico": "tresa",
+      "dist_m": 31.2,
+      "progressiva_m": 453.2,
+      "esito": "proiettato",
+      "linea": 2
     }
   ],
   "segmenti_non_applicati": [
     {
-      "id": "acquanegra_divieto",
-      "corpo_idrico": "acquanegra",
-      "motivo": "senza_estremi_monte_valle"
-    },
-    {
-      "id": "tresa_divieto_lavena",
-      "corpo_idrico": "tresa",
-      "motivo": "senza_estremi_monte_valle"
-    },
-    {
-      "id": "lago_lugano_restrizione_rezzo",
-      "corpo_idrico": "lago_lugano",
-      "motivo": "taglio_su_poligono_non_spezzato"
-    },
-    {
-      "id": "lago_lugano_restrizione_soldo",
-      "corpo_idrico": "lago_lugano",
-      "motivo": "taglio_su_poligono_non_spezzato"
-    },
-    {
-      "id": "lago_lugano_restrizione_telo",
-      "corpo_idrico": "lago_lugano",
-      "motivo": "taglio_su_poligono_non_spezzato"
-    },
-    {
       "id": "lago_lugano_divieto_cuccio",
       "corpo_idrico": "lago_lugano",
-      "motivo": "taglio_su_poligono_non_spezzato"
-    },
-    {
-      "id": "lago_lugano_canneto_lavena",
-      "corpo_idrico": "lago_lugano",
-      "motivo": "taglio_su_poligono_non_spezzato"
-    },
-    {
-      "id": "lago_varese_schiranna",
-      "corpo_idrico": "lago_varese",
-      "motivo": "taglio_su_poligono_non_spezzato"
-    },
-    {
-      "id": "lago_varese_oltrona",
-      "corpo_idrico": "lago_varese",
-      "motivo": "taglio_su_poligono_non_spezzato"
+      "motivo": "raggio_non_misurato"
     }
   ],
   "geometrie_scartate": {
@@ -1242,7 +1202,14 @@
   },
   "reticolo_senza_scheda": [],
   "clip_lombardia": {
-    "feature_in_uscita": 159,
+    "feature_in_uscita": 165,
     "geometrie_intersecate": 4
-  }
+  },
+  "tagli_asta": [
+    {
+      "id": "adda_pescarenico_sponda_sinistra",
+      "lunghezza_m": 1111,
+      "raggiunge_il_lago": true
+    }
+  ]
 }

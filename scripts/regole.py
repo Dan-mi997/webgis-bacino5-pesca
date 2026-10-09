@@ -233,7 +233,7 @@ class Regole:
         st = self.in_stagione(cal["stagione"], dt, lat, lon)
         if st is None:
             res["consentita"] = None
-            res["motivi"].append(f"Calendario rinviato a fonte esterna: {cal['stagione']['testo']}")
+            res["motivi"].append(f"Calendario non computabile: {cal['stagione']['testo']}")
         elif not st:
             no(f"Fuori stagione ({cal['stagione']['testo']})")
         g = cal["giorni"]
@@ -255,7 +255,31 @@ class Regole:
 # --------------------------------------------------------------------------- matrice (struttura_dati_regole.json)
 
 _APPEND = ("vincoli_speciali", "fonti", "interpretazioni")
-_STRUTTURALI = ("per_modalita", "fonti", "interpretazioni")
+_STRUTTURALI = ("per_modalita", "fonti", "interpretazioni", "ambito_geometrico")
+_ROSA = {
+    "cispp_tresa",
+    "fipsas_verbano_riva",
+    "fipsas_verbano_barca",
+    "fipsas_ceresio_riva_va",
+    "fipsas_ceresio_barca_va",
+    "fipsas_ceresio_riva_co",
+    "fipsas_ceresio_barca_co",
+}
+_RIDOTTO = {"fipsas_varese_ridotto", "fipsas_lago_riva"}
+_INTERO = {"fipsas_acque_B", "fipsas_lago_belly_boat", "fipsas_co_lc_barca", "fipsas_tipo_c_corrente"}
+
+
+def livello_permesso(amm_id: str | None, pacchetto_id: str | None, bio_id: str | None) -> str:
+    """Cinque layer di permesso, mutuamente esclusivi sul disegno."""
+    if amm_id == "diritti_esclusivi":
+        return "esclusivi"
+    if bio_id == "CISPP" or pacchetto_id in _ROSA:
+        return "fipsas_tesserino_maggiore"
+    if pacchetto_id in _RIDOTTO:
+        return "fipsas_contributo_ridotto"
+    if pacchetto_id in _INTERO:
+        return "fipsas_contributo_intero"
+    return "fipsas_base"
 
 
 def applica_delta(eff: dict, delta: dict | None) -> dict:
@@ -299,29 +323,35 @@ class Matrice:
     def overlays(self, corpo_id: str) -> list[dict]:
         return [o for o in self.spec["overlay_temporanei"] if o["corpo_idrico"] == corpo_id]
 
+    def _entita(self, corpo: dict, modalita: str) -> dict:
+        return ((corpo.get("entita") or {}).get(modalita) or {})
+
     def risolvi(self, corpo_id: str, segmento_id: str | None = None, modalita: str = "sponda", overlay_id: str | None = None) -> dict:
         corpo = self.corpi[corpo_id]
+        if corpo.get("stato") == "predisposto" or not corpo.get("classificazione_biologica"):
+            raise ValueError(f"{corpo_id}: corpo predisposto, senza classe né regime")
         bio_id = corpo["classificazione_biologica"]
-        amm_id = corpo["regime_amministrativo"]
+        entita = self._entita(corpo, modalita)
+        amm_id = entita.get("regime_amministrativo") or corpo["regime_amministrativo"]
         bio = self.rb["classificazione_biologica"][bio_id]
         amm = self.rb["regime_amministrativo"][amm_id]
         profili = self.base.data["profili"]
         trace = []
 
-        if amm.get("sostituisce_biologia"):
-            blocco = corpo.get("blocco_amministrativo") or amm["blocco_ref"]
-            eff = copy.deepcopy(profili[blocco])
-            eff["tipo_acqua"] = bio_id
-            trace.append({"livello": 1, "asse": "regime_amministrativo", "id": amm_id, "blocco": blocco, "sostituisce_biologia": True})
-            trace.append({"livello": 1, "asse": "classificazione_biologica", "id": bio_id, "ruolo": "attributo parallelo, non operativo"})
-        else:
-            eff = copy.deepcopy(profili[bio["blocco_ref"]])
-            eff["tipo_acqua"] = bio_id
-            eff["permessi"] = copy.deepcopy(amm["permessi_per_classe"][bio_id])
-            trace.append({"livello": 1, "asse": "classificazione_biologica", "id": bio_id, "blocco": bio["blocco_ref"]})
-            trace.append({"livello": 1, "asse": "regime_amministrativo", "id": amm_id, "sostituisce_biologia": False})
+        blocco_id = bio["blocco_ref"]
+        if corpo.get("geometria") == "linea" and bio.get("blocco_ref_linea"):
+            blocco_id = bio["blocco_ref_linea"]
+        eff = copy.deepcopy(profili[blocco_id])
+        eff["tipo_acqua"] = bio_id
+        cella = (amm.get("permessi_per_classe") or {}).get(bio_id)
+        if cella is not None:
+            eff["permessi"] = copy.deepcopy(cella)
+        if amm_id == "diritti_esclusivi":
+            eff["regime"] = "diritti_esclusivi"
+        trace.append({"livello": 1, "asse": "classificazione_biologica", "id": bio_id, "blocco": blocco_id, "fonte": bio.get("fonte")})
+        trace.append({"livello": 1, "asse": "regime_amministrativo", "id": amm_id, "entita": modalita if corpo.get("entita_separate") else None})
 
-        if bio.get("completo") is False and bio.get("nota") and not amm.get("sostituisce_biologia"):
+        if bio.get("completo") is False and bio.get("nota"):
             eff.setdefault("interpretazioni", [])
             eff["interpretazioni"] = list(eff.get("interpretazioni") or []) + [
                 {"campo": "classificazione", "nota": bio["nota"]}
@@ -331,10 +361,11 @@ class Matrice:
         if corpo["geometria"] == "linea" and modalita == "natante":
             raise ValueError(f"{corpo_id}: la modalità natante non si applica a una linea")
         eff = applica_delta(eff, mod.get("regole"))
-        trace.append({"livello": 2, "asse": "modalita_pesca", "id": modalita})
+        trace.append({"livello": 2, "asse": "entita", "id": modalita, "geometria": entita.get("geometria") or corpo.get("geometria")})
 
         exc = copy.deepcopy(self.eccezioni.get(corpo_id) or {})
         per_mod = exc.pop("per_modalita", {}) or {}
+        exc.pop("ambito_geometrico", None)
         chiavi_exc = [k for k in exc if k not in _STRUTTURALI]
         eff = applica_delta(eff, exc)
         ramo = per_mod.get(modalita) or {}
@@ -342,18 +373,17 @@ class Matrice:
             chiavi_exc += [f"{modalita}.{k}" for k in ramo if k not in ("fonti", "interpretazioni")]
             eff = applica_delta(eff, ramo)
         if chiavi_exc:
-            trace.append({"livello": 3, "asse": "eccezione_locale", "id": corpo_id, "chiavi": chiavi_exc})
+            trace.append({"livello": 3, "asse": "eccezione_locale", "id": corpo_id, "chiavi": chiavi_exc, "ambito": "geometria_esatta"})
 
-        if not amm.get("sostituisce_biologia"):
-            if bio_id == "A" and eff.get("regime") == "ordinario_C_lago":
-                eff["regime"] = "ordinario_A"
-                eff["interpretazioni"] = [
-                    i for i in (eff.get("interpretazioni") or [])
-                    if "tipo C" not in (i.get("nota") or "")
-                ]
-            elif bio_id == "C" and corpo.get("geometria") == "linea" and eff.get("regime") == "ordinario_C_lago":
-                eff["regime"] = "ordinario_C"
-        if amm_id == "diritti_esclusivi" and eff.get("regime") in ("ordinario_A", "ordinario_B", "ordinario_C", "ordinario_C_lago"):
+        if bio_id == "A" and eff.get("regime") == "ordinario_C_lago":
+            eff["regime"] = "ordinario_A"
+            eff["interpretazioni"] = [
+                i for i in (eff.get("interpretazioni") or [])
+                if "tipo C" not in (i.get("nota") or "")
+            ]
+        elif bio_id == "C" and corpo.get("geometria") == "linea" and eff.get("regime") == "ordinario_C_lago":
+            eff["regime"] = "ordinario_C"
+        if amm_id == "diritti_esclusivi":
             eff["regime"] = "diritti_esclusivi"
 
         for k in ("fonti", "interpretazioni"):
@@ -367,12 +397,25 @@ class Matrice:
                 eff = copy.deepcopy(profili[segmento["sostituisci_con_blocco"]])
                 if segmento.get("mantieni_classe") and tipo:
                     eff["tipo_acqua"] = tipo
+            if segmento.get("regime_amministrativo"):
+                amm_id = segmento["regime_amministrativo"]
+                amm = self.rb["regime_amministrativo"][amm_id]
+                if amm_id == "diritti_esclusivi":
+                    eff["regime"] = "diritti_esclusivi"
+                if segmento.get("pacchetto_ref"):
+                    eff["permessi"] = {"pacchetto_ref": segmento["pacchetto_ref"], "varianti": []}
             delta = copy.deepcopy(segmento.get("override") or {})
             for k in ("fonti", "interpretazioni"):
                 if segmento.get(k):
                     delta[k] = list(delta.get(k) or []) + list(segmento[k])
             eff = applica_delta(eff, delta)
-            trace.append({"livello": 4, "asse": "segmento", "id": segmento_id, "effetto": "taglio"})
+            trace.append({
+                "livello": 4,
+                "asse": "segmento",
+                "id": segmento_id,
+                "effetto": segmento.get("effetto") or "taglio",
+                "geometria_vincolo": (segmento.get("geometria_vincolo") or {}).get("tipo"),
+            })
 
         overlay = self.overlay.get(overlay_id) if overlay_id else None
         if overlay:
@@ -385,7 +428,11 @@ class Matrice:
             estensione, priorita = segmento.get("estensione"), segmento.get("priorita", 0)
         elif segmento:
             zona_id, zona_nome = segmento_id, segmento["nome"]
-            estensione, priorita = segmento.get("estensione"), segmento.get("priorita", 0)
+            estensione = segmento.get("estensione") or {
+                "tipo": (segmento.get("geometria_vincolo") or {}).get("tipo") or "segmento",
+                "descrizione": segmento["nome"],
+            }
+            priorita = segmento.get("priorita", 0)
         elif overlay:
             zona_id, zona_nome = f"{corpo_id}_residuo__{overlay_id}", overlay["nome"]
             estensione, priorita = {"tipo": "overlay", "descrizione": overlay.get("sintesi")}, 0
@@ -395,13 +442,17 @@ class Matrice:
             estensione = {"tipo": "residuale", "descrizione": "Fuori dai tagli restrittivi (No-Kill, divieto, riserva)."}
             priorita = 10
 
+        pacchetto_id = (eff.get("permessi") or {}).get("pacchetto_ref")
         out = self._espandi(eff, zona_id=zona_id, zona_nome=zona_nome, corpo=corpo, corpo_id=corpo_id, priorita=priorita, estensione=estensione)
         out["matrice"] = {
             "regime_amministrativo": amm_id,
             "regime_amministrativo_etichetta": amm["etichetta"],
             "classificazione_biologica": bio_id,
             "classificazione_etichetta": bio["etichetta"],
+            "livello_permesso": livello_permesso(amm_id, pacchetto_id, bio_id),
             "modalita": modalita,
+            "entita": modalita,
+            "geometria_entita": entita.get("geometria") or ("linea" if corpo.get("geometria") == "linea" else corpo.get("geometria")),
             "tipo_geometria_normativa": corpo["geometria"],
             "eredita": trace,
         }
@@ -449,8 +500,18 @@ def verifica_matrice(m: Matrice | None = None) -> None:
     """Controlli della cascata sugli esempi del file di struttura."""
     m = m or Matrice()
     tresa = m.risolvi("tresa")
-    assert tresa["regime"] == "cispp" and tresa["tipo_acqua"] == "C", tresa["regime"]
-    assert tresa["matrice"]["regime_amministrativo"] == "italo_svizzera"
+    assert tresa["regime"] == "cispp" and tresa["tipo_acqua"] == "CISPP", tresa["regime"]
+    assert tresa["matrice"]["regime_amministrativo"] == "fipsas"
+    assert tresa["matrice"]["classificazione_biologica"] == "CISPP"
+    assert tresa["matrice"]["livello_permesso"] == "fipsas_tesserino_maggiore"
+    assert "cispp.org" not in json.dumps(m.spec)
+    assert "fuori_cap4" not in json.dumps(m.spec)
+    assert "italo_svizzera" not in json.dumps(m.spec)
+    assert "rinvio_esterno" not in json.dumps(m.base.data)
+    for seg in m.spec["segmenti"]:
+        assert seg.get("geometria_vincolo"), seg["id"]
+    assert m.corpi["lago_brinzio"]["stato"] == "predisposto"
+    assert m.corpi["rio_briviola"]["stato"] == "predisposto"
 
     asta = m.risolvi("margorabbia")
     assert asta["calendario"]["giorni"]["id"] == "tutti_i_giorni_deroga_tresa"
@@ -487,7 +548,10 @@ def verifica_matrice(m: Matrice | None = None) -> None:
     assert varese["prelievo"]["misure_minime_cm"]["persico_reale"] == 18
     assert varese["matrice"]["classificazione_biologica"] == "A"
     assert m.risolvi("lago_varese", modalita="sponda")["permessi"]["pacchetto"]["id"] == "fipsas_varese_ridotto"
-    assert m.risolvi("lago_varese", modalita="natante")["permessi"]["pacchetto"]["id"] is None
+    assert m.risolvi("lago_varese", modalita="sponda")["matrice"]["regime_amministrativo"] == "fipsas"
+    assert m.risolvi("lago_varese", modalita="natante")["matrice"]["regime_amministrativo"] == "diritti_esclusivi"
+    assert m.risolvi("lago_varese", modalita="natante")["matrice"]["livello_permesso"] == "esclusivi"
+    assert m.risolvi("lago_varese", "lago_varese_natante_esclusivi", modalita="natante")["permessi"]["pacchetto"]["id"] is None
     assert m.risolvi("lago_comabbio", modalita="natante")["pesca_consentita"] is False
     assert m.risolvi("lago_monate")["prelievo"]["misure_minime_cm"]["persico_reale"] == 18
     assert m.risolvi("bardello")["permessi"]["pacchetto"]["id"] == "fipsas_varese_ridotto"
@@ -503,7 +567,8 @@ def verifica_matrice(m: Matrice | None = None) -> None:
     lugano = m.risolvi("lago_lugano")
     assert lugano["regime"] == "cispp"
     assert lugano["attrezzatura"]["canne_max"] == 2
-    assert lugano["matrice"]["classificazione_biologica"] == "fuori_cap4"
+    assert lugano["matrice"]["classificazione_biologica"] == "CISPP"
+    assert lugano["matrice"]["livello_permesso"] == "fipsas_tesserino_maggiore"
     assert len(lugano["permessi"]["varianti"]) == 4
     nat = m.risolvi("lago_lugano", modalita="natante")
     assert any("tramonto" in v["testo"] for v in nat["vincoli_speciali"])
@@ -520,6 +585,20 @@ def verifica_matrice(m: Matrice | None = None) -> None:
     assert m.risolvi("olona")["calendario"]["giorni"]["id"] == "tutti_i_giorni_deroga_olona"
     assert m.risolvi("lambro")["tipo_acqua"] == "C"
     assert m.risolvi("verbano")["regime"] == "cispp"
+    assert m.risolvi("verbano")["matrice"]["classificazione_biologica"] == "CISPP"
+    ranco = m.risolvi("verbano", "verbano_ranco_angera")
+    assert ranco["regime"] == "diritti_esclusivi"
+    assert ranco["matrice"]["livello_permesso"] == "esclusivi"
+    assert ranco["permessi"]["pacchetto"]["id"] == "diritti_ranco_angera"
+    sud = m.risolvi("annone", "annone_sud_diritti_esclusivi", modalita="natante")
+    assert sud["matrice"]["regime_amministrativo"] == "diritti_esclusivi"
+    assert sud["permessi"]["pacchetto"]["id"] == "diritti_citterio"
+    assert m.risolvi("annone", modalita="sponda")["matrice"]["regime_amministrativo"] == "fipsas"
+    for cid in ("pusiano", "segrino", "montorfano", "lago_monate", "lago_comabbio"):
+        for modalita in ("sponda", "natante"):
+            risolto = m.risolvi(cid, modalita=modalita)
+            assert risolto["matrice"]["regime_amministrativo"] == "diritti_esclusivi", (cid, modalita)
+            assert risolto["matrice"]["entita"] == modalita
 
 
 def main():

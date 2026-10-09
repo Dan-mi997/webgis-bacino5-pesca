@@ -86,15 +86,24 @@
         <div class="legend-t">
           <span><span class="dot" style="background:var(--ok)"></span>consentita</span>
           <span><span class="dot" style="background:var(--ko)"></span>non consentita</span>
-          <span><span class="dot" style="background:var(--unk)"></span>fonte esterna</span>
+          <span><span class="dot" style="background:var(--unk)"></span>calendario non computabile</span>
         </div>
       </div>
 
-      <h2>Regime sul tratto</h2>
-      <div class="filters" id="f-reg"></div>
+      <h2>Vista</h2>
+      <div class="filters" id="f-vista">
+        <label><input type="radio" name="vista" value="categoria" checked /> Categoria</label>
+        <label><input type="radio" name="vista" value="permessi" /> Permessi</label>
+      </div>
+      <p class="legend-note" id="vista-nota">Le categorie si accendono e spengono. In questa vista i tratti non hanno un colore proprio.</p>
+      <div class="filters" id="f-cat"></div>
+      <div class="filters" id="f-perm" hidden></div>
 
-      <h2>Tipo di acqua</h2>
-      <div class="filters" id="f-tipo"></div>
+      <h2>Sempre in mappa</h2>
+      <p class="legend-note">
+        I divieti restano in rosso, sopra gli altri layer, anche se la categoria o il permesso è spento.
+        Le segmentazioni speciali tengono il colore della vista e un tratteggio alternato nero.
+      </p>
 
       <h2>Layer sovrapposti</h2>
       <div class="filters" id="f-ov"></div>
@@ -109,13 +118,14 @@
       </div>
 
       <p class="legend-note">
-        Mappa del Bacino 5 sul reticolo della Regione Lombardia. Il clic apre classe, regime, calendario e permessi del corso.
-        Il tratteggio grigio, se resta un tratto, è nel bacino ma senza scheda: non è acqua libera.<br />
-        Verbano e Ceresio sono tagliati sul confine della Lombardia: restano fuori la sponda svizzera e quella piemontese.
+        Mappa del Bacino 5 sul reticolo della Regione Lombardia. Due viste, una sola attiva: Categoria (A, B, C, CISPP) oppure Permessi.
+        Il clic apre classe, regime, calendario e permessi. Costa e interno dei laghi sono due geometrie.
+        Il tratteggio grigio, se resta un tratto, è nel bacino ma senza scheda.<br />
+        Verbano, Ceresio e Tresa sono Cat. CISPP: le regole sono il Capitolo 5 del prontuario.
+        Verbano e Ceresio sono tagliati sul confine della Lombardia.
         Il Mezzola non c’è. Adda, Ticino, Olona, Lambro, Lura e Seveso arrivano al caposaldo di limite del prontuario.
         L’Adda a monte del Lario è solo la foce: la Valtellina è in Sondrio.<br />
-        Corsi citati dal prontuario e assenti dal reticolo regionale (tra gli altri Tinella, Trallo, Soldo, Chiesone, Boggione, Lanza) non sono disegnati.
-        I campi gara non spezzano i tratti.
+        Corsi citati dal prontuario e assenti dal reticolo regionale non sono disegnati.
         Dati: reticolo regionale · Regole: <code>struttura_dati_regole.json</code>.
       </p>
     </aside>
@@ -210,7 +220,7 @@
       if (!r.pesca_consentita) { no("Zona di divieto"); return res; }
       const cal = r.calendario;
       const st = inStagione(cal.stagione, t);
-      if (st === null) { res.ok = null; res.motivi.push("Calendario stabilito da fonte esterna (CISPP)"); }
+      if (st === null) { res.ok = null; res.motivi.push("Calendario non computabile"); }
       else if (!st) no("Fuori stagione");
       const [, m, d] = ymd(t), mmdd = String(m).padStart(2, "0") + "-" + String(d).padStart(2, "0");
       if (!cal.giorni.settimana.includes(WD[wdIdx(t)]) && !cal.giorni.festivi_aggiuntivi.includes(mmdd)) no("Giorno non consentito (" + cal.giorni.testo + ")");
@@ -242,21 +252,60 @@
     L.control.scale({ imperial: false }).addTo(map);
 
     // ------------------------------------------------------------ filtri (generati dai dati)
-    const regCount = {}, tipoCount = {};
+    const PERMESSI = {
+      esclusivi: { etichetta: "Esclusivi", colore: "#f97316" },
+      fipsas_base: { etichetta: "FIPSAS base", colore: "#eab308" },
+      fipsas_contributo_ridotto: { etichetta: "FIPSAS + contributo ridotto", colore: "#22c55e" },
+      fipsas_contributo_intero: { etichetta: "FIPSAS + contributo intero", colore: "#38bdf8" },
+      fipsas_tesserino_maggiore: { etichetta: "FIPSAS + tesserino segnapesci Maggiore", colore: "#f472b6" },
+    };
+    const CATEGORIE = ["A", "B", "C", "CISPP"];
+    const categoriaDi = p => {
+      const c = p.categoria || (p.matrice && p.matrice.classificazione_biologica) || p.tipo_acqua;
+      return c === "fuori_cap4" ? "CISPP" : c;
+    };
+    const permessoDi = p => {
+      if (p.livello_permesso) return p.livello_permesso;
+      const amm = p.matrice && p.matrice.regime_amministrativo;
+      const bio = categoriaDi(p);
+      if (amm === "diritti_esclusivi" || p.regime === "diritti_esclusivi") return "esclusivi";
+      if (bio === "CISPP" || amm === "italo_svizzera" || p.regime === "cispp") return "fipsas_tesserino_maggiore";
+      const id = p.regole && p.regole.permessi && p.regole.permessi.pacchetto && p.regole.permessi.pacchetto.id;
+      if (["fipsas_varese_ridotto", "fipsas_lago_riva"].includes(id)) return "fipsas_contributo_ridotto";
+      if (["fipsas_acque_B", "fipsas_lago_belly_boat", "fipsas_co_lc_barca", "fipsas_tipo_c_corrente"].includes(id)) return "fipsas_contributo_intero";
+      return "fipsas_base";
+    };
+    const isDivieto = p => p.divieto === true || p.regime === "divieto" || (p.regole && p.regole.pesca_consentita === false);
+    const isSpeciale = p => !isDivieto(p) && (p.segmentazione_speciale === true || p.regime === "no_kill");
+    const vistaAttiva = () => (document.querySelector('input[name="vista"]:checked') || {}).value || "categoria";
+    const schedaVuota = p => p.scheda_inserita === false;
+
+    const catCount = {}, permCount = {};
     TRATTI.features.forEach(f => {
       const p = f.properties;
-      regCount[p.regime] = (regCount[p.regime] || 0) + 1;
-      if (p.tipo_acqua) tipoCount[p.tipo_acqua] = (tipoCount[p.tipo_acqua] || 0) + 1;
+      if (schedaVuota(p) || isDivieto(p)) return;
+      const c = categoriaDi(p);
+      if (c) catCount[c] = (catCount[c] || 0) + 1;
+      const k = permessoDi(p);
+      if (k) permCount[k] = (permCount[k] || 0) + 1;
     });
-    const fReg = document.getElementById("f-reg");
-    Object.entries(V.regimi).filter(([k]) => regCount[k]).forEach(([k, v]) => {
-      const sw = v.tratteggio ? `background:repeating-linear-gradient(90deg,${v.colore} 0 6px,transparent 6px 10px)` : `background:${v.colore}`;
-      fReg.insertAdjacentHTML("beforeend", `<label title="${esc(v.descrizione)}"><input type="checkbox" data-f="reg" value="${k}" checked /><span class="swatch" style="${sw}"></span>${esc(v.etichetta)}<span class="count">${regCount[k]}</span></label>`);
+    const fCat = document.getElementById("f-cat");
+    CATEGORIE.forEach(k => {
+      const et = (V.tipi_acqua[k] && V.tipi_acqua[k].etichetta) || ("Cat. " + k);
+      fCat.insertAdjacentHTML("beforeend", `<label><input type="checkbox" data-f="cat" value="${k}" checked />${esc(et)}<span class="count">${catCount[k] || 0}</span></label>`);
     });
-    const fTipo = document.getElementById("f-tipo");
-    Object.entries(V.tipi_acqua).filter(([k]) => tipoCount[k]).forEach(([k, v]) => {
-      fTipo.insertAdjacentHTML("beforeend", `<label title="${esc(v.descrizione)}"><input type="checkbox" data-f="tipo" value="${k}" checked />${esc(v.etichetta)}<span class="count">${tipoCount[k]}</span></label>`);
+    const fPerm = document.getElementById("f-perm");
+    Object.entries(PERMESSI).forEach(([k, v]) => {
+      fPerm.insertAdjacentHTML("beforeend", `<label><input type="checkbox" data-f="perm" value="${k}" checked /><span class="swatch" style="background:${v.colore}"></span>${esc(v.etichetta)}<span class="count">${permCount[k] || 0}</span></label>`);
     });
+    document.querySelectorAll('input[name="vista"]').forEach(el => el.addEventListener("change", () => {
+      const perm = vistaAttiva() === "permessi";
+      fCat.hidden = perm;
+      fPerm.hidden = !perm;
+      document.getElementById("vista-nota").textContent = perm
+        ? "Ogni permesso ha un colore. Si accende un layer alla volta o insieme, senza mescolarli alle categorie."
+        : "Le categorie si accendono e spengono. In questa vista i tratti non hanno un colore proprio.";
+    }));
     const ovSeen = new Map();
     OVERLAY.features.forEach(f => { if (!ovSeen.has(f.properties.overlay_id)) ovSeen.set(f.properties.overlay_id, f.properties); });
     const fOv = document.getElementById("f-ov");
@@ -266,17 +315,39 @@
     });
     const checked = f => [...document.querySelectorAll(`[data-f="${f}"]:checked`)].map(i => i.value);
 
+    function coloreSezione(p) {
+      if (schedaVuota(p)) return "#64748b";
+      if (vistaAttiva() === "permessi") {
+        const spec = PERMESSI[permessoDi(p)];
+        return spec ? spec.colore : "#64748b";
+      }
+      return "#334155";
+    }
+    function passaVista(p) {
+      if (schedaVuota(p)) return true;
+      if (vistaAttiva() === "categoria") return checked("cat").includes(categoriaDi(p));
+      return checked("perm").includes(permessoDi(p));
+    }
     function styleFeat(p) {
-      const reg = V.regimi[p.regime] || {};
-      let color = reg.colore || "#64748b";
-      if (modeEl.checked && p.scheda_inserita !== false && p.regole && p.regole.calendario) {
+      let color = coloreSezione(p);
+      if (modeEl.checked && !schedaVuota(p) && p.regole && p.regole.calendario) {
         const ok = valuta(p.regole, whenT()).ok;
         color = ok === true ? "#16a34a" : ok === false ? "#dc2626" : "#64748b";
       }
-      const poly = p.geometria.includes("Polygon");
-      const w = p.ruolo === "asta" ? 6 : p.ruolo === "ricevente" ? 5 : 3.5;
-      return { color, weight: poly ? 2 : w, opacity: 0.95, fillColor: color, fillOpacity: poly ? 0.3 : 0,
-               dashArray: modeEl.checked ? null : reg.tratteggio, lineCap: "round" };
+      const poly = (p.geometria || "").includes("Polygon");
+      const w = p.entita === "sponda" ? 4 : (p.ruolo === "asta" ? 6 : p.ruolo === "ricevente" ? 5 : 3.5);
+      const speciale = isSpeciale(p) && !modeEl.checked;
+      return { color, weight: poly ? 2 : w, opacity: 0.95, fillColor: color, fillOpacity: poly ? 0.28 : 0,
+               dashArray: speciale ? "10 10" : null, lineCap: "butt" };
+    }
+    function styleNero(p) {
+      const base = styleFeat(p);
+      return { color: "#000", weight: base.weight, opacity: 0.95, fill: false, fillOpacity: 0,
+               dashArray: "10 10", dashOffset: "10", lineCap: "butt" };
+    }
+    function styleDivieto(p) {
+      const poly = (p.geometria || "").includes("Polygon");
+      return { color: "#dc2626", weight: poly ? 2 : 4, opacity: 1, fillColor: "#dc2626", fillOpacity: poly ? 0.35 : 0, lineCap: "round" };
     }
 
     // ------------------------------------------------------------ popup
@@ -400,7 +471,8 @@
       const r = p.regole, reg = V.regimi[r.regime] || { colore: "#64748b", etichetta: r.regime || "" };
       const m = p.matrice;
       const linea = (p.geometria || "").includes("Line");
-      const assi = m ? `${esc(m.regime_amministrativo_etichetta)} + ${esc(m.classificazione_etichetta)} · ${linea ? "linea (da sponda)" : "poligono (sponda e natante)"}` : "";
+      const dove = p.entita === "natante" ? "interno (natante)" : p.entita === "sponda" ? "costa (sponda)" : (linea ? "linea (sponda)" : "poligono");
+      const assi = m ? `${esc(m.regime_amministrativo_etichetta)} + ${esc(m.classificazione_etichetta)} · ${dove}` : "";
       const banner = p.layer === "overlay" ? `<div class="warn"><b>${overlayAttivo(p) ? "Deroga attiva" : "Deroga non attiva"}.</b> ${esc(p.sintesi || "")}</div>` : "";
       const sopra = (p.overlay_coperti || []).map(o => `<div class="warn"><b>${esc(o.nome)}</b> — ${o.copertura === "totale" ? "copre tutto il tratto" : "copre solo una parte, è un layer a sé"}. ${esc(o.sintesi || "")}</div>`).join("");
       const cascata = (m && m.eredita || []).map(s => `${s.asse}:${s.id}`).join(" → ");
@@ -418,13 +490,33 @@
     }
 
     // ------------------------------------------------------------ layer
+    map.createPane("tratteggio");
+    map.getPane("tratteggio").style.zIndex = 410;
+    map.createPane("divieti");
+    map.getPane("divieti").style.zIndex = 450;
+    map.getPane("tratteggio").style.pointerEvents = "none";
+
     const layer = L.geoJSON(null, {
       style: f => styleFeat(f.properties),
-      filter: f => checked("reg").includes(f.properties.regime) && (!f.properties.tipo_acqua || checked("tipo").includes(f.properties.tipo_acqua) || !document.querySelector(`[data-f="tipo"][value="${f.properties.tipo_acqua}"]`)),
+      filter: f => !isDivieto(f.properties) && passaVista(f.properties),
       onEachFeature: (f, lyr) => {
         lyr.bindPopup(() => popupHtml(f.properties), { maxWidth: 380, minWidth: 320, maxHeight: 520 });
         lyr.on("mouseover", () => lyr.setStyle({ weight: (styleFeat(f.properties).weight || 3) + 3 }));
         lyr.on("mouseout", () => layer.resetStyle(lyr));
+      }
+    }).addTo(map);
+    const layerNero = L.geoJSON(null, {
+      pane: "tratteggio",
+      interactive: false,
+      style: f => styleNero(f.properties),
+      filter: f => isSpeciale(f.properties) && !isDivieto(f.properties) && passaVista(f.properties),
+    }).addTo(map);
+    const layerDivieto = L.geoJSON(null, {
+      pane: "divieti",
+      style: f => styleDivieto(f.properties),
+      filter: f => isDivieto(f.properties),
+      onEachFeature: (f, lyr) => {
+        lyr.bindPopup(() => popupHtml(f.properties), { maxWidth: 380, minWidth: 320, maxHeight: 520 });
       }
     }).addTo(map);
 
@@ -438,7 +530,7 @@
     }
     const ovLayer = L.geoJSON(null, {
       style: f => styleOv(f.properties),
-      filter: f => checked("ov").includes(f.properties.overlay_id) && checked("reg").includes(f.properties.regime) && (!f.properties.tipo_acqua || checked("tipo").includes(f.properties.tipo_acqua) || !document.querySelector(`[data-f="tipo"][value="${f.properties.tipo_acqua}"]`)),
+      filter: f => checked("ov").includes(f.properties.overlay_id) && passaVista(f.properties),
       onEachFeature: (f, lyr) => {
         lyr.bindPopup(() => {
           const p = f.properties;
@@ -465,6 +557,10 @@
     function refresh() {
       layer.clearLayers();
       layer.addData(TRATTI);
+      layerNero.clearLayers();
+      layerNero.addData(TRATTI);
+      layerDivieto.clearLayers();
+      layerDivieto.addData(TRATTI);
       ovLayer.clearLayers();
       ovLayer.addData(OVERLAY);
       document.getElementById("when-box").classList.toggle("active", modeEl.checked);

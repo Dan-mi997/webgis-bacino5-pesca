@@ -402,7 +402,7 @@ Nessuna.
 
 ## 9. Fiume Tresa (corpo ricevente alla foce del Margorabbia)
 
-Non è affluente del Margorabbia: ne è il **ricevente**. Si riporta perché la foce è caposaldo di divieto e il Tresa ha **regime CISPP** distinto (escluso dal cap. 4).
+Non è affluente del Margorabbia: ne è il **ricevente**. Si riporta perché la foce è caposaldo di divieto e il Tresa è in **categoria CISPP** (Capitolo 5 del prontuario, non il cap. 4).
 
 ### 1. Denominazione
 
@@ -410,8 +410,7 @@ Non è affluente del Margorabbia: ne è il **ricevente**. Si riporta perché la 
 
 ### 2. Classificazione principale di base
 
-- **Tipo C** (par. 4.10), ma «Nel Verbano, nel Ceresio e nel fiume Tresa, la pesca è regolamentata in modo differente» dalla Commissione italo-svizzera (CISPP).
-- Rinvio: Regolamento di Applicazione della Convenzione, in vigore dal 1° gennaio 2025, https://www.cispp.org/
+- Classificazione **CISPP**. Le regole di Verbano, Ceresio e Tresa usate dal motore sono solo quelle del Capitolo 5 del prontuario del bacino.
 
 ### 3. Tratti a regime speciale / differenziato
 

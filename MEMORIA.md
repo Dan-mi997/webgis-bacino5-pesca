@@ -3,7 +3,7 @@
 Documento vivo: aggiornarlo al termine di ogni sessione di lavoro sostanziale.  
 Serve alle chat successive per riprendere il contesto senza ricostruire tutto da zero.
 
-**Ultimo aggiornamento:** 2026-10-07 (schede e permessi su tutto il reticolo in `docs/`)
+**Ultimo aggiornamento:** 2026-10-09 (classi A/B/C/CISPP, sponda e natante separati, diritti esclusivi geometrici, viste mappa)
 
 ---
 
@@ -18,11 +18,11 @@ Queste quattro righe guidano ogni elaborazione successiva.
 
 Il prontuario di riferimento resta *Prontuario bacino 5 – Verbano Ceresio e Lario (2026)* (Regione Lombardia / ATS Prealpi – FIPSAS). Protocollo: `WORKFLOW_PROTOCOLS.md`.
 
-**Geometrie, dal 2026-10-07.** La mappa in `docs/` è il reticolo regionale del Bacino 5 (159 geometrie), ciascuna con classe, regime e scheda permessi. Tipo B è il residuo del par. 4.10. Gli affluenti del Verbano e dell’Olona (escluso il Lanza) hanno la pesca tutti i giorni. Il Lambro e il Rio Torto sono tipo C; l’Adda fra Kennedy e Manzoni è il solo tratto di Adda in tipo C. Pusiano è tipo A, diritto Egirent, solo no-kill. Il Ganna è divieto sull’intero specchio. Verbano e Ceresio sono tagliati su `data/geojson/lombardia.geojson`. L’Adda a monte del Lario è solo la foce. `py -3 scripts/segmenta_rete.py --pubblica-leaflet` riscrive `docs/geo_data.js`.
+**Geometrie, dal 2026-10-09.** La mappa in `docs/` ha 208 feature. Ogni lago è due entità: costa (`sponda`, LineString sulla costa reale) e interno (`natante`, poligono). I fiumi restano linee. `py -3 scripts/segmenta_rete.py --pubblica-leaflet` riscrive `docs/geo_data.js`.
 
-Non è acqua «libera» con sola licenza B: le acque in concessione si indicano con il regime amministrativo (FIPSAS, Italo-Svizzera, Diritti esclusivi), mai «Libera».
+Classi paritetiche: **A, B, C, CISPP**. Niente `fuori_cap4` e niente regime Italo-Svizzera. Verbano, Ceresio e Tresa prendono le regole solo dal Capitolo 5 del prontuario. Il regime amministrativo è solo `fipsas` o `diritti_esclusivi`. Mai «libera».
 
-Non è acqua «libera» con sola licenza B: tutte le acque mappate sono in **concessione FIPSAS**. In interfaccia si usa «Regime Ordinario B (FIPSAS)», mai «Libera».
+Diritti esclusivi, con geometria: Pusiano, Segrino, Montorfano, Monate e Comabbio interi (sponda e natante). Varese: sponda FIPSAS (contributo ridotto), natante esclusivo (Cooperativa, importo assente). Annone tagliato dalla retta fra `[45.8196464, 9.3397611]` e `[45.8196905, 9.3240939]`: nord FIPSAS, sud esclusivo (Citterio). Verbano, zona Ranco/Angera: poligono sui quattro vertici, lati di terra sulla costa e lati d’acqua sul confine regionale (~14,6 km²). Uso civico Pescarenico: Adda, sponda sinistra idrografica, centerline di 1111 m dal punto fino al Garlate; sul Garlate il poligono chiuso sulla costa. Lago di Brinzio e Rio Briviola sono nel grafo con `stato: predisposto`, senza regole e senza geometria.
 
 **Pubblicazione**
 - Repo: https://github.com/Dan-mi997/webgis-bacino5-pesca
@@ -52,8 +52,8 @@ Segmentazione: `py -3 scripts/segmenta_rete.py` (`--elenco` non scrive; `--pubbl
 
 Due file, una cascata. `struttura_dati_regole.json` è il grafo (Bacino 5). `margorabbia_regole.json` resta il dizionario (calendari, documenti, specie, blocchi). Motore: `Matrice` in `scripts/regole.py`. Controllo: `py -3 scripts/regole.py --verifica`.
 
-1. **Matrice** — due attributi paralleli: regime amministrativo (FIPSAS, Italo-Svizzera, Diritti esclusivi → permessi e costi) e classe biologica (A, B, C → tecniche e periodi). Tresa = Italo-Svizzera + Cat. C: la classe resta un attributo, il regolamento operativo è il CISPP.
-2. **Geometria** — linea = solo sponda. Poligono = una geometria, due fasci (sponda / natante). Ghirla non si spezza.
+1. **Matrice** — schema 3.0.0. Classe biologica A, B, C o CISPP (tecniche, periodi, misure). Regime amministrativo solo `fipsas` o `diritti_esclusivi` (permessi e costi). CISPP non è un regime: Verbano, Ceresio e Tresa usano i blocchi del Capitolo 5 (`cispp_lago` / `cispp_fiume`).
+2. **Geometria** — un corpo, due entità sui laghi (`entita.sponda` e `entita.natante`). Ogni regola particolare è un segmento con `geometria_vincolo` (tratto A–B, semipiano, poligono sulla costa, raggio, fascia). I tagli spaziali stanno in `scripts/tagli_geometrici.py`. Ghirla non si spezza.
 3. **Eccezioni locali** — solo i delta. Asta: tutti i giorni + temolo protetto. Ghirla: persico 18 e salmerino 30; belly boat solo in natante. Lago di Piano (tipo A, in mappa): libretto della Riserva. Pusiano (tipo A, diritto Egirent, no-kill) è in mappa. Lago di Varese: riva con contributo ridotto, barca con il permesso della Cooperativa.
 4. **Tagli** — spezzano la linea: No-Kill, divieti. Ereditano 1–3 e applicano l’override restrittivo.
 5. **Overlay** — deroga invernale. Non taglia la geometria. I campi gara, dal 2026-09-28, sono fuori perimetro: non si cercano e non si disegnano sulle aree nuove. Sul pilota Margorabbia l'overlay già pubblicato resta (Mesenzana sopra il No-Kill per ~505 m) e non si estende.
@@ -86,12 +86,13 @@ Boggione: Monumento ai Caduti (ok) → attraversamento Marzio–Boarezzo (ok). D
 
 ## Frontend
 
-`docs/index.html` + `docs/geo_data.js` (generato). Titolo: Bacino 5. Due GeoJSON Leaflet: tratti (tagli) e overlay tratteggiato (sul Margorabbia: campi gara e deroga invernale). Sul poligono il popup ha la scheda natante; la linea è solo sponda. «Posso pescare?» colora la base.
+`docs/index.html` + `docs/geo_data.js` (generato). Due viste mutuamente esclusive: **Categoria** (A, B, C, CISPP, un solo tratto neutro `#334155`, senza colore per classe) e **Permessi** (esclusivi arancio `#f97316`, FIPSAS base giallo `#eab308`, contributo ridotto verde `#22c55e`, contributo intero azzurro `#38bdf8`, tesserino Maggiore rosa `#f472b6`). I divieti restano rossi (`#dc2626`) anche a layer spenti. Le segmentazioni parziali tengono il colore della sezione e un tratteggio alternato con il nero. Costa e interno sono feature distinte; il popup lo dice. «Posso pescare?» colora la base.
 
 ---
 
 ## Cosa è ancora aperto / da non dimenticare
 
+- Dal 2026-10-09: Lago di Brinzio e Rio Briviola sono predisposti nel grafo (`stato: predisposto`) e aspettano le regole. Il raggio del divieto Cuccio (metà alveo + 50 m) non è misurato e non è disegnato. L’Adda di Pescarenico è la centerline marcata sponda sinistra, 1111 m, e arriva al Garlate; non è un offset di sponda rilevato. `outlet_ghirla` e `chiusa_enel` restano oltre la soglia di snap (~4 km). I campi gara restano overlay, con vincolo fra capisaldi, e non sono nel GeoJSON pubblicato.
 - Controllo del 2026-10-07 sul reticolo regionale: mancano, tra gli altri, Tinella, Trallo, Soldo, Chiesone/Gesone, Boggione, Lanza, Gallavesa, Nosee, Valmolina e Brivola. Il Meria c’è come Valle Meria e arriva al lago. Adda, Ticino, Olona, Lambro, Lura, Seveso e la Bevera di Cantello arrivano al limite del bacino. Il Rezzo è assegnato dal nome composto con la Valle del Cagna. Grantorella e Rancina pure, dal nome composto, con i giorni tipo B.
 - Estratto integrale del prontuario (2026-10-06): `data/normativa/estratto_bacino5_2026.json`. In `capisaldi_verificati.json` ci sono 155 punti: i 20 di Margorabbia e Ceresio, 78 estremi di regola e tutti i 57 ormeggi del Lario (senza corpo idrico, quindi non spezzano la rete). I primi 28 ormeggi e alcuni estremi di regola del 2026-10-07 sono indicati come non del tutto certi. Contenitori a parte, anche con coordinata già inserita, e fuori dai capisaldi: pesca subacquea (23, uso `subacquea`) e zone riservate alla pesca dilettantistica (19, uso `dilettantistica`). Restano tra le regole la scalinata del Minigolf (apre la tutela di Menaggio) e la foce del Liro (chiude la tutela della foce). A Musso la zona dilettantistica è tutto il litorale comunale, senza estremi nominati. Restano 11 estremi di regola da misurare. Il Nosee si immette nel Tuf: il prontuario scrive Toff. Fuori dai capisaldi: San Bernardino a Intra (Piemonte); Sasso di Dascio e la foce del Mera pinata a Dascio di Sorico (Sondrio). Il grafo `struttura_dati_regole.json` non è ancora allargato: la segmentazione del 2026-10-07 disegna tutto il reticolo, ma i capisaldi nuovi non spezzano Lario, Verbano e gli sbocchi perché quei corpi non sono nel grafo. Il canvas precompila i punti che hanno già lat e lon; le bozze non archiviate si perdono quando il canvas viene rigenerato.
 - Lago di Varese, Comabbio e Monate sono in mappa. Comabbio e Monate: diritti esclusivi, solo residenti rivieraschi, natante vietato. La barca del Varese è il permesso della Cooperativa, senza importo nel prontuario.
@@ -99,7 +100,7 @@ Boggione: Monumento ai Caduti (ok) → attraversamento Marzio–Boarezzo (ok). D
 - Giorni sull’asta vs affluenti: **interpretazione** (deroga Tresa sull’asta; tipo B sugli affluenti).
 - Protocollo: `WORKFLOW_PROTOCOLS.md` (STEP 0–4). Niente Overpass. STEP 1 estrae regole e capisaldi di tutto il prontuario; STEP 2 sono le coordinate; STEP 3 segmenta; STEP 4 pubblica solo dopo conferma. `bank` obbligatoria sui segmenti lineari nuovi; il pilota Margorabbia è ancora implicito `both`.
 - Ceresio pubblicato. Lirone intero (9,5 km) fino alla foce confermata 46.009072, 9.084980: è la foce che il prontuario chiama Telo; il cerchio da 50 m è solo la parte di specchio. Il Telo OSM resta a monte e non arriva a riva. Lagadone 2,6 km, non citato nel prontuario, in mappa come tipo B. Canneto di Lavena: 438 m sulla riva tra i due estremi, divieto; la fascia d'acqua fino ai gavitelli non è disegnata. Tresa tagliato a riva del Verbano (tolti circa 1,8 km di centerline che entrava nel lago; la punta resta a 8.72638, 45.99685). Divieto Lavena ~199 m, sponda sinistra idrografica (sud). Trallo ponte–foce 650 m (prontuario ~500). Foce Tresa nel Verbano e raggio del Cuccio (metà alveo + 50 m) ancora aperti. Campi gara fuori. Sponda svizzera esclusa.
-- Segmentazione del 2026-10-07 pubblicata in `docs/` (159 geometrie, tutte con scheda). I tagli del grafo che hanno entrambi i capisaldi restano sul Margorabbia e sul Tresa. I capisaldi nuovi non spezzano Lario, Verbano, Adda, Olona e Lambro: non portano un corpo idrico, e i punti non determinati restano fuori. Senza geometria: Boggione, Chiesone, Lisascora, Barona, Rio Boesio, Soldo, Trallo, Tinella, Lanza. I tagli sul poligono non spezzano lo specchio. La riva di Sondrio sul Lario non è clippata: il sottobacino non ha la provincia. Campi gara, zone subacquee e zone dilettantistiche restano fuori.
+- Pubblicazione del 2026-10-09: 208 feature in `docs/`. I laghi si spezzano in costa e interno; Annone, Ranco/Angera, Pescarenico e Garlate sono tagli geometrici. Senza geometria regionale: Barona, Boggione, Chiesone, Lisascora, Rio Boesio, Soldo, Tinella, Trallo, e i predisposti Brinzio e Briviola. La riva di Sondrio sul Lario non è clippata: il sottobacino non ha la provincia. Zone subacquee e dilettantistiche restano fuori.
 - Il sottobacino «Lago di Como (Lario)» non ha un attributo di provincia: un affluente in Sondrio classificato lì non è ancora clippato.
 - La pipeline OpenStreetMap è in `old/` (script, scarichi, tratti, overlay, anteprime, cache). `docs/` è la mappa del Bacino 5 pubblicata il 2026-10-07. Si rigenera con `py -3 scripts/segmenta_rete.py --pubblica-leaflet`. `py -3 scripts/regole.py --verifica` controlla il grafo.
 - Il CLI `regole.py --zona` non è la cascata nuova: usare `--matrice` / `--verifica`.
