@@ -101,7 +101,8 @@
 
       <h2>Sempre in mappa</h2>
       <p class="legend-note">
-        I divieti restano in rosso, sopra gli altri layer, anche se la categoria o il permesso è spento.
+        I divieti permanenti restano in rosso, sopra gli altri layer, anche se la categoria o il permesso è spento.
+        Un divieto limitato a un periodo, come le aree di ormeggio del Lario, segue la data quando la mappa è colorata per data/ora.
         Le segmentazioni speciali tengono il colore della vista e un tratteggio alternato nero.
       </p>
 
@@ -353,9 +354,19 @@
       return { color: "#000", weight: base.weight, opacity: 0.95, fill: false, fillOpacity: 0,
                dashArray: "10 10", dashOffset: "10", lineCap: "butt" };
     }
+    function divietoPeriodico(p) {
+      const r = p.regole;
+      if (!r || r.pesca_consentita === false || p.regime === "divieto") return false;
+      return ((r.calendario && r.calendario.periodi_speciali) || []).some(x => x.vietata);
+    }
     function styleDivieto(p) {
       const poly = (p.geometria || "").includes("Polygon");
-      return { color: "#dc2626", weight: poly ? 2 : 4, opacity: 1, fillColor: "#dc2626", fillOpacity: poly ? 0.65 : 0, lineCap: "round" };
+      let color = "#dc2626";
+      if (modeEl.checked && divietoPeriodico(p)) {
+        const ok = valuta(p.regole, whenT()).ok;
+        color = ok === true ? "#16a34a" : ok === false ? "#dc2626" : "#64748b";
+      }
+      return { color, weight: poly ? 2 : 4, opacity: 1, fillColor: color, fillOpacity: poly ? 0.65 : 0, lineCap: "round" };
     }
 
     // ------------------------------------------------------------ popup

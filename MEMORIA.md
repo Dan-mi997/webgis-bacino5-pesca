@@ -3,7 +3,7 @@
 Documento vivo: aggiornarlo al termine di ogni sessione di lavoro sostanziale.  
 Serve alle chat successive per riprendere il contesto senza ricostruire tutto da zero.
 
-**Ultimo aggiornamento:** 2026-10-09 sera (Lugano nord e Campione come acque di Como; Annone Est esclusivo; 57 aree di ormeggio del Lario; riempimenti più coprenti)
+**Ultimo aggiornamento:** 2026-10-09 sera (ormeggi del Lario: il divieto 1° dicembre–30 aprile segue la data sulla mappa)
 
 ---
 
@@ -26,7 +26,7 @@ Diritti esclusivi, con geometria: Pusiano, Segrino, Montorfano, Monate e Comabbi
 
 Lugano: `lago_lugano` (CISPP, permessi varesini) è ormai solo il bacino sud e il bacino di Ponte Tresa. Il bacino nord (`lago_lugano_nord`, scelto dal qualificatore del nome regionale «bacino nord») e Campione d’Italia (`lago_lugano_campione`, i pezzi dentro l’enclave del confine lombardo) sono classe A con i permessi di Como, riva `fipsas_co_lc_riva` e barca `fipsas_co_lc_barca`. Le foci di Rezzo, Soldo, Telo e Cuccio sono passate al bacino nord.
 
-Lario: 57 aree di ormeggio (p. 39–40), divieto dal 1° dicembre al 30 aprile. Il prontuario non dà un perimetro: cerchio di 50 m attorno al pin, marcato `raggio_stimato`. Il periodo vietato è un `periodo_speciale` con `vietata: true`, valutato dal motore e dalla mappa; la feature è rossa tutto l’anno. Il tratteggio nero è solo per una regola tecnica (no-kill, tecniche, prelievo), non per il solo diritto esclusivo. Verbano, zona Ranco/Angera: poligono sui quattro vertici, lati di terra sulla costa e lati d’acqua sul confine regionale (~14,6 km²). Uso civico Pescarenico: Adda, sponda sinistra idrografica, centerline di 1111 m dal punto fino al Garlate. Sul Garlate la zona è un triangolo sulla sponda est: costa da `[45.838846, 9.399603]` a `[45.814915, 9.419778]`, poi rette al vertice d’acqua `[45.812187, 9.413738]` e di nuovo al primo punto (`vertici_acqua` in `poligono_due_punti_costa`), circa 1,1 km². Lago di Brinzio e Rio Briviola sono nel grafo con `stato: predisposto`, senza regole e senza geometria.
+Lario: 57 aree di ormeggio (p. 39–40), divieto dal 1° dicembre al 30 aprile. Il prontuario non dà un perimetro: cerchio di 50 m attorno al pin, marcato `raggio_stimato`. Il periodo vietato è un `periodo_speciale` con `vietata: true`. Il motore lo valuta già; sulla mappa la zona resta nel layer dei divieti, ma con «Colora la mappa per data/ora» è verde fuori dal periodo e rossa dentro. Il tratteggio nero è solo per una regola tecnica (no-kill, tecniche, prelievo), non per il solo diritto esclusivo. Verbano, zona Ranco/Angera: poligono sui quattro vertici, lati di terra sulla costa e lati d’acqua sul confine regionale (~14,6 km²). Uso civico Pescarenico: Adda, sponda sinistra idrografica, centerline di 1111 m dal punto fino al Garlate. Sul Garlate la zona è un triangolo sulla sponda est: costa da `[45.838846, 9.399603]` a `[45.814915, 9.419778]`, poi rette al vertice d’acqua `[45.812187, 9.413738]` e di nuovo al primo punto (`vertici_acqua` in `poligono_due_punti_costa`), circa 1,1 km². Lago di Brinzio e Rio Briviola sono nel grafo con `stato: predisposto`, senza regole e senza geometria.
 
 **Pubblicazione**
 - Repo: https://github.com/Dan-mi997/webgis-bacino5-pesca
