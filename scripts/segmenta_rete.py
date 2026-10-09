@@ -99,6 +99,15 @@ def _parti_nome(nome: str) -> list[str]:
     return [part if part is not None else chunk for part, chunk in zip(typed, chunks)]
 
 
+def _qualificatore(nome: str) -> str | None:
+    """«bacino nord» in «Lugano (lago) - bacino nord»; None se il nome non ha qualificatore."""
+    chunks = [c.strip() for c in re.split(r"\s+-\s+", (nome or "").strip()) if c.strip()]
+    if len(chunks) < 2 or not _NOME_TIPO.match(chunks[0]):
+        return None
+    resto = [c for c in chunks[1:] if not _NOME_TIPO.match(c)]
+    return " ".join(resto) if len(resto) == len(chunks) - 1 else None
+
+
 def _chiavi_corpo(corpo: dict) -> set[str]:
     chiavi = set()
     etichette = [corpo.get("nome"), *(corpo.get("alias_osm") or []), *(corpo.get("alias_regionale") or [])]
@@ -434,6 +443,49 @@ def _clip_lombardia(features: list[dict], report: dict) -> None:
     report["clip_lombardia"] = {"feature_in_uscita": len(tenuti), "geometrie_intersecate": intersecate}
 
 
+def _assegna_enclavi(features: list[dict], matrice: Matrice, report: dict) -> None:
+    """Passa a un corpo a sé i pezzi di specchio dentro un'enclave del confine lombardo.
+
+    Il corpo dichiara `enclave.da_corpo` e un punto dentro l'enclave: il confine
+    esatto è la parte del poligono regionale lombardo che contiene quel punto.
+    """
+    confine = _confine_lombardia()
+    if confine is None:
+        return
+    parti_confine = pezzi_poligono(confine)
+    for corpo_id, corpo in matrice.corpi.items():
+        enc = corpo.get("enclave")
+        if not enc:
+            continue
+        punto = latlon(enc["punto"])
+        area = next((p for p in parti_confine if p.covers(punto)), None)
+        if area is None:
+            report["segmenti_non_applicati"].append({"id": corpo_id, "motivo": "enclave_non_trovata"})
+            continue
+        presi = 0
+        for ft in features:
+            props = ft.get("properties") or {}
+            if props.get("corpo_idrico") != enc["da_corpo"]:
+                continue
+            geom = shape(ft["geometry"])
+            if not area.covers(geom.representative_point()):
+                continue
+            props["corpo_idrico"] = corpo_id
+            props["corpo_nome"] = corpo["nome"]
+            props["nome_tratto"] = corpo["nome"]
+            presi += 1
+        if presi:
+            report["corpi_senza_geometria"] = [
+                r for r in report["corpi_senza_geometria"] if r["corpo_idrico"] != corpo_id
+            ]
+            report["abbinati"].append({
+                "corpo_idrico": corpo_id,
+                "geometria": corpo.get("geometria"),
+                "parti": presi,
+                "nome_regionale": f"enclave di {enc['da_corpo']}",
+            })
+
+
 def carica_capisaldi(path: Path) -> dict[str, dict]:
     """Accetta il dizionario del progetto oppure un GeoJSON di punti."""
     data = json.loads(path.read_text(encoding="utf-8"))
@@ -497,6 +549,12 @@ def _abbina(nome: str, geometria: str, indice: dict[str, str]) -> tuple[str | No
     chiavi = [_chiave(p) for p in parti if _chiave(p)]
     if len(chiavi) != 1:
         return None, chiavi
+    # Un corpo con alias «Lugano bacino nord» prende quel bacino; gli altri restano al lago.
+    qualif = _qualificatore(nome)
+    if qualif:
+        chiave_q = _chiave(f"{parti[0]} {qualif}")
+        if chiave_q in indice:
+            return indice[chiave_q], [chiave_q]
     return indice.get(chiavi[0]), chiavi
 
 
@@ -624,8 +682,21 @@ def _props_base(matrice: Matrice, corpo_id: str, segmento_id: str | None, nome_t
     risolto = matrice.risolvi(corpo_id, segmento_id, modalita)
     corpo = matrice.corpi[corpo_id]
     segmento = matrice.segmenti.get(segmento_id) if segmento_id else None
-    divieto = risolto["pesca_consentita"] is False or risolto["regime"] == "divieto"
-    speciale = bool(segmento) and not segmento.get("intero_corpo") and (segmento.get("geometria_vincolo") or {}).get("tipo") != "intero_entita" and not divieto
+    periodi = ((risolto.get("calendario") or {}).get("periodi_speciali") or [])
+    divieto = (
+        risolto["pesca_consentita"] is False
+        or risolto["regime"] == "divieto"
+        or any(p.get("vietata") for p in periodi)
+    )
+    speciale = False
+    if segmento and not divieto:
+        # Il tratteggio è per una regola tecnica diversa (no-kill, tecniche, prelievo).
+        # Un diritto esclusivo, anche con un vincolo che descrive quel permesso, resta tinta unita.
+        ha_blocco = bool(segmento.get("sostituisci_con_blocco"))
+        chiavi_tecniche = {"attrezzatura", "esche", "tecniche", "prelievo", "calendario"}
+        ha_override = any(k in (segmento.get("override") or {}) for k in chiavi_tecniche)
+        speciale = ha_blocco or ha_override
+        
     props = {
         "nome_tratto": nome_tratto,
         "corpo_idrico": corpo_id,
@@ -716,9 +787,13 @@ def _segmento_entita(matrice: Matrice, corpo_id: str, modalita: str, base_id: st
     return scelto
 
 
-def _ritaglia_lago(poly, seg: dict, punti: dict, confine):
+def _ritaglia_lago(poly, seg: dict, punti: dict, confine, nome_regionale: str | None = None):
     vin = seg.get("geometria_vincolo") or {}
     tipo = vin.get("tipo")
+    if tipo == "parte_regionale":
+        if nome_regionale and nome_regionale == vin.get("nome_regionale"):
+            return [poly], []
+        return [], [poly]
     if tipo == "semipiano":
         nord, sud = split_semipiano(poly, vin["linea"])
         return (sud, nord) if vin.get("lato") == "sud" else (nord, sud)
@@ -731,7 +806,7 @@ def _ritaglia_lago(poly, seg: dict, punti: dict, confine):
             return [], [poly]
         return pezzi_poligono(poly.intersection(zona)), pezzi_poligono(poly.difference(zona.buffer(1e-6)))
     if tipo == "poligono_due_punti_costa":
-        zona = unisci(poligono_due_punti_costa(poly, vin["punti"]))
+        zona = unisci(poligono_due_punti_costa(poly, vin["punti"], vin.get("vertici_acqua")))
         if zona.is_empty:
             return [], [poly]
         return pezzi_poligono(poly.intersection(zona)), pezzi_poligono(poly.difference(zona.buffer(1e-6)))
@@ -882,7 +957,6 @@ def _applica_tratti_asta(features: list[dict], matrice: Matrice, report: dict) -
         for pezzo in pezzi:
             props = _props_base(matrice, seg["corpo_idrico"], seg["id"], seg["nome"], regionale, pezzo, "sponda")
             props["sponda_idrografica"] = vin.get("sponda") or "sinistra_idrografica"
-            props["segmentazione_speciale"] = True
             sostituzioni.setdefault(-1, []).append(feature(pezzo, props))
         raggiunge = lago is not None and geom_distance_m(lago, Point(pezzi[-1].coords[-1])) < 80
         report.setdefault("tagli_asta", []).append({
@@ -926,14 +1000,14 @@ def _separa_laghi(features: list[dict], matrice: Matrice, punti: dict, report: d
         spaziali = [
             seg for seg in matrice.spec["segmenti"]
             if seg.get("corpo_idrico") == corpo_id
-            and (seg.get("geometria_vincolo") or {}).get("tipo") in (*TIPI_SPAZIALI, "raggio", "fascia_riva")
+            and (seg.get("geometria_vincolo") or {}).get("tipo") in (*TIPI_SPAZIALI, "raggio", "fascia_riva", "parte_regionale")
         ]
         spaziali.sort(key=lambda s: int(s.get("priorita") or 0))
         for seg in spaziali:
             nuovi = []
             applicato = False
             for poly, sid in pezzi:
-                ritagli, resto = _ritaglia_lago(poly, seg, punti, confine)
+                ritagli, resto = _ritaglia_lago(poly, seg, punti, confine, props.get("nome_regionale"))
                 if ritagli:
                     applicato = True
                     pr_new = int(seg.get("priorita") or 0)
@@ -1190,7 +1264,7 @@ def segmenta(matrice: Matrice, fiumi: list[dict], laghi: list[dict], punti: dict
             if seg.get("intero_corpo"):
                 continue
             vin = (seg.get("geometria_vincolo") or {}).get("tipo")
-            if vin in (*TIPI_SPAZIALI, "raggio", "fascia_riva", "tratto_verso_valle_fino_a_lago", "tratto_ab"):
+            if vin in (*TIPI_SPAZIALI, "raggio", "fascia_riva", "tratto_verso_valle_fino_a_lago", "tratto_ab", "parte_regionale"):
                 continue
             report["segmenti_non_applicati"].append({
                 "id": seg["id"],
@@ -1220,6 +1294,7 @@ def segmenta(matrice: Matrice, fiumi: list[dict], laghi: list[dict], punti: dict
 
     _completa_reticolo(fiumi, laghi, consumati, punti, features, report, matrice)
     _clip_lombardia(features, report)
+    _assegna_enclavi(features, matrice, report)
     _applica_tratti_asta(features, matrice, report)
     _separa_laghi(features, matrice, punti, report)
 
@@ -1311,6 +1386,10 @@ def self_test() -> None:
         raise SystemExit(f"self-test split: attesi 3 pezzi, ottenuti {len(pezzi)}")
     assert _parti_nome("Grantorella (Torrente) - Margorabbia (Fiume)") == ["Grantorella", "Margorabbia"]
     assert _parti_nome("Lugano (lago) - bacino nord") == ["Lugano"]
+    assert _qualificatore("Lugano (lago) - bacino nord") == "bacino nord"
+    assert _qualificatore("Grantorella (Torrente) - Margorabbia (Fiume)") is None
+    assert _abbina("Lugano (lago) - bacino nord", "poligono", {"lugano": "a", "lugano bacino nord": "b"})[0] == "b"
+    assert _abbina("Lugano (lago) - bacino sud", "poligono", {"lugano": "a", "lugano bacino nord": "b"})[0] == "a"
     assert _chiave("Lago di Ghirla") == "ghirla"
     assert _chiave("Torrente Telo di Osteno") == "telo di osteno"
     assert _chiave("Rio Boesio") == "rio boesio"

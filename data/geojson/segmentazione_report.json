@@ -132,7 +132,13 @@
     {
       "corpo_idrico": "lago_lugano",
       "geometria": "poligono",
-      "parti": 3,
+      "parti": 2,
+      "nome_regionale": "Lugano (lago) - bacino di Ponte Tresa"
+    },
+    {
+      "corpo_idrico": "lago_lugano_nord",
+      "geometria": "poligono",
+      "parti": 1,
       "nome_regionale": "Lugano (lago) - bacino nord"
     },
     {
@@ -182,6 +188,12 @@
       "geometria": "poligono",
       "parti": 1,
       "nome_regionale": "Maggiore (lago)"
+    },
+    {
+      "corpo_idrico": "lago_lugano_campione",
+      "geometria": "poligono",
+      "parti": 1,
+      "nome_regionale": "enclave di lago_lugano_nord"
     }
   ],
   "corpi_senza_geometria": [
@@ -1191,7 +1203,7 @@
   "segmenti_non_applicati": [
     {
       "id": "lago_lugano_divieto_cuccio",
-      "corpo_idrico": "lago_lugano",
+      "corpo_idrico": "lago_lugano_nord",
       "motivo": "raggio_non_misurato"
     }
   ],

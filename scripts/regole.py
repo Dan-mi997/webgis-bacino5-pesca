@@ -34,6 +34,8 @@ def deep_merge(base, over):
 # --------------------------------------------------------------------------- tempo
 
 def movable_date(defn: dict, year: int) -> date:
+    if defn["tipo"] == "data_fissa":
+        return date(year, defn["mese"], defn["giorno"])
     if defn["tipo"] != "ennesimo_giorno_settimana_del_mese":
         raise ValueError(defn["tipo"])
     wd = WEEKDAYS.index(defn["giorno_settimana"])
@@ -79,6 +81,10 @@ def sun_times(d: date, lat: float, lon: float) -> tuple[datetime, datetime]:
 
 
 def _solar_instant(d: date, rif: str, offset_min: int, lat: float, lon: float) -> datetime:
+    if rif == "inizio_giorno":
+        return datetime.combine(d, datetime.min.time()) + timedelta(minutes=offset_min)
+    if rif == "fine_giorno":
+        return datetime.combine(d, datetime.max.time()) + timedelta(minutes=offset_min)
     alba, tramonto = sun_times(d, lat, lon)
     return (alba if rif == "alba" else tramonto) + timedelta(minutes=offset_min)
 
@@ -247,7 +253,10 @@ class Regole:
                 no(f"Fuori orario ({a:%H:%M}–{b:%H:%M})")
         for p in cal["periodi_speciali"]:
             if self.in_stagione(p["stagione"], dt, lat, lon):
-                res["vincoli_attivi"].append(p["testo"])
+                if p.get("vietata"):
+                    no(p["testo"])
+                else:
+                    res["vincoli_attivi"].append(p["testo"])
         res["vincoli_attivi"] += [v["testo"] for v in eff.get("vincoli_speciali", [])]
         return res
 
@@ -569,9 +578,28 @@ def verifica_matrice(m: Matrice | None = None) -> None:
     assert lugano["attrezzatura"]["canne_max"] == 2
     assert lugano["matrice"]["classificazione_biologica"] == "CISPP"
     assert lugano["matrice"]["livello_permesso"] == "fipsas_tesserino_maggiore"
-    assert len(lugano["permessi"]["varianti"]) == 4
+    assert lugano["permessi"]["pacchetto"]["id"] == "fipsas_ceresio_riva_va"
     nat = m.risolvi("lago_lugano", modalita="natante")
     assert any("tramonto" in v["testo"] for v in nat["vincoli_speciali"])
+    assert nat["permessi"]["pacchetto"]["id"] == "fipsas_ceresio_barca_va"
+    for cid in ("lago_lugano_nord", "lago_lugano_campione"):
+        riva = m.risolvi(cid, modalita="sponda")
+        barca = m.risolvi(cid, modalita="natante")
+        assert riva["matrice"]["classificazione_biologica"] != "CISPP", cid
+        assert riva["permessi"]["pacchetto"]["id"] == "fipsas_co_lc_riva", cid
+        assert barca["permessi"]["pacchetto"]["id"] == "fipsas_co_lc_barca", cid
+        assert riva["matrice"]["livello_permesso"] == "fipsas_base", cid
+        assert barca["matrice"]["livello_permesso"] == "fipsas_contributo_intero", cid
+    assert m.segmenti["lago_lugano_restrizione_rezzo"]["corpo_idrico"] == "lago_lugano_nord"
+    est = m.risolvi("annone", "annone_est_diritti_esclusivi", modalita="sponda")
+    assert est["matrice"]["livello_permesso"] == "esclusivi"
+    assert est["permessi"]["pacchetto"]["id"] == "diritti_citterio"
+    porto = m.risolvi("lario", "lario_ormeggio_lecco_canottieri", modalita="natante")
+    assert porto["pesca_consentita"] is True
+    assert m.base.valuta(porto, datetime(2026, 1, 15, 12, 0))["consentita"] is False
+    assert m.base.valuta(porto, datetime(2026, 4, 30, 12, 0))["consentita"] is False
+    assert m.base.valuta(porto, datetime(2026, 6, 15, 12, 0))["consentita"] is not False
+    assert sum(1 for s in m.spec["segmenti"] if s["id"].startswith("lario_ormeggio_")) == 57
     assert m.risolvi("trallo")["calendario"]["giorni"]["id"] == "tutti_i_giorni_deroga_ceresio_va"
     assert m.risolvi("cuccio")["calendario"]["giorni"]["id"] == "giorni_tipo_B"
 

@@ -100,17 +100,23 @@ def _a_nord(poly, linea: LineString) -> bool:
 
 
 def split_semipiano(lago, linea_latlon: list) -> tuple[list, list]:
-    """Ritorna (pezzi a nord della linea, pezzi a sud)."""
+    """Ritorna (pezzi a nord della linea, pezzi a sud).
+
+    Il segmento si allunga solo di poco, per uscire dalla riva dello specchio
+    che attraversa. Un bacino adiacente che la retta non taglia resta a nord:
+    non è il lato sud del taglio.
+    """
     cruda = LineString([latlon(linea_latlon[0]).coords[0], latlon(linea_latlon[1]).coords[0]])
-    taglio = _estendi(cruda)
+    taglio = _estendi(cruda, fattore=0.02)
     lago = pulisci(lago)
+    if not lago.intersects(taglio):
+        return pezzi_poligono(lago), []
     try:
         parti = pezzi_poligono(split(lago, taglio))
     except Exception:
         parti = []
     if len(parti) < 2:
         (x1, y1), (x2, y2) = taglio.coords
-        dx, dy = x2 - x1, y2 - y1
         span = 2.0
         nord = Polygon([(x1, y1), (x2, y2), (x2, y2 + span), (x1, y1 + span)])
         sud = Polygon([(x1, y1), (x2, y2), (x2, y2 - span), (x1, y1 - span)])
@@ -169,33 +175,84 @@ def _poligono_arco_corda(arco: LineString) -> Polygon | None:
     return max(pezzi, key=lambda g: g.area)
 
 
-def poligono_due_punti_costa(lago, punti_latlon: list):
-    """Poligono chiuso dalla corda fra i due punti e dall'arco di costa interno al lago."""
+def _metri_linee(geom) -> float:
+    if geom is None or geom.is_empty:
+        return 0.0
+    if geom.geom_type == "LineString":
+        return line_length_m(geom)
+    if geom.geom_type in ("MultiLineString", "GeometryCollection"):
+        return sum(_metri_linee(g) for g in geom.geoms)
+    return 0.0
+
+
+def poligono_due_punti_costa(lago, punti_latlon: list, vertici_acqua_latlon: list | None = None):
+    """Zona fra l'arco di costa A–B e la sua chiusura, il lato piccolo dentro il lago.
+
+    Senza vertici d'acqua la chiusura è la corda A–B: può uscire e rientrare,
+    e si tengono tutti i pezzi dello specchio che appoggiano su quell'arco.
+    Con vertici d'acqua la chiusura è la spezzata B → vertici → A.
+    """
     lago = pulisci(lago)
     anello = costa_di(lago)
     if anello.geom_type != "LineString":
         anello = max(anello.geoms, key=line_length_m)
     a = nearest_points(anello, latlon(punti_latlon[0]))[0]
     b = nearest_points(anello, latlon(punti_latlon[1]))[0]
+    if vertici_acqua_latlon:
+        arco = _arco(anello, a, b, lambda u, v: u if line_length_m(u) <= line_length_m(v) else v)
+        coords = list(arco.coords)
+        if Point(coords[0]).distance(a) > Point(coords[-1]).distance(a):
+            coords.reverse()
+        anello_zona = coords + [latlon(v).coords[0] for v in vertici_acqua_latlon] + [coords[0]]
+        poly = Polygon(anello_zona)
+        if not poly.is_valid:
+            poly = poly.buffer(0)
+        return pezzi_poligono(poly.intersection(lago))
+    # Pochi metri oltre i due punti, quanto basta per attraversare la riva e non uno specchio vicino.
+    corda = _estendi(LineString([a.coords[0], b.coords[0]]), 0.003)
+    try:
+        parti = pezzi_poligono(split(lago, corda))
+    except Exception:
+        parti = []
+    if len(parti) < 2:
+        arco = _arco(anello, a, b, lambda u, v: u if line_length_m(u) <= line_length_m(v) else v)
+        poly = _poligono_arco_corda(arco)
+        if poly is None:
+            return []
+        return pezzi_poligono(poly.intersection(lago))
 
-    def scegli(u, v):
-        pu, pv = _poligono_arco_corda(u), _poligono_arco_corda(v)
-        dentro = []
-        for arco, poly in ((u, pu), (v, pv)):
-            if poly is None:
-                continue
-            comune = poly.intersection(lago).area
-            if poly.area > 0 and comune / poly.area > 0.6:
-                dentro.append((arco, poly))
-        if dentro:
-            return min(dentro, key=lambda t: t[1].area)[0]
-        return u if line_length_m(u) <= line_length_m(v) else v
+    ra, rb = anello.project(a, normalized=True), anello.project(b, normalized=True)
+    lo, hi = min(ra, rb), max(ra, rb)
+    diretto = substring(anello, lo, hi, normalized=True)
+    altro = _arco(anello, a, b, lambda u, v: v if line_length_m(u) <= line_length_m(v) else u)
+    # _arco con lo scarto invertito restituisce l'arco lungo se i due esistono.
+    archi = []
+    for arco in (diretto, altro):
+        if arco is None or arco.is_empty or arco.geom_type != "LineString":
+            continue
+        if not any(line_length_m(arco) == line_length_m(gia) for gia in archi):
+            archi.append(arco)
+    if len(archi) == 1:
+        archi.append(anello)
 
-    arco = _arco(anello, a, b, scegli)
-    poly = _poligono_arco_corda(arco)
-    if poly is None:
+    def sul_arco(arco, complemento) -> list:
+        scelti = []
+        for poly in parti:
+            qua = _metri_linee(poly.boundary.intersection(arco.buffer(0.00005)))
+            la = _metri_linee(poly.boundary.intersection(complemento.buffer(0.00005)))
+            if qua > 40 and qua > la:
+                scelti.append(poly)
+        return scelti
+
+    candidati = []
+    for i, arco in enumerate(archi):
+        complemento = archi[1 - i] if len(archi) > 1 else anello
+        scelti = sul_arco(arco, complemento)
+        if scelti:
+            candidati.append(scelti)
+    if not candidati:
         return []
-    return pezzi_poligono(poly.intersection(lago))
+    return min(candidati, key=lambda ps: sum(p.area for p in ps))
 
 
 def _classe_vertice(pt: Point, lago, costa, confine_nel_lago) -> str:
@@ -364,8 +421,8 @@ def self_test() -> None:
     assert nord and sud, (nord, sud)
     assert all(p.representative_point().y >= 45.82 for p in nord)
     assert all(p.representative_point().y < 45.82 for p in sud)
-    zona = poligono_due_punti_costa(lago, [[45.84, 9.31], [45.84, 9.35]])
-    assert zona and zona[0].area < lago.area
+    zona = poligono_due_punti_costa(lago, [[45.84, 9.33], [45.82, 9.36]])
+    assert zona and sum(p.area for p in zona) < lago.area * 0.5
     print("tagli_geometrici self-test ok")
 
 

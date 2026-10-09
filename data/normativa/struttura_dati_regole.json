@@ -61,7 +61,7 @@
       },
       "fipsas_base": {
         "etichetta": "FIPSAS base",
-        "colore": "#eab308"
+        "colore": "#facc15"
       },
       "fipsas_contributo_ridotto": {
         "etichetta": "FIPSAS + contributo ridotto",
@@ -676,13 +676,69 @@
       "comuni": [
         "Porto Ceresio",
         "Brusimpiano",
-        "Lavena Ponte Tresa",
-        "Campione d'Italia",
+        "Lavena Ponte Tresa"
+      ],
+      "note": "Cat. CISPP, Capitolo 5 del prontuario. Bacino sud e bacino di Ponte Tresa, parte italiana (provincia di Varese). Il bacino nord e l'enclave di Campione d'Italia sono corpi a sé, con le regole delle acque di Como. Costa e interno sono entità separate.",
+      "entita_separate": true,
+      "entita": {
+        "sponda": {
+          "geometria": "linea_costa"
+        },
+        "natante": {
+          "geometria": "poligono_interno"
+        }
+      }
+    },
+    "lago_lugano_nord": {
+      "nome": "Lago di Lugano, bacino nord",
+      "alias_regionale": [
+        "Lugano bacino nord"
+      ],
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "A",
+      "geometria": "poligono",
+      "ruolo": "lago",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "comuni": [
         "Valsolda",
         "Porlezza",
         "Claino con Osteno"
       ],
-      "note": "Cat. CISPP, Capitolo 5 del prontuario. Si disegna solo la parte in territorio italiano, Campione d'Italia compreso. Costa e interno sono entità separate. I permessi di riva e di barca cambiano tra Varese e Como/Lecco: il poligono non si spezza sul confine provinciale.",
+      "note": "Feature regionale «Lugano (lago) - bacino nord», parte italiana fuori dall'enclave di Campione. Equivalente alle acque della provincia di Como: FIPSAS, riva senza contributo, barca con contributo 30 €. Non segue la Cat. CISPP.",
+      "entita_separate": true,
+      "entita": {
+        "sponda": {
+          "geometria": "linea_costa"
+        },
+        "natante": {
+          "geometria": "poligono_interno"
+        }
+      }
+    },
+    "lago_lugano_campione": {
+      "nome": "Lago di Lugano, Campione d'Italia",
+      "regime_amministrativo": "fipsas",
+      "classificazione_biologica": "A",
+      "geometria": "poligono",
+      "ruolo": "lago",
+      "nel_pilota": false,
+      "mappato": true,
+      "citato_in_prontuario": true,
+      "comuni": [
+        "Campione d'Italia"
+      ],
+      "enclave": {
+        "da_corpo": "lago_lugano_nord",
+        "ordine": "latlon",
+        "punto": [
+          45.975,
+          8.9701
+        ],
+        "confine": "parte del confine regionale lombardo che contiene il punto"
+      },
+      "note": "Specchio dell'enclave di Campione d'Italia, staccato dal bacino nord sul confine regionale. Equivalente alle acque della provincia di Como: FIPSAS, riva senza contributo, barca con contributo 30 €. Non segue la Cat. CISPP.",
       "entita_separate": true,
       "entita": {
         "sponda": {
@@ -908,7 +964,7 @@
         "Annone ovest",
         "Annone Ovest"
       ],
-      "note": "Tipo A. Taglio sulla linea fra [45.8196464, 9.3397611] e [45.8196905, 9.3240939]: a nord FIPSAS (scheda Como e Lecco), a sud diritti esclusivi Eredi Carlo Citterio. Costa e interno seguono lo stesso taglio.",
+      "note": "Tipo A. Annone Est è interamente a diritti esclusivi (Citterio). Annone ovest è tagliato dalla retta fra [45.8196464, 9.3397611] e [45.8196905, 9.3240939]: a nord FIPSAS, a sud diritti esclusivi Citterio. Costa e interno seguono lo stesso taglio.",
       "entita_separate": true,
       "entita": {
         "sponda": {
@@ -1632,24 +1688,8 @@
     },
     "lago_lugano": {
       "permessi": {
-        "varianti": [
-          {
-            "condizione": "sponda, provincia di Varese",
-            "pacchetto_ref": "fipsas_ceresio_riva_va"
-          },
-          {
-            "condizione": "natante, provincia di Varese",
-            "pacchetto_ref": "fipsas_ceresio_barca_va"
-          },
-          {
-            "condizione": "sponda, province di Como e Lecco, incluso Campione d'Italia",
-            "pacchetto_ref": "fipsas_ceresio_riva_co"
-          },
-          {
-            "condizione": "natante, province di Como e Lecco, incluso Campione d'Italia",
-            "pacchetto_ref": "fipsas_ceresio_barca_co"
-          }
-        ]
+        "pacchetto_ref": "fipsas_ceresio_riva_va",
+        "varianti": []
       },
       "per_modalita": {
         "natante": {
@@ -1659,7 +1699,11 @@
               "testo": "La pesca da imbarcazione è vietata da un'ora dopo il tramonto a un'ora prima dell'alba.",
               "livello": "testuale"
             }
-          ]
+          ],
+          "permessi": {
+            "pacchetto_ref": "fipsas_ceresio_barca_va",
+            "varianti": []
+          }
         }
       },
       "fonti": [
@@ -1670,27 +1714,110 @@
         },
         {
           "livello": "testuale",
-          "riferimento": "Scheda Ceresio — Como e Lecco",
-          "estratto": "Ceresio (incluso Campione d'Italia). Da riva senza contributo di gestione; da barca contributo FIPSAS 30."
-        },
-        {
-          "livello": "testuale",
           "riferimento": "cap. 5",
           "estratto": "Pesca da imbarcazione vietata da un'ora dopo il tramonto a un'ora prima del sorgere del sole."
         }
       ],
       "interpretazioni": [
         {
+          "campo": "foci_svizzere",
+          "nota": "Vedeggio, Cassarate, Magliasina, Laveggio e le arcate della diga di Melide sono in Svizzera e non si mappano."
+        },
+        {
           "campo": "permessi",
-          "nota": "Le quattro schede convivono sullo stesso poligono italiano. Il confine provinciale VA/CO non è un taglio di questa fase."
+          "nota": "Resta solo la parte varesina: bacino sud e bacino di Ponte Tresa. Il bacino nord e Campione sono corpi a sé."
+        }
+      ],
+      "ambito_geometrico": {
+        "tipo": "intero_corpo",
+        "confine": "geometria_esatta_del_corpo_o_della_entita"
+      }
+    },
+    "lago_lugano_nord": {
+      "per_modalita": {
+        "natante": {
+          "tecniche": {
+            "consentite": [
+              "canna_da_riva",
+              "pesca_notturna",
+              "imbarcazione"
+            ],
+            "vietate": []
+          },
+          "permessi": {
+            "pacchetto_ref": "fipsas_co_lc_barca",
+            "varianti": []
+          }
+        }
+      },
+      "permessi": {
+        "pacchetto_ref": "fipsas_co_lc_riva",
+        "varianti": []
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "par. 3.5",
+          "estratto": "PESCARE NEI LAGHI DI COMO E LECCO, ALSERIO, DARENGO E CERESIO (incluso Campione d'Italia). Da riva: licenza, tessera, tesserino. Da barca: anche il contributo annuale 30 €."
+        },
+        {
+          "livello": "testuale",
+          "riferimento": "Scheda Ceresio — Como e Lecco",
+          "estratto": "Ceresio, sponda comasca. Da riva senza contributo di gestione; da barca contributo FIPSAS 30."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "classificazione",
+          "nota": "Classe A come gli altri laghi di Como e Lecco della scheda par. 3.5: le regole sono quelle delle acque di Como, non il Capitolo 5."
         },
         {
           "campo": "foce_cuccio",
           "nota": "Divieto permanente alla foce del Cuccio: raggio = metà larghezza del torrente + 50 m. Il raggio non si ricava dalla centerline, quindi il cerchio non è disegnato."
+        }
+      ],
+      "ambito_geometrico": {
+        "tipo": "intero_corpo",
+        "confine": "geometria_esatta_del_corpo_o_della_entita"
+      }
+    },
+    "lago_lugano_campione": {
+      "per_modalita": {
+        "natante": {
+          "tecniche": {
+            "consentite": [
+              "canna_da_riva",
+              "pesca_notturna",
+              "imbarcazione"
+            ],
+            "vietate": []
+          },
+          "permessi": {
+            "pacchetto_ref": "fipsas_co_lc_barca",
+            "varianti": []
+          }
+        }
+      },
+      "permessi": {
+        "pacchetto_ref": "fipsas_co_lc_riva",
+        "varianti": []
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "par. 3.5",
+          "estratto": "PESCARE NEI LAGHI DI COMO E LECCO, ALSERIO, DARENGO E CERESIO (incluso Campione d'Italia). Da riva: licenza, tessera, tesserino. Da barca: anche il contributo annuale 30 €."
         },
         {
-          "campo": "foci_svizzere",
-          "nota": "Vedeggio, Cassarate, Magliasina, Laveggio e le arcate della diga di Melide sono in Svizzera e non si mappano."
+          "livello": "testuale",
+          "riferimento": "Scheda Ceresio — Como e Lecco",
+          "estratto": "Ceresio (incluso Campione d'Italia). Da riva senza contributo di gestione; da barca contributo FIPSAS 30."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "classificazione",
+          "nota": "Classe A come gli altri laghi di Como e Lecco della scheda par. 3.5: le regole sono quelle delle acque di Como, non il Capitolo 5."
         }
       ],
       "ambito_geometrico": {
@@ -2692,8 +2819,8 @@
     },
     {
       "id": "lago_lugano_restrizione_rezzo",
-      "nome": "Ceresio — foce Rezzo, 50 m",
-      "corpo_idrico": "lago_lugano",
+      "nome": "Lugano nord — foce Rezzo, 50 m",
+      "corpo_idrico": "lago_lugano_nord",
       "effetto": "taglio",
       "intero_corpo": false,
       "priorita": 50,
@@ -2734,8 +2861,8 @@
     },
     {
       "id": "lago_lugano_restrizione_soldo",
-      "nome": "Ceresio — foce Soldo, 50 m",
-      "corpo_idrico": "lago_lugano",
+      "nome": "Lugano nord — foce Soldo, 50 m",
+      "corpo_idrico": "lago_lugano_nord",
       "effetto": "taglio",
       "intero_corpo": false,
       "priorita": 50,
@@ -2776,8 +2903,8 @@
     },
     {
       "id": "lago_lugano_restrizione_telo",
-      "nome": "Ceresio — foce Telo, 50 m",
-      "corpo_idrico": "lago_lugano",
+      "nome": "Lugano nord — foce Telo, 50 m",
+      "corpo_idrico": "lago_lugano_nord",
       "effetto": "taglio",
       "intero_corpo": false,
       "priorita": 50,
@@ -2818,8 +2945,8 @@
     },
     {
       "id": "lago_lugano_divieto_cuccio",
-      "nome": "Ceresio — divieto di foce del Cuccio",
-      "corpo_idrico": "lago_lugano",
+      "nome": "Lugano nord — divieto di foce del Cuccio",
+      "corpo_idrico": "lago_lugano_nord",
       "effetto": "taglio",
       "intero_corpo": false,
       "priorita": 100,
@@ -3208,6 +3335,32 @@
       ]
     },
     {
+      "id": "annone_est_diritti_esclusivi",
+      "nome": "Lago di Annone — bacino est, diritti esclusivi Citterio",
+      "corpo_idrico": "annone",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 40,
+      "regime_amministrativo": "diritti_esclusivi",
+      "pacchetto_ref": "diritti_citterio",
+      "geometria_vincolo": {
+        "tipo": "parte_regionale",
+        "nome_regionale": "Annone Est (lago)",
+        "confine": "poligono regionale del bacino est, intero",
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Scheda Lago di Annone",
+          "estratto": "Annone Est: zona rossa, permesso Eredi Carlo Citterio."
+        }
+      ]
+    },
+    {
       "id": "verbano_ranco_angera",
       "nome": "Verbano — Ranco/Angera, diritti esclusivi",
       "corpo_idrico": "verbano",
@@ -3292,15 +3445,21 @@
         "ordine": "latlon",
         "punti": [
           [
-            45.812187,
-            9.413738
+            45.838846,
+            9.399603
           ],
           [
-            45.81497,
-            9.41985
+            45.814915,
+            9.419778
           ]
         ],
-        "chiusura": "linea_di_costa",
+        "vertici_acqua": [
+          [
+            45.812187,
+            9.413738
+          ]
+        ],
+        "chiusura": "arco di costa da A a B, poi rette B → vertice d'acqua → A",
         "entita": [
           "sponda",
           "natante"
@@ -3310,7 +3469,2693 @@
         {
           "livello": "testuale",
           "riferimento": "Uso civico Pescarenico",
-          "estratto": "Poligono chiuso sulla costa del Lago di Garlate fra i due punti indicati."
+          "estratto": "Triangolo sulla sponda est: dal punto 45.838846, 9.399603 al punto 45.814915, 9.419778 lungo la costa, poi in linea retta al punto 45.812187, 9.413738 e di nuovo in linea retta al primo punto."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_lecco_canottieri",
+      "nome": "Lario — area di ormeggio: Ormeggio Canottieri (Lecco)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Ormeggio Canottieri: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_lecco_canottieri",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_malgrate",
+      "nome": "Lario — area di ormeggio: Porticciolo di Malgrate (Malgrate)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porticciolo di Malgrate: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_malgrate",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_valmadrera_pare",
+      "nome": "Lario — area di ormeggio: Porto Paré (Valmadrera)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto Paré: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_valmadrera_pare",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_onno_molo_nuovo",
+      "nome": "Lario — area di ormeggio: Onno, Molo Nuovo (Oliveto Lario)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Onno, Molo Nuovo: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_onno_molo_nuovo",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_onno_porticciolo",
+      "nome": "Lario — area di ormeggio: Onno, porticciolo (Oliveto Lario)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Onno, porticciolo: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_onno_porticciolo",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_vassena",
+      "nome": "Lario — area di ormeggio: Porticciolo di Vassena (Oliveto Lario)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porticciolo di Vassena: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_vassena",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_rigona_limonta",
+      "nome": "Lario — area di ormeggio: Porticciolo della Rigona di Limonta (Oliveto Lario)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porticciolo della Rigona di Limonta: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_rigona_limonta",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_abbadia",
+      "nome": "Lario — area di ormeggio: Porticciolo di Abbadia Lariana (Abbadia Lariana)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porticciolo di Abbadia Lariana: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_abbadia",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_mandello_lega_navale",
+      "nome": "Lario — area di ormeggio: Area di ormeggio della Lega Navale (Mandello del Lario)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Area di ormeggio della Lega Navale: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_mandello_lega_navale",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_mandello_mulini",
+      "nome": "Lario — area di ormeggio: Approdo Mulini (Mandello del Lario)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Approdo Mulini: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_mandello_mulini",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_mandello_piazza_gera",
+      "nome": "Lario — area di ormeggio: Area di ormeggio di Piazza Gera (Mandello del Lario)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Area di ormeggio di Piazza Gera: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_mandello_piazza_gera",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_mandello_olcio",
+      "nome": "Lario — area di ormeggio: Area di ormeggio di Olcio (Mandello del Lario)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Area di ormeggio di Olcio: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_mandello_olcio",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_lierna_punta_grumo",
+      "nome": "Lario — area di ormeggio: Porticciolo punta Grumo (Lierna)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porticciolo punta Grumo: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        },
+        "vincoli_speciali": [
+          {
+            "id": "grumo_riva",
+            "testo": "Nel tratto di riva oltre la prospicienza con il molo di ormeggio natanti la pesca è consentita.",
+            "livello": "testuale"
+          }
+        ]
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_lierna_punta_grumo",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_lierna",
+      "nome": "Lario — area di ormeggio: Porticciolo di Lierna (Lierna)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porticciolo di Lierna: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_lierna",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_varenna_fiumelatte",
+      "nome": "Lario — area di ormeggio: Porticciolo di Fiumelatte (Varenna)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porticciolo di Fiumelatte: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_varenna_fiumelatte",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_varenna_centro",
+      "nome": "Lario — area di ormeggio: Porticciolo di Varenna Centro (Varenna)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porticciolo di Varenna Centro: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_varenna_centro",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_bellano_centro",
+      "nome": "Lario — area di ormeggio: Porto di Bellano Centro (Bellano)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto di Bellano Centro: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_bellano_centro",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_dervio_santa_cecilia",
+      "nome": "Lario — area di ormeggio: Ormeggio Santa Cecilia (Dervio)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Ormeggio Santa Cecilia: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_dervio_santa_cecilia",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_dervio_porto_vecchio",
+      "nome": "Lario — area di ormeggio: Ormeggio Porto Vecchio (Dervio)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Ormeggio Porto Vecchio: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_dervio_porto_vecchio",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_colico_piona",
+      "nome": "Lario — area di ormeggio: Porticciolo di Piona (Colico)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porticciolo di Piona: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_colico_piona",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_colico_molo",
+      "nome": "Lario — area di ormeggio: Molo centro (Colico)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Molo centro: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_colico_molo",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_gera_nuovo",
+      "nome": "Lario — area di ormeggio: Nuovo porto (Gera Lario)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Nuovo porto: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_gera_nuovo",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_gera_vecchio",
+      "nome": "Lario — area di ormeggio: Vecchio porto (Gera Lario)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Vecchio porto: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_gera_vecchio",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_domaso",
+      "nome": "Lario — area di ormeggio: Porto comunale (Domaso)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto comunale: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_domaso",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_gravedona",
+      "nome": "Lario — area di ormeggio: Porto comunale (Gravedona ed Uniti)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto comunale: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_gravedona",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_dongo_vecchio",
+      "nome": "Lario — area di ormeggio: Vecchio porto (Dongo)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Vecchio porto: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_dongo_vecchio",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_musso",
+      "nome": "Lario — area di ormeggio: Porto comunale (Musso)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto comunale: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_musso",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_sansiro_molvedo",
+      "nome": "Lario — area di ormeggio: Porto Molvedo (San Siro)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto Molvedo: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_sansiro_molvedo",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_menaggio_nobiallo",
+      "nome": "Lario — area di ormeggio: Porto comunale di Nobiallo (Menaggio)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto comunale di Nobiallo: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_menaggio_nobiallo",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_menaggio_mazzini",
+      "nome": "Lario — area di ormeggio: Porto comunale, via Mazzini (Menaggio)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto comunale, via Mazzini: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_menaggio_mazzini",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_griante",
+      "nome": "Lario — area di ormeggio: Darsena al cartello di inizio centro abitato, confine con Tremezzina (Griante)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Darsena al cartello di inizio centro abitato, confine con Tremezzina: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_griante",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_villa_carlotta",
+      "nome": "Lario — area di ormeggio: Darsena dell’imbarcadero di Villa Carlotta (Tremezzina)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Darsena dell’imbarcadero di Villa Carlotta: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_villa_carlotta",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_ossuccio",
+      "nome": "Lario — area di ormeggio: Porticciolo di Ossuccio (Tremezzina)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porticciolo di Ossuccio: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_ossuccio",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_ospedaletto",
+      "nome": "Lario — area di ormeggio: Porticciolo di Ospedaletto (Tremezzina)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porticciolo di Ospedaletto: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_ospedaletto",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_colonno",
+      "nome": "Lario — area di ormeggio: Porto comunale (Colonno)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto comunale: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_colonno",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_argegno",
+      "nome": "Lario — area di ormeggio: Porto comunale (Argegno)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto comunale: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_argegno",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_brienno_vecchio",
+      "nome": "Lario — area di ormeggio: Vecchio porto (Brienno)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Vecchio porto: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_brienno_vecchio",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_laglio_tenciuu",
+      "nome": "Lario — area di ormeggio: Porticciolo Riva del Tenciuu, vecchia strada Regina Teodolinda (Laglio)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porticciolo Riva del Tenciuu, vecchia strada Regina Teodolinda: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_laglio_tenciuu",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_laglio",
+      "nome": "Lario — area di ormeggio: Porto comunale (Laglio)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto comunale: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_laglio",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_carate",
+      "nome": "Lario — area di ormeggio: Porticciolo di Carate (Carate Urio)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porticciolo di Carate: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_carate",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_urio",
+      "nome": "Lario — area di ormeggio: Porticciolo di Urio (Carate Urio)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porticciolo di Urio: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_urio",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_moltrasio",
+      "nome": "Lario — area di ormeggio: Porto comunale (Moltrasio)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto comunale: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_moltrasio",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_cernobbio",
+      "nome": "Lario — area di ormeggio: Porto comunale (Cernobbio)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto comunale: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_cernobbio",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_como_tavernola_rampa",
+      "nome": "Lario — area di ormeggio: Porto comunale di Tavernola, rampa di alaggio (Como)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto comunale di Tavernola, rampa di alaggio: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_como_tavernola_rampa",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_como_villa_sforni",
+      "nome": "Lario — area di ormeggio: Darsena di Villa Sforni, Tavernola (Como)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Darsena di Villa Sforni, Tavernola: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_como_villa_sforni",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_como_villa_saporiti",
+      "nome": "Lario — area di ormeggio: Darsena di Villa Saporiti (Como)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Darsena di Villa Saporiti: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_como_villa_saporiti",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_como_sant_agostino",
+      "nome": "Lario — area di ormeggio: Area portuale tra il tondello del Molo di Sant’Agostino e il pontile 2 della navigazione (Como)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Area portuale tra il tondello del Molo di Sant’Agostino e il pontile 2 della navigazione: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_como_sant_agostino",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_como_ceccato",
+      "nome": "Lario — area di ormeggio: Darsena Ceccato (Como)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Darsena Ceccato: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_como_ceccato",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_blevio",
+      "nome": "Lario — area di ormeggio: Porto comunale (Blevio)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto comunale: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_blevio",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_torno_vecchio",
+      "nome": "Lario — area di ormeggio: Vecchio porto (Torno)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Vecchio porto: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_torno_vecchio",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_faggeto_riva",
+      "nome": "Lario — area di ormeggio: Porto comunale, località Riva (Faggeto Lario)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto comunale, località Riva: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_faggeto_riva",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_lezzeno_pescau",
+      "nome": "Lario — area di ormeggio: Porto comunale, località Pescaù (Lezzeno)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto comunale, località Pescaù: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_lezzeno_pescau",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_lezzeno_sostra",
+      "nome": "Lario — area di ormeggio: Porto comunale, località Sostra (Lezzeno)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto comunale, località Sostra: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_lezzeno_sostra",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_bellagio_san_giovanni",
+      "nome": "Lario — area di ormeggio: Porto comunale, San Giovanni (Bellagio)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto comunale, San Giovanni: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_bellagio_san_giovanni",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_bellagio_loppia",
+      "nome": "Lario — area di ormeggio: Porto comunale, Loppia (Bellagio)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto comunale, Loppia: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_bellagio_loppia",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_bellagio_lido",
+      "nome": "Lario — area di ormeggio: Porto comunale, Lido (Bellagio)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto comunale, Lido: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_bellagio_lido",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
+        }
+      ]
+    },
+    {
+      "id": "lario_ormeggio_bellagio_spartivento",
+      "nome": "Lario — area di ormeggio: Porto comunale, Punta Spartivento (Bellagio)",
+      "corpo_idrico": "lario",
+      "effetto": "taglio",
+      "intero_corpo": false,
+      "priorita": 100,
+      "estensione": {
+        "tipo": "cerchio",
+        "descrizione": "Porto comunale, Punta Spartivento: area di ormeggio, divieto dal 1° dicembre al 30 aprile."
+      },
+      "override": {
+        "calendario": {
+          "periodi_speciali": [
+            {
+              "stagione_ref": "ormeggi_lario",
+              "etichetta": "Zona di protezione nelle aree di ormeggio",
+              "vietata": true,
+              "testo": "Divieto di pesca all'interno dell'area di ormeggio dal 1° dicembre al 30 aprile."
+            }
+          ]
+        }
+      },
+      "geometria_vincolo": {
+        "tipo": "raggio",
+        "centro": "ormeggio_bellagio_spartivento",
+        "raggio_m": 50,
+        "raggio_stimato": true,
+        "entita": [
+          "sponda",
+          "natante"
+        ]
+      },
+      "fonti": [
+        {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione e ripopolamento, con divieto di pesca (p. 39–40)",
+          "estratto": "Comuni vari (LC e CO): all'interno delle seguenti aree di ormeggio, limitatamente al periodo 1° dicembre – 30 aprile."
+        }
+      ],
+      "interpretazioni": [
+        {
+          "campo": "geometria",
+          "nota": "Il prontuario nomina l'area di ormeggio senza perimetro. Cerchio di 50 m attorno al pin al centro del porto, da sostituire con il perimetro reale."
         }
       ]
     }

@@ -158,6 +158,7 @@
     const ymd = t => { const d = new Date(t); return [d.getUTCFullYear(), d.getUTCMonth() + 1, d.getUTCDate()]; };
     const wdIdx = t => (new Date(t).getUTCDay() + 6) % 7;
     function movableDate(def, y) {
+      if (def.tipo === "data_fissa") return Date.UTC(y, def.mese - 1, def.giorno);
       const wd = WD.indexOf(def.giorno_settimana), m = def.mese, n = def.ordinale;
       if (n > 0) {
         let t = Date.UTC(y, m - 1, 1);
@@ -191,7 +192,11 @@
       });
     }
     const hhmm = t => new Date(t).toISOString().slice(11, 16);
-    const solar = (dayT, rif, off) => sunTimes(dayT, ...LATLON)[rif === "alba" ? 0 : 1] + off * 60000;
+    const solar = (dayT, rif, off) => {
+      if (rif === "inizio_giorno") return dayT + off * 60000;
+      if (rif === "fine_giorno") return dayT + DAY - 1 + off * 60000;
+      return sunTimes(dayT, ...LATLON)[rif === "alba" ? 0 : 1] + off * 60000;
+    };
     const dayOf = t => Math.floor(t / DAY) * DAY;
     function bound(spec, y) { return solar(movableDate(TD.date_mobili[spec.data_ref], y), spec.riferimento_solare, spec.offset_minuti); }
     function inStagione(st, t) {
@@ -229,7 +234,10 @@
         const a = solar(dayOf(t), fo.da.riferimento_solare, fo.da.offset_minuti), b = solar(dayOf(t), fo.a.riferimento_solare, fo.a.offset_minuti);
         if (t < a || t > b) no(`Fuori orario (${hhmm(a)}–${hhmm(b)})`);
       }
-      cal.periodi_speciali.forEach(p => { if (inStagione(p.stagione, t)) res.vincoli.push(p.testo); });
+      cal.periodi_speciali.forEach(p => {
+        if (!inStagione(p.stagione, t)) return;
+        if (p.vietata) no(p.testo); else res.vincoli.push(p.testo);
+      });
       (r.vincoli_speciali || []).forEach(v => res.vincoli.push(v.testo));
       return res;
     }
@@ -254,7 +262,7 @@
     // ------------------------------------------------------------ filtri (generati dai dati)
     const PERMESSI = {
       esclusivi: { etichetta: "Esclusivi", colore: "#f97316" },
-      fipsas_base: { etichetta: "FIPSAS base", colore: "#eab308" },
+      fipsas_base: { etichetta: "FIPSAS base", colore: "#facc15" },
       fipsas_contributo_ridotto: { etichetta: "FIPSAS + contributo ridotto", colore: "#22c55e" },
       fipsas_contributo_intero: { etichetta: "FIPSAS + contributo intero", colore: "#38bdf8" },
       fipsas_tesserino_maggiore: { etichetta: "FIPSAS + tesserino segnapesci Maggiore", colore: "#f472b6" },
@@ -337,7 +345,7 @@
       const poly = (p.geometria || "").includes("Polygon");
       const w = p.entita === "sponda" ? 4 : (p.ruolo === "asta" ? 6 : p.ruolo === "ricevente" ? 5 : 3.5);
       const speciale = isSpeciale(p) && !modeEl.checked;
-      return { color, weight: poly ? 2 : w, opacity: 0.95, fillColor: color, fillOpacity: poly ? 0.28 : 0,
+      return { color, weight: poly ? 2 : w, opacity: 0.95, fillColor: color, fillOpacity: poly ? 0.6 : 0,
                dashArray: speciale ? "10 10" : null, lineCap: "butt" };
     }
     function styleNero(p) {
@@ -347,7 +355,7 @@
     }
     function styleDivieto(p) {
       const poly = (p.geometria || "").includes("Polygon");
-      return { color: "#dc2626", weight: poly ? 2 : 4, opacity: 1, fillColor: "#dc2626", fillOpacity: poly ? 0.35 : 0, lineCap: "round" };
+      return { color: "#dc2626", weight: poly ? 2 : 4, opacity: 1, fillColor: "#dc2626", fillOpacity: poly ? 0.65 : 0, lineCap: "round" };
     }
 
     // ------------------------------------------------------------ popup

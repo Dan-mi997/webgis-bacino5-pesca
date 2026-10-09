@@ -190,6 +190,18 @@
         "giorno_settimana": "dom",
         "ordinale": 1,
         "etichetta": "prima domenica di ottobre"
+      },
+      "1_dicembre": {
+        "tipo": "data_fissa",
+        "mese": 12,
+        "giorno": 1,
+        "etichetta": "1° dicembre"
+      },
+      "30_aprile": {
+        "tipo": "data_fissa",
+        "mese": 4,
+        "giorno": 30,
+        "etichetta": "30 aprile"
       }
     },
     "stagioni": {
@@ -251,6 +263,25 @@
           "livello": "testuale",
           "riferimento": "Capitolo 5 del prontuario",
           "estratto": "Le regole di Verbano, Ceresio e Tresa stanno nel Capitolo 5 del prontuario."
+        }
+      },
+      "ormeggi_lario": {
+        "etichetta": "Aree di ormeggio del Lario",
+        "inizio": {
+          "data_ref": "1_dicembre",
+          "riferimento_solare": "inizio_giorno",
+          "offset_minuti": 0
+        },
+        "fine": {
+          "data_ref": "30_aprile",
+          "riferimento_solare": "fine_giorno",
+          "offset_minuti": 0
+        },
+        "testo": "Dal 1° dicembre al 30 aprile",
+        "fonte": {
+          "livello": "testuale",
+          "riferimento": "Lago di Como — Zone di protezione (p. 39)",
+          "estratto": "limitatamente al periodo 1° dicembre – 30 aprile"
         }
       }
     },
